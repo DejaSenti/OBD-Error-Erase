@@ -1,4 +1,4 @@
-﻿namespace UITest
+﻿namespace OBDErrorErase
 {
     public interface IProfileEditorController
     {

@@ -1,6 +1,6 @@
 ﻿namespace OBDErrorErase
 {
-    partial class Form1
+    partial class Main
     {
         /// <summary>
         ///  Required designer variable.
@@ -20,20 +20,46 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
-        /// <summary>
-        ///  Required method for Designer support - do not modify
-        ///  the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
-        }
-
-        #endregion
+        private TabPage TabErrorEraser;
+        private Button EditorButtonDuplicateProfile;
+        private TabControl EditorTabControlProfileType;
+        private TabPage ProfileTabBosch;
+        private TabPage ProfileTabDelphi;
+        private Button EditorButtonFileBrowse;
+        private ListBox EditorListSubprofiles;
+        private Button EditorButtonSave;
+        private DataGridView EditorErrorPreview;
+        private DataGridViewTextBoxColumn ColumnAddress;
+        private DataGridViewTextBoxColumn ColumnError;
+        private TextBox EditorTextBoxComputerName;
+        private ComboBox EditorDropdownManufacturer;
+        private TextBox EditorTextboxProfileFilter;
+        private Button EditorButtonProfileRemove;
+        private Button EditorButtonNewProfile;
+        private ListBox EditorListProfiles;
+        private Label EraserLabelFilePath;
+        private Label EraserLabelErrorCounter;
+        private Button EraserButtonFileBrowse;
+        private Button EraserButtonRun;
+        private TextBox EraserTextboxProfileFilter;
+        private ListBox EraserListProfiles;
+        private Label EditorLabelFilePath;
+        private OpenFileDialog OpenFileDialog;
+        private SaveFileDialog SaveFileDialog;
+        private Button EraserButtonAddPreset;
+        private Label EraserLabelMapSelect;
+        private Label EraserLabelPresetSelect;
+        private ListView listView2;
+        private ListView listView1;
+        private TextBox textBox1;
+        private DataGridView EditorDataGridViewBosch;
+        private BindingSource profileBindingSource;
+        private TextBox textBox2;
+        private ComboBox EditorComboBoxBoschMapLengthAlgoSelect;
+        private DataGridView EditorDataGridViewDelphi;
+        private CheckBox EditorCheckboxFlipBytes;
+        private DataGridView EraserErrorPreview;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
     }
 }

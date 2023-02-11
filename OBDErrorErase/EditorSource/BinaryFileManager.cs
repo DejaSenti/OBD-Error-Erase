@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UITest
+namespace OBDErrorErase
 {
     public class BinaryFileManager
     {
