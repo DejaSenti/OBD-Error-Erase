@@ -1,12 +1,16 @@
 ﻿using OBDErrorErase.EditorSource.FileManagement;
+using System.Text.Json.Serialization;
 
 namespace OBDErrorErase.EditorSource.Maps
 {
-    public interface IProfileMap
+    [JsonDerivedType(typeof(MapBosch), "Bosch")]
+    [JsonDerivedType(typeof(MapDelphi), "Delphi")]
+    [Serializable]
+    public abstract class BaseProfileMap
     {
-        string SearchWord { get; }
-        string Name { get; }
+        public string SearchWord { get; set; }
+        public string Name { get; set; }
 
-        void Process(BinaryFile file);
+        protected abstract void Process(BinaryFile file, string error);
     }
 }

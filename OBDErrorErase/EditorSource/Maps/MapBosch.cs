@@ -2,19 +2,23 @@
 
 namespace OBDErrorErase.EditorSource.Maps
 {
-
-    public class MapBosch : IProfileMap
+    [Serializable]
+    public class MapBosch : BaseProfileMap
     {
-        private string? newValue;
-        private int width;
+        public string NewValue { get; set; }
+        public int Width { get; set; }
 
-        public MapBosch(string? newValue, int width)
+        public string SearchWord { get; set; }
+
+        public string Name { get; set; }
+
+        public MapBosch(string newValue, int width)
         {
-            this.newValue = newValue;
-            this.width = width;
+            NewValue = newValue;
+            Width = width;
         }
 
-        public void Process(BinaryFile file)
+        public void Process(BinaryFile file, string error)
         {
             throw new NotImplementedException();
         }

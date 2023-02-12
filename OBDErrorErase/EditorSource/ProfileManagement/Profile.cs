@@ -1,12 +1,28 @@
-﻿namespace OBDErrorErase.EditorSource.ProfileManagement
+﻿using OBDErrorErase.EditorSource.FileManagement;
+
+namespace OBDErrorErase.EditorSource.ProfileManagement
 {
+    [Serializable]
     public class Profile
     {
-        public ProfileType Type;
+        public ProfileType Type { get; set; }
 
-        public string manufacturer;
-        public string name;
+        public string Manufacturer { get; set; }
+        public string Name { get; set; }
 
-        private List<SubprofileData> subprofiles = new();
+        private List<SubprofileData> Subprofiles { get; set; } = new();
+
+        public SubprofileData GetMatchingSubprofile(BinaryFile file)
+        {
+            SubprofileData data;
+
+            foreach (var subprofile in Subprofiles)
+            {
+                if (subprofile.TryFile(file))
+                    return subprofile;
+            }
+
+            return null;
+        }
     }
 }
