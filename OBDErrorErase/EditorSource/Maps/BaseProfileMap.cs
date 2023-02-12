@@ -8,9 +8,9 @@ namespace OBDErrorErase.EditorSource.Maps
     [Serializable]
     public abstract class BaseProfileMap
     {
-        public string SearchWord { get; set; }
+        public List<string> SearchWords { get; set; }
         public string Name { get; set; }
 
-        protected abstract void Process(BinaryFile file, string error);
+        public abstract void Process(BinaryFile file, string error);
     }
 }

@@ -10,12 +10,10 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
         public string Manufacturer { get; set; }
         public string Name { get; set; }
 
-        private List<SubprofileData> Subprofiles { get; set; } = new();
+        public List<SubprofileData> Subprofiles { get; set; } = new();
 
-        public SubprofileData GetMatchingSubprofile(BinaryFile file)
+        public SubprofileData? GetMatchingSubprofile(BinaryFile file)
         {
-            SubprofileData data;
-
             foreach (var subprofile in Subprofiles)
             {
                 if (subprofile.TryFile(file))
