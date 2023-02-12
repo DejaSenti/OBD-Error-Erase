@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace OBDErrorErase
+namespace OBDErrorErase.EditorSource.AppControl
 {
     public static class ServiceContainer
     {

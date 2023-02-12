@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OBDErrorErase
+namespace OBDErrorErase.EditorSource.FileManagement
 {
     public class BinaryFileManager
     {

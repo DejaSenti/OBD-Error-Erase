@@ -49,11 +49,11 @@
         private Button EraserButtonAddPreset;
         private Label EraserLabelMapSelect;
         private Label EraserLabelPresetSelect;
-        private ListView listView2;
-        private ListView listView1;
-        private TextBox textBox1;
+        private ListView EraserListViewErrorPresetSelection;
+        private ListView EraserListViewMapSelection;
+        private TextBox EraserTextboxErrorList;
         private DataGridView EditorDataGridViewBosch;
-        private TextBox textBox2;
+        private TextBox EditorTextboxBoschManualLength;
         private ComboBox EditorComboBoxBoschMapLengthAlgoSelect;
         private DataGridView EditorDataGridViewDelphi;
         private CheckBox EditorCheckboxFlipBytes;

@@ -1,6 +1,7 @@
 ﻿using System;
+using OBDErrorErase.EditorSource.ProfileManagement;
 
-namespace OBDErrorErase
+namespace OBDErrorErase.EditorSource.GUI
 {
     public class EditorGUI
     {

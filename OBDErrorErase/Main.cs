@@ -14,9 +14,9 @@ namespace OBDErrorErase
             this.EraserErrorPreview = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.listView2 = new System.Windows.Forms.ListView();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.EraserTextboxErrorList = new System.Windows.Forms.TextBox();
+            this.EraserListViewErrorPresetSelection = new System.Windows.Forms.ListView();
+            this.EraserListViewMapSelection = new System.Windows.Forms.ListView();
             this.EraserLabelPresetSelect = new System.Windows.Forms.Label();
             this.EraserLabelMapSelect = new System.Windows.Forms.Label();
             this.EraserButtonAddPreset = new System.Windows.Forms.Button();
@@ -32,7 +32,7 @@ namespace OBDErrorErase
             this.EditorButtonDuplicateProfile = new System.Windows.Forms.Button();
             this.EditorTabControlProfileType = new System.Windows.Forms.TabControl();
             this.ProfileTabBosch = new System.Windows.Forms.TabPage();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.EditorTextboxBoschManualLength = new System.Windows.Forms.TextBox();
             this.EditorComboBoxBoschMapLengthAlgoSelect = new System.Windows.Forms.ComboBox();
             this.EditorDataGridViewBosch = new System.Windows.Forms.DataGridView();
             this.ProfileTabDelphi = new System.Windows.Forms.TabPage();
@@ -77,9 +77,9 @@ namespace OBDErrorErase
             // TabErrorEraser
             // 
             this.TabErrorEraser.Controls.Add(this.EraserErrorPreview);
-            this.TabErrorEraser.Controls.Add(this.textBox1);
-            this.TabErrorEraser.Controls.Add(this.listView2);
-            this.TabErrorEraser.Controls.Add(this.listView1);
+            this.TabErrorEraser.Controls.Add(this.EraserTextboxErrorList);
+            this.TabErrorEraser.Controls.Add(this.EraserListViewErrorPresetSelection);
+            this.TabErrorEraser.Controls.Add(this.EraserListViewMapSelection);
             this.TabErrorEraser.Controls.Add(this.EraserLabelPresetSelect);
             this.TabErrorEraser.Controls.Add(this.EraserLabelMapSelect);
             this.TabErrorEraser.Controls.Add(this.EraserButtonAddPreset);
@@ -131,33 +131,33 @@ namespace OBDErrorErase
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
             // 
-            // textBox1
+            // EraserTextboxErrorList
             // 
-            this.textBox1.Location = new System.Drawing.Point(320, 204);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.PlaceholderText = "Enter a list of errors, separated by commas (e.g. a1c7, 1600, 8461, e56f...):";
-            this.textBox1.Size = new System.Drawing.Size(612, 66);
-            this.textBox1.TabIndex = 39;
+            this.EraserTextboxErrorList.Location = new System.Drawing.Point(320, 204);
+            this.EraserTextboxErrorList.Multiline = true;
+            this.EraserTextboxErrorList.Name = "EraserTextboxErrorList";
+            this.EraserTextboxErrorList.PlaceholderText = "Enter a list of errors, separated by commas (e.g. a1c7, 1600, 8461, e56f...):";
+            this.EraserTextboxErrorList.Size = new System.Drawing.Size(612, 66);
+            this.EraserTextboxErrorList.TabIndex = 39;
             // 
-            // listView2
+            // EraserListViewErrorPresetSelection
             // 
-            this.listView2.Alignment = System.Windows.Forms.ListViewAlignment.Left;
-            this.listView2.CheckBoxes = true;
-            this.listView2.Location = new System.Drawing.Point(629, 308);
-            this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(303, 376);
-            this.listView2.TabIndex = 38;
-            this.listView2.UseCompatibleStateImageBehavior = false;
+            this.EraserListViewErrorPresetSelection.Alignment = System.Windows.Forms.ListViewAlignment.Left;
+            this.EraserListViewErrorPresetSelection.CheckBoxes = true;
+            this.EraserListViewErrorPresetSelection.Location = new System.Drawing.Point(629, 308);
+            this.EraserListViewErrorPresetSelection.Name = "EraserListViewErrorPresetSelection";
+            this.EraserListViewErrorPresetSelection.Size = new System.Drawing.Size(303, 376);
+            this.EraserListViewErrorPresetSelection.TabIndex = 38;
+            this.EraserListViewErrorPresetSelection.UseCompatibleStateImageBehavior = false;
             // 
-            // listView1
+            // EraserListViewMapSelection
             // 
-            this.listView1.CheckBoxes = true;
-            this.listView1.Location = new System.Drawing.Point(320, 308);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(303, 376);
-            this.listView1.TabIndex = 37;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.EraserListViewMapSelection.CheckBoxes = true;
+            this.EraserListViewMapSelection.Location = new System.Drawing.Point(320, 308);
+            this.EraserListViewMapSelection.Name = "EraserListViewMapSelection";
+            this.EraserListViewMapSelection.Size = new System.Drawing.Size(303, 376);
+            this.EraserListViewMapSelection.TabIndex = 37;
+            this.EraserListViewMapSelection.UseCompatibleStateImageBehavior = false;
             // 
             // EraserLabelPresetSelect
             // 
@@ -314,7 +314,7 @@ namespace OBDErrorErase
             // 
             // ProfileTabBosch
             // 
-            this.ProfileTabBosch.Controls.Add(this.textBox2);
+            this.ProfileTabBosch.Controls.Add(this.EditorTextboxBoschManualLength);
             this.ProfileTabBosch.Controls.Add(this.EditorComboBoxBoschMapLengthAlgoSelect);
             this.ProfileTabBosch.Controls.Add(this.EditorDataGridViewBosch);
             this.ProfileTabBosch.Location = new System.Drawing.Point(4, 24);
@@ -325,13 +325,13 @@ namespace OBDErrorErase
             this.ProfileTabBosch.Text = "Bosch";
             this.ProfileTabBosch.UseVisualStyleBackColor = true;
             // 
-            // textBox2
+            // EditorTextboxBoschManualLength
             // 
-            this.textBox2.Location = new System.Drawing.Point(375, 371);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.PlaceholderText = "Enter manual length...";
-            this.textBox2.Size = new System.Drawing.Size(152, 23);
-            this.textBox2.TabIndex = 2;
+            this.EditorTextboxBoschManualLength.Location = new System.Drawing.Point(375, 371);
+            this.EditorTextboxBoschManualLength.Name = "EditorTextboxBoschManualLength";
+            this.EditorTextboxBoschManualLength.PlaceholderText = "Enter manual length...";
+            this.EditorTextboxBoschManualLength.Size = new System.Drawing.Size(152, 23);
+            this.EditorTextboxBoschManualLength.TabIndex = 2;
             // 
             // EditorComboBoxBoschMapLengthAlgoSelect
             // 

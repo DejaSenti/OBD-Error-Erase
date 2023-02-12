@@ -1,6 +1,9 @@
 ﻿using System;
+using OBDErrorErase.EditorSource.FileManagement;
+using OBDErrorErase.EditorSource.GUI;
+using OBDErrorErase.EditorSource.ProfileManagement;
 
-namespace OBDErrorErase
+namespace OBDErrorErase.EditorSource.AppControl
 {
     public class EditorController
     {

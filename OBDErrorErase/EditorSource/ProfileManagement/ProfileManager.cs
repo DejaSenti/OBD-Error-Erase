@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OBDErrorErase
+namespace OBDErrorErase.EditorSource.ProfileManagement
 {
     public class ProfileManager
     {
