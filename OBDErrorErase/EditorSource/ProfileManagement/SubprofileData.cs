@@ -4,7 +4,9 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
 {
     public class SubprofileData
     {
-        private uint mapLength;
-        private List<BaseMap> maps = new();
+        public uint MapLength;
+        public bool FlipBytes;
+
+        public List<IProfileMap> Maps = new();
     }
 }

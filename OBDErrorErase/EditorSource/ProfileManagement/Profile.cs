@@ -2,11 +2,10 @@
 {
     public class Profile
     {
-        public ProfileType Type { get; private set; }
+        public ProfileType Type;
 
-        private string? manufacturer;
-        private string? name;
-        private bool flipBytes;
+        public string manufacturer;
+        public string name;
 
         private List<SubprofileData> subprofiles = new();
     }
