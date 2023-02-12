@@ -11,6 +11,6 @@ namespace OBDErrorErase.EditorSource.Maps
         public string SearchWord { get; set; }
         public string Name { get; set; }
 
-        protected abstract void Process(BinaryFile file, string error);
+        public abstract void Process(BinaryFile file, string error);
     }
 }
