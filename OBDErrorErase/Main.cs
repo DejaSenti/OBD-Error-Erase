@@ -9,9 +9,11 @@ namespace OBDErrorErase
 
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.TabControlMain = new System.Windows.Forms.TabControl();
             this.TabErrorEraser = new System.Windows.Forms.TabPage();
+            this.EraserErrorPreview = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.listView2 = new System.Windows.Forms.ListView();
             this.listView1 = new System.Windows.Forms.ListView();
@@ -49,12 +51,9 @@ namespace OBDErrorErase
             this.EditorListProfiles = new System.Windows.Forms.ListBox();
             this.OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.profileBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.EraserErrorPreview = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TabControlMain.SuspendLayout();
             this.TabErrorEraser.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.EraserErrorPreview)).BeginInit();
             this.TabProfileEditor.SuspendLayout();
             this.EditorTabControlProfileType.SuspendLayout();
             this.ProfileTabBosch.SuspendLayout();
@@ -62,8 +61,6 @@ namespace OBDErrorErase
             this.ProfileTabDelphi.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.EditorDataGridViewDelphi)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.EditorErrorPreview)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.profileBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.EraserErrorPreview)).BeginInit();
             this.SuspendLayout();
             // 
             // TabControlMain
@@ -99,6 +96,40 @@ namespace OBDErrorErase
             this.TabErrorEraser.TabIndex = 0;
             this.TabErrorEraser.Text = "Error Eraser";
             this.TabErrorEraser.UseVisualStyleBackColor = true;
+            // 
+            // EraserErrorPreview
+            // 
+            this.EraserErrorPreview.AllowUserToAddRows = false;
+            this.EraserErrorPreview.AllowUserToDeleteRows = false;
+            this.EraserErrorPreview.AllowUserToResizeColumns = false;
+            this.EraserErrorPreview.AllowUserToResizeRows = false;
+            this.EraserErrorPreview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.EraserErrorPreview.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2});
+            this.EraserErrorPreview.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.EraserErrorPreview.Enabled = false;
+            this.EraserErrorPreview.Location = new System.Drawing.Point(938, 6);
+            this.EraserErrorPreview.Name = "EraserErrorPreview";
+            this.EraserErrorPreview.ReadOnly = true;
+            this.EraserErrorPreview.RowTemplate.Height = 25;
+            this.EraserErrorPreview.RowTemplate.ReadOnly = true;
+            this.EraserErrorPreview.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.EraserErrorPreview.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.EraserErrorPreview.Size = new System.Drawing.Size(244, 535);
+            this.EraserErrorPreview.TabIndex = 40;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "Address";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "Error Number";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
             // 
             // textBox1
             // 
@@ -477,44 +508,6 @@ namespace OBDErrorErase
             this.EditorListProfiles.Size = new System.Drawing.Size(306, 574);
             this.EditorListProfiles.TabIndex = 13;
             // 
-            // profileBindingSource
-            // 
-            this.profileBindingSource.DataSource = typeof(OBDErrorErase.Profile);
-            // 
-            // EraserErrorPreview
-            // 
-            this.EraserErrorPreview.AllowUserToAddRows = false;
-            this.EraserErrorPreview.AllowUserToDeleteRows = false;
-            this.EraserErrorPreview.AllowUserToResizeColumns = false;
-            this.EraserErrorPreview.AllowUserToResizeRows = false;
-            this.EraserErrorPreview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.EraserErrorPreview.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2});
-            this.EraserErrorPreview.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.EraserErrorPreview.Enabled = false;
-            this.EraserErrorPreview.Location = new System.Drawing.Point(938, 6);
-            this.EraserErrorPreview.Name = "EraserErrorPreview";
-            this.EraserErrorPreview.ReadOnly = true;
-            this.EraserErrorPreview.RowTemplate.Height = 25;
-            this.EraserErrorPreview.RowTemplate.ReadOnly = true;
-            this.EraserErrorPreview.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.EraserErrorPreview.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.EraserErrorPreview.Size = new System.Drawing.Size(244, 535);
-            this.EraserErrorPreview.TabIndex = 40;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Address";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Error Number";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            // 
             // Main
             // 
             this.ClientSize = new System.Drawing.Size(1198, 725);
@@ -524,6 +517,7 @@ namespace OBDErrorErase
             this.TabControlMain.ResumeLayout(false);
             this.TabErrorEraser.ResumeLayout(false);
             this.TabErrorEraser.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.EraserErrorPreview)).EndInit();
             this.TabProfileEditor.ResumeLayout(false);
             this.TabProfileEditor.PerformLayout();
             this.EditorTabControlProfileType.ResumeLayout(false);
@@ -533,8 +527,6 @@ namespace OBDErrorErase
             this.ProfileTabDelphi.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.EditorDataGridViewDelphi)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.EditorErrorPreview)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.profileBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.EraserErrorPreview)).EndInit();
             this.ResumeLayout(false);
 
         }

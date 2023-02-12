@@ -53,7 +53,6 @@
         private ListView listView1;
         private TextBox textBox1;
         private DataGridView EditorDataGridViewBosch;
-        private BindingSource profileBindingSource;
         private TextBox textBox2;
         private ComboBox EditorComboBoxBoschMapLengthAlgoSelect;
         private DataGridView EditorDataGridViewDelphi;
