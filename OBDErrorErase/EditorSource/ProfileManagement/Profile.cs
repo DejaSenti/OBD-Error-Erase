@@ -42,9 +42,9 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             CurrentSubprofile = subprofile;
         }
 
-        internal void Process(BinaryFile currentFile, List<string> errorList)
+        internal int Process(BinaryFile currentFile, List<string> errorList)
         {
-            processor.Process(currentFile, CurrentSubprofile, errorList);
+            return processor.Process(currentFile, CurrentSubprofile, errorList);
         }
     }
 }

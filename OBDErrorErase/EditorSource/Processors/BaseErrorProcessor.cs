@@ -12,6 +12,6 @@ namespace OBDErrorErase.EditorSource.Processors
     {
         public abstract void PopulateProfileDefaults(Profile profile);
 
-        public abstract void Process(BinaryFile file, SubprofileData subprofile, List<string> errors);
+        public abstract int Process(BinaryFile file, SubprofileData subprofile, List<string> errors);
     }
 }

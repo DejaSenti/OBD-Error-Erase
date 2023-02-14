@@ -11,7 +11,7 @@ namespace OBDErrorErase.EditorSource.Processors
             throw new NotImplementedException();
         }
 
-        public override void Process(BinaryFile file, List<string> errors)
+        public override int Process(BinaryFile file, SubprofileData subprofile, List<string> errors)
         {
             throw new NotImplementedException();
         }

@@ -93,7 +93,10 @@ namespace OBDErrorErase.EditorSource.AppControl
                 return;
             }
 
-            profileManager.CurrentProfile.Process(binaryFileManager.CurrentFile, errorList);
+            int totalErased = profileManager.CurrentProfile.Process(binaryFileManager.CurrentFile, errorList);
+
+            // notify GUI about total erased and error list count
+            // save new file
         }
 
         private bool IsErasingValid()

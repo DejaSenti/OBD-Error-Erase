@@ -7,7 +7,7 @@ namespace OBDErrorErase.EditorSource.Maps
     {
         public string NewValue { get; set; }
 
-        public MapBosch(string newValue)
+        public MapBosch(string name, string newValue, int location) : base(name, location)
         {
             NewValue = newValue;
         }
