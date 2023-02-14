@@ -3,15 +3,14 @@ using OBDErrorErase.EditorSource.ProfileManagement;
 
 namespace OBDErrorErase.EditorSource.Processors
 {
-    [Serializable]
-    internal class DelphiErrorProcessor : BaseErrorProcessor
+    internal class DelphiErrorProcessor : IErrorProcessor
     {
-        public override void PopulateProfileDefaults(Profile profile)
+        public void PopulateProfileDefaults(Profile profile)
         {
             throw new NotImplementedException();
         }
 
-        public override int Process(BinaryFile file, SubprofileData subprofile, List<string> errors)
+        public int Process(BinaryFile file, SubprofileData subprofile, List<string> errors)
         {
             throw new NotImplementedException();
         }

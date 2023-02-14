@@ -4,10 +4,9 @@ using OBDErrorErase.EditorSource.ProfileManagement;
 
 namespace OBDErrorErase.EditorSource.Processors
 {
-    [Serializable]
-    internal class BoschErrorProcessor : BaseErrorProcessor
+    internal class BoschErrorProcessor : IErrorProcessor
     {
-        public override void PopulateProfileDefaults(Profile profile)
+        public  void PopulateProfileDefaults(Profile profile)
         {
             profile.Manufacturer = "None";
             profile.Name = "None";
@@ -15,18 +14,24 @@ namespace OBDErrorErase.EditorSource.Processors
             profile.Subprofiles[0].Maps.Add(new MapBosch("DTC", "00", 0));
         }
 
-        public override BinaryFile Process(BinaryFile file, SubprofileData subprofile, List<string> errors, out int totalErased)
+        public int Process(BinaryFile file, SubprofileData subprofile, List<string> errors)
         {
-            totalErased = 0;
+            int totalErased = 0;
 
             foreach(var error in errors)
             {
-                int location = file.FindValue(error);
+                uint location = 0;
+                byte[] byteError = Convert.FromHexString(error);
 
-                if (location < 0)
+                do
+                {
+                    location = file.FindValue(byteError, subprofile.Maps[0].Location, subprofile.Maps[0].Location + subprofile.MapLength);
+                } while (location != uint.MaxValue && location % 2 != 0);
+                
+                if (location == uint.MaxValue)
                     continue;
 
-                int offset = location - subprofile.Maps[0].Location;
+                uint offset = location - subprofile.Maps[0].Location;
                 
                 foreach(MapBosch map in subprofile.Maps)
                 {
@@ -36,7 +41,7 @@ namespace OBDErrorErase.EditorSource.Processors
                 ++totalErased;
             }
 
-            return file;
+            return totalErased;
         }
     }
 }

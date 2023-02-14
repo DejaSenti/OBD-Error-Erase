@@ -9,14 +9,39 @@
             this.stream = stream;
         }
 
-        internal int FindValue(string error)
+        // returns uint.Max if not found
+        internal uint FindValue(byte[] value, uint start, uint end)
         {
-            throw new NotImplementedException();
+            for (uint i = start; i < end; ++i)
+            {
+                stream.Seek(i, SeekOrigin.Begin);
+
+                var buffer = new byte[value.Length];
+                stream.Read(buffer, 0, value.Length);
+
+                bool isMatch = true;
+
+                for (uint j = 0; j < value.Length; ++j)
+                {
+                    if (value[j] != buffer[j])
+                    {
+                        isMatch = false;
+                        break;
+                    }
+                }
+
+                if (isMatch)
+                    return i;
+            }
+
+            return uint.MaxValue;
         }
 
-        internal void WriteValue(int location, string newValue)
+        internal void WriteValue(uint location, byte[] value)
         {
-            throw new NotImplementedException();
+            stream.Seek(location, SeekOrigin.Begin);
+
+            stream.Write(value, 0, value.Length);
         }
     }
 }

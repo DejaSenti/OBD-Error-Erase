@@ -6,7 +6,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
     [Serializable]
     public class Profile
     {
-        public ProfileType Type { get; set; }
+        public ProfileType Type { get; }
 
         public string Manufacturer { get; set; }
         public string Name { get; set; }
@@ -14,7 +14,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
         public List<SubprofileData> Subprofiles { get; set; } = new();
         public SubprofileData CurrentSubprofile { get; private set; }
 
-        private BaseErrorProcessor processor;
+        private IErrorProcessor processor;
 
         public Profile(ProfileType type, string manufacturer, string name) 
         {
@@ -24,6 +24,8 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             processor = ErrorProcessorFactory.Create(type);
 
             processor.PopulateProfileDefaults(this);
+
+            CurrentSubprofile = Subprofiles[0];
         }
 
         public SubprofileData? GetMatchingSubprofile(BinaryFile file)
@@ -44,7 +46,20 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
 
         internal int Process(BinaryFile currentFile, List<string> errorList)
         {
+            if (CurrentSubprofile.FlipBytes)
+            {
+                FlipErrorBytes(errorList);
+            }
+
             return processor.Process(currentFile, CurrentSubprofile, errorList);
+        }
+
+        private void FlipErrorBytes(List<string> errorList)
+        {
+            foreach (var error in errorList)
+            {
+                error.Reverse();
+            }
         }
     }
 }

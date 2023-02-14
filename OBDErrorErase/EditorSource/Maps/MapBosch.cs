@@ -5,11 +5,11 @@ namespace OBDErrorErase.EditorSource.Maps
     [Serializable]
     public class MapBosch : BaseProfileMap
     {
-        public string NewValue { get; set; }
+        public byte[] NewValue { get; set; }
 
-        public MapBosch(string name, string newValue, int location) : base(name, location)
+        public MapBosch(string name, string newValue, uint location) : base(name, location)
         {
-            NewValue = newValue;
+            NewValue = Convert.FromHexString(newValue);
         }
     }
 }
