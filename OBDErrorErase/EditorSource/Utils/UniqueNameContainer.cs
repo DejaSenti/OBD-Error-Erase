@@ -1,16 +1,18 @@
-﻿namespace OBDErrorErase.EditorSource.Utils
+﻿using System.Text.RegularExpressions;
+
+namespace OBDErrorErase.EditorSource.Utils
 {
     public class UniqueNameContainer
     {
         private readonly string baseName;
-        private readonly string nameFormat;
+        private readonly string suffixFormat;
 
         private List<string> takenNames;
 
-        public UniqueNameContainer(string baseName, string nameFormat = "{0}_{1}")
+        public UniqueNameContainer(string baseName, string suffixFormat = "_{1}")
         {
             this.baseName = baseName;
-            this.nameFormat = nameFormat;
+            this.suffixFormat = suffixFormat;
 
             takenNames = new List<string>();
         }
@@ -27,6 +29,11 @@
             return desiredName;
         }
 
+        public void ReleaseName(string name)
+        {
+            takenNames.Remove(name);
+        }
+
         private string GetValidInternal(string desiredName)
         {
             if (!takenNames.Contains(desiredName))
@@ -36,31 +43,29 @@
 
             string newDesiredName;
 
-            var nameNumber = SplitNameNumber(desiredName, out var rawName);
+            var rawName = GetWithoutSuffix(desiredName);
 
-            for (int i = 0; i < nameNumber; i++)
+            var nameNumber = 0;
+
+            do
             {
-                newDesiredName = rawName + i;
-
-                if (!takenNames.Contains(newDesiredName))
-                    return newDesiredName;
+                newDesiredName = GetFormatted(rawName, nameNumber);
+                nameNumber++;
             }
+            while (takenNames.Contains(newDesiredName));
 
-            newDesiredName = rawName + (nameNumber + 1);
             return newDesiredName;
         }
 
-        public void ReleaseName(string name)
+        private string GetFormatted(string desiredName, int desiredNameNumber)
         {
-            takenNames.Remove(name);
+            return desiredNameNumber == 0 ? desiredName : desiredName + desiredNameNumber;
         }
 
-        private int SplitNameNumber(string desiredName, out string rawName)
+        private string GetWithoutSuffix(string s)
         {
-            var startIndex = desiredName.IndexOf(@"(\d+)$");
-            var numberStr = desiredName.Substring(startIndex);
-            rawName = desiredName.Substring(startIndex, desiredName.Length - startIndex);
-            return numberStr.Length > 0 ? int.Parse(numberStr) : 0;
+            var match = Regex.Match(s, @".*\d+$");
+            return match.Success ? match.Value : s;
         }
     }
 }
