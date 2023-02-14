@@ -7,18 +7,9 @@ namespace OBDErrorErase.EditorSource.Maps
     {
         public string NewValue { get; set; }
 
-        public string SearchWord { get; set; }
-
-        public string Name { get; set; }
-
         public MapBosch(string newValue)
         {
             NewValue = newValue;
-        }
-
-        public override void Process(BinaryFile file, string error)
-        {
-            throw new NotImplementedException();
         }
     }
 }
