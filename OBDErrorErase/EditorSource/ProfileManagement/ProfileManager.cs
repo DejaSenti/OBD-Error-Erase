@@ -4,39 +4,18 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
 {
     public class ProfileManager
     {
-        public Profile CurrentProfile { get; private set; }
+        public Profile? CurrentProfile { get; private set; }
 
-        internal Profile CreateNewProfile()
+        public Profile CreateNewProfile(ProfileType type = ProfileType.BOSCH, bool setAsCurrent = true)
         {
-            var profile = new Profile();
-            profile.Manufacturer = "None";
-            profile.Name = "NewProfile";
-            profile.Type = ProfileType.BOSCH;
+            var profile = new Profile(type, "None", "NewProfile");
 
-            PopulateDefaultValues(profile);
+            profile.PopulateDefaults();
 
-            CurrentProfile = profile;
-
-            return CurrentProfile;
-        }
-
-        internal void UpdateCurrentProfileType(ProfileType type)
-        {
-            CurrentProfile.Type = type;
-            PopulateDefaultValues(CurrentProfile);
-        }
-
-        private void PopulateDefaultValues(Profile profile)
-        {
-            profile.Subprofiles = new();
-            
-            switch(profile.Type)
-            {
-                case ProfileType.BOSCH:
-                    break;
-                case ProfileType.DELPHI:
-                    break;
-            }
+            if (setAsCurrent)
+                return CurrentProfile = profile;
+            else
+                return profile;
         }
 
         internal Profile LoadProfile(string id)

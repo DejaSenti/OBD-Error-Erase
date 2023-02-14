@@ -6,7 +6,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
     [Serializable]
     public class Profile
     {
-        public ProfileType Type { get; set; }
+        public ProfileType Type { get; }
 
         public string Manufacturer { get; set; }
         public string Name { get; set; }
@@ -21,7 +21,10 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             Manufacturer = manufacturer;
             Name = name;
             processor = ErrorProcessorFactory.Create(type);
+        }
 
+        internal void PopulateDefaults()
+        {
             processor.PopulateProfileDefaults(this);
         }
 

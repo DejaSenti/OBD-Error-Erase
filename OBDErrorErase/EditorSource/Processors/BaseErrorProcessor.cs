@@ -5,9 +5,6 @@ using System.Text.Json.Serialization;
 
 namespace OBDErrorErase.EditorSource.Processors
 {
-    [JsonDerivedType(typeof(BoschErrorProcessor), "Bosch")]
-    [JsonDerivedType(typeof(DelphiErrorProcessor), "Delphi")]
-    [Serializable]
     public abstract class BaseErrorProcessor
     {
         public SubprofileData CurrentSubprofile { get; private set; }

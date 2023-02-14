@@ -1,8 +1,6 @@
 using OBDErrorErase.EditorSource.Maps;
 using OBDErrorErase.EditorSource.ProfileManagement;
 using OBDErrorErase.EditorSource.Utils;
-using System.Diagnostics;
-using System.Reflection;
 using System.Text.Json;
 
 namespace OBDErrorErase
@@ -20,10 +18,7 @@ namespace OBDErrorErase
             //ApplicationConfiguration.Initialize();
             //Application.Run(new Main());
 
-            var testProfileData = new Profile();
-
-            testProfileData.Name = "Shoobidoobi";
-            testProfileData.Manufacturer = "peepee-jojo";
+            var testProfileData = new Profile(ProfileType.BOSCH, "Shoosh", "peepee-jojo");
 
             var subprof1 = new SubprofileData();
             subprof1.MapLength = 10;
@@ -33,7 +28,7 @@ namespace OBDErrorErase
             var subprof2 = new SubprofileData();
             subprof2.MapLength = 3;
             subprof2.FlipBytes = false;
-            subprof2.Maps.Add(new MapDelphi());
+            subprof2.Maps.Add(new MapBosch("wee"));
 
             testProfileData.Subprofiles.Add(subprof1);
             testProfileData.Subprofiles.Add(subprof2);
