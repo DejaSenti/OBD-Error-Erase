@@ -11,14 +11,12 @@ namespace OBDErrorErase.EditorSource.AppControl
 
         private ProfileManager profileManager;
         private BinaryFileManager binaryFileManager;
-        private ErrorProcessor errorProcessor;
 
         public EraserController(EraserGUI eraserGUI)
         {
             this.eraserGUI = eraserGUI;
             profileManager = ServiceContainer.GetService<ProfileManager>();
             binaryFileManager = ServiceContainer.GetService<BinaryFileManager>();
-            errorProcessor = ServiceContainer.GetService<ErrorProcessor>();
 
             // TODO load error preset files
 
@@ -68,6 +66,10 @@ namespace OBDErrorErase.EditorSource.AppControl
             {
                 subprofile = profileManager.CurrentProfile.GetMatchingSubprofile(binaryFileManager.CurrentFile);
             }
+            else
+            {
+                return;
+            }
 
             if (subprofile == null)
             {
@@ -76,7 +78,7 @@ namespace OBDErrorErase.EditorSource.AppControl
                 return;
             }
 
-            errorProcessor.SetSubprofile(subprofile);
+            profileManager.CurrentProfile.SetSubprofile(subprofile);
 
             // TODO notify preview about match
         }
@@ -85,10 +87,19 @@ namespace OBDErrorErase.EditorSource.AppControl
         {
             var errorList = GetErrorList();
 
-            if (binaryFileManager.CurrentFile == null || profileManager.CurrentProfile != null || errorList.Count == 0)
+            if (!IsErasingValid() || errorList.Count == 0)
+            {
+                // notify GUI about lack of needed pieces to start process
                 return;
+            }
 
-            errorProcessor.Process(binaryFileManager.CurrentFile, errorList);
+            profileManager.CurrentProfile.Process(binaryFileManager.CurrentFile, errorList);
+        }
+
+        private bool IsErasingValid()
+        {
+            return binaryFileManager.CurrentFile != null &&
+                profileManager.CurrentProfile != null && profileManager.CurrentProfile.CurrentSubprofile != null;
         }
 
         private List<string> GetErrorList()

@@ -12,6 +12,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
         public string Name { get; set; }
 
         public List<SubprofileData> Subprofiles { get; set; } = new();
+        public SubprofileData CurrentSubprofile { get; private set; }
 
         private BaseErrorProcessor processor;
 
@@ -34,6 +35,16 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             }
 
             return null;
+        }
+
+        public void SetSubprofile(SubprofileData subprofile)
+        {
+            CurrentSubprofile = subprofile;
+        }
+
+        internal void Process(BinaryFile currentFile, List<string> errorList)
+        {
+            processor.Process(currentFile, CurrentSubprofile, errorList);
         }
     }
 }

@@ -10,15 +10,8 @@ namespace OBDErrorErase.EditorSource.Processors
     [Serializable]
     public abstract class BaseErrorProcessor
     {
-        public SubprofileData CurrentSubprofile { get; private set; }
-
         public abstract void PopulateProfileDefaults(Profile profile);
 
-        public void SetSubprofile(SubprofileData subprofile)
-        {
-            CurrentSubprofile = subprofile;
-        }
-
-        public abstract void Process(BinaryFile file, List<string> errors);
+        public abstract void Process(BinaryFile file, SubprofileData subprofile, List<string> errors);
     }
 }
