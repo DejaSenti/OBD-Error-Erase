@@ -11,10 +11,5 @@ namespace OBDErrorErase.EditorSource.Maps
         {
             NewValue = newValue;
         }
-
-        public override void Process(BinaryFile file, string error)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

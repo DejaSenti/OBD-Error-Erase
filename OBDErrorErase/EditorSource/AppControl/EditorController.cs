@@ -5,6 +5,7 @@ using OBDErrorErase.EditorSource.ProfileManagement;
 
 namespace OBDErrorErase.EditorSource.AppControl
 {
+
     public class EditorController
     {
         private EditorGUI editorGUI;
@@ -77,6 +78,11 @@ namespace OBDErrorErase.EditorSource.AppControl
             editorGUI.SetProfileEditorGUI(profileEditorGUI);
 
             editorGUI.OnCurrentProfileChanged(profileManager.CurrentProfile);
+        }
+
+        private void RemoveGUIListeners()
+        {
+            throw new NotImplementedException();
         }
     }
 }
