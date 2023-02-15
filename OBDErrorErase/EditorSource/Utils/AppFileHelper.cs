@@ -4,8 +4,6 @@ namespace OBDErrorErase.EditorSource.Utils
 {
     public static class AppFileHelper
     {
-        public const string STRING_FILES_EXTENSION = "obde";
-
         private static readonly string appFolder;
 
         static AppFileHelper()
@@ -16,7 +14,7 @@ namespace OBDErrorErase.EditorSource.Utils
         public static void ValidateAppSubFolder(string subFolderName)
         {
             var s = Path.DirectorySeparatorChar;
-            var folderPath = $"{appFolder}{s}{subFolderName}";
+            var folderPath = GetSubfolderPath(subFolderName);
 
             if (!Directory.Exists(folderPath))
                 Directory.CreateDirectory(folderPath);
