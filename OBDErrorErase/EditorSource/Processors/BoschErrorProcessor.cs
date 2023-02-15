@@ -6,7 +6,7 @@ namespace OBDErrorErase.EditorSource.Processors
 {
     internal class BoschErrorProcessor : IErrorProcessor
     {
-        public  void PopulateProfileDefaults(Profile profile)
+        public void PopulateProfileDefaults(Profile profile)
         {
             profile.Manufacturer = "None";
             profile.Name = "None";

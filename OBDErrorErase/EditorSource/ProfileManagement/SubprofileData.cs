@@ -11,9 +11,19 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
 
         public List<BaseProfileMap> Maps { get; set; } = new();
 
-        internal bool TryFile(BinaryFile file)
+        public bool IsSubprofileFit(BinaryFile file)
         {
-            throw new NotImplementedException();
+            foreach (var map in Maps)
+            {
+                uint mapLocation = file.FindValue(map.SearchWord, 0, file.Length);
+
+                if (mapLocation == uint.MaxValue)
+                    return false;
+
+                map.Location = mapLocation;
+            }
+
+            return true;
         }
     }
 }

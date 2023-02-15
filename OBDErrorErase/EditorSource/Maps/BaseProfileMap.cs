@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using OBDErrorErase.EditorSource.FileManagement;
+using System.Text.Json.Serialization;
 
 namespace OBDErrorErase.EditorSource.Maps
 {
@@ -7,7 +8,9 @@ namespace OBDErrorErase.EditorSource.Maps
     [Serializable]
     public abstract class BaseProfileMap
     {
-        public List<string> SearchWords { get; set; } = new();
+        const uint SEARCH_WORD_LENGTH = 50;
+
+        public byte[] SearchWord { get; private set; }
         public string Name { get; set; }
         public uint Location { get; internal set; }
 
@@ -15,6 +18,14 @@ namespace OBDErrorErase.EditorSource.Maps
         {
             Name = name;
             Location = location;
+        }
+
+        public void SetSearchWord(BinaryFile file)
+        {
+            if (file != null)
+            {
+                SearchWord = file.ReadValue(Location, SEARCH_WORD_LENGTH);
+            }
         }
     }
 }

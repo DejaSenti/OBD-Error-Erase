@@ -9,6 +9,8 @@
             this.stream = stream;
         }
 
+        public uint Length => stream == null ? 0 : (uint)stream.Length;
+
         // returns uint.Max if not found
         internal uint FindValue(byte[] value, uint start, uint end)
         {
@@ -35,6 +37,16 @@
             }
 
             return uint.MaxValue;
+        }
+
+        internal byte[] ReadValue(uint location, uint length)
+        {
+            stream.Seek(location, SeekOrigin.Begin);
+
+            byte[] result = new byte[length];
+            stream.Read(result, 0, (int)length);
+
+            return result;
         }
 
         internal void WriteValue(uint location, byte[] value)

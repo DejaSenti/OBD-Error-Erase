@@ -32,7 +32,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
         {
             foreach (var subprofile in Subprofiles)
             {
-                if (subprofile.TryFile(file))
+                if (subprofile.IsSubprofileFit(file))
                     return subprofile;
             }
 
