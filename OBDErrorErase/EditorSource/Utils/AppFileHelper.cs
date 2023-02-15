@@ -1,4 +1,6 @@
-﻿namespace OBDErrorErase.EditorSource.Utils
+﻿using OBDErrorErase.EditorSource.Configs;
+
+namespace OBDErrorErase.EditorSource.Utils
 {
     public static class AppFileHelper
     {
