@@ -28,7 +28,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
 
             HandleProfileIDModified(profile);
 
-            SaveProfile(profile);
+            SaveProfile(profile, true);
 
             if (setAsCurrent)
                 CurrentProfile = profile;
@@ -47,16 +47,16 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             AppFileHelper.RemoveFile(AppFolderNames.PROFILES, id);
         }
 
-        internal Profile? LoadProfile(string id)
+        public Profile? LoadProfile(string id)
         {
             var profileContents = AppFileHelper.LoadStringFile(AppFolderNames.PROFILES, id);
             var result = JsonSerializer.Deserialize<Profile>(profileContents);
             return result;
         }
 
-        private void SaveProfile(Profile profile)
+        public void SaveProfile(Profile profile, bool ignoreDirty = false)
         {
-            if (!profile.IsDirty)
+            if (!ignoreDirty && !profile.IsDirty)
                 return;
 
             if (profile.IsIDDirty)
@@ -87,8 +87,6 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             var validID = nameContainer.TakeNextValid(desiredID);
 
             profile.ID = validID;
-
-            nameContainer.TakeNames(profile.ID);
         }
     }
 }

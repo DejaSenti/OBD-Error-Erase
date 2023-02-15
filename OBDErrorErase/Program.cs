@@ -16,7 +16,27 @@ namespace OBDErrorErase
         static void Main()
         {
             InitializeServices();
-            InitializeUIApp(0);
+
+            var pm = ServiceContainer.GetService<ProfileManager>();
+
+            var prof1 = pm.CreateNewProfile();
+            var prof2 = pm.CreateNewProfile();
+            var prof3= pm.CreateNewProfile();
+
+            prof1.Manufacturer = "dood";
+            prof3.Name = "what";
+
+            pm.SaveCurrentProfile();
+            pm.SaveProfile(prof1);
+
+            var loadedProfile = pm.LoadProfile(prof1.ID);
+            Debug.WriteLine("ID - "+loadedProfile?.ID);
+            Debug.WriteLine("Manufacturer - "+loadedProfile?.Manufacturer);
+
+            //if(loadedProfile != null)
+              //  pm.RemoveProfile(loadedProfile.ID);
+
+            StartApp();
         }
 
         private static void InitializeServices()
@@ -24,7 +44,7 @@ namespace OBDErrorErase
             ServiceContainer.AddService(new ProfileManager());
         }
 
-        private static void InitializeUIApp(int v)
+        private static void StartApp()
         {
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.

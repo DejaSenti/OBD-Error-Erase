@@ -35,6 +35,8 @@ namespace OBDErrorErase.EditorSource.Utils
             {
                 if (takenNames.Contains(name))
                     throw new Exception($"Cannot take name {name} as it is already taken");
+
+                takenNames.Add(name);
             }
         }
 
