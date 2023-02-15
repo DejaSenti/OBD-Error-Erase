@@ -4,6 +4,13 @@
     {
         public bool IsDirty { get; private set; }
 
+        public DirtyList() { }
+
+        public DirtyList(IEnumerable<T> list) 
+        {
+            AddRange(list);
+        }
+
         public void ClearDirty(bool deep = true)
         {
             IsDirty = false;

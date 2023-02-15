@@ -22,7 +22,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
         {
             foreach (var map in Maps)
             {
-                uint mapLocation = file.FindValue(map.SearchWord, 0, file.Length);
+                uint mapLocation = file.FindValue(map.SearchWord.ToArray(), 0, file.Length);
 
                 if (mapLocation == uint.MaxValue)
                     return false;
