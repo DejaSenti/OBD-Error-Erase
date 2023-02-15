@@ -77,9 +77,9 @@ namespace OBDErrorErase.EditorSource.AppControl
 
                 return;
             }
-
+			
             profileManager.CurrentProfile.SetSubprofile(subprofile);
-
+			
             // TODO notify preview about match
         }
 

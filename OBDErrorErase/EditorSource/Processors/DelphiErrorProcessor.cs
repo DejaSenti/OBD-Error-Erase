@@ -7,7 +7,7 @@ namespace OBDErrorErase.EditorSource.Processors
     {
         public void PopulateProfileDefaults(Profile profile)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public int Process(BinaryFile file, SubprofileData subprofile, List<string> errors)

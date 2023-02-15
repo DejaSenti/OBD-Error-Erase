@@ -32,15 +32,14 @@ namespace OBDErrorErase.EditorSource.AppControl
 
         private void OnNewProfileRequested()
         {
-            var newProfile = profileManager.CreateNewProfile();
-            profileManager.SetCurrentProfile(newProfile);
+            profileManager.CreateNewProfile();
 
             OnProfileChanged();
         }
 
         private void OnProfileTypeChangeRequested(ProfileType type)
         {
-            profileManager.UpdateCurrentProfileType(type);
+            profileManager.CreateNewProfile(type);
 
             OnProfileChanged();
         }
@@ -62,7 +61,7 @@ namespace OBDErrorErase.EditorSource.AppControl
 
         private void OnProfileSaveRequested()
         {
-            profileManager.SaveProfile();
+            profileManager.SaveCurrentProfile();
         }
 
         private void OnProfileChanged()

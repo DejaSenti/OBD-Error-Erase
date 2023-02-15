@@ -2,6 +2,7 @@ using OBDErrorErase.EditorSource.FileManagement;
 using OBDErrorErase.EditorSource.Maps;
 using OBDErrorErase.EditorSource.ProfileManagement;
 using System.Diagnostics;
+using OBDErrorErase.EditorSource.AppControl;
 
 namespace OBDErrorErase
 {
@@ -31,10 +32,10 @@ namespace OBDErrorErase
 
             // make bosch profile
             Profile profile = new Profile(ProfileType.BOSCH, "blah", "beh");
-            
+            profile.PopulateDefaults();
             profile.Subprofiles[0].Maps[0].SetSearchWord(file);
             MapBosch map = (MapBosch) profile.Subprofiles[0].Maps[0];
-            map.NewValue = new byte[] { 0xff, 0xff };
+            map.NewValue = new DirtyList<byte> { 0xff, 0xff };
 
             SubprofileData? subprofile = profile.GetMatchingSubprofile(file);
 
@@ -45,7 +46,7 @@ namespace OBDErrorErase
             }
 
             subprofile.MapLength = 50;
-            subprofile.FlipBytes = true; // wtf
+            subprofile.FlipBytes = false; // wtf
 
             profile.SetSubprofile(subprofile);
 
@@ -54,6 +55,22 @@ namespace OBDErrorErase
 
 
             stream.Dispose();
+
+            InitializeServices();
+            StartApp();
+        }
+
+        private static void InitializeServices()
+        {
+            ServiceContainer.AddService(new ProfileManager());
+        }
+
+        private static void StartApp()
+        {
+            // To customize application configuration such as set high DPI settings or default font,
+            // see https://aka.ms/applicationconfiguration.
+            ApplicationConfiguration.Initialize();
+            Application.Run(new Main());
         }
     }
 }

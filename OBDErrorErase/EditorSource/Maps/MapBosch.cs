@@ -1,15 +1,18 @@
-﻿using OBDErrorErase.EditorSource.FileManagement;
+﻿using OBDErrorErase.EditorSource.ProfileManagement;
 
 namespace OBDErrorErase.EditorSource.Maps
 {
     [Serializable]
     public class MapBosch : BaseProfileMap
     {
-        public byte[] NewValue { get; set; }
+        private DirtyList<byte> newValue;
+        public DirtyList<byte> NewValue { get => newValue; set { newValue = value; isDirty = true; } }
 
+        public override bool IsDirty => base.IsDirty || NewValue .IsDirty;
+		
         public MapBosch(string name, string newValue, uint location) : base(name, location)
         {
-            NewValue = Convert.FromHexString(newValue);
+            NewValue = new DirtyList<byte>(Convert.FromHexString(newValue)); // fix this
         }
     }
 }

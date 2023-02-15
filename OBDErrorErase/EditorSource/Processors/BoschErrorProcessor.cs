@@ -35,7 +35,7 @@ namespace OBDErrorErase.EditorSource.Processors
                 
                 foreach(MapBosch map in subprofile.Maps)
                 {
-                    file.WriteValue(map.Location + offset, map.NewValue);
+                    file.WriteValue(map.Location + offset, map.NewValue.ToArray());
                 }
 
                 ++totalErased;
