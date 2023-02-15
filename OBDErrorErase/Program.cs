@@ -16,26 +16,6 @@ namespace OBDErrorErase
         static void Main()
         {
             InitializeServices();
-
-            var pm = ServiceContainer.GetService<ProfileManager>();
-
-            var prof1 = pm.CreateNewProfile();
-            var prof2 = pm.CreateNewProfile();
-            var prof3= pm.CreateNewProfile();
-
-            prof1.Manufacturer = "dood";
-            prof3.Name = "what";
-
-            pm.SaveCurrentProfile();
-            pm.SaveProfile(prof1);
-
-            var loadedProfile = pm.LoadProfile(prof1.ID);
-            Debug.WriteLine("ID - "+loadedProfile?.ID);
-            Debug.WriteLine("Manufacturer - "+loadedProfile?.Manufacturer);
-
-            //if(loadedProfile != null)
-              //  pm.RemoveProfile(loadedProfile.ID);
-
             StartApp();
         }
 
