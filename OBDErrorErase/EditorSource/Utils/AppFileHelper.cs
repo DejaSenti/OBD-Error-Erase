@@ -13,7 +13,6 @@ namespace OBDErrorErase.EditorSource.Utils
 
         public static void ValidateAppSubFolder(string subFolderName)
         {
-            var s = Path.DirectorySeparatorChar;
             var folderPath = GetSubfolderPath(subFolderName);
 
             if (!Directory.Exists(folderPath))
