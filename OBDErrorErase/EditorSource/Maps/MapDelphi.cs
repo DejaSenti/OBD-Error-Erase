@@ -6,5 +6,4 @@ namespace OBDErrorErase.EditorSource.Maps
     public class MapDelphi : BaseProfileMap
     {
     }
-
 }

@@ -11,14 +11,12 @@ namespace OBDErrorErase.EditorSource.AppControl
 
         private ProfileManager profileManager;
         private BinaryFileManager binaryFileManager;
-        private ErrorProcessor errorProcessor;
 
         public EraserController(EraserGUI eraserGUI)
         {
             this.eraserGUI = eraserGUI;
             profileManager = ServiceContainer.GetService<ProfileManager>();
             binaryFileManager = ServiceContainer.GetService<BinaryFileManager>();
-            errorProcessor = ServiceContainer.GetService<ErrorProcessor>();
 
             // TODO load error preset files
 
@@ -76,8 +74,6 @@ namespace OBDErrorErase.EditorSource.AppControl
                 return;
             }
 
-            errorProcessor.SetSubprofile(subprofile);
-
             // TODO notify preview about match
         }
 
@@ -88,7 +84,7 @@ namespace OBDErrorErase.EditorSource.AppControl
             if (binaryFileManager.CurrentFile == null || profileManager.CurrentProfile != null || errorList.Count == 0)
                 return;
 
-            errorProcessor.Process(binaryFileManager.CurrentFile, errorList);
+            //todo implement
         }
 
         private List<string> GetErrorList()

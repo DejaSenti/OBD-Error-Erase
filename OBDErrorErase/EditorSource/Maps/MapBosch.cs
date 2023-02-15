@@ -1,11 +1,10 @@
-﻿using OBDErrorErase.EditorSource.FileManagement;
-
-namespace OBDErrorErase.EditorSource.Maps
+﻿namespace OBDErrorErase.EditorSource.Maps
 {
     [Serializable]
     public class MapBosch : BaseProfileMap
     {
-        public string NewValue { get; set; }
+        private string newValue;
+        public string NewValue { get => newValue; set { newValue = value; isDirty = true; } }
 
         public MapBosch(string newValue)
         {
