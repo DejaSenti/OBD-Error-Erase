@@ -61,7 +61,7 @@ namespace OBDErrorErase.EditorSource.AppControl
 
         private void OnProfileSaveRequested()
         {
-            profileManager.SaveProfile();
+            profileManager.SaveCurrentProfile();
         }
 
         private void OnProfileChanged()

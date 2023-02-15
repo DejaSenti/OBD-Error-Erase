@@ -5,41 +5,49 @@ namespace OBDErrorErase.EditorSource.Utils
     public class UniqueNameContainer
     {
         private readonly string baseName;
-        private readonly string suffixFormat;
+        private readonly string numberSuffixFormat;
 
         private List<string> takenNames;
 
-        public UniqueNameContainer(string baseName, string suffixFormat = "_{1}")
+        public UniqueNameContainer(string baseName, string suffixFormat = "_{0}")
         {
             this.baseName = baseName;
-            this.suffixFormat = suffixFormat;
+            this.numberSuffixFormat = suffixFormat;
 
             takenNames = new List<string>();
         }
 
-        public string GetValidDefault()
+        public string TakeNextValidDefault()
         {
-            return GetValid(baseName);
+            return TakeNextValid(baseName);
         }
 
-        public string GetValid(string desiredName)
+        public string TakeNextValid(string desiredName)
         {
             desiredName = GetValidInternal(desiredName);
             takenNames.Add(desiredName);
             return desiredName;
         }
 
-        public void ReleaseName(string name)
+        public void TakeNames(params string[] names)
         {
-            takenNames.Remove(name);
+            foreach (var name in names)
+            {
+                if (takenNames.Contains(name))
+                    throw new Exception($"Cannot take name {name} as it is already taken");
+            }
+        }
+
+        public void ReleaseNames(params string[] names)
+        {
+            foreach (var name in names)
+                takenNames.Remove(name);
         }
 
         private string GetValidInternal(string desiredName)
         {
             if (!takenNames.Contains(desiredName))
-            {
                 return desiredName;
-            }
 
             string newDesiredName;
 
@@ -59,7 +67,7 @@ namespace OBDErrorErase.EditorSource.Utils
 
         private string GetFormatted(string desiredName, int desiredNameNumber)
         {
-            return desiredNameNumber == 0 ? desiredName : desiredName + desiredNameNumber;
+            return desiredNameNumber == 0 ? desiredName : desiredName + string.Format(numberSuffixFormat, desiredNameNumber);
         }
 
         private string GetWithoutSuffix(string s)
