@@ -9,7 +9,7 @@ namespace OBDErrorErase.EditorSource.Maps
     [Serializable]
     public abstract class BaseProfileMap : IDirty
     {
-        const uint SEARCH_WORD_LENGTH = 50;
+        const int SEARCH_WORD_LENGTH = 50;
 		
         protected bool isDirty;
         public virtual bool IsDirty => isDirty || searchWord.IsDirty;
@@ -25,7 +25,7 @@ namespace OBDErrorErase.EditorSource.Maps
             Name = name;
         }
 
-        public void SetSearchWord(uint location, BinaryFile file)
+        public void SetSearchWord(int location, BinaryFile file)
         {
             if (file != null)
             {

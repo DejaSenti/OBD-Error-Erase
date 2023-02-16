@@ -11,18 +11,12 @@ namespace OBDErrorErase.EditorSource.FileManagement
             this.stream = stream;
         }
 
-        public uint Length => stream == null ? 0 : (uint)stream.Length;
+        public int Length => (int)(stream?.Length ?? 0);
 
-        internal uint FindValue(DirtyList<byte> value, uint start, uint end)
+        /// <returns>-1 if not found</returns>
+        internal int FindValue(byte[] value, int start, int end)
         {
-            byte[] array = value.ToArray();
-            return FindValue(array, start, end);
-        }
-
-        // returns uint.Max if not found
-        internal uint FindValue(byte[] value, uint start, uint end)
-        {
-            for (uint i = start; i < end; ++i)
+            for (int i = start; i < end; ++i)
             {
                 stream.Seek(i, SeekOrigin.Begin);
 
@@ -31,7 +25,7 @@ namespace OBDErrorErase.EditorSource.FileManagement
 
                 bool isMatch = true;
 
-                for (uint j = 0; j < value.Length; ++j)
+                for (int j = 0; j < value.Length; ++j)
                 {
                     if (value[j] != buffer[j])
                     {
@@ -44,20 +38,26 @@ namespace OBDErrorErase.EditorSource.FileManagement
                     return i;
             }
 
-            return uint.MaxValue;
+            return -1;
         }
 
-        internal byte[] ReadValue(uint location, uint length)
+        internal int FindValue(DirtyList<byte> value, int start, int end)
+        {
+            byte[] array = value.ToArray();
+            return FindValue(array, start, end);
+        }
+
+        internal byte[] ReadValue(int location, int length)
         {
             stream.Seek(location, SeekOrigin.Begin);
 
             byte[] result = new byte[length];
-            stream.Read(result, 0, (int)length);
+            stream.Read(result, 0, length);
 
             return result;
         }
 
-        internal void WriteValue(uint location, byte[] value)
+        internal void WriteValue(int location, byte[] value)
         {
             stream.Seek(location, SeekOrigin.Begin);
 

@@ -12,7 +12,7 @@ namespace OBDErrorErase.EditorSource.Maps
 		
         public MapBosch(string name, string newValue) : base(name)
         {
-            NewValue = new DirtyList<byte>(Convert.FromHexString(newValue)); // fix this
+            NewValue = new DirtyList<byte>(Convert.FromHexString(newValue));
         }
     }
 }

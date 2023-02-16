@@ -18,33 +18,35 @@ namespace OBDErrorErase.EditorSource.Processors
         {
             int totalErased = 0;
 
-            Dictionary<BaseProfileMap, uint> locationByMap = new();
+            Dictionary<BaseProfileMap, int> locationByMap = new();
 
             foreach (var map in subprofile.Maps)
             {
-                uint location = file.FindValue(map.SearchWord, 0, file.Length);
+                int location = file.FindValue(map.SearchWord, 0, file.Length);
                 locationByMap[map] = location;
             }
 
             foreach(var error in errors)
             {
-                uint location = 0;
+                int errorLocation = 0;
                 byte[] byteError = Convert.FromHexString(error);
 
+                MapBosch dtcMap = (MapBosch)subprofile.Maps[0];
+                var dtcLocation = locationByMap[dtcMap];
                 do
                 {
-                    location = file.FindValue(byteError, locationByMap[subprofile.Maps[0]], locationByMap[subprofile.Maps[0]] + subprofile.MapLength);
-                } while (location != uint.MaxValue && location % 2 != 0);
+                    errorLocation = file.FindValue(byteError, dtcLocation, dtcLocation + subprofile.MapLength);
+                } while (errorLocation != -1 && errorLocation % 2 != 0);
                 
-                if (location == uint.MaxValue)
+                if (errorLocation == -1)
                     continue;
 
-                uint offset = location - locationByMap[subprofile.Maps[0]];
+                int errorIndex = (errorLocation - dtcLocation) / dtcMap.NewValue.Count;
                 
                 foreach(MapBosch map in subprofile.Maps)
                 {
-                    var valueOffset = offset * (uint)(map.NewValue.Count / ((MapBosch)subprofile.Maps[0]).NewValue.Count);
-                    file.WriteValue(locationByMap[map] + valueOffset, map.NewValue.ToArray());
+                    var valueLocation = locationByMap[map] + errorIndex * map.NewValue.Count;
+                    file.WriteValue(valueLocation, map.NewValue.ToArray());
                 }
 
                 ++totalErased;

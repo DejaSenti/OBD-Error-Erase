@@ -49,7 +49,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
         {
             foreach (var subprofile in Subprofiles)
             {
-                if (subprofile.IsSubprofileFit(file))
+                if (subprofile.FitsBinaryFile(file))
                     return subprofile;
             }
 

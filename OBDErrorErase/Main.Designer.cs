@@ -25,7 +25,6 @@
         private TabControl EditorTabControlProfileType;
         private TabPage ProfileTabBosch;
         private TabPage ProfileTabDelphi;
-        private Button EditorButtonFileBrowse;
         private ListBox EditorListSubprofiles;
         private Button EditorButtonSave;
         private DataGridView EditorErrorPreview;
@@ -60,5 +59,6 @@
         private DataGridView EraserErrorPreview;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        public Button EditorButtonFileBrowse;
     }
 }
