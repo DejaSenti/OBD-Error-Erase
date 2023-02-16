@@ -11,12 +11,20 @@ namespace OBDErrorErase.EditorSource.Processors
             profile.Manufacturer = "None";
             profile.Name = "None";
             profile.Subprofiles.Add(new SubprofileData());
-            profile.Subprofiles[0].Maps.Add(new MapBosch("DTC", "00", 0));
+            profile.Subprofiles[0].Maps.Add(new MapBosch("DTC", "0000"));
         }
 
         public int Process(BinaryFile file, SubprofileData subprofile, List<string> errors)
         {
             int totalErased = 0;
+
+            Dictionary<BaseProfileMap, uint> locationByMap = new();
+
+            foreach (var map in subprofile.Maps)
+            {
+                uint location = file.FindValue(map.SearchWord, 0, file.Length);
+                locationByMap[map] = location;
+            }
 
             foreach(var error in errors)
             {
@@ -25,17 +33,18 @@ namespace OBDErrorErase.EditorSource.Processors
 
                 do
                 {
-                    location = file.FindValue(byteError, subprofile.Maps[0].Location, subprofile.Maps[0].Location + subprofile.MapLength);
+                    location = file.FindValue(byteError, locationByMap[subprofile.Maps[0]], locationByMap[subprofile.Maps[0]] + subprofile.MapLength);
                 } while (location != uint.MaxValue && location % 2 != 0);
                 
                 if (location == uint.MaxValue)
                     continue;
 
-                uint offset = location - subprofile.Maps[0].Location;
+                uint offset = location - locationByMap[subprofile.Maps[0]];
                 
                 foreach(MapBosch map in subprofile.Maps)
                 {
-                    file.WriteValue(map.Location + offset, map.NewValue.ToArray());
+                    var valueOffset = offset * (uint)(map.NewValue.Count / ((MapBosch)subprofile.Maps[0]).NewValue.Count);
+                    file.WriteValue(locationByMap[map] + valueOffset, map.NewValue.ToArray());
                 }
 
                 ++totalErased;

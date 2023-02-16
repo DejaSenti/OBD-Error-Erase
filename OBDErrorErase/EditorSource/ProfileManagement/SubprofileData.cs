@@ -26,8 +26,6 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
 
                 if (mapLocation == uint.MaxValue)
                     return false;
-
-                map.Location = mapLocation;
             }
 
             return true;

@@ -73,10 +73,17 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
 
         private void FlipErrorBytes(List<string> errorList)
         {
+            var result = new List<string>();
+
             foreach (var error in errorList)
             {
-                error.Reverse();
+                var array = Convert.FromHexString(error);
+                Array.Reverse(array);
+                result.Add(new string(Convert.ToHexString(array)));
             }
+
+            errorList.Clear();
+            errorList.AddRange(result);
 		}
 		
         public void ClearDirty(bool deep = true)

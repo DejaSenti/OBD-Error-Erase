@@ -10,7 +10,7 @@ namespace OBDErrorErase.EditorSource.Maps
 
         public override bool IsDirty => base.IsDirty || NewValue .IsDirty;
 		
-        public MapBosch(string name, string newValue, uint location) : base(name, location)
+        public MapBosch(string name, string newValue) : base(name)
         {
             NewValue = new DirtyList<byte>(Convert.FromHexString(newValue)); // fix this
         }

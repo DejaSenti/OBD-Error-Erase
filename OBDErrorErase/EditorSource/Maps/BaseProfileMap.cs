@@ -20,19 +20,16 @@ namespace OBDErrorErase.EditorSource.Maps
         private string name;
         public string Name { get => name; set { name = value; isDirty = true; } }
 		
-        public uint Location; // needs to go, refactor accordingly
-
-        public BaseProfileMap(string name, uint location)
+        public BaseProfileMap(string name)
         {
             Name = name;
-            Location = location;
         }
 
-        public void SetSearchWord(BinaryFile file)
+        public void SetSearchWord(uint location, BinaryFile file)
         {
             if (file != null)
             {
-                SearchWord = new DirtyList<byte>(file.ReadValue(Location, SEARCH_WORD_LENGTH));
+                SearchWord = new DirtyList<byte>(file.ReadValue(location, SEARCH_WORD_LENGTH));
             }
 		}
 		

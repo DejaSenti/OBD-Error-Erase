@@ -1,4 +1,6 @@
-﻿namespace OBDErrorErase.EditorSource.FileManagement
+﻿using OBDErrorErase.EditorSource.ProfileManagement;
+
+namespace OBDErrorErase.EditorSource.FileManagement
 {
     public class BinaryFile
     {
@@ -10,6 +12,12 @@
         }
 
         public uint Length => stream == null ? 0 : (uint)stream.Length;
+
+        internal uint FindValue(DirtyList<byte> value, uint start, uint end)
+        {
+            byte[] array = value.ToArray();
+            return FindValue(array, start, end);
+        }
 
         // returns uint.Max if not found
         internal uint FindValue(byte[] value, uint start, uint end)

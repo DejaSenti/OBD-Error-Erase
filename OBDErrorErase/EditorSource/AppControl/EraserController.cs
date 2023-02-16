@@ -62,14 +62,10 @@ namespace OBDErrorErase.EditorSource.AppControl
         {
             SubprofileData? subprofile = null;
 
-            if (binaryFileManager.CurrentFile != null && profileManager.CurrentProfile != null)
-            {
-                subprofile = profileManager.CurrentProfile.GetMatchingSubprofile(binaryFileManager.CurrentFile);
-            }
-            else
-            {
+            if (binaryFileManager.CurrentFile == null || profileManager.CurrentProfile == null)
                 return;
-            }
+
+            subprofile = profileManager.CurrentProfile.GetMatchingSubprofile(binaryFileManager.CurrentFile);
 
             if (subprofile == null)
             {
