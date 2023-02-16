@@ -1,4 +1,6 @@
 using OBDErrorErase.EditorSource.AppControl;
+using OBDErrorErase.EditorSource.FileManagement;
+using OBDErrorErase.EditorSource.GUI;
 using OBDErrorErase.EditorSource.Maps;
 using OBDErrorErase.EditorSource.ProfileManagement;
 using OBDErrorErase.EditorSource.Utils;
@@ -15,21 +17,27 @@ namespace OBDErrorErase
         [STAThread]
         static void Main()
         {
+            ApplicationConfiguration.Initialize();
+
             InitializeServices();
-            StartApp();
+
+            var mainForm = new Main();
+
+            InitializeViewControllers(mainForm);
+
+            Application.Run(mainForm);
+        }
+
+        private static void InitializeViewControllers(Main mainForm)
+        {
+            var editorGUI = new EditorGUI(mainForm);
+            var editorController = new EditorController(editorGUI);
         }
 
         private static void InitializeServices()
         {
+            ServiceContainer.AddService(new BinaryFileManager());
             ServiceContainer.AddService(new ProfileManager());
-        }
-
-        private static void StartApp()
-        {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
-            Application.Run(new Main());
         }
     }
 }
