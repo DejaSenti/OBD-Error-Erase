@@ -1,12 +1,14 @@
 ﻿using OBDErrorErase.EditorSource.FileManagement;
 using OBDErrorErase.EditorSource.GUI;
 using OBDErrorErase.EditorSource.ProfileManagement;
+using System.Runtime.InteropServices;
 
 namespace OBDErrorErase.EditorSource.AppControl
 {
 
     public class EraserController
     {
+        const string ERROR_DELIMITERS = ",. ";
         private EraserGUI eraserGUI;
 
         private ProfileManager profileManager;
@@ -104,10 +106,24 @@ namespace OBDErrorErase.EditorSource.AppControl
         private List<string> GetErrorList()
         {
             var result = new List<string>();
-            // get error list from textbox
-            // get error lists from presets
+
+            var textboxErrorList = eraserGUI.GetTextboxErrorList();
+            AddErrorsFromStringToList(textboxErrorList, result);
+
+            var errorPresetFilePathList = eraserGUI.GetPresetPathList();
+            foreach(var path in errorPresetFilePathList)
+            {
+                var fileContents = File.ReadAllText(path);
+                AddErrorsFromStringToList(fileContents, result);
+            }
 
             return result;
+        }
+
+        private void AddErrorsFromStringToList(string errors, List<string> list)
+        {
+            var splitErrors = errors.Split(ERROR_DELIMITERS, StringSplitOptions.RemoveEmptyEntries);
+            list.AddRange(splitErrors);
         }
 
         private void RemoveGUIListeners() 
