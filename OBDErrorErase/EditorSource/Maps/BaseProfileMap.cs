@@ -1,4 +1,5 @@
-﻿using OBDErrorErase.EditorSource.ProfileManagement;
+﻿using OBDErrorErase.EditorSource.FileManagement;
+using OBDErrorErase.EditorSource.ProfileManagement;
 using System.Text.Json.Serialization;
 
 namespace OBDErrorErase.EditorSource.Maps
@@ -8,15 +9,30 @@ namespace OBDErrorErase.EditorSource.Maps
     [Serializable]
     public abstract class BaseProfileMap : IDirty
     {
+        const int SEARCH_WORD_LENGTH = 50;
+		
         protected bool isDirty;
-        public virtual bool IsDirty => isDirty || searchWords.IsDirty;
+        public virtual bool IsDirty => isDirty || searchWord.IsDirty;
+
+        private DirtyList<byte> searchWord = new();
+        public DirtyList<byte> SearchWord { get => searchWord; set { searchWord = value; isDirty = true; } }
 
         private string name;
         public string Name { get => name; set { name = value; isDirty = true; } }
+		
+        public BaseProfileMap(string name)
+        {
+            Name = name;
+        }
 
-        private DirtyList<string> searchWords = new();
-        public DirtyList<string> SearchWords => searchWords;
-
+        public void SetSearchWord(int location, BinaryFile file)
+        {
+            if (file != null)
+            {
+                SearchWord = new DirtyList<byte>(file.ReadValue(location, SEARCH_WORD_LENGTH));
+            }
+		}
+		
         public virtual void ClearDirty(bool deep = true)
         {
             isDirty = false;
@@ -24,7 +40,7 @@ namespace OBDErrorErase.EditorSource.Maps
             if (!deep) 
                 return;
 
-            searchWords.ClearDirty();
+            searchWord.ClearDirty();
         }
     }
 }

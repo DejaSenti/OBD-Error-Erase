@@ -7,14 +7,14 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
     [Serializable]
     public class Profile : IDirty
     {
+        public ProfileType Type { get; }
+
         private bool isDirty;
         public bool IsDirty => isDirty || Subprofiles.IsDirty || Subprofiles.Any(sp => sp.IsDirty);
 
-        public bool IsIDDirty {get; private set; }
-
         public string ID { get; set; }
 
-        public ProfileType Type { get; }
+        public bool IsIDDirty {get; private set; }
 
         private string manufacturer;
         public string Manufacturer { get => manufacturer; set { manufacturer = value; isDirty = IsIDDirty = true; } }
@@ -24,7 +24,9 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
 
         public DirtyList<SubprofileData> Subprofiles { get; } = new();
 
-        private BaseErrorProcessor processor;
+        public SubprofileData CurrentSubprofile { get; private set; }
+
+        private IErrorProcessor processor;
 
         public Profile(ProfileType type, string manufacturer, string name)
         {
@@ -39,19 +41,51 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
         internal void PopulateDefaults()
         {
             processor.PopulateProfileDefaults(this);
+
+            CurrentSubprofile = Subprofiles[0];
         }
 
         public SubprofileData? GetMatchingSubprofile(BinaryFile file)
         {
             foreach (var subprofile in Subprofiles)
             {
-                if (subprofile.TryFile(file))
+                if (subprofile.FitsBinaryFile(file))
                     return subprofile;
             }
 
             return null;
         }
 
+        public void SetSubprofile(SubprofileData subprofile)
+        {
+            CurrentSubprofile = subprofile;
+        }
+
+        internal int Process(BinaryFile currentFile, List<string> errorList)
+        {
+            if (CurrentSubprofile.FlipBytes)
+            {
+                FlipErrorBytes(errorList);
+            }
+
+            return processor.Process(currentFile, CurrentSubprofile, errorList);
+        }
+
+        private void FlipErrorBytes(List<string> errorList)
+        {
+            var result = new List<string>();
+
+            foreach (var error in errorList)
+            {
+                var array = Convert.FromHexString(error);
+                Array.Reverse(array);
+                result.Add(new string(Convert.ToHexString(array)));
+            }
+
+            errorList.Clear();
+            errorList.AddRange(result);
+		}
+		
         public void ClearDirty(bool deep = true)
         {
             isDirty = false;

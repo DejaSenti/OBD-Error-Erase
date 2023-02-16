@@ -9,8 +9,8 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
         protected bool isDirty;
         public bool IsDirty => isDirty || Maps.IsDirty || Maps.Any(map => map.IsDirty);
 
-        private uint mapLength;
-        public uint MapLength { get => mapLength; set { mapLength = value; isDirty = true; } }
+        private int mapLength;
+        public int MapLength { get => mapLength; set { mapLength = value; isDirty = true; } }
 
         private bool flipBytes;
         public bool FlipBytes { get => flipBytes; set { flipBytes = value; isDirty = true; } }
@@ -18,9 +18,17 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
         private DirtyList<BaseProfileMap> maps = new();
         public DirtyList<BaseProfileMap> Maps { get => maps; }
 
-        internal bool TryFile(BinaryFile file)
+        public bool FitsBinaryFile(BinaryFile file)
         {
-            throw new NotImplementedException();
+            foreach (var map in Maps)
+            {
+                int mapLocation = file.FindValue(map.SearchWord.ToArray(), 0, file.Length);
+
+                if (mapLocation == -1)
+                    return false;
+            }
+
+            return true;
         }
 
         public void ClearDirty(bool deep = true)

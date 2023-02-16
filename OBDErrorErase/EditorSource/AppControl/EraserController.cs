@@ -62,10 +62,10 @@ namespace OBDErrorErase.EditorSource.AppControl
         {
             SubprofileData? subprofile = null;
 
-            if (binaryFileManager.CurrentFile != null && profileManager.CurrentProfile != null)
-            {
-                subprofile = profileManager.CurrentProfile.GetMatchingSubprofile(binaryFileManager.CurrentFile);
-            }
+            if (binaryFileManager.CurrentFile == null || profileManager.CurrentProfile == null)
+                return;
+
+            subprofile = profileManager.CurrentProfile.GetMatchingSubprofile(binaryFileManager.CurrentFile);
 
             if (subprofile == null)
             {
@@ -73,7 +73,9 @@ namespace OBDErrorErase.EditorSource.AppControl
 
                 return;
             }
-
+			
+            profileManager.CurrentProfile.SetSubprofile(subprofile);
+			
             // TODO notify preview about match
         }
 
@@ -81,10 +83,22 @@ namespace OBDErrorErase.EditorSource.AppControl
         {
             var errorList = GetErrorList();
 
-            if (binaryFileManager.CurrentFile == null || profileManager.CurrentProfile != null || errorList.Count == 0)
+            if (!IsErasingValid() || errorList.Count == 0)
+            {
+                // notify GUI about lack of needed pieces to start process
                 return;
+            }
 
-            //todo implement
+            int totalErased = profileManager.CurrentProfile.Process(binaryFileManager.CurrentFile, errorList);
+
+            // notify GUI about total erased and error list count
+            // save new file
+        }
+
+        private bool IsErasingValid()
+        {
+            return binaryFileManager.CurrentFile != null &&
+                profileManager.CurrentProfile != null && profileManager.CurrentProfile.CurrentSubprofile != null;
         }
 
         private List<string> GetErrorList()
