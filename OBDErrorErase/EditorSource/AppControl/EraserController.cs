@@ -1,6 +1,9 @@
-﻿using OBDErrorErase.EditorSource.FileManagement;
+﻿using OBDErrorErase.EditorSource.Configs;
+using OBDErrorErase.EditorSource.FileManagement;
 using OBDErrorErase.EditorSource.GUI;
 using OBDErrorErase.EditorSource.ProfileManagement;
+using OBDErrorErase.EditorSource.Utils;
+using System.Diagnostics;
 
 namespace OBDErrorErase.EditorSource.AppControl
 {
@@ -13,15 +16,35 @@ namespace OBDErrorErase.EditorSource.AppControl
         private ProfileManager profileManager;
         private BinaryFileManager binaryFileManager;
 
+        private List<string> presetPathList;
+
         public EraserController(EraserGUI eraserGUI)
         {
             this.eraserGUI = eraserGUI;
             profileManager = ServiceContainer.GetService<ProfileManager>();
             binaryFileManager = ServiceContainer.GetService<BinaryFileManager>();
 
-            // TODO load error preset files
+            var errorPresetFiles = AppFileHelper.GetAllFilesInAppSubFolder(AppFolderNames.PRESETS);
+            
+            presetPathList = errorPresetFiles.Select(filePath => Path.GetFullPath(filePath.FullName)).ToList();
+
+            var errorPresetNames = errorPresetFiles.Select(fileInfo => Path.GetFileNameWithoutExtension(fileInfo.Name)).ToList();
+            eraserGUI.PopulateErrorPresetList(errorPresetNames);
+
+            eraserGUI.PresetOpenClicked += OnPresetOpenClicked;
+            eraserGUI.PresetDeleteClicked += OnPresetDeleteClicked;
 
             AddGUIListeners();
+        }
+
+        private void OnPresetDeleteClicked(int id)
+        {
+            File.Delete(presetPathList[id]);
+        }
+
+        private void OnPresetOpenClicked(int id)
+        {
+            Process.Start(presetPathList[id]); // todo fix this
         }
 
         private void AddGUIListeners()

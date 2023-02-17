@@ -15,7 +15,6 @@ namespace OBDErrorErase
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EraserTextboxErrorList = new System.Windows.Forms.TextBox();
-            this.EraserListViewErrorPresetSelection = new System.Windows.Forms.ListView();
             this.EraserListViewMapSelection = new System.Windows.Forms.ListView();
             this.EraserLabelPresetSelect = new System.Windows.Forms.Label();
             this.EraserLabelMapSelect = new System.Windows.Forms.Label();
@@ -51,6 +50,7 @@ namespace OBDErrorErase
             this.EditorListProfiles = new System.Windows.Forms.ListBox();
             this.OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.EraserTableLayoutErrorPresets = new System.Windows.Forms.TableLayoutPanel();
             this.TabControlMain.SuspendLayout();
             this.TabErrorEraser.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.EraserErrorPreview)).BeginInit();
@@ -76,9 +76,9 @@ namespace OBDErrorErase
             // 
             // TabErrorEraser
             // 
+            this.TabErrorEraser.Controls.Add(this.EraserTableLayoutErrorPresets);
             this.TabErrorEraser.Controls.Add(this.EraserErrorPreview);
             this.TabErrorEraser.Controls.Add(this.EraserTextboxErrorList);
-            this.TabErrorEraser.Controls.Add(this.EraserListViewErrorPresetSelection);
             this.TabErrorEraser.Controls.Add(this.EraserListViewMapSelection);
             this.TabErrorEraser.Controls.Add(this.EraserLabelPresetSelect);
             this.TabErrorEraser.Controls.Add(this.EraserLabelMapSelect);
@@ -139,16 +139,6 @@ namespace OBDErrorErase
             this.EraserTextboxErrorList.PlaceholderText = "Enter a list of errors, separated by commas (e.g. a1c7, 1600, 8461, e56f...):";
             this.EraserTextboxErrorList.Size = new System.Drawing.Size(612, 66);
             this.EraserTextboxErrorList.TabIndex = 39;
-            // 
-            // EraserListViewErrorPresetSelection
-            // 
-            this.EraserListViewErrorPresetSelection.Alignment = System.Windows.Forms.ListViewAlignment.Left;
-            this.EraserListViewErrorPresetSelection.CheckBoxes = true;
-            this.EraserListViewErrorPresetSelection.Location = new System.Drawing.Point(629, 308);
-            this.EraserListViewErrorPresetSelection.Name = "EraserListViewErrorPresetSelection";
-            this.EraserListViewErrorPresetSelection.Size = new System.Drawing.Size(303, 376);
-            this.EraserListViewErrorPresetSelection.TabIndex = 38;
-            this.EraserListViewErrorPresetSelection.UseCompatibleStateImageBehavior = false;
             // 
             // EraserListViewMapSelection
             // 
@@ -501,6 +491,19 @@ namespace OBDErrorErase
             this.EditorListProfiles.Name = "EditorListProfiles";
             this.EditorListProfiles.Size = new System.Drawing.Size(306, 574);
             this.EditorListProfiles.TabIndex = 13;
+            // 
+            // EraserTableLayoutErrorPresets
+            // 
+            this.EraserTableLayoutErrorPresets.ColumnCount = 1;
+            this.EraserTableLayoutErrorPresets.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.EraserTableLayoutErrorPresets.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.EraserTableLayoutErrorPresets.Location = new System.Drawing.Point(629, 308);
+            this.EraserTableLayoutErrorPresets.Name = "EraserTableLayoutErrorPresets";
+            this.EraserTableLayoutErrorPresets.RowCount = 1;
+            this.EraserTableLayoutErrorPresets.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.EraserTableLayoutErrorPresets.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.EraserTableLayoutErrorPresets.Size = new System.Drawing.Size(303, 376);
+            this.EraserTableLayoutErrorPresets.TabIndex = 41;
             // 
             // Main
             // 

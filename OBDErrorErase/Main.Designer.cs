@@ -36,7 +36,6 @@
         private Button EraserButtonAddPreset;
         private Label EraserLabelMapSelect;
         private Label EraserLabelPresetSelect;
-        private ListView EraserListViewErrorPresetSelection;
         private ListView EraserListViewMapSelection;
         private TextBox EraserTextboxErrorList;
         private DataGridView EditorDataGridViewBosch;
@@ -60,5 +59,6 @@
         public ListBox EditorListProfiles;
         public Label EditorLabelFilePath;
         public CheckBox EditorCheckboxFlipBytes;
+        public TableLayoutPanel EraserTableLayoutErrorPresets;
     }
 }
