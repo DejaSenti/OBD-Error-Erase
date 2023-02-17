@@ -2,6 +2,6 @@
 {
     public interface IProfileEditorGUI
     {
-        void RemoveListeners();
+        void Dispose();
     }
 }

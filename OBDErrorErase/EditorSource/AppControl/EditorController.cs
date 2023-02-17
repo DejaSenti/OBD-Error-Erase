@@ -86,8 +86,8 @@ namespace OBDErrorErase.EditorSource.AppControl
         {
             profileManager.SetCurrentProfile(newProfile);
 
-            profileEditor?.RemoveListeners();
-            profileEditorGUI?.RemoveListeners();
+            profileEditor?.Dispose();
+            profileEditorGUI?.Dispose();
 
             profileEditor = ProfileEditorFactory.GetEditorController(newProfile.Type);
             profileEditorGUI = ProfileEditorGUIFactory.GetEditorGUI(newProfile.Type);

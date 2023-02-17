@@ -2,7 +2,7 @@
 {
     public class BoschProfileEditorGUI : IProfileEditorGUI
     {
-        public void RemoveListeners()
+        public void Dispose()
         {
             //todo implement
         }

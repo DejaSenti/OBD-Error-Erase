@@ -25,7 +25,7 @@ namespace OBDErrorErase.EditorSource.GUI
         {
             this.guiHolder = guiHolder;
             AddListeners();
-            UpdateProfilesRelatedEnableStatuses();
+            UpdateRemoveButtonEnabled();
         }
 
         private void AddListeners()
@@ -40,10 +40,9 @@ namespace OBDErrorErase.EditorSource.GUI
 
         private void OnProfileSelectionChanged(object? sender, EventArgs e)
         {
-            UpdateProfilesRelatedEnableStatuses();
+            UpdateRemoveButtonEnabled();
 
-            if(!string.IsNullOrEmpty(SelectedProfileID))
-                RequestLoadProfileEvent?.Invoke(SelectedProfileID);
+            RequestLoadProfileEvent?.Invoke(SelectedProfileID);
         }
 
         private void OnRemoveProfileClicked(object? sender, EventArgs e)
@@ -62,7 +61,10 @@ namespace OBDErrorErase.EditorSource.GUI
             currentFilterWords = Regex.Split(guiHolder.EditorTextboxProfileFilter.Text, @"\s+");
 
             UpdateProfilesList();
-            UpdateProfilesRelatedEnableStatuses();
+            UpdateRemoveButtonEnabled();
+
+            if (!string.IsNullOrEmpty(SelectedProfileID) && guiHolder.EditorListProfiles.Items.Contains(SelectedProfileID))
+                guiHolder.EditorListProfiles.SelectedItem = SelectedProfileID;
         }
 
         internal void OnCurrentProfileChanged(Profile currentProfile)
@@ -94,15 +96,15 @@ namespace OBDErrorErase.EditorSource.GUI
 
             foreach (var profileID in profileIDsRef)
             {
-                if (ProfileIDMatchesFiltter(profileID))
+                if (ProfileIDMatchesFilter(profileID))
                     guiHolder.EditorListProfiles.Items.Add(profileID);
             }
         }
 
 
-        private bool ProfileIDMatchesFiltter(string profileID)
+        private bool ProfileIDMatchesFilter(string profileID)
         {
-            if (currentFilterWords == null || currentFilterWords.Length == 0 || string.IsNullOrEmpty(profileID))
+            if (currentFilterWords == null || currentFilterWords.Length == 0)
                 return true;
 
             int index = 0;
@@ -118,9 +120,6 @@ namespace OBDErrorErase.EditorSource.GUI
             return true;
         }
 
-        private void UpdateProfilesRelatedEnableStatuses()
-        {
-            guiHolder.EditorButtonProfileRemove.Enabled = !string.IsNullOrEmpty(SelectedProfileID);
-        }
+        private void UpdateRemoveButtonEnabled() => guiHolder.EditorButtonProfileRemove.Enabled = !string.IsNullOrEmpty(SelectedProfileID);
     }
 }

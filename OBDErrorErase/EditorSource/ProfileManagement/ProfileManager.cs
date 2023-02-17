@@ -2,6 +2,7 @@
 using OBDErrorErase.EditorSource.GUI;
 using OBDErrorErase.EditorSource.Utils;
 using System.Text.Json;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace OBDErrorErase.EditorSource.ProfileManagement
 {
@@ -52,6 +53,13 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             return profile;
         }
 
+        /*public Profile CloneProfile(string profileID)
+        {
+            var original = LoadProfile(profileID);
+
+            original.ID = nameContainer.TakeNextValid()
+        }*/
+
         public void SetCurrentProfile(Profile profile)
         {
             CurrentProfile = profile;
@@ -59,8 +67,10 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
 
         public void RemoveProfile(string id)
         {
-            nameContainer.ReleaseNames(id);
-            AppFileHelper.RemoveFile(AppFolderNames.PROFILES, id);
+            var profile = LoadProfile(id);
+            nameContainer.ReleaseNames(profile.ID);
+            SubtractFromManufacturer(profile.Manufacturer);
+            AppFileHelper.RemoveFile(AppFolderNames.PROFILES, profile.ID);
         }
 
         public Profile LoadProfile(string id)
@@ -99,15 +109,8 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
 
         private void HandleProfileIDModified(Profile profile, bool isNew = false)
         {
-            if (!isNew)
-            {
-                if (fileCountByManufacturer.ContainsKey(profile.Manufacturer))
-                {
-                    var newCount = --fileCountByManufacturer[profile.Manufacturer];
-                    if(newCount == 0)
-                        fileCountByManufacturer.Remove(profile.Manufacturer);
-                }
-            }
+            if (!isNew && fileCountByManufacturer.ContainsKey(profile.Manufacturer))
+                SubtractFromManufacturer(profile.Manufacturer);
 
             nameContainer.ReleaseNames(profile.ID);
 
@@ -116,7 +119,17 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
 
             profile.ID = validID;
 
+            if (!fileCountByManufacturer.ContainsKey(profile.Manufacturer))
+                fileCountByManufacturer[profile.Manufacturer] = 0;
+
             fileCountByManufacturer[profile.Manufacturer]++;
+        }
+
+        private void SubtractFromManufacturer(string manufacturer)
+        {
+            var newCount = --fileCountByManufacturer[manufacturer];
+            if (newCount == 0)
+                fileCountByManufacturer.Remove(manufacturer);
         }
     }
 }

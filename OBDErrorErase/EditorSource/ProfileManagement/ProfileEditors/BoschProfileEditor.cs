@@ -4,7 +4,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
 {
     internal class BoschProfileEditor : IProfileEditorController
     {
-        public void RemoveListeners()
+        public void Dispose()
         {
             // todo implement
         }
