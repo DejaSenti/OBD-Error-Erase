@@ -167,7 +167,6 @@ namespace OBDErrorErase
             this.EraserLabelPresetSelect.Size = new System.Drawing.Size(165, 15);
             this.EraserLabelPresetSelect.TabIndex = 34;
             this.EraserLabelPresetSelect.Text = "Select error presets to include:";
-            this.EraserLabelPresetSelect.Click += new System.EventHandler(this.label1_Click_1);
             // 
             // EraserLabelMapSelect
             // 
@@ -177,7 +176,6 @@ namespace OBDErrorErase
             this.EraserLabelMapSelect.Size = new System.Drawing.Size(128, 15);
             this.EraserLabelMapSelect.TabIndex = 33;
             this.EraserLabelMapSelect.Text = "Select maps to modify:";
-            this.EraserLabelMapSelect.Click += new System.EventHandler(this.label1_Click);
             // 
             // EraserButtonAddPreset
             // 
@@ -188,7 +186,6 @@ namespace OBDErrorErase
             this.EraserButtonAddPreset.TabIndex = 32;
             this.EraserButtonAddPreset.Text = "Add Error Preset...";
             this.EraserButtonAddPreset.UseVisualStyleBackColor = false;
-            this.EraserButtonAddPreset.Click += new System.EventHandler(this.button2_Click);
             // 
             // EraserLabelFilePath
             // 
@@ -207,7 +204,6 @@ namespace OBDErrorErase
             this.EraserLabelErrorCounter.TabIndex = 28;
             this.EraserLabelErrorCounter.Text = "X / Y Deleted";
             this.EraserLabelErrorCounter.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.EraserLabelErrorCounter.Click += new System.EventHandler(this.EraserLabelErrorCounter_Click);
             // 
             // EraserButtonFileBrowse
             // 
@@ -281,7 +277,6 @@ namespace OBDErrorErase
             this.EditorCheckboxFlipBytes.Text = "Flip Bytes";
             this.EditorCheckboxFlipBytes.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.EditorCheckboxFlipBytes.UseVisualStyleBackColor = true;
-            this.EditorCheckboxFlipBytes.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // EditorLabelFilePath
             // 
@@ -360,7 +355,6 @@ namespace OBDErrorErase
             this.EditorDataGridViewBosch.Size = new System.Drawing.Size(450, 315);
             this.EditorDataGridViewBosch.TabIndex = 0;
             this.EditorDataGridViewBosch.VirtualMode = true;
-            this.EditorDataGridViewBosch.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick_1);
             // 
             // ProfileTabDelphi
             // 
@@ -533,54 +527,5 @@ namespace OBDErrorErase
 
         private TabControl TabControlMain;
         private TabPage TabProfileEditor;
-
-        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void EraserLabelErrorCounter_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
-        {
-                    }
-
-        private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

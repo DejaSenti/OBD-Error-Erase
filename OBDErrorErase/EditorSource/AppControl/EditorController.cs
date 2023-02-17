@@ -2,6 +2,7 @@
 using OBDErrorErase.EditorSource.FileManagement;
 using OBDErrorErase.EditorSource.GUI;
 using OBDErrorErase.EditorSource.ProfileManagement;
+using OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors;
 
 namespace OBDErrorErase.EditorSource.AppControl
 {
@@ -22,26 +23,45 @@ namespace OBDErrorErase.EditorSource.AppControl
             profileManager = ServiceContainer.GetService<ProfileManager>();
             binaryFileManager = ServiceContainer.GetService<BinaryFileManager>();
 
+            editorGUI.SetProfileIDs(profileManager.ProfileIDs);
+
             AddGUIListeners();
         }
 
         private void AddGUIListeners()
         {
-            throw new NotImplementedException();
+            editorGUI.RequestNewProfileEvent += OnNewProfileRequested;
+            editorGUI.RequestRemoveProfileEvent += OnRemoveProfileRequested;
+            editorGUI.RequestLoadProfileEvent += OnLoadProfileRequested;
+        }
+
+        private void RemoveGUIListeners()
+        {
+            editorGUI.RequestNewProfileEvent -= OnNewProfileRequested;
+            editorGUI.RequestRemoveProfileEvent -= OnRemoveProfileRequested;
+            editorGUI.RequestLoadProfileEvent -= OnLoadProfileRequested;
         }
 
         private void OnNewProfileRequested()
         {
-            profileManager.CreateNewProfile();
+            var newProfile = profileManager.CreateNewProfile();
 
-            OnProfileChanged();
+            SetCurrentProfile(newProfile);
+            OnProfileDBChanged();
+        }
+
+        private void OnRemoveProfileRequested(string profileID)
+        {
+            profileManager.RemoveProfile(profileID);
+            OnProfileDBChanged();
+            editorGUI.OnProfileRemoved();
         }
 
         private void OnProfileTypeChangeRequested(ProfileType type)
         {
-            profileManager.CreateNewProfile(type);
+            var newProfile = profileManager.CreateNewProfile(type);
 
-            OnProfileChanged();
+            SetCurrentProfile(newProfile);
         }
 
         private void OnBinaryFileLoadRequested(string path)
@@ -51,12 +71,11 @@ namespace OBDErrorErase.EditorSource.AppControl
             editorGUI.OnCurrentBinaryFileChanged(path);
         }
 
-        private void OnProfileLoadRequested(string id)
+        private void OnLoadProfileRequested(string id)
         {
             var profile = profileManager.LoadProfile(id);
-            profileManager.SetCurrentProfile(profile);
 
-            OnProfileChanged();
+            SetCurrentProfile(profile);
         }
 
         private void OnProfileSaveRequested()
@@ -64,24 +83,26 @@ namespace OBDErrorErase.EditorSource.AppControl
             profileManager.SaveCurrentProfile();
         }
 
-        private void OnProfileChanged()
+        private void SetCurrentProfile(Profile newProfile)
         {
-            profileEditor?.RemoveListeners();
-            profileEditorGUI?.RemoveListeners();
+            profileManager.SetCurrentProfile(newProfile);
 
-            profileEditor = ProfileEditorFactory.GetEditorController(profileManager.CurrentProfile.Type);
-            profileEditorGUI = ProfileEditorGUIFactory.GetEditorGUI(profileManager.CurrentProfile.Type);
+            profileEditor?.Dispose();
+            profileEditorGUI?.Dispose();
+
+            profileEditor = ProfileEditorFactory.GetEditorController(newProfile.Type);
+            profileEditorGUI = ProfileEditorGUIFactory.GetEditorGUI(newProfile.Type);
 
             profileEditor.SetGUI(profileEditorGUI);
 
             editorGUI.SetProfileEditorGUI(profileEditorGUI);
 
-            editorGUI.OnCurrentProfileChanged(profileManager.CurrentProfile);
+            editorGUI.OnCurrentProfileChanged(newProfile);
         }
 
-        private void RemoveGUIListeners()
+        private void OnProfileDBChanged()
         {
-            throw new NotImplementedException();
+            editorGUI.SetProfileIDs(profileManager.ProfileIDs);
         }
     }
 }
