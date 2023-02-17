@@ -45,6 +45,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             var profile = new Profile(type, ProfileManagerStrings.DEFAULT_MANUFACTURER_NAME, ProfileManagerStrings.DEFAULT_PROFILE_NAME);
 
             profile.PopulateDefaults();
+            profile.ClearDirty(); //saftey against dirty new profiles
 
             HandleProfileIDModified(profile, true);
 

@@ -54,6 +54,7 @@ namespace OBDErrorErase.EditorSource.AppControl
         {
             profileManager.RemoveProfile(profileID);
             OnProfileDBChanged();
+            editorGUI.OnProfileRemoved();
         }
 
         private void OnProfileTypeChangeRequested(ProfileType type)

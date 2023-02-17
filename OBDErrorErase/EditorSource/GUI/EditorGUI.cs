@@ -17,9 +17,7 @@ namespace OBDErrorErase.EditorSource.GUI
 
         private IReadOnlyList<string> profileIDsRef;
 
-#pragma warning disable CS8603 // Possible null reference return. (is validated to not happen)
-        private string SelectedProfileID => guiHolder.EditorListProfiles.SelectedItems.Count > 0 ? guiHolder.EditorListProfiles.SelectedItems[0] as string : "";
-#pragma warning restore CS8603 // Possible null reference return. (is validated to not happen)
+        private string SelectedProfileID = "";
 
         public EditorGUI(Main guiHolder)
         {
@@ -40,6 +38,8 @@ namespace OBDErrorErase.EditorSource.GUI
 
         private void OnProfileSelectionChanged(object? sender, EventArgs e)
         {
+            SelectedProfileID = (string)guiHolder.EditorListProfiles.Items[guiHolder.EditorListProfiles.SelectedIndex];
+
             UpdateRemoveButtonEnabled();
 
             RequestLoadProfileEvent?.Invoke(SelectedProfileID);
@@ -67,6 +67,12 @@ namespace OBDErrorErase.EditorSource.GUI
                 guiHolder.EditorListProfiles.SelectedItem = SelectedProfileID;
         }
 
+        public void OnProfileRemoved()
+        {
+            SelectedProfileID = "";
+            UpdateRemoveButtonEnabled();
+        }
+
         internal void OnCurrentProfileChanged(Profile currentProfile)
         {
             // create relevant view 
@@ -92,6 +98,8 @@ namespace OBDErrorErase.EditorSource.GUI
 
         private void UpdateProfilesList()
         {
+            var previousSelection = guiHolder.EditorListProfiles.SelectedIndex;
+
             guiHolder.EditorListProfiles.Items.Clear();
 
             foreach (var profileID in profileIDsRef)
@@ -99,6 +107,9 @@ namespace OBDErrorErase.EditorSource.GUI
                 if (ProfileIDMatchesFilter(profileID))
                     guiHolder.EditorListProfiles.Items.Add(profileID);
             }
+
+            
+            guiHolder.EditorListProfiles.SelectedItem = SelectedProfileID;
         }
 
 
