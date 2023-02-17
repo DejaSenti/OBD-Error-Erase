@@ -8,6 +8,7 @@ namespace OBDErrorErase.EditorSource.Utils
         private readonly string numberSuffixFormat;
 
         private List<string> takenNames;
+        public IReadOnlyList<string> TakenNames => takenNames;
 
         public UniqueNameContainer(string baseName, string suffixFormat = "_{0}")
         {

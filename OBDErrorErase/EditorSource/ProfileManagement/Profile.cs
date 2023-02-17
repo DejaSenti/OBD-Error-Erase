@@ -88,7 +88,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
 		
         public void ClearDirty(bool deep = true)
         {
-            isDirty = false;
+            IsIDDirty = isDirty = false;
             if (!deep)
                 return;
             Subprofiles.ClearDirty();
