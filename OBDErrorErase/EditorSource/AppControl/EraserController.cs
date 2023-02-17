@@ -24,7 +24,7 @@ namespace OBDErrorErase.EditorSource.AppControl
             profileManager = ServiceContainer.GetService<ProfileManager>();
             binaryFileManager = ServiceContainer.GetService<BinaryFileManager>();
 
-            var errorPresetFiles = AppFileHelper.GetAllFilesInAppSubFolder(AppFolderNames.PRESETS);
+            var errorPresetFiles = AppFileHelper.GetAllFilesInAppSubFolder(AppFolderNames.PRESETS); // todo validate they're text files!!!
             
             presetPathList = errorPresetFiles.Select(filePath => Path.GetFullPath(filePath.FullName)).ToList();
 
