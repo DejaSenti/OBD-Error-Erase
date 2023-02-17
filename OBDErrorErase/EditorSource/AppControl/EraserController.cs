@@ -1,14 +1,13 @@
 ﻿using OBDErrorErase.EditorSource.FileManagement;
 using OBDErrorErase.EditorSource.GUI;
 using OBDErrorErase.EditorSource.ProfileManagement;
-using System.Runtime.InteropServices;
 
 namespace OBDErrorErase.EditorSource.AppControl
 {
 
     public class EraserController
     {
-        const string ERROR_DELIMITERS = ",. ";
+        readonly char[] ERROR_DELIMITERS = new char[]{ ',', '.', ' ' };
         private EraserGUI eraserGUI;
 
         private ProfileManager profileManager;
@@ -27,7 +26,7 @@ namespace OBDErrorErase.EditorSource.AppControl
 
         private void AddGUIListeners()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public void OnProfileSelected(string id)
@@ -124,6 +123,7 @@ namespace OBDErrorErase.EditorSource.AppControl
         {
             var splitErrors = errors.Split(ERROR_DELIMITERS, StringSplitOptions.RemoveEmptyEntries);
             list.AddRange(splitErrors);
+            list = list.Distinct().ToList();
         }
 
         private void RemoveGUIListeners() 
