@@ -33,7 +33,6 @@
         private ListBox EraserListProfiles;
         private OpenFileDialog OpenFileDialog;
         private SaveFileDialog SaveFileDialog;
-        private Button EraserButtonAddPreset;
         private Label EraserLabelMapSelect;
         private Label EraserLabelPresetSelect;
         private ListView EraserListViewMapSelection;
@@ -61,5 +60,6 @@
         public CheckBox EditorCheckboxFlipBytes;
         private Panel EraserPanelErrorPresets;
         public TableLayoutPanel EraserTableLayoutErrorPresets;
+        public Button EraserButtonRefreshPresetList;
     }
 }

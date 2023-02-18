@@ -20,7 +20,7 @@ namespace OBDErrorErase
             this.EraserListViewMapSelection = new System.Windows.Forms.ListView();
             this.EraserLabelPresetSelect = new System.Windows.Forms.Label();
             this.EraserLabelMapSelect = new System.Windows.Forms.Label();
-            this.EraserButtonAddPreset = new System.Windows.Forms.Button();
+            this.EraserButtonRefreshPresetList = new System.Windows.Forms.Button();
             this.EraserLabelFilePath = new System.Windows.Forms.Label();
             this.EraserLabelErrorCounter = new System.Windows.Forms.Label();
             this.EraserButtonFileBrowse = new System.Windows.Forms.Button();
@@ -84,7 +84,7 @@ namespace OBDErrorErase
             this.TabErrorEraser.Controls.Add(this.EraserListViewMapSelection);
             this.TabErrorEraser.Controls.Add(this.EraserLabelPresetSelect);
             this.TabErrorEraser.Controls.Add(this.EraserLabelMapSelect);
-            this.TabErrorEraser.Controls.Add(this.EraserButtonAddPreset);
+            this.TabErrorEraser.Controls.Add(this.EraserButtonRefreshPresetList);
             this.TabErrorEraser.Controls.Add(this.EraserLabelFilePath);
             this.TabErrorEraser.Controls.Add(this.EraserLabelErrorCounter);
             this.TabErrorEraser.Controls.Add(this.EraserButtonFileBrowse);
@@ -200,15 +200,16 @@ namespace OBDErrorErase
             this.EraserLabelMapSelect.TabIndex = 33;
             this.EraserLabelMapSelect.Text = "Select maps to modify:";
             // 
-            // EraserButtonAddPreset
+            // EraserButtonRefreshPresetList
             // 
-            this.EraserButtonAddPreset.BackColor = System.Drawing.Color.LightBlue;
-            this.EraserButtonAddPreset.Location = new System.Drawing.Point(818, 276);
-            this.EraserButtonAddPreset.Name = "EraserButtonAddPreset";
-            this.EraserButtonAddPreset.Size = new System.Drawing.Size(117, 32);
-            this.EraserButtonAddPreset.TabIndex = 32;
-            this.EraserButtonAddPreset.Text = "Add Error Preset...";
-            this.EraserButtonAddPreset.UseVisualStyleBackColor = false;
+            this.EraserButtonRefreshPresetList.BackColor = System.Drawing.Color.PaleGreen;
+            this.EraserButtonRefreshPresetList.Location = new System.Drawing.Point(843, 276);
+            this.EraserButtonRefreshPresetList.Name = "EraserButtonRefreshPresetList";
+            this.EraserButtonRefreshPresetList.Size = new System.Drawing.Size(92, 32);
+            this.EraserButtonRefreshPresetList.TabIndex = 32;
+            this.EraserButtonRefreshPresetList.Text = "Refresh List";
+            this.EraserButtonRefreshPresetList.UseVisualStyleBackColor = false;
+            this.EraserButtonRefreshPresetList.Click += new System.EventHandler(this.EraserButtonAddPreset_Click);
             // 
             // EraserLabelFilePath
             // 
@@ -552,5 +553,10 @@ namespace OBDErrorErase
 
         private TabControl TabControlMain;
         private TabPage TabProfileEditor;
+
+        private void EraserButtonAddPreset_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

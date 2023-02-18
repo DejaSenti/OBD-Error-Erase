@@ -24,17 +24,19 @@ namespace OBDErrorErase.EditorSource.AppControl
             profileManager = ServiceContainer.GetService<ProfileManager>();
             binaryFileManager = ServiceContainer.GetService<BinaryFileManager>();
 
+            PopulateErrorPresets();
+
+            AddGUIListeners();
+        }
+
+        private void PopulateErrorPresets()
+        {
             var errorPresetFiles = AppFileHelper.GetAllFilesInAppSubFolder(AppFolderNames.PRESETS, ".txt");
-            
+
             presetPathList = errorPresetFiles.Select(filePath => Path.GetFullPath(filePath.FullName)).ToList();
 
             var errorPresetNames = errorPresetFiles.Select(fileInfo => Path.GetFileNameWithoutExtension(fileInfo.Name)).ToList();
             eraserGUI.PopulateErrorPresetList(errorPresetNames);
-
-            eraserGUI.PresetOpenClicked += OnPresetOpenClicked;
-            eraserGUI.PresetDeleteClicked += OnPresetDeleteClicked;
-
-            AddGUIListeners();
         }
 
         private void OnPresetDeleteClicked(int id)
@@ -49,7 +51,9 @@ namespace OBDErrorErase.EditorSource.AppControl
 
         private void AddGUIListeners()
         {
-            //throw new NotImplementedException();
+            eraserGUI.PresetOpenClicked += OnPresetOpenClicked;
+            eraserGUI.PresetDeleteClicked += OnPresetDeleteClicked;
+            eraserGUI.PresetListRefreshClicked += PopulateErrorPresets;
         }
 
         public void OnProfileSelected(string id)
