@@ -1,8 +1,4 @@
-﻿using System;
-using System.Reflection.Metadata.Ecma335;
-using System.Text.RegularExpressions;
-using System.Windows.Forms;
-using Microsoft.VisualBasic;
+﻿using System.Text.RegularExpressions;
 using OBDErrorErase.EditorSource.ProfileManagement;
 using OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors;
 
@@ -38,7 +34,7 @@ namespace OBDErrorErase.EditorSource.GUI
         private void AddListeners()
         {
             guiHolder.EditorButtonNewProfile.Click += OnNewProfileClicked;
-            guiHolder.EditorButtonProfileRemove.Click += OnRemoveProfileClicked;
+            guiHolder.EditorButtonRemoveProfile.Click += OnRemoveProfileClicked;
             guiHolder.EditorButtonDuplicateProfile.Click += OnDuplicateProfileClicked;
 
             guiHolder.EditorListProfiles.SelectedIndexChanged += OnProfileListSelectionChanged;
@@ -198,8 +194,8 @@ namespace OBDErrorErase.EditorSource.GUI
             return true;
         }
 
-        private void UpdateRemoveProfileButtonEnabled() => guiHolder.EditorButtonProfileRemove.Enabled = !string.IsNullOrEmpty(SelectedProfileID);
-        private void UpdateDuplicateProfileButtonEnabled() => guiHolder.EditorButtonProfileRemove.Enabled = !string.IsNullOrEmpty(SelectedProfileID);
+        private void UpdateRemoveProfileButtonEnabled() => guiHolder.EditorButtonRemoveProfile.Enabled = !string.IsNullOrEmpty(SelectedProfileID);
+        private void UpdateDuplicateProfileButtonEnabled() => guiHolder.EditorButtonDuplicateProfile.Enabled = !string.IsNullOrEmpty(SelectedProfileID);
 
 
         internal void OnCurrentBinaryFileChanged(string path)

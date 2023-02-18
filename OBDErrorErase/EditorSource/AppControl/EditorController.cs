@@ -1,5 +1,4 @@
-﻿using System;
-using OBDErrorErase.EditorSource.FileManagement;
+﻿using OBDErrorErase.EditorSource.FileManagement;
 using OBDErrorErase.EditorSource.GUI;
 using OBDErrorErase.EditorSource.ProfileManagement;
 using OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors;
