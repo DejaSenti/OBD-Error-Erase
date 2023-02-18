@@ -1,7 +1,11 @@
-﻿namespace OBDErrorErase.EditorSource.ProfileManagement
+﻿using System.Text.Json.Serialization;
+
+namespace OBDErrorErase.EditorSource.ProfileManagement
 {
+    [Serializable]
     public class DirtyList<T> : List<T>, IDirty
     {
+        [JsonIgnore]
         public bool IsDirty { get; private set; }
 
         public DirtyList() { }
@@ -25,6 +29,42 @@
         public new void Remove(T item)
         {
             base.Remove(item);
+            IsDirty = true;
+        }
+
+        public new void RemoveAt(int index)
+        {
+            base.RemoveAt(index);
+            IsDirty = true;
+        }
+
+        public new void AddRange(IEnumerable<T> items)
+        {
+            base.AddRange(items);
+            IsDirty = true;
+        }
+
+        public new void RemoveAll(Predicate<T> match)
+        {
+            base.RemoveAll(match);
+            IsDirty = true;
+        }
+
+        public new void RemoveRange(int index, int count)
+        {
+            base.RemoveRange(index, count);
+            IsDirty = true;
+        }
+
+        public new void Insert(int index, T item)
+        {
+            base.Insert(index, item);
+            IsDirty = true;
+        }
+
+        public new void InsertRange(int index, IEnumerable<T> items)
+        {
+            base.InsertRange(index, items);
             IsDirty = true;
         }
 
