@@ -1,6 +1,7 @@
 ﻿using OBDErrorErase.EditorSource.FileManagement;
 using OBDErrorErase.EditorSource.Processors;
 using OBDErrorErase.EditorSource.Utils;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace OBDErrorErase.EditorSource.ProfileManagement
 {
@@ -14,13 +15,11 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
 
         public string ID { get; set; }
 
-        public bool IsIDDirty {get; private set; }
-
         private string manufacturer;
-        public string Manufacturer { get => manufacturer; set { manufacturer = value; isDirty = IsIDDirty = true; } }
+        public string Manufacturer { get => manufacturer; set { manufacturer = value; isDirty = true; } }
 
         private string name;
-        public string Name { get => name; set { name = value; isDirty = IsIDDirty = true; } }
+        public string Name { get => name; set { name = value; isDirty = true; } }
 
         public DirtyList<SubprofileData> Subprofiles { get; } = new();
 
@@ -88,7 +87,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
 		
         public void ClearDirty(bool deep = true)
         {
-            IsIDDirty = isDirty = false;
+            isDirty = false;
             if (!deep)
                 return;
             Subprofiles.ClearDirty();

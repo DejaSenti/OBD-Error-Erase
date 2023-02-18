@@ -13,6 +13,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
         private UniqueNameContainer nameContainer;
 
         private Dictionary<string, int> fileCountByManufacturer = new();
+        private Dictionary<Profile, string> fileNameByProfile = new();
 
         public IReadOnlyList<string> ProfileIDs => nameContainer.TakenNames;
 
@@ -34,10 +35,15 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             {
                 var profile = LoadProfile(id);
 
-                fileCountByManufacturer.TryGetValue(profile.Manufacturer, out var currentCount); // returns 0 if doesn't exist
+                var currentCount = fileCountByManufacturer.GetValueOrDefault(profile.Manufacturer);
 
                 fileCountByManufacturer[profile.Manufacturer] = currentCount + 1;
             }
+        }
+
+        public string[] GetManufacturers()
+        {
+            return fileCountByManufacturer.Keys.ToArray();
         }
 
         public Profile CreateNewProfile(ProfileType type = ProfileType.BOSCH)
@@ -45,25 +51,41 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             var profile = new Profile(type, ProfileManagerStrings.DEFAULT_MANUFACTURER_NAME, ProfileManagerStrings.DEFAULT_PROFILE_NAME);
 
             profile.PopulateDefaults();
+
             profile.ClearDirty(); //saftey against dirty new profiles
 
-            HandleProfileIDModified(profile, true);
+            profile.ID = GetValidProfileID(profile);
+
+            AddToManufacturer(profile.Manufacturer);
 
             SaveProfile(profile, true);
 
             return profile;
         }
 
-        /*public Profile CloneProfile(string profileID)
-        {
-            var original = LoadProfile(profileID);
-
-            original.ID = nameContainer.TakeNextValid()
-        }*/
-
         public void SetCurrentProfile(Profile profile)
         {
             CurrentProfile = profile;
+        }
+
+        internal Profile? DuplicateCurrentProfile()
+        {
+            if (CurrentProfile == null)
+                return null;
+
+            var serialized = JsonSerializer.Serialize(CurrentProfile);
+            var copy = JsonSerializer.Deserialize<Profile>(serialized);
+
+            if (copy == null)
+                return null;
+
+            copy.ID = GetValidProfileID(copy);
+
+            AddToManufacturer(copy.Manufacturer);
+
+            SaveProfile(copy, true);
+
+            return copy;
         }
 
         public void RemoveProfile(string id)
@@ -88,14 +110,10 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             if (!ignoreDirty && !profile.IsDirty)
                 return;
 
-            if (profile.IsIDDirty)
-            {
-                RemoveProfile(profile.ID);
-                HandleProfileIDModified(profile);
-            }
-
             var serialized = JsonSerializer.Serialize(profile);
             AppFileHelper.SaveStringFile(serialized, AppFolderNames.PROFILES, profile.ID);
+
+            fileNameByProfile[profile] = profile.ID;
 
             profile.ClearDirty();
         }
@@ -108,29 +126,67 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             SaveProfile(CurrentProfile);
         }
 
-        private void HandleProfileIDModified(Profile profile, bool isNew = false)
+        public void SetCurrentProfileManufacturer(string newManufacturer)
         {
-            if (!isNew && fileCountByManufacturer.ContainsKey(profile.Manufacturer))
-                SubtractFromManufacturer(profile.Manufacturer);
+            if (CurrentProfile == null)
+                return;
+
+            AppFileHelper.RemoveFile(AppFolderNames.PROFILES, CurrentProfile.ID);
+
+            SubtractFromManufacturer(CurrentProfile.Manufacturer);
+
+            CurrentProfile.Manufacturer = newManufacturer;
+
+            AddToManufacturer(CurrentProfile.Manufacturer);
+
+            UpdateProfileID(CurrentProfile);
+
+            SaveCurrentProfile();
+        }
+
+        public void SetCurrentProfileName(string newName)
+        {
+            if (CurrentProfile == null)
+                return;
+
+            AppFileHelper.RemoveFile(AppFolderNames.PROFILES, CurrentProfile.ID);
+
+            CurrentProfile.Name = newName;
+
+            UpdateProfileID(CurrentProfile);
+
+            SaveCurrentProfile();
+        }
+
+        private void UpdateProfileID(Profile? profile)
+        {
+            if (profile == null)
+                return;
 
             nameContainer.ReleaseNames(profile.ID);
-
-            var desiredID = $"{profile.Type}_{profile.Manufacturer}_{profile.Name}";
-            var validID = nameContainer.TakeNextValid(desiredID);
-
-            profile.ID = validID;
-
-            if (!fileCountByManufacturer.ContainsKey(profile.Manufacturer))
-                fileCountByManufacturer[profile.Manufacturer] = 0;
-
-            fileCountByManufacturer[profile.Manufacturer]++;
+            profile.ID = GetValidProfileID(profile);
         }
 
         private void SubtractFromManufacturer(string manufacturer)
         {
             var newCount = --fileCountByManufacturer[manufacturer];
+
             if (newCount == 0)
                 fileCountByManufacturer.Remove(manufacturer);
+        }
+
+        private void AddToManufacturer(string manufacturer)
+        {
+            if (!fileCountByManufacturer.ContainsKey(manufacturer))
+                fileCountByManufacturer[manufacturer] = 0;
+
+            fileCountByManufacturer[manufacturer]++;
+        }
+
+        private string GetValidProfileID(Profile profile)
+        {
+            var desiredID = $"{profile.Type}_{profile.Manufacturer}_{profile.Name}";
+            return nameContainer.TakeNextValid(desiredID);
         }
     }
 }
