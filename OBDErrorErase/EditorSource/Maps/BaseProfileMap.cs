@@ -12,6 +12,7 @@ namespace OBDErrorErase.EditorSource.Maps
         const int SEARCH_WORD_LENGTH = 50;
 		
         protected bool isDirty;
+        [JsonIgnore]
         public virtual bool IsDirty => isDirty || searchWord.IsDirty;
 
         private DirtyList<byte> searchWord = new();
@@ -19,7 +20,11 @@ namespace OBDErrorErase.EditorSource.Maps
 
         private string name;
         public string Name { get => name; set { name = value; isDirty = true; } }
-		
+
+        public BaseProfileMap()
+        {
+        }
+
         public BaseProfileMap(string name)
         {
             Name = name;

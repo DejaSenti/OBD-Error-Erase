@@ -1,5 +1,6 @@
 ﻿using OBDErrorErase.EditorSource.FileManagement;
 using OBDErrorErase.EditorSource.Processors;
+using System.Text.Json.Serialization;
 
 namespace OBDErrorErase.EditorSource.ProfileManagement
 {
@@ -9,6 +10,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
         public ProfileType Type { get; }
 
         private bool isDirty;
+        [JsonIgnore]
         public bool IsDirty => isDirty || Subprofiles.IsDirty || Subprofiles.Any(sp => sp.IsDirty);
 
         public string ID { get; set; }

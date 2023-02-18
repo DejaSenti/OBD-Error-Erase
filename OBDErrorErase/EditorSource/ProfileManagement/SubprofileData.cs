@@ -1,5 +1,6 @@
 ﻿using OBDErrorErase.EditorSource.FileManagement;
 using OBDErrorErase.EditorSource.Maps;
+using System.Text.Json.Serialization;
 
 namespace OBDErrorErase.EditorSource.ProfileManagement
 {
@@ -7,6 +8,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
     public class SubprofileData : IDirty
     {
         protected bool isDirty;
+        [JsonIgnore]
         public bool IsDirty => isDirty || Maps.IsDirty || Maps.Any(map => map.IsDirty);
 
         private int mapLength;
@@ -15,8 +17,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
         private bool flipBytes;
         public bool FlipBytes { get => flipBytes; set { flipBytes = value; isDirty = true; } }
 
-        private DirtyList<BaseProfileMap> maps = new();
-        public DirtyList<BaseProfileMap> Maps { get => maps; }
+        public DirtyList<BaseProfileMap> Maps { get; set; } = new();
 
         public bool FitsBinaryFile(BinaryFile file)
         {
@@ -37,8 +38,8 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             if (!deep)
                 return;
 
-            maps.ClearDirty();
-            foreach (var map in maps)
+            Maps.ClearDirty();
+            foreach (var map in Maps)
                 map.ClearDirty();
         }
     }

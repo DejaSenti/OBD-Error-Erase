@@ -36,7 +36,36 @@ namespace OBDErrorErase.EditorSource.AppControl
             editorGUI.RequestDuplicateProfileEvent += OnProfileDuplicationRequested;
 
             editorGUI.RequestManufacturerNameChangeEvent += OnManufacturerNameChangeRequested;
-            editorGUI.RequestComputerNameChangeEvent += OnComputerNameChangedEvent;
+            editorGUI.RequestComputerNameChangeEvent += OnComputerNameChangeRequest;
+
+            editorGUI.RequestDuplicateCurrentSubprofile += OnDuplicateCurrentSubprofileRequested;
+            editorGUI.RequestRemoveCurrentSubprofile += OnRemoveCurrentSubprofileRequested;
+            editorGUI.RequestChangeCurrentSubprofile += OnChangeCurrentSubprofileRequested;
+        }
+
+        private void OnDuplicateCurrentSubprofileRequested()
+        {
+            if (profileManager.CurrentProfile == null)
+                return;
+
+            profileManager.DuplicateCurrentSubprofile();
+            profileManager.SetCurrentSubProfile(profileManager.CurrentProfile.Subprofiles.Count - 1);
+
+            editorGUI.UpdateSubProfilesList(profileManager.CurrentProfile.Subprofiles);
+            editorGUI.OnCurrentSubprofileChanged(profileManager.CurrentSubProfileIndex);
+        }
+
+        private void OnRemoveCurrentSubprofileRequested()
+        {
+            profileManager.RemoveCurrentSubProfile();
+            editorGUI.UpdateSubProfilesList(profileManager.CurrentProfile.Subprofiles);
+            editorGUI.OnCurrentSubprofileChanged(profileManager.CurrentSubProfileIndex);
+        }
+
+        private void OnChangeCurrentSubprofileRequested(int newIndex)
+        {
+            profileManager.SetCurrentSubProfile(newIndex);
+            editorGUI.OnCurrentSubprofileChanged(profileManager.CurrentSubProfileIndex);
         }
 
         private void RemoveGUIListeners()
@@ -47,7 +76,7 @@ namespace OBDErrorErase.EditorSource.AppControl
             editorGUI.RequestDuplicateProfileEvent -= OnProfileDuplicationRequested;
 
             editorGUI.RequestManufacturerNameChangeEvent -= OnManufacturerNameChangeRequested;
-            editorGUI.RequestComputerNameChangeEvent -= OnComputerNameChangedEvent;
+            editorGUI.RequestComputerNameChangeEvent -= OnComputerNameChangeRequest;
         }
 
         private void OnNewProfileRequested()
@@ -88,7 +117,7 @@ namespace OBDErrorErase.EditorSource.AppControl
             editorGUI.OnProfileDBChanged(profileManager.GetManufacturers());
         }
 
-        private void OnComputerNameChangedEvent(string newName)
+        private void OnComputerNameChangeRequest(string newName)
         {
             if (profileManager.CurrentProfile == null)
                 return;
