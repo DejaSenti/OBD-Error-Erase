@@ -41,6 +41,8 @@ namespace OBDErrorErase.EditorSource.AppControl
             editorGUI.RequestDuplicateCurrentSubprofile += OnDuplicateCurrentSubprofileRequested;
             editorGUI.RequestRemoveCurrentSubprofile += OnRemoveCurrentSubprofileRequested;
             editorGUI.RequestChangeCurrentSubprofile += OnChangeCurrentSubprofileRequested;
+
+            editorGUI.RequestProfileTypeChangeEvent += OnProfileTypeChangeRequested;
         }
 
         private void OnDuplicateCurrentSubprofileRequested()
@@ -57,6 +59,9 @@ namespace OBDErrorErase.EditorSource.AppControl
 
         private void OnRemoveCurrentSubprofileRequested()
         {
+            if (profileManager.CurrentProfile == null)
+                return;
+
             profileManager.RemoveCurrentSubProfile();
             editorGUI.UpdateSubProfilesList(profileManager.CurrentProfile.Subprofiles);
             editorGUI.OnCurrentSubprofileChanged(profileManager.CurrentSubProfileIndex);
@@ -128,9 +133,9 @@ namespace OBDErrorErase.EditorSource.AppControl
 
         private void OnProfileTypeChangeRequested(ProfileType type)
         {
-            var newProfile = profileManager.CreateNewProfile(type);
+            profileManager.ChangeCurrentProfileType(type);
 
-            SetCurrentProfile(newProfile);
+            SetCurrentProfile(profileManager.CurrentProfile);
         }
 
         private void OnBinaryFileLoadRequested(string path)

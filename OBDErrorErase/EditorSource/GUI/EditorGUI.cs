@@ -15,6 +15,8 @@ namespace OBDErrorErase.EditorSource.GUI
         public event Action<string>? RequestManufacturerNameChangeEvent;
         public event Action<string>? RequestComputerNameChangeEvent;
 
+        public event Action<ProfileType>? RequestProfileTypeChangeEvent;
+
         public event Action<int>? RequestChangeCurrentSubprofile;
         public event Action? RequestDuplicateCurrentSubprofile;
         public event Action? RequestRemoveCurrentSubprofile;
@@ -32,6 +34,9 @@ namespace OBDErrorErase.EditorSource.GUI
         {
             this.guiHolder = guiHolder;
             AddListeners();
+
+            guiHolder.EditorComboBoxProfileType.Items.AddRange(Enum.GetNames<ProfileType>());
+            guiHolder.EditorComboBoxProfileType.SelectedIndex = 0;
 
             UpdateAllProfileEnabledStatuses();
 
@@ -60,9 +65,17 @@ namespace OBDErrorErase.EditorSource.GUI
             guiHolder.EditorButtonRemoveSubProfile.Click += OnRemoveSubProfileClicked;
 
             guiHolder.EditorListSubprofiles.SelectedIndexChanged += OnSubProfileListSelectionChanged;
+
+            guiHolder.EditorComboBoxProfileType.SelectionChangeCommitted += OnProfileTypeChangeCommitted;
         }
 
         #region Event Listeners
+
+        private void OnProfileTypeChangeCommitted(object? sender, EventArgs e)
+        {
+            var newProfileType = (ProfileType)guiHolder.EditorComboBoxProfileType.SelectedIndex;
+            RequestProfileTypeChangeEvent?.Invoke(newProfileType);
+        }
 
         private void OnSubProfileListSelectionChanged(object? sender, EventArgs e)
         {
@@ -160,6 +173,8 @@ namespace OBDErrorErase.EditorSource.GUI
             SelectedProfileID = currentProfile.ID;
             guiHolder.EditorTextBoxComputerName.Text = currentProfile.Name;
             guiHolder.EditorDropdownManufacturer.Text = currentProfile.Manufacturer;
+
+            guiHolder.EditorComboBoxProfileType.SelectedIndex = (int)currentProfile.Type;
 
             UpdateSubProfilesList(currentProfile.Subprofiles);
             UpdateProfilesList();
