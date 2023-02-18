@@ -23,7 +23,8 @@ namespace OBDErrorErase.EditorSource.AppControl
             profileManager = ServiceContainer.GetService<ProfileManager>();
             binaryFileManager = ServiceContainer.GetService<BinaryFileManager>();
 
-            editorGUI.SetProfileIDs(profileManager.ProfileIDs);
+            editorGUI.SetProfileIDsRef(profileManager.ProfileIDs);
+            editorGUI.OnProfileDBChanged(profileManager.GetManufacturers());
 
             AddGUIListeners();
         }
@@ -33,6 +34,10 @@ namespace OBDErrorErase.EditorSource.AppControl
             editorGUI.RequestNewProfileEvent += OnNewProfileRequested;
             editorGUI.RequestRemoveProfileEvent += OnRemoveProfileRequested;
             editorGUI.RequestLoadProfileEvent += OnLoadProfileRequested;
+            editorGUI.RequestDuplicateProfileEvent += OnProfileDuplicationRequested;
+
+            editorGUI.RequestManufacturerNameChangeEvent += OnManufacturerNameChangeRequested;
+            editorGUI.RequestComputerNameChangeEvent += OnComputerNameChangedEvent;
         }
 
         private void RemoveGUIListeners()
@@ -40,6 +45,10 @@ namespace OBDErrorErase.EditorSource.AppControl
             editorGUI.RequestNewProfileEvent -= OnNewProfileRequested;
             editorGUI.RequestRemoveProfileEvent -= OnRemoveProfileRequested;
             editorGUI.RequestLoadProfileEvent -= OnLoadProfileRequested;
+            editorGUI.RequestDuplicateProfileEvent -= OnProfileDuplicationRequested;
+
+            editorGUI.RequestManufacturerNameChangeEvent -= OnManufacturerNameChangeRequested;
+            editorGUI.RequestComputerNameChangeEvent -= OnComputerNameChangedEvent;
         }
 
         private void OnNewProfileRequested()
@@ -47,14 +56,46 @@ namespace OBDErrorErase.EditorSource.AppControl
             var newProfile = profileManager.CreateNewProfile();
 
             SetCurrentProfile(newProfile);
-            OnProfileDBChanged();
+            editorGUI.OnProfileDBChanged(profileManager.GetManufacturers());
         }
 
         private void OnRemoveProfileRequested(string profileID)
         {
             profileManager.RemoveProfile(profileID);
-            OnProfileDBChanged();
+            editorGUI.OnProfileDBChanged(profileManager.GetManufacturers());
             editorGUI.OnProfileRemoved();
+        }
+
+        private void OnProfileDuplicationRequested()
+        {
+            var newProfile = profileManager.DuplicateCurrentProfile();
+
+            if (newProfile != null)
+            {
+                SetCurrentProfile(newProfile);
+                editorGUI.OnProfileDBChanged(profileManager.GetManufacturers());
+            }
+        }
+
+        private void OnManufacturerNameChangeRequested(string newManufacturer)
+        {
+            if (profileManager.CurrentProfile == null)
+                return;
+
+            profileManager.SetCurrentProfileManufacturer(newManufacturer);
+
+            editorGUI.OnCurrentProfileChanged(profileManager.CurrentProfile);
+
+            editorGUI.OnProfileDBChanged(profileManager.GetManufacturers());
+        }
+
+        private void OnComputerNameChangedEvent(string newName)
+        {
+            if (profileManager.CurrentProfile == null)
+                return;
+
+            profileManager.SetCurrentProfileName(newName);
+            editorGUI.OnCurrentProfileChanged(profileManager.CurrentProfile);
         }
 
         private void OnProfileTypeChangeRequested(ProfileType type)
@@ -98,11 +139,6 @@ namespace OBDErrorErase.EditorSource.AppControl
             editorGUI.SetProfileEditorGUI(profileEditorGUI);
 
             editorGUI.OnCurrentProfileChanged(newProfile);
-        }
-
-        private void OnProfileDBChanged()
-        {
-            editorGUI.SetProfileIDs(profileManager.ProfileIDs);
         }
     }
 }
