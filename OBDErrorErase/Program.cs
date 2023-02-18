@@ -7,6 +7,9 @@ namespace OBDErrorErase
 {
     internal static class Program
     {
+        private static EditorController editorController;
+        private static EraserController eraserController;
+
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
@@ -27,9 +30,9 @@ namespace OBDErrorErase
         private static void InitializeViewControllers(Main mainForm)
         {
             var editorGUI = new EditorGUI(mainForm);
-            var editorController = new EditorController(editorGUI);
+            editorController = new EditorController(editorGUI);
             var eraserGUI = new EraserGUI(mainForm);
-            var eraserController = new EraserController(eraserGUI);
+            eraserController = new EraserController(eraserGUI);
         }
 
         private static void InitializeServices()

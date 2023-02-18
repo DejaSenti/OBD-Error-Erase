@@ -2,7 +2,7 @@
 {
     public static class AppHelper
     {
-        public static List<T> GetElementsAtIndexes<T>(List<T> originalList, List<int> indexes)
+        public static List<T> GetElementsAtIndexes<T>(this List<T> originalList, List<int> indexes)
         {
             List<T> result = new List<T>();
 

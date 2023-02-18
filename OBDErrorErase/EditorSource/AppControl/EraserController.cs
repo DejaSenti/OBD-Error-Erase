@@ -16,7 +16,7 @@ namespace OBDErrorErase.EditorSource.AppControl
         private ProfileManager profileManager;
         private BinaryFileManager binaryFileManager;
 
-        private List<string> presetPathList;
+        private List<string> presetNames;
 
         public EraserController(EraserGUI eraserGUI)
         {
@@ -39,24 +39,22 @@ namespace OBDErrorErase.EditorSource.AppControl
 
         private void PopulateErrorPresets()
         {
-            var errorPresetFiles = AppFileHelper.GetAllFilesInAppSubFolder(AppFolderNames.PRESETS, ".txt");
+            var errorPresetFiles = AppFileHelper.GetAllFilesInAppSubFolder(AppFolderNames.PRESETS, AppFileExtension.txt);
 
-            presetPathList = errorPresetFiles.Select(filePath => Path.GetFullPath(filePath.FullName)).ToList();
-
-            var errorPresetNames = errorPresetFiles.Select(fileInfo => Path.GetFileNameWithoutExtension(fileInfo.Name)).ToList();
-            eraserGUI.PopulateErrorPresetList(errorPresetNames);
+            presetNames = errorPresetFiles.Select(fileInfo => Path.GetFileNameWithoutExtension(fileInfo.Name)).ToList();
+            eraserGUI.PopulateErrorPresetList(presetNames);
         }
 
         private void OnPresetDeleteClicked(int id)
         {
-            File.Delete(presetPathList[id]);
+            AppFileHelper.RemoveFile(AppFolderNames.PRESETS, presetNames[id], AppFileExtension.txt);
         }
 
         private void OnPresetOpenClicked(int id)
         {
             var process = new Process();
 
-            process.StartInfo = new ProcessStartInfo(presetPathList[id])
+            process.StartInfo = new ProcessStartInfo(AppFileHelper.GetFilePath(AppFolderNames.PRESETS, presetNames[id], AppFileExtension.txt))
             {
                 UseShellExecute = true
             };
@@ -138,21 +136,16 @@ namespace OBDErrorErase.EditorSource.AppControl
             var textboxErrorList = eraserGUI.GetTextboxErrorList();
             AddErrorsFromStringToList(textboxErrorList, result);
 
-            var presetIDs = eraserGUI.GetPresetPathList();
-            var errorPresetFilePathList = AppHelper.GetElementsAtIndexes(presetPathList, presetIDs);
+            var presetIDs = eraserGUI.GetSelectedPresetIDs();
+            var selectedPresets = presetNames.GetElementsAtIndexes(presetIDs);
 
-            foreach(var path in errorPresetFilePathList)
+            foreach(var preset in selectedPresets)
             {
-                var fileContents = File.ReadAllText(path);
+                var fileContents = AppFileHelper.LoadStringFile(AppFolderNames.PRESETS, preset, AppFileExtension.txt);
                 AddErrorsFromStringToList(fileContents, result);
             }
             
             result = result.Distinct().ToList();
-
-            foreach(var error in result)
-            {
-                System.Diagnostics.Debug.WriteLine(error);
-            }
 
             return result;
         }

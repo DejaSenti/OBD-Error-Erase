@@ -4,8 +4,8 @@
     {
         public event Action<int>? PresetDeleteClicked;
         public event Action<int>? PresetOpenClicked;
-        public event Action PresetListRefreshClicked;
-        public event Action RunClicked;
+        public event Action? PresetListRefreshClicked;
+        public event Action? RunClicked;
 
         private readonly Main guiHolder;
 
@@ -26,22 +26,30 @@
 
         private void OnRunClick(object? sender, EventArgs e)
         {
-            RunClicked.Invoke();
+            RunClicked?.Invoke();
         }
 
         private void OnRefreshPresetListClick(object? sender, EventArgs e)
         {
-            PresetListRefreshClicked.Invoke();
+            PresetListRefreshClicked?.Invoke();
         }
 
         // listen to GUI events
         // dispatch app events
         public void PopulateErrorPresetList(List<string> names)
         {
-            guiHolder.EraserTableLayoutErrorPresets.Controls.Clear();
-            guiHolder.EraserTableLayoutErrorPresets.RowStyles.Clear()
-                ;
-            guiHolder.EraserTableLayoutErrorPresets.RowCount = names.Count;
+            var layout = guiHolder.EraserTableLayoutErrorPresets;
+
+            foreach (ErrorPresetControl control in layout.Controls)
+            {
+                control.OpenClicked -= OnErrorPresetOpenClicked;
+                control.DeleteClicked -= OnErrorPresetDeleteClicked;
+            }
+
+            layout.Controls.Clear();
+            layout.RowStyles.Clear();
+            
+            layout.RowCount = names.Count;
 
             presets = new List<ErrorPresetControl>();
 
@@ -49,9 +57,9 @@
             {
                 var control = new ErrorPresetControl(names[i], i);
 
-                guiHolder.EraserTableLayoutErrorPresets.Controls.Add(control);
-                guiHolder.EraserTableLayoutErrorPresets.SetRow(control, i);
-                guiHolder.EraserTableLayoutErrorPresets.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+                layout.Controls.Add(control);
+                layout.SetRow(control, i);
+                layout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
 
                 control.OpenClicked += OnErrorPresetOpenClicked;
                 control.DeleteClicked += OnErrorPresetDeleteClicked;
@@ -82,7 +90,7 @@
             throw new NotImplementedException();
         }
 
-        internal List<int> GetPresetPathList()
+        internal List<int> GetSelectedPresetIDs()
         {
             var result = new List<int>();
 

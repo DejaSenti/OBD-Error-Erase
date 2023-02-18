@@ -28,11 +28,11 @@ namespace OBDErrorErase.EditorSource.Utils
             return new DirectoryInfo(folderPath).GetFiles();
         }
 
-        internal static FileInfo[] GetAllFilesInAppSubFolder(string subFolderName, string extension)
+        internal static FileInfo[] GetAllFilesInAppSubFolder(string subFolderName, AppFileExtension extension)
         {
             var allFiles = GetAllFilesInAppSubFolder(subFolderName);
 
-            allFiles = allFiles.Where(fileInfo => fileInfo.Extension == extension).ToArray();
+            allFiles = allFiles.Where(fileInfo => fileInfo.Extension.ToLower().Equals($".{extension}")).ToArray();
 
             return allFiles;
         }
