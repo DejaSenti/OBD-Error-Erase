@@ -28,17 +28,13 @@
         private Label EraserLabelFilePath;
         private Label EraserLabelErrorCounter;
         private Button EraserButtonFileBrowse;
-        private Button EraserButtonRun;
         private TextBox EraserTextboxProfileFilter;
         private ListBox EraserListProfiles;
         private OpenFileDialog OpenFileDialog;
         private SaveFileDialog SaveFileDialog;
-        private Button EraserButtonAddPreset;
         private Label EraserLabelMapSelect;
         private Label EraserLabelPresetSelect;
-        private ListView EraserListViewErrorPresetSelection;
         private ListView EraserListViewMapSelection;
-        private TextBox EraserTextboxErrorList;
         private DataGridView EditorDataGridViewBosch;
         private TextBox EditorTextboxBoschManualLength;
         private ComboBox EditorComboBoxBoschMapLengthAlgoSelect;
@@ -63,5 +59,10 @@
         public Button EditorButtonRemoveProfile;
         public Button EditorButtonRemoveSubProfile;
         public ComboBox EditorComboBoxProfileType;
+        private Panel EraserPanelErrorPresets;
+        public TableLayoutPanel EraserTableLayoutErrorPresets;
+        public Button EraserButtonRefreshPresetList;
+        public TextBox EraserTextboxErrorList;
+        public Button EraserButtonRun;
     }
 }

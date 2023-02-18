@@ -28,25 +28,38 @@ namespace OBDErrorErase.EditorSource.Processors
 
             foreach(var error in errors)
             {
-                int errorLocation = 0;
+                List<int> errorLocations = new();
                 byte[] byteError = Convert.FromHexString(error);
 
                 MapBosch dtcMap = (MapBosch)subprofile.Maps[0];
+
                 var dtcLocation = locationByMap[dtcMap];
+                var dtcEnd = dtcLocation + subprofile.MapLength;
+                int seeker = dtcLocation;
+                int dtcValueSize = dtcMap.NewValue.Count;
                 do
                 {
-                    errorLocation = file.FindValue(byteError, dtcLocation, dtcLocation + subprofile.MapLength);
-                } while (errorLocation != -1 && errorLocation % 2 != 0);
+                    seeker = file.FindValue(byteError, seeker, dtcEnd);
+
+                    if((seeker != -1) && ((seeker % dtcValueSize) == 0))
+                    {
+                        errorLocations.Add(seeker);
+                        seeker += dtcValueSize;
+                    }
+                } while (seeker != -1);
                 
-                if (errorLocation == -1)
+                if (errorLocations.Count == 0)
                     continue;
 
-                int errorIndex = (errorLocation - dtcLocation) / dtcMap.NewValue.Count;
-                
-                foreach(MapBosch map in subprofile.Maps)
+                foreach (var errorLocation in errorLocations)
                 {
-                    var valueLocation = locationByMap[map] + errorIndex * map.NewValue.Count;
-                    file.WriteValue(valueLocation, map.NewValue.ToArray());
+                    int errorIndex = (errorLocation - dtcLocation) / dtcValueSize;
+                
+                    foreach(MapBosch map in subprofile.Maps)
+                    {
+                        var valueLocation = locationByMap[map] + errorIndex * map.NewValue.Count;
+                        file.WriteValue(valueLocation, map.NewValue.ToArray());
+                    }
                 }
 
                 ++totalErased;

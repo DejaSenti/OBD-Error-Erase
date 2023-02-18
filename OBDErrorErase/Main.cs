@@ -11,15 +11,16 @@ namespace OBDErrorErase
         {
             this.TabControlMain = new System.Windows.Forms.TabControl();
             this.TabErrorEraser = new System.Windows.Forms.TabPage();
+            this.EraserPanelErrorPresets = new System.Windows.Forms.Panel();
+            this.EraserTableLayoutErrorPresets = new System.Windows.Forms.TableLayoutPanel();
             this.EraserErrorPreview = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EraserTextboxErrorList = new System.Windows.Forms.TextBox();
-            this.EraserListViewErrorPresetSelection = new System.Windows.Forms.ListView();
             this.EraserListViewMapSelection = new System.Windows.Forms.ListView();
             this.EraserLabelPresetSelect = new System.Windows.Forms.Label();
             this.EraserLabelMapSelect = new System.Windows.Forms.Label();
-            this.EraserButtonAddPreset = new System.Windows.Forms.Button();
+            this.EraserButtonRefreshPresetList = new System.Windows.Forms.Button();
             this.EraserLabelFilePath = new System.Windows.Forms.Label();
             this.EraserLabelErrorCounter = new System.Windows.Forms.Label();
             this.EraserButtonFileBrowse = new System.Windows.Forms.Button();
@@ -56,6 +57,7 @@ namespace OBDErrorErase
             this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.TabControlMain.SuspendLayout();
             this.TabErrorEraser.SuspendLayout();
+            this.EraserPanelErrorPresets.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.EraserErrorPreview)).BeginInit();
             this.TabProfileEditor.SuspendLayout();
             this.EditorTabControlProfileType.SuspendLayout();
@@ -79,13 +81,13 @@ namespace OBDErrorErase
             // 
             // TabErrorEraser
             // 
+            this.TabErrorEraser.Controls.Add(this.EraserPanelErrorPresets);
             this.TabErrorEraser.Controls.Add(this.EraserErrorPreview);
             this.TabErrorEraser.Controls.Add(this.EraserTextboxErrorList);
-            this.TabErrorEraser.Controls.Add(this.EraserListViewErrorPresetSelection);
             this.TabErrorEraser.Controls.Add(this.EraserListViewMapSelection);
             this.TabErrorEraser.Controls.Add(this.EraserLabelPresetSelect);
             this.TabErrorEraser.Controls.Add(this.EraserLabelMapSelect);
-            this.TabErrorEraser.Controls.Add(this.EraserButtonAddPreset);
+            this.TabErrorEraser.Controls.Add(this.EraserButtonRefreshPresetList);
             this.TabErrorEraser.Controls.Add(this.EraserLabelFilePath);
             this.TabErrorEraser.Controls.Add(this.EraserLabelErrorCounter);
             this.TabErrorEraser.Controls.Add(this.EraserButtonFileBrowse);
@@ -99,6 +101,37 @@ namespace OBDErrorErase
             this.TabErrorEraser.TabIndex = 0;
             this.TabErrorEraser.Text = "Error Eraser";
             this.TabErrorEraser.UseVisualStyleBackColor = true;
+            // 
+            // EraserPanelErrorPresets
+            // 
+            this.EraserPanelErrorPresets.AutoScroll = true;
+            this.EraserPanelErrorPresets.AutoScrollMinSize = new System.Drawing.Size(250, 0);
+            this.EraserPanelErrorPresets.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.EraserPanelErrorPresets.Controls.Add(this.EraserTableLayoutErrorPresets);
+            this.EraserPanelErrorPresets.Location = new System.Drawing.Point(629, 308);
+            this.EraserPanelErrorPresets.Name = "EraserPanelErrorPresets";
+            this.EraserPanelErrorPresets.Size = new System.Drawing.Size(303, 376);
+            this.EraserPanelErrorPresets.TabIndex = 42;
+            // 
+            // EraserTableLayoutErrorPresets
+            // 
+            this.EraserTableLayoutErrorPresets.AutoScroll = true;
+            this.EraserTableLayoutErrorPresets.AutoSize = true;
+            this.EraserTableLayoutErrorPresets.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.EraserTableLayoutErrorPresets.ColumnCount = 1;
+            this.EraserTableLayoutErrorPresets.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.EraserTableLayoutErrorPresets.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.EraserTableLayoutErrorPresets.Dock = System.Windows.Forms.DockStyle.Top;
+            this.EraserTableLayoutErrorPresets.Location = new System.Drawing.Point(0, 0);
+            this.EraserTableLayoutErrorPresets.MaximumSize = new System.Drawing.Size(300, 0);
+            this.EraserTableLayoutErrorPresets.MinimumSize = new System.Drawing.Size(300, 75);
+            this.EraserTableLayoutErrorPresets.Name = "EraserTableLayoutErrorPresets";
+            this.EraserTableLayoutErrorPresets.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
+            this.EraserTableLayoutErrorPresets.RowCount = 1;
+            this.EraserTableLayoutErrorPresets.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.EraserTableLayoutErrorPresets.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.EraserTableLayoutErrorPresets.Size = new System.Drawing.Size(300, 75);
+            this.EraserTableLayoutErrorPresets.TabIndex = 42;
             // 
             // EraserErrorPreview
             // 
@@ -143,16 +176,6 @@ namespace OBDErrorErase
             this.EraserTextboxErrorList.Size = new System.Drawing.Size(612, 66);
             this.EraserTextboxErrorList.TabIndex = 39;
             // 
-            // EraserListViewErrorPresetSelection
-            // 
-            this.EraserListViewErrorPresetSelection.Alignment = System.Windows.Forms.ListViewAlignment.Left;
-            this.EraserListViewErrorPresetSelection.CheckBoxes = true;
-            this.EraserListViewErrorPresetSelection.Location = new System.Drawing.Point(629, 308);
-            this.EraserListViewErrorPresetSelection.Name = "EraserListViewErrorPresetSelection";
-            this.EraserListViewErrorPresetSelection.Size = new System.Drawing.Size(303, 376);
-            this.EraserListViewErrorPresetSelection.TabIndex = 38;
-            this.EraserListViewErrorPresetSelection.UseCompatibleStateImageBehavior = false;
-            // 
             // EraserListViewMapSelection
             // 
             this.EraserListViewMapSelection.CheckBoxes = true;
@@ -180,15 +203,15 @@ namespace OBDErrorErase
             this.EraserLabelMapSelect.TabIndex = 33;
             this.EraserLabelMapSelect.Text = "Select maps to modify:";
             // 
-            // EraserButtonAddPreset
+            // EraserButtonRefreshPresetList
             // 
-            this.EraserButtonAddPreset.BackColor = System.Drawing.Color.LightBlue;
-            this.EraserButtonAddPreset.Location = new System.Drawing.Point(818, 276);
-            this.EraserButtonAddPreset.Name = "EraserButtonAddPreset";
-            this.EraserButtonAddPreset.Size = new System.Drawing.Size(117, 32);
-            this.EraserButtonAddPreset.TabIndex = 32;
-            this.EraserButtonAddPreset.Text = "Add Error Preset...";
-            this.EraserButtonAddPreset.UseVisualStyleBackColor = false;
+            this.EraserButtonRefreshPresetList.BackColor = System.Drawing.Color.PaleGreen;
+            this.EraserButtonRefreshPresetList.Location = new System.Drawing.Point(843, 276);
+            this.EraserButtonRefreshPresetList.Name = "EraserButtonRefreshPresetList";
+            this.EraserButtonRefreshPresetList.Size = new System.Drawing.Size(92, 32);
+            this.EraserButtonRefreshPresetList.TabIndex = 32;
+            this.EraserButtonRefreshPresetList.Text = "Refresh List";
+            this.EraserButtonRefreshPresetList.UseVisualStyleBackColor = false;
             // 
             // EraserLabelFilePath
             // 
@@ -492,6 +515,7 @@ namespace OBDErrorErase
             // EditorDropdownManufacturer
             // 
             this.EditorDropdownManufacturer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.EditorDropdownManufacturer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.EditorDropdownManufacturer.FormattingEnabled = true;
             this.EditorDropdownManufacturer.Location = new System.Drawing.Point(526, 6);
             this.EditorDropdownManufacturer.Name = "EditorDropdownManufacturer";
@@ -546,6 +570,8 @@ namespace OBDErrorErase
             this.TabControlMain.ResumeLayout(false);
             this.TabErrorEraser.ResumeLayout(false);
             this.TabErrorEraser.PerformLayout();
+            this.EraserPanelErrorPresets.ResumeLayout(false);
+            this.EraserPanelErrorPresets.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.EraserErrorPreview)).EndInit();
             this.TabProfileEditor.ResumeLayout(false);
             this.TabProfileEditor.PerformLayout();

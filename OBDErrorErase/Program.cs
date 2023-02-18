@@ -1,16 +1,15 @@
 using OBDErrorErase.EditorSource.AppControl;
 using OBDErrorErase.EditorSource.FileManagement;
 using OBDErrorErase.EditorSource.GUI;
-using OBDErrorErase.EditorSource.Maps;
 using OBDErrorErase.EditorSource.ProfileManagement;
-using OBDErrorErase.EditorSource.Utils;
-using System.Diagnostics;
-using System.Text.Json;
 
 namespace OBDErrorErase
 {
     internal static class Program
     {
+        private static EditorController editorController;
+        private static EraserController eraserController;
+
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
@@ -31,7 +30,9 @@ namespace OBDErrorErase
         private static void InitializeViewControllers(Main mainForm)
         {
             var editorGUI = new EditorGUI(mainForm);
-            var editorController = new EditorController(editorGUI);
+            editorController = new EditorController(editorGUI);
+            var eraserGUI = new EraserGUI(mainForm);
+            eraserController = new EraserController(eraserGUI);
         }
 
         private static void InitializeServices()
