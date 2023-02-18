@@ -1,6 +1,7 @@
 ﻿using OBDErrorErase.EditorSource.Configs;
 using OBDErrorErase.EditorSource.Utils;
 using System.Text.Json;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace OBDErrorErase.EditorSource.ProfileManagement
 {
@@ -49,9 +50,12 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             return fileCountByManufacturer.Keys.ToArray();
         }
 
-        public Profile CreateNewProfile(ProfileType type = ProfileType.BOSCH)
+        public Profile CreateNewProfile(
+            ProfileType type = ProfileType.BOSCH, 
+            string manufacturer = ProfileStrings.DEFAULT_MANUFACTURER_NAME,
+            string name = ProfileStrings.DEFAULT_PROFILE_NAME)
         {
-            var profile = new Profile(type, ProfileStrings.DEFAULT_MANUFACTURER_NAME, ProfileStrings.DEFAULT_PROFILE_NAME);
+            var profile = new Profile(type, manufacturer, name);
 
             profile.PopulateDefaults();
 
@@ -162,6 +166,16 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             SaveCurrentProfile();
         }
 
+        internal void ChangeCurrentProfileType(ProfileType newType)
+        {
+            if (CurrentProfile == null)
+                return;
+
+            RemoveProfile(CurrentProfile.ID);
+
+            CurrentProfile = CreateNewProfile(newType, CurrentProfile.Manufacturer, CurrentProfile.Name);
+        }
+
         public void SetCurrentSubProfile(int newIndex)
         {
             if (CurrentProfile == null)
@@ -186,9 +200,10 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             var serialized = JsonSerializer.Serialize(CurrentProfile.Subprofiles[CurrentSubProfileIndex]);
             var copy = JsonSerializer.Deserialize<SubprofileData>(serialized);
 
-            if(copy != null) 
-                CurrentProfile.Subprofiles.Add(copy);
+            if (copy == null)
+                return;
 
+            CurrentProfile.Subprofiles.Add(copy);
             SaveCurrentProfile();
         }
 
