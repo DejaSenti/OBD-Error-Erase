@@ -480,6 +480,7 @@ namespace OBDErrorErase
             // EditorDropdownManufacturer
             // 
             this.EditorDropdownManufacturer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.EditorDropdownManufacturer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.EditorDropdownManufacturer.FormattingEnabled = true;
             this.EditorDropdownManufacturer.Location = new System.Drawing.Point(320, 6);
             this.EditorDropdownManufacturer.Name = "EditorDropdownManufacturer";

@@ -1,8 +1,4 @@
-﻿using OBDErrorErase.EditorSource.Utils;
-using System.Resources.Extensions;
-using System.Windows.Forms.Layout;
-
-namespace OBDErrorErase.EditorSource.GUI
+﻿namespace OBDErrorErase.EditorSource.GUI
 {
     public class EraserGUI
     {
@@ -66,9 +62,14 @@ namespace OBDErrorErase.EditorSource.GUI
 
         private void OnErrorPresetDeleteClicked(ErrorPresetControl control)
         {
-            guiHolder.EraserTableLayoutErrorPresets.Controls.Remove(control);
+            var confirmResult = MessageBox.Show("This will delete the preset file! No undo! Are you sure?", "Confirm error preset delete.", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-            PresetDeleteClicked?.Invoke(control.ID);
+            if (confirmResult == DialogResult.Yes)
+            {
+                guiHolder.EraserTableLayoutErrorPresets.Controls.Remove(control);
+
+                PresetDeleteClicked?.Invoke(control.ID);
+            }
         }
 
         private void OnErrorPresetOpenClicked(int id)
