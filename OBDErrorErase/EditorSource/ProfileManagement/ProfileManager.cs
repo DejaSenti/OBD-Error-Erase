@@ -1,8 +1,6 @@
 ﻿using OBDErrorErase.EditorSource.Configs;
-using OBDErrorErase.EditorSource.GUI;
 using OBDErrorErase.EditorSource.Utils;
 using System.Text.Json;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace OBDErrorErase.EditorSource.ProfileManagement
 {
@@ -13,7 +11,6 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
         private UniqueNameContainer nameContainer;
 
         private Dictionary<string, int> fileCountByManufacturer = new();
-        private Dictionary<Profile, string> fileNameByProfile = new();
 
         public IReadOnlyList<string> ProfileIDs => nameContainer.TakenNames;
 
@@ -54,9 +51,9 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
 
             profile.ClearDirty(); //saftey against dirty new profiles
 
-            profile.ID = GetValidProfileID(profile);
-
             AddToManufacturer(profile.Manufacturer);
+
+            UpdateProfileID(profile, true);
 
             SaveProfile(profile, true);
 
@@ -79,9 +76,9 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             if (copy == null)
                 return null;
 
-            copy.ID = GetValidProfileID(copy);
-
             AddToManufacturer(copy.Manufacturer);
+
+            UpdateProfileID(copy, true);
 
             SaveProfile(copy, true);
 
@@ -112,8 +109,6 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
 
             var serialized = JsonSerializer.Serialize(profile);
             AppFileHelper.SaveStringFile(serialized, AppFolderNames.PROFILES, profile.ID);
-
-            fileNameByProfile[profile] = profile.ID;
 
             profile.ClearDirty();
         }
@@ -158,13 +153,17 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             SaveCurrentProfile();
         }
 
-        private void UpdateProfileID(Profile? profile)
+        private void UpdateProfileID(Profile? profile, bool isNewToDB = false)
         {
             if (profile == null)
                 return;
 
-            nameContainer.ReleaseNames(profile.ID);
-            profile.ID = GetValidProfileID(profile);
+            if(!isNewToDB)
+                nameContainer.ReleaseNames(profile.ID);
+
+            var desiredID = $"{profile.Type}_{profile.Manufacturer}_{profile.Name}";
+
+            profile.ID = nameContainer.TakeNextValid(desiredID);
         }
 
         private void SubtractFromManufacturer(string manufacturer)
@@ -181,12 +180,6 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
                 fileCountByManufacturer[manufacturer] = 0;
 
             fileCountByManufacturer[manufacturer]++;
-        }
-
-        private string GetValidProfileID(Profile profile)
-        {
-            var desiredID = $"{profile.Type}_{profile.Manufacturer}_{profile.Name}";
-            return nameContainer.TakeNextValid(desiredID);
         }
     }
 }
