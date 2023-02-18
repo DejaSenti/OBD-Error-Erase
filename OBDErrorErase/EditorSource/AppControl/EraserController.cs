@@ -102,13 +102,16 @@ namespace OBDErrorErase.EditorSource.AppControl
                 return;
             }
 			
-            profileManager.CurrentProfile.SetSubprofile(subprofile);
+            profileManager.SetCurrentSubProfile(subprofile);
 			
             // TODO notify preview about match
         }
 
         public void OnErrorEraseRequested()
         {
+            if (profileManager.CurrentProfile == null)
+                return;
+
             var errorList = GetErrorList();
 
             if (!IsErasingValid() || errorList.Count == 0)
@@ -117,7 +120,7 @@ namespace OBDErrorErase.EditorSource.AppControl
                 return;
             }
 
-            int totalErased = profileManager.CurrentProfile.Process(binaryFileManager.CurrentFile, errorList);
+            int totalErased = profileManager.CurrentProfile.Process(binaryFileManager.CurrentFile, errorList, profileManager.CurrentSubProfileIndex);
 
             // notify GUI about total erased and error list count
             eraserGUI.OnProcessComplete(totalErased, errorList.Count);
@@ -128,7 +131,7 @@ namespace OBDErrorErase.EditorSource.AppControl
         private bool IsErasingValid()
         {
             return binaryFileManager.CurrentFile != null &&
-                profileManager.CurrentProfile != null && profileManager.CurrentProfile.CurrentSubprofile != null;
+                profileManager.CurrentProfile != null && profileManager.CurrentSubProfile != null;
         }
 
         private List<string> GetErrorList()
