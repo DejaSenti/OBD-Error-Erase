@@ -120,6 +120,8 @@ namespace OBDErrorErase.EditorSource.AppControl
             int totalErased = profileManager.CurrentProfile.Process(binaryFileManager.CurrentFile, errorList);
 
             // notify GUI about total erased and error list count
+            eraserGUI.OnProcessComplete(totalErased, errorList.Count);
+
             // save new file
         }
 

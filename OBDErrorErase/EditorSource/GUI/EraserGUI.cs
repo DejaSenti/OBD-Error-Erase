@@ -2,6 +2,8 @@
 {
     public class EraserGUI
     {
+        private readonly string PROCESS_RESULT_DISPLAY = "Deleted: {0} / {1}";
+        .
         public event Action<int>? PresetDeleteClicked;
         public event Action<int>? PresetOpenClicked;
         public event Action? PresetListRefreshClicked;
@@ -106,6 +108,12 @@
         internal string GetTextboxErrorList()
         {
             return guiHolder.EraserTextboxErrorList.Text;
+        }
+
+        internal void OnProcessComplete(int totalErased, int count)
+        {
+            // todo: make it public and set it up properly
+            guiHolder.EraserLabelErrorCounter.Text = string.Format(PROCESS_RESULT_DISPLAY, totalErased, count);
         }
     }
 }
