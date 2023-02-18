@@ -138,6 +138,8 @@ namespace OBDErrorErase.EditorSource.AppControl
             editorGUI.SetProfileEditorGUI(profileEditorGUI);
 
             editorGUI.OnCurrentProfileChanged(newProfile);
+
+            editorGUI.OnCurrentSubprofileChanged(profileManager.CurrentSubProfileIndex);
         }
     }
 }

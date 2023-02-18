@@ -1,7 +1,5 @@
 ﻿using OBDErrorErase.EditorSource.FileManagement;
 using OBDErrorErase.EditorSource.Processors;
-using OBDErrorErase.EditorSource.Utils;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace OBDErrorErase.EditorSource.ProfileManagement
 {
@@ -21,9 +19,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
         private string name;
         public string Name { get => name; set { name = value; isDirty = true; } }
 
-        public DirtyList<SubprofileData> Subprofiles { get; } = new();
-
-        public SubprofileData CurrentSubprofile { get; private set; }
+        public DirtyList<SubprofileData> Subprofiles { get; set; } = new();
 
         private IErrorProcessor processor;
 
@@ -40,8 +36,6 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
         internal void PopulateDefaults()
         {
             processor.PopulateProfileDefaults(this);
-
-            CurrentSubprofile = Subprofiles[0];
         }
 
         public SubprofileData? GetMatchingSubprofile(BinaryFile file)
@@ -55,19 +49,16 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             return null;
         }
 
-        public void SetSubprofile(SubprofileData subprofile)
+        internal int Process(BinaryFile currentFile, List<string> errorList, int subprofileIndex)
         {
-            CurrentSubprofile = subprofile;
-        }
+            var subProfile = Subprofiles[subprofileIndex];
 
-        internal int Process(BinaryFile currentFile, List<string> errorList)
-        {
-            if (CurrentSubprofile.FlipBytes)
+            if (subProfile.FlipBytes)
             {
                 FlipErrorBytes(errorList);
             }
 
-            return processor.Process(currentFile, CurrentSubprofile, errorList);
+            return processor.Process(currentFile, subProfile, errorList);
         }
 
         private void FlipErrorBytes(List<string> errorList)

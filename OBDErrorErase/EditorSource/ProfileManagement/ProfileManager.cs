@@ -8,6 +8,12 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
     {
         public Profile? CurrentProfile { get; private set; }
 
+        public int CurrentSubProfileIndex { get; private set; } = -1;
+        
+        public SubprofileData? CurrentSubProfile => CurrentProfile == null || CurrentSubProfileIndex == -1
+            ? null 
+            : CurrentProfile.Subprofiles[CurrentSubProfileIndex];
+
         private UniqueNameContainer nameContainer;
 
         private Dictionary<string, int> fileCountByManufacturer = new();
@@ -45,7 +51,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
 
         public Profile CreateNewProfile(ProfileType type = ProfileType.BOSCH)
         {
-            var profile = new Profile(type, ProfileManagerStrings.DEFAULT_MANUFACTURER_NAME, ProfileManagerStrings.DEFAULT_PROFILE_NAME);
+            var profile = new Profile(type, ProfileStrings.DEFAULT_MANUFACTURER_NAME, ProfileStrings.DEFAULT_PROFILE_NAME);
 
             profile.PopulateDefaults();
 
@@ -63,6 +69,8 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
         public void SetCurrentProfile(Profile profile)
         {
             CurrentProfile = profile;
+
+            CurrentSubProfileIndex = profile.Subprofiles.Count > 0 ? 0 : -1;
         }
 
         internal Profile? DuplicateCurrentProfile()
@@ -107,7 +115,8 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             if (!ignoreDirty && !profile.IsDirty)
                 return;
 
-            var serialized = JsonSerializer.Serialize(profile);
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            var serialized = JsonSerializer.Serialize(profile, options);
             AppFileHelper.SaveStringFile(serialized, AppFolderNames.PROFILES, profile.ID);
 
             profile.ClearDirty();
@@ -149,6 +158,48 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             CurrentProfile.Name = newName;
 
             UpdateProfileID(CurrentProfile);
+
+            SaveCurrentProfile();
+        }
+
+        public void SetCurrentSubProfile(int newIndex)
+        {
+            if (CurrentProfile == null)
+                return;
+
+            CurrentSubProfileIndex = newIndex;
+        }
+
+        public void SetCurrentSubProfile(SubprofileData subprofile)
+        {
+            if (CurrentProfile == null)
+                return;
+
+            SetCurrentSubProfile(CurrentProfile.Subprofiles.IndexOf(subprofile));
+        }
+
+        public void DuplicateCurrentSubprofile()
+        {
+            if (CurrentProfile == null || CurrentSubProfileIndex == -1)
+                return;
+
+            var serialized = JsonSerializer.Serialize(CurrentProfile.Subprofiles[CurrentSubProfileIndex]);
+            var copy = JsonSerializer.Deserialize<SubprofileData>(serialized);
+
+            if(copy != null) 
+                CurrentProfile.Subprofiles.Add(copy);
+
+            SaveCurrentProfile();
+        }
+
+        public void RemoveCurrentSubProfile()
+        {
+            if (CurrentProfile == null || CurrentSubProfileIndex == -1)
+                return;
+
+            CurrentProfile.Subprofiles.RemoveAt(CurrentSubProfileIndex);
+
+            CurrentSubProfileIndex = -1;
 
             SaveCurrentProfile();
         }

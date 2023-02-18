@@ -1,6 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using OBDErrorErase.EditorSource.ProfileManagement;
 using OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors;
+using OBDErrorErase.EditorSource.Configs;
 
 namespace OBDErrorErase.EditorSource.GUI
 {
@@ -12,6 +13,7 @@ namespace OBDErrorErase.EditorSource.GUI
         public event Action<string>? RequestLoadProfileEvent;
         public event Action<string>? RequestManufacturerNameChangeEvent;
         public event Action<string>? RequestComputerNameChangeEvent;
+        public event Action<int>? RequestChangeCurrentSubprofile;
 
         private readonly Main guiHolder;
 
@@ -29,6 +31,7 @@ namespace OBDErrorErase.EditorSource.GUI
             UpdateDuplicateProfileButtonEnabled();
 
             guiHolder.EditorListProfiles.Sorted = true; //todo set in gui editor and remove
+            guiHolder.EditorListSubprofiles.Sorted = true; //todo set in gui editor and remove
         }
 
         private void AddListeners()
@@ -131,7 +134,24 @@ namespace OBDErrorErase.EditorSource.GUI
             guiHolder.EditorTextBoxComputerName.Text = currentProfile.Name;
             guiHolder.EditorDropdownManufacturer.Text = currentProfile.Manufacturer;
 
+            UpdateSubProfilesList(currentProfile.Subprofiles);
             UpdateProfilesList();
+        }
+
+        private void UpdateSubProfilesList(IReadOnlyList<SubprofileData> subprofiles)
+        {
+            guiHolder.EditorListSubprofiles.Items.Clear();
+
+            for (int i = 0; i < subprofiles.Count; i++)
+            {
+                var visualName = string.Format(ProfileStrings.DEFAULT_PROFILE_NAME, i);
+                guiHolder.EditorListSubprofiles.Items.Add(visualName);
+            }
+        }
+
+        public void OnCurrentSubprofileChanged(int newIndex)
+        {
+            guiHolder.EditorListSubprofiles.SelectedIndex = newIndex;
         }
 
         public void OnProfileRemoved()
