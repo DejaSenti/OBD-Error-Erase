@@ -26,7 +26,6 @@
         private DataGridViewTextBoxColumn ColumnAddress;
         private DataGridViewTextBoxColumn ColumnError;
         private Label EraserLabelFilePath;
-        private Label EraserLabelErrorCounter;
         private Button EraserButtonFileBrowse;
         private TextBox EraserTextboxProfileFilter;
         private ListBox EraserListProfiles;
@@ -64,5 +63,6 @@
         public Button EraserButtonRefreshPresetList;
         public TextBox EraserTextboxErrorList;
         public Button EraserButtonRun;
+        public Label EraserLabelErrorCounter;
     }
 }

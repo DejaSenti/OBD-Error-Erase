@@ -3,7 +3,7 @@
     public class EraserGUI
     {
         private readonly string PROCESS_RESULT_DISPLAY = "Deleted: {0} / {1}";
-        .
+        
         public event Action<int>? PresetDeleteClicked;
         public event Action<int>? PresetOpenClicked;
         public event Action? PresetListRefreshClicked;

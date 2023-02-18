@@ -228,8 +228,8 @@ namespace OBDErrorErase
             this.EraserLabelErrorCounter.Name = "EraserLabelErrorCounter";
             this.EraserLabelErrorCounter.Size = new System.Drawing.Size(244, 31);
             this.EraserLabelErrorCounter.TabIndex = 28;
-            this.EraserLabelErrorCounter.Text = "X / Y Deleted";
-            this.EraserLabelErrorCounter.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.EraserLabelErrorCounter.Text = "Deleted: X / Y";
+            this.EraserLabelErrorCounter.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // EraserButtonFileBrowse
             // 
