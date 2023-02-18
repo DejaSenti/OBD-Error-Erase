@@ -72,5 +72,34 @@ namespace OBDErrorErase.EditorSource.Utils
         {
             return $"{GetSubfolderPath(subFolderName)}{fileName}.{extension}";
         }
+
+        internal static string OpenFileFromDialog(AppFileExtension extension)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = $"{extension} files (*.{extension})|*.{extension}|All files (*.*)|*.*";
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    return openFileDialog.FileName;
+                }
+            }
+
+            return "";
+        }
+
+        internal static byte[] LoadBinaryFile(string path)
+        {
+            byte[] fileBytes;
+
+            using (FileStream fs = File.OpenRead(path))
+            {
+                fileBytes = new byte[fs.Length];
+                fs.Read(fileBytes, 0, (int)fs.Length);
+            }
+
+            return fileBytes;
+        }
     }
 }

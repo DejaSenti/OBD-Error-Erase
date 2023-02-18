@@ -35,6 +35,7 @@ namespace OBDErrorErase.EditorSource.AppControl
             eraserGUI.PresetDeleteClicked += OnPresetDeleteClicked;
             eraserGUI.PresetListRefreshClicked += PopulateErrorPresets;
             eraserGUI.RunClicked += OnErrorEraseRequested;
+            eraserGUI.BinaryFileBrowse += OnBinaryFileLoadRequested;
         }
 
         private void PopulateErrorPresets()

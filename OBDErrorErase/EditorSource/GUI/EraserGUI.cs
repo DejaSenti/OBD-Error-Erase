@@ -1,4 +1,7 @@
-﻿namespace OBDErrorErase.EditorSource.GUI
+﻿using OBDErrorErase.EditorSource.Configs;
+using OBDErrorErase.EditorSource.Utils;
+
+namespace OBDErrorErase.EditorSource.GUI
 {
     public class EraserGUI
     {
@@ -8,6 +11,7 @@
         public event Action<int>? PresetOpenClicked;
         public event Action? PresetListRefreshClicked;
         public event Action? RunClicked;
+        public event Action<string>? BinaryFileBrowse;
 
         private readonly Main guiHolder;
 
@@ -24,6 +28,13 @@
         {
             guiHolder.EraserButtonRefreshPresetList.Click += OnRefreshPresetListClick;
             guiHolder.EraserButtonRun.Click += OnRunClick;
+            guiHolder.EraserButtonFileBrowse.Click += OnBrowseClick;
+        }
+
+        private void OnBrowseClick(object? sender, EventArgs e)
+        {
+            var filePath = AppFileHelper.OpenFileFromDialog(AppFileExtension.bin);
+            BinaryFileBrowse?.Invoke(filePath);
         }
 
         private void OnRunClick(object? sender, EventArgs e)
@@ -89,7 +100,7 @@
 
         internal void OnCurrentBinaryFileChanged(string path)
         {
-            throw new NotImplementedException();
+            guiHolder.EraserLabelFilePath.Text = path;
         }
 
         internal List<int> GetSelectedPresetIDs()

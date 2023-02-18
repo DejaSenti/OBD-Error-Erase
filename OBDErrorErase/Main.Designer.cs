@@ -25,8 +25,6 @@
         private TabPage ProfileTabDelphi;
         private DataGridViewTextBoxColumn ColumnAddress;
         private DataGridViewTextBoxColumn ColumnError;
-        private Label EraserLabelFilePath;
-        private Button EraserButtonFileBrowse;
         private TextBox EraserTextboxProfileFilter;
         private ListBox EraserListProfiles;
         private OpenFileDialog OpenFileDialog;
@@ -64,5 +62,7 @@
         public TextBox EraserTextboxErrorList;
         public Button EraserButtonRun;
         public Label EraserLabelErrorCounter;
+        public Button EraserButtonFileBrowse;
+        public Label EraserLabelFilePath;
     }
 }

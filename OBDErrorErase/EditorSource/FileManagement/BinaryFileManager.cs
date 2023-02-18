@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OBDErrorErase.EditorSource.Utils;
+using System;
 
 namespace OBDErrorErase.EditorSource.FileManagement
 {
@@ -8,7 +9,10 @@ namespace OBDErrorErase.EditorSource.FileManagement
 
         internal BinaryFile LoadBinaryFile(string path)
         {
-            throw new NotImplementedException();
+            var bytes = AppFileHelper.LoadBinaryFile(path);
+            var result = new BinaryFile(bytes);
+
+            return result;
         }
 
         internal void SetCurrentFile(BinaryFile file)
@@ -16,6 +20,4 @@ namespace OBDErrorErase.EditorSource.FileManagement
             CurrentFile = file;
         }
     }
-
-
 }
