@@ -28,9 +28,12 @@ namespace OBDErrorErase
             this.EraserTextboxProfileFilter = new System.Windows.Forms.TextBox();
             this.EraserListProfiles = new System.Windows.Forms.ListBox();
             this.TabProfileEditor = new System.Windows.Forms.TabPage();
+            this.EditorComboBoxProfileType = new System.Windows.Forms.ComboBox();
+            this.EditorButtonRemoveProfile = new System.Windows.Forms.Button();
+            this.EditorButtonRemoveSubProfile = new System.Windows.Forms.Button();
             this.EditorCheckboxFlipBytes = new System.Windows.Forms.CheckBox();
             this.EditorLabelFilePath = new System.Windows.Forms.Label();
-            this.EditorButtonDuplicateProfile = new System.Windows.Forms.Button();
+            this.EditorButtonDuplicateSubProfile = new System.Windows.Forms.Button();
             this.EditorTabControlProfileType = new System.Windows.Forms.TabControl();
             this.ProfileTabBosch = new System.Windows.Forms.TabPage();
             this.EditorTextboxBoschManualLength = new System.Windows.Forms.TextBox();
@@ -47,7 +50,7 @@ namespace OBDErrorErase
             this.EditorTextBoxComputerName = new System.Windows.Forms.TextBox();
             this.EditorDropdownManufacturer = new System.Windows.Forms.ComboBox();
             this.EditorTextboxProfileFilter = new System.Windows.Forms.TextBox();
-            this.EditorButtonProfileRemove = new System.Windows.Forms.Button();
+            this.EditorButtonDuplicateProfile = new System.Windows.Forms.Button();
             this.EditorButtonNewProfile = new System.Windows.Forms.Button();
             this.EditorListProfiles = new System.Windows.Forms.ListBox();
             this.OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
@@ -268,9 +271,12 @@ namespace OBDErrorErase
             // 
             // TabProfileEditor
             // 
+            this.TabProfileEditor.Controls.Add(this.EditorComboBoxProfileType);
+            this.TabProfileEditor.Controls.Add(this.EditorButtonRemoveProfile);
+            this.TabProfileEditor.Controls.Add(this.EditorButtonRemoveSubProfile);
             this.TabProfileEditor.Controls.Add(this.EditorCheckboxFlipBytes);
             this.TabProfileEditor.Controls.Add(this.EditorLabelFilePath);
-            this.TabProfileEditor.Controls.Add(this.EditorButtonDuplicateProfile);
+            this.TabProfileEditor.Controls.Add(this.EditorButtonDuplicateSubProfile);
             this.TabProfileEditor.Controls.Add(this.EditorTabControlProfileType);
             this.TabProfileEditor.Controls.Add(this.EditorButtonFileBrowse);
             this.TabProfileEditor.Controls.Add(this.EditorListSubprofiles);
@@ -279,7 +285,7 @@ namespace OBDErrorErase
             this.TabProfileEditor.Controls.Add(this.EditorTextBoxComputerName);
             this.TabProfileEditor.Controls.Add(this.EditorDropdownManufacturer);
             this.TabProfileEditor.Controls.Add(this.EditorTextboxProfileFilter);
-            this.TabProfileEditor.Controls.Add(this.EditorButtonProfileRemove);
+            this.TabProfileEditor.Controls.Add(this.EditorButtonDuplicateProfile);
             this.TabProfileEditor.Controls.Add(this.EditorButtonNewProfile);
             this.TabProfileEditor.Controls.Add(this.EditorListProfiles);
             this.TabProfileEditor.Location = new System.Drawing.Point(4, 24);
@@ -289,6 +295,35 @@ namespace OBDErrorErase
             this.TabProfileEditor.TabIndex = 1;
             this.TabProfileEditor.Text = "Profile Editor";
             this.TabProfileEditor.UseVisualStyleBackColor = true;
+            // 
+            // EditorComboBoxProfileType
+            // 
+            this.EditorComboBoxProfileType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.EditorComboBoxProfileType.FormattingEnabled = true;
+            this.EditorComboBoxProfileType.Location = new System.Drawing.Point(320, 7);
+            this.EditorComboBoxProfileType.Name = "EditorComboBoxProfileType";
+            this.EditorComboBoxProfileType.Size = new System.Drawing.Size(200, 23);
+            this.EditorComboBoxProfileType.TabIndex = 34;
+            // 
+            // EditorButtonRemoveProfile
+            // 
+            this.EditorButtonRemoveProfile.BackColor = System.Drawing.Color.DarkSalmon;
+            this.EditorButtonRemoveProfile.Location = new System.Drawing.Point(232, 6);
+            this.EditorButtonRemoveProfile.Name = "EditorButtonRemoveProfile";
+            this.EditorButtonRemoveProfile.Size = new System.Drawing.Size(82, 60);
+            this.EditorButtonRemoveProfile.TabIndex = 33;
+            this.EditorButtonRemoveProfile.Text = "Remove Profile";
+            this.EditorButtonRemoveProfile.UseVisualStyleBackColor = false;
+            // 
+            // EditorButtonRemoveSubProfile
+            // 
+            this.EditorButtonRemoveSubProfile.BackColor = System.Drawing.Color.DarkSalmon;
+            this.EditorButtonRemoveSubProfile.Location = new System.Drawing.Point(442, 149);
+            this.EditorButtonRemoveSubProfile.Name = "EditorButtonRemoveSubProfile";
+            this.EditorButtonRemoveSubProfile.Size = new System.Drawing.Size(79, 25);
+            this.EditorButtonRemoveSubProfile.TabIndex = 32;
+            this.EditorButtonRemoveSubProfile.Text = "Remove";
+            this.EditorButtonRemoveSubProfile.UseVisualStyleBackColor = false;
             // 
             // EditorCheckboxFlipBytes
             // 
@@ -310,15 +345,15 @@ namespace OBDErrorErase
             this.EditorLabelFilePath.Text = "Once a file is loaded, its path will be displayed here.";
             this.EditorLabelFilePath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // EditorButtonDuplicateProfile
+            // EditorButtonDuplicateSubProfile
             // 
-            this.EditorButtonDuplicateProfile.BackColor = System.Drawing.Color.NavajoWhite;
-            this.EditorButtonDuplicateProfile.Location = new System.Drawing.Point(320, 35);
-            this.EditorButtonDuplicateProfile.Name = "EditorButtonDuplicateProfile";
-            this.EditorButtonDuplicateProfile.Size = new System.Drawing.Size(200, 25);
-            this.EditorButtonDuplicateProfile.TabIndex = 24;
-            this.EditorButtonDuplicateProfile.Text = "Duplicate Profile";
-            this.EditorButtonDuplicateProfile.UseVisualStyleBackColor = false;
+            this.EditorButtonDuplicateSubProfile.BackColor = System.Drawing.Color.NavajoWhite;
+            this.EditorButtonDuplicateSubProfile.Location = new System.Drawing.Point(319, 149);
+            this.EditorButtonDuplicateSubProfile.Name = "EditorButtonDuplicateSubProfile";
+            this.EditorButtonDuplicateSubProfile.Size = new System.Drawing.Size(117, 25);
+            this.EditorButtonDuplicateSubProfile.TabIndex = 24;
+            this.EditorButtonDuplicateSubProfile.Text = "Duplicate";
+            this.EditorButtonDuplicateSubProfile.UseVisualStyleBackColor = false;
             // 
             // EditorTabControlProfileType
             // 
@@ -420,7 +455,7 @@ namespace OBDErrorErase
             // 
             this.EditorListSubprofiles.FormattingEnabled = true;
             this.EditorListSubprofiles.ItemHeight = 15;
-            this.EditorListSubprofiles.Location = new System.Drawing.Point(320, 65);
+            this.EditorListSubprofiles.Location = new System.Drawing.Point(320, 36);
             this.EditorListSubprofiles.Name = "EditorListSubprofiles";
             this.EditorListSubprofiles.Size = new System.Drawing.Size(200, 109);
             this.EditorListSubprofiles.TabIndex = 21;
@@ -471,10 +506,10 @@ namespace OBDErrorErase
             // 
             // EditorTextBoxComputerName
             // 
-            this.EditorTextBoxComputerName.Location = new System.Drawing.Point(630, 6);
+            this.EditorTextBoxComputerName.Location = new System.Drawing.Point(712, 6);
             this.EditorTextBoxComputerName.Name = "EditorTextBoxComputerName";
             this.EditorTextBoxComputerName.PlaceholderText = "Enter computer name...";
-            this.EditorTextBoxComputerName.Size = new System.Drawing.Size(302, 23);
+            this.EditorTextBoxComputerName.Size = new System.Drawing.Size(220, 23);
             this.EditorTextBoxComputerName.TabIndex = 18;
             // 
             // EditorDropdownManufacturer
@@ -482,9 +517,9 @@ namespace OBDErrorErase
             this.EditorDropdownManufacturer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.EditorDropdownManufacturer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.EditorDropdownManufacturer.FormattingEnabled = true;
-            this.EditorDropdownManufacturer.Location = new System.Drawing.Point(320, 6);
+            this.EditorDropdownManufacturer.Location = new System.Drawing.Point(526, 6);
             this.EditorDropdownManufacturer.Name = "EditorDropdownManufacturer";
-            this.EditorDropdownManufacturer.Size = new System.Drawing.Size(304, 23);
+            this.EditorDropdownManufacturer.Size = new System.Drawing.Size(179, 23);
             this.EditorDropdownManufacturer.TabIndex = 17;
             this.EditorDropdownManufacturer.Text = "Select Manufacturer...";
             // 
@@ -497,22 +532,22 @@ namespace OBDErrorErase
             this.EditorTextboxProfileFilter.Size = new System.Drawing.Size(306, 23);
             this.EditorTextboxProfileFilter.TabIndex = 16;
             // 
-            // EditorButtonProfileRemove
+            // EditorButtonDuplicateProfile
             // 
-            this.EditorButtonProfileRemove.BackColor = System.Drawing.Color.DarkSalmon;
-            this.EditorButtonProfileRemove.Location = new System.Drawing.Point(164, 6);
-            this.EditorButtonProfileRemove.Name = "EditorButtonProfileRemove";
-            this.EditorButtonProfileRemove.Size = new System.Drawing.Size(150, 60);
-            this.EditorButtonProfileRemove.TabIndex = 15;
-            this.EditorButtonProfileRemove.Text = "Remove Profile";
-            this.EditorButtonProfileRemove.UseVisualStyleBackColor = false;
+            this.EditorButtonDuplicateProfile.BackColor = System.Drawing.Color.NavajoWhite;
+            this.EditorButtonDuplicateProfile.Location = new System.Drawing.Point(147, 6);
+            this.EditorButtonDuplicateProfile.Name = "EditorButtonDuplicateProfile";
+            this.EditorButtonDuplicateProfile.Size = new System.Drawing.Size(79, 60);
+            this.EditorButtonDuplicateProfile.TabIndex = 15;
+            this.EditorButtonDuplicateProfile.Text = "Duplicate Profile";
+            this.EditorButtonDuplicateProfile.UseVisualStyleBackColor = false;
             // 
             // EditorButtonNewProfile
             // 
             this.EditorButtonNewProfile.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.EditorButtonNewProfile.Location = new System.Drawing.Point(8, 6);
             this.EditorButtonNewProfile.Name = "EditorButtonNewProfile";
-            this.EditorButtonNewProfile.Size = new System.Drawing.Size(150, 60);
+            this.EditorButtonNewProfile.Size = new System.Drawing.Size(133, 60);
             this.EditorButtonNewProfile.TabIndex = 14;
             this.EditorButtonNewProfile.Text = "New Profile";
             this.EditorButtonNewProfile.UseVisualStyleBackColor = false;
