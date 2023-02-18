@@ -42,7 +42,7 @@
         private DataGridView EraserErrorPreview;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        public Button EditorButtonDuplicateProfile;
+        public Button EditorButtonDuplicateSubProfile;
         public TabControl EditorTabControlProfileType;
         public Button EditorButtonFileBrowse;
         public ListBox EditorListSubprofiles;
@@ -51,11 +51,14 @@
         public TextBox EditorTextBoxComputerName;
         public ComboBox EditorDropdownManufacturer;
         public TextBox EditorTextboxProfileFilter;
-        public Button EditorButtonProfileRemove;
+        public Button EditorButtonDuplicateProfile;
         public Button EditorButtonNewProfile;
         public ListBox EditorListProfiles;
         public Label EditorLabelFilePath;
         public CheckBox EditorCheckboxFlipBytes;
+        public Button EditorButtonRemoveProfile;
+        public Button EditorButtonRemoveSubProfile;
+        public ComboBox EditorComboBoxProfileType;
         private Panel EraserPanelErrorPresets;
         public TableLayoutPanel EraserTableLayoutErrorPresets;
         public Button EraserButtonRefreshPresetList;
