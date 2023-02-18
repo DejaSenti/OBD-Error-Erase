@@ -28,6 +28,15 @@ namespace OBDErrorErase.EditorSource.Utils
             return new DirectoryInfo(folderPath).GetFiles();
         }
 
+        internal static FileInfo[] GetAllFilesInAppSubFolder(string subFolderName, string extension)
+        {
+            var allFiles = GetAllFilesInAppSubFolder(subFolderName);
+
+            allFiles = allFiles.Where(fileInfo => fileInfo.Extension == extension).ToArray();
+
+            return allFiles;
+        }
+
         internal static void SaveStringFile(string serialized, string subFolderName, string fileName, AppFileExtension extension = AppFileExtension.obde)
         {
             ValidateAppSubFolder(subFolderName);

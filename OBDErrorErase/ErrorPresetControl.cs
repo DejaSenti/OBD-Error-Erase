@@ -12,16 +12,16 @@ namespace OBDErrorErase
 {
     public partial class ErrorPresetControl : UserControl
     {
-        public event Action<int>? DeleteClicked;
+        public event Action<ErrorPresetControl>? DeleteClicked;
         public event Action<int>? OpenClicked;
 
-        private int id;
+        public int ID { get; private set; }
 
         public ErrorPresetControl(string name, int id)
         {
             InitializeComponent();
 
-            this.id = id;
+            ID = id;
 
             Checkbox.Text = name;
             Checkbox.Checked = true;
@@ -29,12 +29,12 @@ namespace OBDErrorErase
 
         private void ButtonDelete_Click(object sender, EventArgs e)
         {
-            DeleteClicked?.Invoke(id);
+            DeleteClicked?.Invoke(this);
         }
 
         private void ButtonOpen_Click(object sender, EventArgs e)
         {
-            OpenClicked?.Invoke(id);
+            OpenClicked?.Invoke(ID);
         }
     }
 }

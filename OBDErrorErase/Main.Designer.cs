@@ -59,6 +59,7 @@
         public ListBox EditorListProfiles;
         public Label EditorLabelFilePath;
         public CheckBox EditorCheckboxFlipBytes;
+        private Panel EraserPanelErrorPresets;
         public TableLayoutPanel EraserTableLayoutErrorPresets;
     }
 }
