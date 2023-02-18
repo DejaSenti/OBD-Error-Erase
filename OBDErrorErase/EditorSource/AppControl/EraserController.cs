@@ -10,7 +10,7 @@ namespace OBDErrorErase.EditorSource.AppControl
 
     public class EraserController
     {
-        readonly char[] ERROR_DELIMITERS = new char[]{ ',', '.', ' ' };
+        readonly char[] ERROR_DELIMITERS = new char[]{ ',', '.', ' ', '\n', '\r' };
         private EraserGUI eraserGUI;
 
         private ProfileManager profileManager;
@@ -27,6 +27,14 @@ namespace OBDErrorErase.EditorSource.AppControl
             PopulateErrorPresets();
 
             AddGUIListeners();
+        }
+
+        private void AddGUIListeners()
+        {
+            eraserGUI.PresetOpenClicked += OnPresetOpenClicked;
+            eraserGUI.PresetDeleteClicked += OnPresetDeleteClicked;
+            eraserGUI.PresetListRefreshClicked += PopulateErrorPresets;
+            eraserGUI.RunClicked += OnErrorEraseRequested;
         }
 
         private void PopulateErrorPresets()
@@ -55,13 +63,6 @@ namespace OBDErrorErase.EditorSource.AppControl
             process.Start();
         }
 
-        private void AddGUIListeners()
-        {
-            eraserGUI.PresetOpenClicked += OnPresetOpenClicked;
-            eraserGUI.PresetDeleteClicked += OnPresetDeleteClicked;
-            eraserGUI.PresetListRefreshClicked += PopulateErrorPresets;
-        }
-
         public void OnProfileSelected(string id)
         {
             var newProfile = profileManager.LoadProfile(id);
@@ -85,11 +86,6 @@ namespace OBDErrorErase.EditorSource.AppControl
             eraserGUI.OnCurrentBinaryFileChanged(path);
 
             UpdateSubprofile();
-        }
-
-        public void OnAddErrorPresetRequested(string path)
-        {
-            throw new NotImplementedException();
         }
 
         private void UpdateSubprofile()
@@ -142,11 +138,20 @@ namespace OBDErrorErase.EditorSource.AppControl
             var textboxErrorList = eraserGUI.GetTextboxErrorList();
             AddErrorsFromStringToList(textboxErrorList, result);
 
-            var errorPresetFilePathList = eraserGUI.GetPresetPathList();
+            var presetIDs = eraserGUI.GetPresetPathList();
+            var errorPresetFilePathList = AppHelper.GetElementsAtIndexes(presetPathList, presetIDs);
+
             foreach(var path in errorPresetFilePathList)
             {
                 var fileContents = File.ReadAllText(path);
                 AddErrorsFromStringToList(fileContents, result);
+            }
+            
+            result = result.Distinct().ToList();
+
+            foreach(var error in result)
+            {
+                System.Diagnostics.Debug.WriteLine(error);
             }
 
             return result;
@@ -156,7 +161,6 @@ namespace OBDErrorErase.EditorSource.AppControl
         {
             var splitErrors = errors.Split(ERROR_DELIMITERS, StringSplitOptions.RemoveEmptyEntries);
             list.AddRange(splitErrors);
-            list = list.Distinct().ToList();
         }
 
         private void RemoveGUIListeners() 

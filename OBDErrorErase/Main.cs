@@ -209,7 +209,6 @@ namespace OBDErrorErase
             this.EraserButtonRefreshPresetList.TabIndex = 32;
             this.EraserButtonRefreshPresetList.Text = "Refresh List";
             this.EraserButtonRefreshPresetList.UseVisualStyleBackColor = false;
-            this.EraserButtonRefreshPresetList.Click += new System.EventHandler(this.EraserButtonAddPreset_Click);
             // 
             // EraserLabelFilePath
             // 
@@ -553,10 +552,5 @@ namespace OBDErrorErase
 
         private TabControl TabControlMain;
         private TabPage TabProfileEditor;
-
-        private void EraserButtonAddPreset_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

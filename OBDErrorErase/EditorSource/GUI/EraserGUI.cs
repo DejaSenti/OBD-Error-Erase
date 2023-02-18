@@ -1,4 +1,5 @@
-﻿using System.Resources.Extensions;
+﻿using OBDErrorErase.EditorSource.Utils;
+using System.Resources.Extensions;
 using System.Windows.Forms.Layout;
 
 namespace OBDErrorErase.EditorSource.GUI
@@ -8,6 +9,7 @@ namespace OBDErrorErase.EditorSource.GUI
         public event Action<int>? PresetDeleteClicked;
         public event Action<int>? PresetOpenClicked;
         public event Action PresetListRefreshClicked;
+        public event Action RunClicked;
 
         private readonly Main guiHolder;
 
@@ -17,7 +19,18 @@ namespace OBDErrorErase.EditorSource.GUI
         {
             this.guiHolder = guiHolder;
 
+            AddGUIListeners();
+        }
+
+        private void AddGUIListeners()
+        {
             guiHolder.EraserButtonRefreshPresetList.Click += OnRefreshPresetListClick;
+            guiHolder.EraserButtonRun.Click += OnRunClick;
+        }
+
+        private void OnRunClick(object? sender, EventArgs e)
+        {
+            RunClicked.Invoke();
         }
 
         private void OnRefreshPresetListClick(object? sender, EventArgs e)
@@ -68,14 +81,22 @@ namespace OBDErrorErase.EditorSource.GUI
             throw new NotImplementedException();
         }
 
-        internal List<string> GetPresetPathList()
+        internal List<int> GetPresetPathList()
         {
-            return new List<string> { "C:\\Work\\Binary Files\\preset1.txt", "C:\\Work\\Binary Files\\preset2.txt", "C:\\Work\\Binary Files\\preset3.txt" };
+            var result = new List<int>();
+
+            foreach (ErrorPresetControl control in guiHolder.EraserTableLayoutErrorPresets.Controls)
+            {
+                if (control.Checkbox.Checked)
+                    result.Add(control.ID);
+            }
+
+            return result;
         }
 
         internal string GetTextboxErrorList()
         {
-            return "5000, 1000, 9080";
+            return guiHolder.EraserTextboxErrorList.Text;
         }
     }
 }
