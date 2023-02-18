@@ -15,7 +15,6 @@ namespace OBDErrorErase.EditorSource.AppControl
 
         private ProfileManager profileManager;
         private BinaryFileManager binaryFileManager;
-
         private List<string> presetNames;
 
         public EraserController(EraserGUI eraserGUI)

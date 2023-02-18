@@ -458,6 +458,7 @@ namespace OBDErrorErase
             this.EditorListSubprofiles.Location = new System.Drawing.Point(320, 36);
             this.EditorListSubprofiles.Name = "EditorListSubprofiles";
             this.EditorListSubprofiles.Size = new System.Drawing.Size(200, 109);
+            this.EditorListSubprofiles.Sorted = true;
             this.EditorListSubprofiles.TabIndex = 21;
             // 
             // EditorButtonSave
@@ -559,6 +560,7 @@ namespace OBDErrorErase
             this.EditorListProfiles.Location = new System.Drawing.Point(8, 110);
             this.EditorListProfiles.Name = "EditorListProfiles";
             this.EditorListProfiles.Size = new System.Drawing.Size(306, 574);
+            this.EditorListProfiles.Sorted = true;
             this.EditorListProfiles.TabIndex = 13;
             // 
             // Main

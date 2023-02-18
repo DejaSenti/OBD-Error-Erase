@@ -1,5 +1,7 @@
-﻿using OBDErrorErase.EditorSource.Configs;
+﻿using OBDErrorErase.EditorSource.AppControl;
+using OBDErrorErase.EditorSource.Configs;
 using OBDErrorErase.EditorSource.Utils;
+using System.Diagnostics;
 
 namespace OBDErrorErase.EditorSource.GUI
 {
@@ -13,6 +15,7 @@ namespace OBDErrorErase.EditorSource.GUI
         public event Action? RunClicked;
         public event Action<string>? BinaryFileBrowse;
 
+        private ProfileListController profileListController;
         private readonly Main guiHolder;
 
         private List<ErrorPresetControl> presets;
@@ -20,8 +23,15 @@ namespace OBDErrorErase.EditorSource.GUI
         public EraserGUI(Main guiHolder)
         {
             this.guiHolder = guiHolder;
+            profileListController = ServiceContainer.GetService<ProfileListController>();
+
+            profileListController.SubscribeControls(guiHolder.EraserTextboxProfileFilter, guiHolder.EraserListProfiles, OnProfileSelectionChanged);
 
             AddGUIListeners();
+        }
+
+        private void OnProfileSelectionChanged()
+        {
         }
 
         private void AddGUIListeners()

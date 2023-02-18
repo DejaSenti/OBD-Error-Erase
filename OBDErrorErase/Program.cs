@@ -38,7 +38,10 @@ namespace OBDErrorErase
         private static void InitializeServices()
         {
             ServiceContainer.AddService(new BinaryFileManager());
-            ServiceContainer.AddService(new ProfileManager());
+
+            var profileManager = new ProfileManager();
+            ServiceContainer.AddService(profileManager);
+            ServiceContainer.AddService(new ProfileListController(profileManager.ProfileIDs));
         }
     }
 }

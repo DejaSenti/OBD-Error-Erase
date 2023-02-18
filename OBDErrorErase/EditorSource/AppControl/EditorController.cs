@@ -22,7 +22,6 @@ namespace OBDErrorErase.EditorSource.AppControl
             profileManager = ServiceContainer.GetService<ProfileManager>();
             binaryFileManager = ServiceContainer.GetService<BinaryFileManager>();
 
-            editorGUI.SetProfileIDsRef(profileManager.ProfileIDs);
             editorGUI.OnProfileDBChanged(profileManager.GetManufacturers());
 
             AddGUIListeners();
