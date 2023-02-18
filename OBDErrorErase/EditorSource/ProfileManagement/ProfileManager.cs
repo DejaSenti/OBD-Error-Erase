@@ -200,9 +200,10 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             var serialized = JsonSerializer.Serialize(CurrentProfile.Subprofiles[CurrentSubProfileIndex]);
             var copy = JsonSerializer.Deserialize<SubprofileData>(serialized);
 
-            if(copy != null) 
-                CurrentProfile.Subprofiles.Add(copy);
+            if (copy == null)
+                return;
 
+            CurrentProfile.Subprofiles.Add(copy);
             SaveCurrentProfile();
         }
 
