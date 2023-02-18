@@ -46,7 +46,13 @@ namespace OBDErrorErase.EditorSource.AppControl
 
         private void OnPresetOpenClicked(int id)
         {
-            Process.Start(presetPathList[id]); // todo fix this
+            var process = new Process();
+
+            process.StartInfo = new ProcessStartInfo(presetPathList[id])
+            {
+                UseShellExecute = true
+            };
+            process.Start();
         }
 
         private void AddGUIListeners()
