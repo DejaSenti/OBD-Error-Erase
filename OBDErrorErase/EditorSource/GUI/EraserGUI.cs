@@ -47,8 +47,6 @@ namespace OBDErrorErase.EditorSource.GUI
             PresetListRefreshClicked?.Invoke();
         }
 
-        // listen to GUI events
-        // dispatch app events
         public void PopulateErrorPresetList(List<string> names)
         {
             var layout = guiHolder.EraserTableLayoutErrorPresets;
@@ -125,6 +123,16 @@ namespace OBDErrorErase.EditorSource.GUI
         {
             // todo: make it public and set it up properly
             guiHolder.EraserLabelErrorCounter.Text = string.Format(PROCESS_RESULT_DISPLAY, totalErased, count);
+        }
+
+        internal Stream? GetFileStream()
+        {
+            return AppFileHelper.GetFilestreamForWriting(AppFileExtension.bin);
+        }
+
+        internal void OnInvalidErasingAttempt()
+        {
+            MessageBox.Show("Cannot process!\rCheck that you loaded a file, selected a profile, and have errors you want to erase!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

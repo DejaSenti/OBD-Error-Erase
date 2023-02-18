@@ -4,14 +4,15 @@ namespace OBDErrorErase.EditorSource.FileManagement
 {
     public class BinaryFile
     {
+        public byte[] Data => data;
         private byte[] data;
+
+        public int Length => data?.Length ?? 0;
 
         public BinaryFile(byte[] data)
         {
             this.data = data;
         }
-
-        public int Length => data?.Length ?? 0;
 
         /// <returns>-1 if not found</returns>
         internal int FindValue(byte[] value, int start, int end)

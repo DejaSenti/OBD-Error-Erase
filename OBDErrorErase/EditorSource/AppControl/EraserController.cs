@@ -110,23 +110,20 @@ namespace OBDErrorErase.EditorSource.AppControl
 
         public void OnErrorEraseRequested()
         {
-            if (profileManager.CurrentProfile == null)
-                return;
-
             var errorList = GetErrorList();
 
             if (!IsErasingValid() || errorList.Count == 0)
             {
-                // notify GUI about lack of needed pieces to start process
+                eraserGUI.OnInvalidErasingAttempt();
                 return;
             }
 
             int totalErased = profileManager.CurrentProfile.Process(binaryFileManager.CurrentFile, errorList, profileManager.CurrentSubProfileIndex);
 
-            // notify GUI about total erased and error list count
             eraserGUI.OnProcessComplete(totalErased, errorList.Count);
+            var fileStream = eraserGUI.GetFileStream();
 
-            // save new file
+            binaryFileManager.SaveBinaryFile(fileStream);
         }
 
         private bool IsErasingValid()

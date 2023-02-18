@@ -73,7 +73,7 @@ namespace OBDErrorErase.EditorSource.Utils
             return $"{GetSubfolderPath(subFolderName)}{fileName}.{extension}";
         }
 
-        internal static string OpenFileFromDialog(AppFileExtension extension)
+        public static string OpenFileFromDialog(AppFileExtension extension)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
@@ -89,7 +89,26 @@ namespace OBDErrorErase.EditorSource.Utils
             return "";
         }
 
-        internal static byte[] LoadBinaryFile(string path)
+        public static Stream? GetFilestreamForWriting(AppFileExtension extension)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+            saveFileDialog.Filter = $"{extension} files (*.{extension})|*.{extension}|All files (*.*)|*.*";
+            saveFileDialog.RestoreDirectory = true;
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var stream = saveFileDialog.OpenFile();
+                if (stream != null)
+                {
+                    return stream;
+                }
+            }
+
+            return null;
+        }
+
+        public static byte[] LoadBinaryFile(string path)
         {
             byte[] fileBytes;
 
@@ -101,5 +120,7 @@ namespace OBDErrorErase.EditorSource.Utils
 
             return fileBytes;
         }
+
+        
     }
 }
