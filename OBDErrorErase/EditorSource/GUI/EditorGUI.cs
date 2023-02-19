@@ -3,6 +3,8 @@ using OBDErrorErase.EditorSource.ProfileManagement;
 using OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors;
 using OBDErrorErase.EditorSource.Configs;
 using OBDErrorErase.EditorSource.AppControl;
+using OBDErrorErase.EditorSource.Utils;
+using OBDErrorErase.EditorSource.FileManagement;
 
 namespace OBDErrorErase.EditorSource.GUI
 {
@@ -21,6 +23,8 @@ namespace OBDErrorErase.EditorSource.GUI
         public event Action<int>? RequestChangeCurrentSubprofile;
         public event Action? RequestDuplicateCurrentSubprofile;
         public event Action? RequestRemoveCurrentSubprofile;
+
+        public event Action<string>? BinaryFileBrowse;
 
         private readonly Main guiHolder;
         private ProfileListController profileListController;
@@ -64,6 +68,14 @@ namespace OBDErrorErase.EditorSource.GUI
             guiHolder.EditorListSubprofiles.SelectedIndexChanged += OnSubProfileListSelectionChanged;
 
             guiHolder.EditorComboBoxProfileType.SelectionChangeCommitted += OnProfileTypeChangeCommitted;
+
+            guiHolder.EditorButtonFileBrowse.Click += OnBrowseClick;
+        }
+
+        private void OnBrowseClick(object? sender, EventArgs e)
+        {
+            var filePath = AppFileHelper.OpenFileFromDialog(AppFileExtension.bin);
+            BinaryFileBrowse?.Invoke(filePath);
         }
 
         #region Event Listeners
@@ -212,9 +224,17 @@ namespace OBDErrorErase.EditorSource.GUI
             guiHolder.EditorButtonRemoveSubProfile.Enabled = !string.IsNullOrEmpty(profileListController.SelectedProfileID) && currentSubProfileIndex > 0;
         }
 
-        internal void OnCurrentBinaryFileChanged(string path)
+        internal void OnCurrentBinaryFileChanged(BinaryFile file, string path)
         {
+            guiHolder.EditorLabelFilePath.Text = path;
             //todo implement
+
+            // look at selected subprofile
+            // get location of first map
+            // read display bytes
+            // update preview display
+
+            //AppHelper.PreviewFile(guiHolder.EditorErrorPreview, displayMapLocation, displayBytes);
         }
     }
 }

@@ -35,6 +35,7 @@ namespace OBDErrorErase.EditorSource.AppControl
             eraserGUI.PresetListRefreshClicked += PopulateErrorPresets;
             eraserGUI.RunClicked += OnErrorEraseRequested;
             eraserGUI.BinaryFileBrowse += OnBinaryFileLoadRequested;
+            eraserGUI.RequestLoadProfileEvent += OnProfileSelected;
         }
 
         private void PopulateErrorPresets()
@@ -94,17 +95,10 @@ namespace OBDErrorErase.EditorSource.AppControl
                 return;
 
             subprofile = profileManager.CurrentProfile.GetMatchingSubprofile(binaryFileManager.CurrentFile);
-
-            if (subprofile == null)
-            {
-                // TODO notify preview about no match
-
-                return;
-            }
 			
             profileManager.SetCurrentSubProfile(subprofile);
-			
-            // TODO notify preview about match
+
+            eraserGUI.OnSubprofileUpdate(binaryFileManager.CurrentFile, subprofile);
         }
 
         public void OnErrorEraseRequested()
@@ -117,7 +111,9 @@ namespace OBDErrorErase.EditorSource.AppControl
                 return;
             }
 
-            int totalErased = profileManager.CurrentProfile.Process(binaryFileManager.CurrentFile, errorList, profileManager.CurrentSubProfileIndex);
+            var mapIndices = eraserGUI.GetMapIndices();
+
+            int totalErased = profileManager.CurrentProfile.Process(binaryFileManager.CurrentFile, errorList, profileManager.CurrentSubProfileIndex, mapIndices);
 
             eraserGUI.OnProcessComplete(totalErased, errorList.Count);
             var fileStream = eraserGUI.GetFileStream();

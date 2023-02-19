@@ -51,7 +51,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             return null;
         }
 
-        internal int Process(BinaryFile currentFile, List<string> errorList, int subprofileIndex)
+        internal int Process(BinaryFile currentFile, List<string> errorList, int subprofileIndex, List<int> mapIndices)
         {
             var subProfile = Subprofiles[subprofileIndex];
 
@@ -60,7 +60,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
                 FlipErrorBytes(errorList);
             }
 
-            return processor.Process(currentFile, subProfile, errorList);
+            return processor.Process(currentFile, subProfile, errorList, mapIndices);
         }
 
         private void FlipErrorBytes(List<string> errorList)

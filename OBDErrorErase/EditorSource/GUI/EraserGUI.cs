@@ -1,24 +1,30 @@
 ﻿using OBDErrorErase.EditorSource.AppControl;
 using OBDErrorErase.EditorSource.Configs;
+using OBDErrorErase.EditorSource.FileManagement;
+using OBDErrorErase.EditorSource.ProfileManagement;
 using OBDErrorErase.EditorSource.Utils;
-using System.Diagnostics;
+using System.Data;
+using System.Windows.Forms;
+using System.Xml;
 
 namespace OBDErrorErase.EditorSource.GUI
 {
     public class EraserGUI
     {
         private readonly string PROCESS_RESULT_DISPLAY = "Deleted: {0} / {1}";
+        private readonly int FILE_PREVIEW_LENGTH = 30;
         
         public event Action<int>? PresetDeleteClicked;
         public event Action<int>? PresetOpenClicked;
         public event Action? PresetListRefreshClicked;
         public event Action? RunClicked;
         public event Action<string>? BinaryFileBrowse;
+        public event Action<string>? RequestLoadProfileEvent;
 
         private ProfileListController profileListController;
         private readonly Main guiHolder;
-
         private List<ErrorPresetControl> presets;
+        private List<string> loadedProfileMapNames = new();
 
         public EraserGUI(Main guiHolder)
         {
@@ -32,6 +38,7 @@ namespace OBDErrorErase.EditorSource.GUI
 
         private void OnProfileSelectionChanged()
         {
+            RequestLoadProfileEvent?.Invoke(profileListController.SelectedProfileID);
         }
 
         private void AddGUIListeners()
@@ -131,7 +138,6 @@ namespace OBDErrorErase.EditorSource.GUI
 
         internal void OnProcessComplete(int totalErased, int count)
         {
-            // todo: make it public and set it up properly
             guiHolder.EraserLabelErrorCounter.Text = string.Format(PROCESS_RESULT_DISPLAY, totalErased, count);
         }
 
@@ -143,6 +149,43 @@ namespace OBDErrorErase.EditorSource.GUI
         internal void OnInvalidErasingAttempt()
         {
             MessageBox.Show("Cannot process!\rCheck that you loaded a file, selected a profile, and have errors you want to erase!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        internal void OnSubprofileUpdate(BinaryFile? currentFile, SubprofileData? subprofile)
+        {
+            if (currentFile == null || subprofile == null)
+                return;
+
+            loadedProfileMapNames.Clear();
+
+            foreach (var map in subprofile.Maps)
+            {
+                loadedProfileMapNames.Add(map.Name);
+            }
+
+            UpdateMapSelector();
+
+            var displayMapLocation = currentFile.FindValue(subprofile.Maps[0].SearchWord, 0, currentFile.Length);
+            var displayBytes = currentFile.ReadValue(displayMapLocation, FILE_PREVIEW_LENGTH);
+
+            AppHelper.PreviewFile(guiHolder.EraserErrorPreview, displayMapLocation, displayBytes);
+        }
+
+        private void UpdateMapSelector()
+        {
+            guiHolder.EraserCheckboxListMapSelection.Items.Clear();
+            guiHolder.EraserCheckboxListMapSelection.Items.AddRange(loadedProfileMapNames.ToArray());
+        }
+
+        internal List<int> GetMapIndices()
+        {
+            var result = new List<int>();
+            foreach (var checkedItem in guiHolder.EraserCheckboxListMapSelection.CheckedIndices)
+            {
+                result.Add(Convert.ToInt32(checkedItem.ToString()));
+            }
+
+            return result;
         }
     }
 }

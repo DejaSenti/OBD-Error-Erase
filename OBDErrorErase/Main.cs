@@ -11,13 +11,13 @@ namespace OBDErrorErase
         {
             this.TabControlMain = new System.Windows.Forms.TabControl();
             this.TabErrorEraser = new System.Windows.Forms.TabPage();
+            this.EraserCheckboxListMapSelection = new System.Windows.Forms.CheckedListBox();
             this.EraserPanelErrorPresets = new System.Windows.Forms.Panel();
             this.EraserTableLayoutErrorPresets = new System.Windows.Forms.TableLayoutPanel();
             this.EraserErrorPreview = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EraserTextboxErrorList = new System.Windows.Forms.TextBox();
-            this.EraserListViewMapSelection = new System.Windows.Forms.ListView();
             this.EraserLabelPresetSelect = new System.Windows.Forms.Label();
             this.EraserLabelMapSelect = new System.Windows.Forms.Label();
             this.EraserButtonRefreshPresetList = new System.Windows.Forms.Button();
@@ -81,10 +81,10 @@ namespace OBDErrorErase
             // 
             // TabErrorEraser
             // 
+            this.TabErrorEraser.Controls.Add(this.EraserCheckboxListMapSelection);
             this.TabErrorEraser.Controls.Add(this.EraserPanelErrorPresets);
             this.TabErrorEraser.Controls.Add(this.EraserErrorPreview);
             this.TabErrorEraser.Controls.Add(this.EraserTextboxErrorList);
-            this.TabErrorEraser.Controls.Add(this.EraserListViewMapSelection);
             this.TabErrorEraser.Controls.Add(this.EraserLabelPresetSelect);
             this.TabErrorEraser.Controls.Add(this.EraserLabelMapSelect);
             this.TabErrorEraser.Controls.Add(this.EraserButtonRefreshPresetList);
@@ -101,6 +101,15 @@ namespace OBDErrorErase
             this.TabErrorEraser.TabIndex = 0;
             this.TabErrorEraser.Text = "Error Eraser";
             this.TabErrorEraser.UseVisualStyleBackColor = true;
+            // 
+            // EraserCheckboxListMapSelection
+            // 
+            this.EraserCheckboxListMapSelection.FormattingEnabled = true;
+            this.EraserCheckboxListMapSelection.IntegralHeight = false;
+            this.EraserCheckboxListMapSelection.Location = new System.Drawing.Point(320, 308);
+            this.EraserCheckboxListMapSelection.Name = "EraserCheckboxListMapSelection";
+            this.EraserCheckboxListMapSelection.Size = new System.Drawing.Size(303, 376);
+            this.EraserCheckboxListMapSelection.TabIndex = 43;
             // 
             // EraserPanelErrorPresets
             // 
@@ -175,15 +184,6 @@ namespace OBDErrorErase
             this.EraserTextboxErrorList.PlaceholderText = "Enter a list of errors, separated by commas (e.g. a1c7, 1600, 8461, e56f...):";
             this.EraserTextboxErrorList.Size = new System.Drawing.Size(612, 66);
             this.EraserTextboxErrorList.TabIndex = 39;
-            // 
-            // EraserListViewMapSelection
-            // 
-            this.EraserListViewMapSelection.CheckBoxes = true;
-            this.EraserListViewMapSelection.Location = new System.Drawing.Point(320, 308);
-            this.EraserListViewMapSelection.Name = "EraserListViewMapSelection";
-            this.EraserListViewMapSelection.Size = new System.Drawing.Size(303, 376);
-            this.EraserListViewMapSelection.TabIndex = 37;
-            this.EraserListViewMapSelection.UseCompatibleStateImageBehavior = false;
             // 
             // EraserLabelPresetSelect
             // 

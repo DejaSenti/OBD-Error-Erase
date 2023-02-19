@@ -68,10 +68,8 @@ namespace OBDErrorErase.EditorSource.AppControl
 
             TextBox textBox = (TextBox)sender;
 
-            // change filter words
             currentFilterWords = Regex.Split(textBox.Text, @"\s+");
 
-            // change text on all fields
             foreach (var kvp in controlsTuples)
             {
                 RemoveControlListeners(kvp.profileList, kvp.filter);
@@ -81,7 +79,6 @@ namespace OBDErrorErase.EditorSource.AppControl
                     kvp.filter.Text = textBox.Text;
                 }
 
-                // update all lists
                 UpdateProfilesList(kvp.profileList);
 
                 if (!string.IsNullOrEmpty(SelectedProfileID) && kvp.profileList.Items.Contains(SelectedProfileID))

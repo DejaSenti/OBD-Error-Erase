@@ -1,6 +1,7 @@
 ﻿using OBDErrorErase.EditorSource.FileManagement;
 using OBDErrorErase.EditorSource.Maps;
 using OBDErrorErase.EditorSource.ProfileManagement;
+using OBDErrorErase.EditorSource.Utils;
 
 namespace OBDErrorErase.EditorSource.Processors
 {
@@ -14,13 +15,14 @@ namespace OBDErrorErase.EditorSource.Processors
             profile.Subprofiles[0].Maps.Add(new MapBosch("DTC", "0000"));
         }
 
-        public int Process(BinaryFile file, SubprofileData subprofile, List<string> errors)
+        public int Process(BinaryFile file, SubprofileData subprofile, List<string> errors, List<int> mapIndices)
         {
             int totalErased = 0;
+            var mapsToProcess = subprofile.Maps.GetElementsAtIndexes(mapIndices);
 
             Dictionary<BaseProfileMap, int> locationByMap = new();
 
-            foreach (var map in subprofile.Maps)
+            foreach (var map in mapsToProcess)
             {
                 int location = file.FindValue(map.SearchWord, 0, file.Length);
                 locationByMap[map] = location;

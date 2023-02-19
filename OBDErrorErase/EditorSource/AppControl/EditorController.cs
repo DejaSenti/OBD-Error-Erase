@@ -42,6 +42,8 @@ namespace OBDErrorErase.EditorSource.AppControl
             editorGUI.RequestChangeCurrentSubprofile += OnChangeCurrentSubprofileRequested;
 
             editorGUI.RequestProfileTypeChangeEvent += OnProfileTypeChangeRequested;
+
+            editorGUI.BinaryFileBrowse += OnBinaryFileLoadRequested;
         }
 
         private void OnDuplicateCurrentSubprofileRequested()
@@ -141,7 +143,7 @@ namespace OBDErrorErase.EditorSource.AppControl
         {
             var file = binaryFileManager.LoadBinaryFile(path);
             binaryFileManager.SetCurrentFile(file);
-            editorGUI.OnCurrentBinaryFileChanged(path);
+            editorGUI.OnCurrentBinaryFileChanged(file, path);
         }
 
         private void OnLoadProfileRequested(string id)

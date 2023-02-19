@@ -29,12 +29,10 @@
         private SaveFileDialog SaveFileDialog;
         private Label EraserLabelMapSelect;
         private Label EraserLabelPresetSelect;
-        private ListView EraserListViewMapSelection;
         private DataGridView EditorDataGridViewBosch;
         private TextBox EditorTextboxBoschManualLength;
         private ComboBox EditorComboBoxBoschMapLengthAlgoSelect;
         private DataGridView EditorDataGridViewDelphi;
-        private DataGridView EraserErrorPreview;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         public Button EditorButtonDuplicateSubProfile;
@@ -64,5 +62,7 @@
         public Label EraserLabelFilePath;
         public TextBox EraserTextboxProfileFilter;
         public ListBox EraserListProfiles;
+        public CheckedListBox EraserCheckboxListMapSelection;
+        public DataGridView EraserErrorPreview;
     }
 }
