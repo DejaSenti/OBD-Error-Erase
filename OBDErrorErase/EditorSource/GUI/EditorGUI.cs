@@ -1,7 +1,9 @@
-﻿using System.Text.RegularExpressions;
-using OBDErrorErase.EditorSource.ProfileManagement;
+﻿using OBDErrorErase.EditorSource.ProfileManagement;
 using OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors;
 using OBDErrorErase.EditorSource.Configs;
+using OBDErrorErase.EditorSource.AppControl;
+using OBDErrorErase.EditorSource.Utils;
+using OBDErrorErase.EditorSource.FileManagement;
 
 namespace OBDErrorErase.EditorSource.GUI
 {
@@ -21,27 +23,26 @@ namespace OBDErrorErase.EditorSource.GUI
         public event Action? RequestDuplicateCurrentSubprofile;
         public event Action? RequestRemoveCurrentSubprofile;
 
+        public event Action<string>? BinaryFileBrowse;
+
         private readonly Main guiHolder;
+        private ProfileListController profileListController;
 
-        private string[]? currentFilterWords;
-
-        private IReadOnlyList<string> profileIDsRef;
-
-        private string SelectedProfileID = "";
         private int currentSubProfileIndex = -1;
 
         public EditorGUI(Main guiHolder)
         {
             this.guiHolder = guiHolder;
+            profileListController = ServiceContainer.GetService<ProfileListController>();
+
+            profileListController.SubscribeControls(guiHolder.EraserTextboxProfileFilter, guiHolder.EraserListProfiles, OnProfileListSelectionChanged);
+
             AddListeners();
 
             guiHolder.EditorComboBoxProfileType.Items.AddRange(Enum.GetNames<ProfileType>());
             guiHolder.EditorComboBoxProfileType.SelectedIndex = 0;
 
             UpdateAllProfileEnabledStatuses();
-
-            guiHolder.EditorListProfiles.Sorted = true; //todo set in gui editor and remove
-            guiHolder.EditorListSubprofiles.Sorted = true; //todo set in gui editor and remove
         }
 
         private void AddListeners()
@@ -49,10 +50,6 @@ namespace OBDErrorErase.EditorSource.GUI
             guiHolder.EditorButtonNewProfile.Click += OnNewProfileClicked;
             guiHolder.EditorButtonDuplicateProfile.Click += OnDuplicateProfileClicked;
             guiHolder.EditorButtonRemoveProfile.Click += OnRemoveProfileClicked;
-
-            guiHolder.EditorListProfiles.SelectedIndexChanged += OnProfileListSelectionChanged;
-
-            guiHolder.EditorTextboxProfileFilter.TextChanged += OnFilterTextChanged;
 
             guiHolder.EditorDropdownManufacturer.Validated += OnManufacturerValueValidated;
             guiHolder.EditorDropdownManufacturer.KeyUp += OnManufacturerKeyUp;
@@ -67,6 +64,8 @@ namespace OBDErrorErase.EditorSource.GUI
             guiHolder.EditorListSubprofiles.SelectedIndexChanged += OnSubProfileListSelectionChanged;
 
             guiHolder.EditorComboBoxProfileType.SelectionChangeCommitted += OnProfileTypeChangeCommitted;
+
+            guiHolder.EraserButtonFileBrowse.Click += OnBrowseClick;
         }
 
         #region Event Listeners
@@ -123,19 +122,11 @@ namespace OBDErrorErase.EditorSource.GUI
             RequestManufacturerNameChangeEvent?.Invoke((string)guiHolder.EditorDropdownManufacturer.SelectedItem);
         }
 
-        private void OnProfileListSelectionChanged(object? sender, EventArgs e)
+        private void OnProfileListSelectionChanged()
         {
-            if (guiHolder.EditorListProfiles.SelectedIndex == -1)
-                return;
-
-            var desiredProfileID = (string)guiHolder.EditorListProfiles.Items[guiHolder.EditorListProfiles.SelectedIndex];
-
-            if (desiredProfileID == SelectedProfileID)
-                return;
-
             UpdateAllProfileEnabledStatuses();
 
-            RequestLoadProfileEvent?.Invoke(desiredProfileID);
+            RequestLoadProfileEvent?.Invoke(profileListController.SelectedProfileID);
         }
 
         private void OnNewProfileClicked(object? sender, EventArgs e)
@@ -145,8 +136,8 @@ namespace OBDErrorErase.EditorSource.GUI
 
         private void OnRemoveProfileClicked(object? sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(SelectedProfileID))
-                RequestRemoveProfileEvent?.Invoke(SelectedProfileID);
+            if (!string.IsNullOrEmpty(profileListController.SelectedProfileID))
+                RequestRemoveProfileEvent?.Invoke(profileListController.SelectedProfileID);
         }
 
         private void OnDuplicateProfileClicked(object? sender, EventArgs e)
@@ -154,14 +145,10 @@ namespace OBDErrorErase.EditorSource.GUI
             RequestDuplicateProfileEvent?.Invoke();
         }
 
-        private void OnFilterTextChanged(object? sender, EventArgs e)
+        private void OnBrowseClick(object? sender, EventArgs e) // todo tie to a binary file browse controller thing
         {
-            currentFilterWords = Regex.Split(guiHolder.EditorTextboxProfileFilter.Text, @"\s+");
-
-            UpdateProfilesList();
-
-            if (!string.IsNullOrEmpty(SelectedProfileID) && guiHolder.EditorListProfiles.Items.Contains(SelectedProfileID))
-                guiHolder.EditorListProfiles.SelectedItem = SelectedProfileID;
+            var filePath = AppFileHelper.OpenFileFromDialog(AppFileExtension.bin);
+            BinaryFileBrowse?.Invoke(filePath);
         }
 
         #endregion
@@ -170,14 +157,16 @@ namespace OBDErrorErase.EditorSource.GUI
 
         internal void OnCurrentProfileChanged(Profile currentProfile)
         {
-            SelectedProfileID = currentProfile.ID;
+            profileListController.SelectedProfileID = currentProfile.ID;
             guiHolder.EditorTextBoxComputerName.Text = currentProfile.Name;
             guiHolder.EditorDropdownManufacturer.Text = currentProfile.Manufacturer;
 
             guiHolder.EditorComboBoxProfileType.SelectedIndex = (int)currentProfile.Type;
 
             UpdateSubProfilesList(currentProfile.Subprofiles);
-            UpdateProfilesList();
+
+            profileListController.UpdateProfilesList(guiHolder.EraserListProfiles);
+
             UpdateAllProfileEnabledStatuses();
         }
 
@@ -191,7 +180,7 @@ namespace OBDErrorErase.EditorSource.GUI
 
         public void OnProfileRemoved()
         {
-            SelectedProfileID = "";
+            profileListController.SelectedProfileID = "";
 
             UpdateAllProfileEnabledStatuses();
         }
@@ -201,16 +190,11 @@ namespace OBDErrorErase.EditorSource.GUI
             guiHolder.EditorDropdownManufacturer.Items.Clear();
             guiHolder.EditorDropdownManufacturer.Items.AddRange(newManufacturers);
 
-            UpdateProfilesList();
+            profileListController.UpdateProfilesList(guiHolder.EraserListProfiles);
             UpdateAllProfileEnabledStatuses();
         }
 
         #endregion
-
-        public void SetProfileIDsRef(IReadOnlyList<string> profileIDs)
-        {
-            profileIDsRef = profileIDs;
-        }
 
         public void SetProfileEditorGUI(IProfileEditorGUI profileEditorGUI)
         {
@@ -228,49 +212,25 @@ namespace OBDErrorErase.EditorSource.GUI
             }
         }
 
-        private void UpdateProfilesList()
-        {
-            guiHolder.EditorListProfiles.Items.Clear();
-
-            foreach (var profileID in profileIDsRef)
-            {
-                if (ProfileIDMatchesFilter(profileID))
-                    guiHolder.EditorListProfiles.Items.Add(profileID);
-            }
-
-            guiHolder.EditorListProfiles.SelectedItem = SelectedProfileID;
-        }
-
-
-        private bool ProfileIDMatchesFilter(string profileID)
-        {
-            if (currentFilterWords == null || currentFilterWords.Length == 0)
-                return true;
-
-            int index = 0;
-            foreach (string filterWord in currentFilterWords)
-            {
-                index = profileID.ToLower().IndexOf(filterWord.ToLower(), index);
-
-                if (index == -1)
-                    return false;
-
-                index += filterWord.Length;
-            }
-            return true;
-        }
-
         private void UpdateAllProfileEnabledStatuses()
         {
-            guiHolder.EditorButtonRemoveProfile.Enabled = !string.IsNullOrEmpty(SelectedProfileID);
-            guiHolder.EditorButtonDuplicateProfile.Enabled = !string.IsNullOrEmpty(SelectedProfileID);
-            guiHolder.EditorButtonDuplicateSubProfile.Enabled = !string.IsNullOrEmpty(SelectedProfileID) && currentSubProfileIndex > -1;
-            guiHolder.EditorButtonRemoveSubProfile.Enabled = !string.IsNullOrEmpty(SelectedProfileID) && currentSubProfileIndex > 0;
+            guiHolder.EditorButtonRemoveProfile.Enabled = !string.IsNullOrEmpty(profileListController.SelectedProfileID);
+            guiHolder.EditorButtonDuplicateProfile.Enabled = !string.IsNullOrEmpty(profileListController.SelectedProfileID);
+            guiHolder.EditorButtonDuplicateSubProfile.Enabled = !string.IsNullOrEmpty(profileListController.SelectedProfileID) && currentSubProfileIndex > -1;
+            guiHolder.EditorButtonRemoveSubProfile.Enabled = !string.IsNullOrEmpty(profileListController.SelectedProfileID) && currentSubProfileIndex > 0;
         }
 
-        internal void OnCurrentBinaryFileChanged(string path)
+        internal void OnCurrentBinaryFileChanged(BinaryFile file, string path) // todo get this out of here into some file preview controller that will work with both preview boxes
         {
+            guiHolder.EraserLabelFilePath.Text = path;
             //todo implement
+
+            // look at selected subprofile
+            // get location of first map
+            // read display bytes
+            // update preview display
+
+            //AppHelper.PreviewFile(guiHolder.EditorErrorPreview, displayMapLocation, displayBytes);
         }
     }
 }

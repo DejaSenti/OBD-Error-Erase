@@ -10,7 +10,7 @@ namespace OBDErrorErase.EditorSource.Processors
             //throw new NotImplementedException();
         }
 
-        public int Process(BinaryFile file, SubprofileData subprofile, List<string> errors)
+        public int Process(BinaryFile file, SubprofileData subprofile, List<string> errors, List<int> mapIndices)
         {
             throw new NotImplementedException();
         }

@@ -4,30 +4,26 @@ namespace OBDErrorErase.EditorSource.FileManagement
 {
     public class BinaryFile
     {
-        private FileStream stream;
+        public byte[] Data => data;
+        private byte[] data;
 
-        public BinaryFile(FileStream stream)
+        public int Length => data?.Length ?? 0;
+
+        public BinaryFile(byte[] data)
         {
-            this.stream = stream;
+            this.data = data;
         }
-
-        public int Length => (int)(stream?.Length ?? 0);
 
         /// <returns>-1 if not found</returns>
         internal int FindValue(byte[] value, int start, int end)
         {
-            for (int i = start; i < end; ++i)
+            for (int i = start; (i + value.Length < Length) && (i < end - value.Length); ++i)
             {
-                stream.Seek(i, SeekOrigin.Begin);
-
-                var buffer = new byte[value.Length];
-                stream.Read(buffer, 0, value.Length);
-
                 bool isMatch = true;
 
-                for (int j = 0; j < value.Length; ++j)
+                for (int j = 0; (start + j < Length) && (j < value.Length); ++j)
                 {
-                    if (value[j] != buffer[j])
+                    if (value[j] != data[start + j])
                     {
                         isMatch = false;
                         break;
@@ -49,19 +45,22 @@ namespace OBDErrorErase.EditorSource.FileManagement
 
         internal byte[] ReadValue(int location, int length)
         {
-            stream.Seek(location, SeekOrigin.Begin);
-
             byte[] result = new byte[length];
-            stream.Read(result, 0, length);
+
+            for (int i = 0; i < length; ++i)
+            {
+                result[i] = data[location + i];
+            }
 
             return result;
         }
 
         internal void WriteValue(int location, byte[] value)
         {
-            stream.Seek(location, SeekOrigin.Begin);
-
-            stream.Write(value, 0, value.Length);
+            for (int i = 0; location + i < Length && i < value.Length; ++i)
+            {
+                data[location + i] = value[i];
+            }
         }
     }
 }

@@ -22,7 +22,6 @@ namespace OBDErrorErase.EditorSource.AppControl
             profileManager = ServiceContainer.GetService<ProfileManager>();
             binaryFileManager = ServiceContainer.GetService<BinaryFileManager>();
 
-            editorGUI.SetProfileIDsRef(profileManager.ProfileIDs);
             editorGUI.OnProfileDBChanged(profileManager.GetManufacturers());
 
             AddGUIListeners();
@@ -43,6 +42,8 @@ namespace OBDErrorErase.EditorSource.AppControl
             editorGUI.RequestChangeCurrentSubprofile += OnChangeCurrentSubprofileRequested;
 
             editorGUI.RequestProfileTypeChangeEvent += OnProfileTypeChangeRequested;
+
+            editorGUI.BinaryFileBrowse += OnBinaryFileLoadRequested;
         }
 
         private void OnDuplicateCurrentSubprofileRequested()
@@ -82,6 +83,14 @@ namespace OBDErrorErase.EditorSource.AppControl
 
             editorGUI.RequestManufacturerNameChangeEvent -= OnManufacturerNameChangeRequested;
             editorGUI.RequestComputerNameChangeEvent -= OnComputerNameChangeRequest;
+
+            editorGUI.RequestDuplicateCurrentSubprofile -= OnDuplicateCurrentSubprofileRequested;
+            editorGUI.RequestRemoveCurrentSubprofile -= OnRemoveCurrentSubprofileRequested;
+            editorGUI.RequestChangeCurrentSubprofile -= OnChangeCurrentSubprofileRequested;
+
+            editorGUI.RequestProfileTypeChangeEvent -= OnProfileTypeChangeRequested;
+
+            editorGUI.BinaryFileBrowse -= OnBinaryFileLoadRequested;
         }
 
         private void OnNewProfileRequested()
@@ -138,11 +147,11 @@ namespace OBDErrorErase.EditorSource.AppControl
             SetCurrentProfile(profileManager.CurrentProfile);
         }
 
-        private void OnBinaryFileLoadRequested(string path)
+        private void OnBinaryFileLoadRequested(string path) // todo unite this and the eraser load in some common controller like the profile list
         {
             var file = binaryFileManager.LoadBinaryFile(path);
             binaryFileManager.SetCurrentFile(file);
-            editorGUI.OnCurrentBinaryFileChanged(path);
+            editorGUI.OnCurrentBinaryFileChanged(file, path);
         }
 
         private void OnLoadProfileRequested(string id)

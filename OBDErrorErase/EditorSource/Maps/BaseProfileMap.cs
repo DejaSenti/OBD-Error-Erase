@@ -18,7 +18,7 @@ namespace OBDErrorErase.EditorSource.Maps
         private DirtyList<byte> searchWord = new();
         public DirtyList<byte> SearchWord { get => searchWord; set { searchWord = value; isDirty = true; } }
 
-        private string name;
+        private string name = "";
         public string Name { get => name; set { name = value; isDirty = true; } }
 
         public BaseProfileMap()

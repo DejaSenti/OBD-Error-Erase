@@ -9,7 +9,7 @@ namespace OBDErrorErase.EditorSource.Maps
         [JsonIgnore]
         public override bool IsDirty => base.IsDirty || NewValue.IsDirty;
 
-        private DirtyList<byte> newValue;
+        private DirtyList<byte> newValue = new();
         public DirtyList<byte> NewValue { get => newValue; set { newValue = value; isDirty = true; } }
 
         public MapBosch()

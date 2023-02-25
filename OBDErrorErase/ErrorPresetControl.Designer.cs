@@ -40,7 +40,7 @@
             this.Checkbox.MaximumSize = new System.Drawing.Size(130, 0);
             this.Checkbox.Name = "Checkbox";
             this.Checkbox.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
-            this.Checkbox.Size = new System.Drawing.Size(130, 75);
+            this.Checkbox.Size = new System.Drawing.Size(130, 25);
             this.Checkbox.TabIndex = 0;
             this.Checkbox.Text = "TITLE";
             this.Checkbox.UseVisualStyleBackColor = true;
@@ -51,7 +51,7 @@
             this.ButtonDelete.Dock = System.Windows.Forms.DockStyle.Right;
             this.ButtonDelete.Location = new System.Drawing.Point(205, 0);
             this.ButtonDelete.Name = "ButtonDelete";
-            this.ButtonDelete.Size = new System.Drawing.Size(75, 75);
+            this.ButtonDelete.Size = new System.Drawing.Size(75, 25);
             this.ButtonDelete.TabIndex = 1;
             this.ButtonDelete.Text = "Delete";
             this.ButtonDelete.UseVisualStyleBackColor = false;
@@ -63,7 +63,7 @@
             this.ButtonOpen.Dock = System.Windows.Forms.DockStyle.Right;
             this.ButtonOpen.Location = new System.Drawing.Point(130, 0);
             this.ButtonOpen.Name = "ButtonOpen";
-            this.ButtonOpen.Size = new System.Drawing.Size(75, 75);
+            this.ButtonOpen.Size = new System.Drawing.Size(75, 25);
             this.ButtonOpen.TabIndex = 2;
             this.ButtonOpen.Text = "Open";
             this.ButtonOpen.UseVisualStyleBackColor = false;
@@ -76,9 +76,9 @@
             this.Controls.Add(this.ButtonOpen);
             this.Controls.Add(this.ButtonDelete);
             this.Controls.Add(this.Checkbox);
-            this.MaximumSize = new System.Drawing.Size(280, 75);
+            this.MaximumSize = new System.Drawing.Size(280, 25);
             this.Name = "ErrorPresetControl";
-            this.Size = new System.Drawing.Size(280, 75);
+            this.Size = new System.Drawing.Size(280, 25);
             this.ResumeLayout(false);
 
         }

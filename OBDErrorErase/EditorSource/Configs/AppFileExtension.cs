@@ -3,6 +3,7 @@
     public enum AppFileExtension
     {
         obde,
-        txt
+        txt,
+        bin
     }
 }

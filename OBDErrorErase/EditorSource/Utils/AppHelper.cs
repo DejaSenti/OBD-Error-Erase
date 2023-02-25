@@ -16,5 +16,17 @@
 
             return result;
         }
+
+        public static void PreviewFile(DataGridView view, int displayMapLocation, byte[] displayBytes)
+        {
+            List<(string address, string value)> rows = new List<(string, string)>();
+
+            for (int i = 0; i < displayBytes.Length - 2; i++, displayMapLocation += 2)
+            {
+                rows.Add((Convert.ToString(displayMapLocation, 16), Convert.ToHexString(displayBytes[i..(i + 2)])));
+            }
+
+            view.DataSource = rows;
+        }
     }
 }

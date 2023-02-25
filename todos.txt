@@ -1,0 +1,39 @@
+- file preview
+- open binary file
+- display file path
+- flip bytes behavior
+
+eraser tab:
+	- map modify check list
+	- implement select all functionality
+	- update X / Y deleted thing after process 
+
+- editor tab:
+	- GUI: group profile type dropdown and editor frame
+	- allow removal of first subprofile as long as it's not the only one in the list
+	- load the editor gui frame
+	- when there's a current subprofile, it should be the selection too
+
+- profile editors and GUIs
+
+- delphi editor and eraser
+
+- GUI graphics
+- GUI alignments
+
+
+bosch:
+dtc: 0000
+DO add width, add option to type in zero and get the right string length
+
+then round down to the row number using the ratio between the error width and the new value width
+
+
+delphi:
+single map: 0
+just type in the entire value, no need for width
+
+address
+height
+new value
+error column (8 bit)

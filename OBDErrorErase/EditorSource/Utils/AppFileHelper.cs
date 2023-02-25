@@ -1,4 +1,5 @@
 ﻿using OBDErrorErase.EditorSource.Configs;
+using System.IO;
 
 namespace OBDErrorErase.EditorSource.Utils
 {
@@ -71,6 +72,68 @@ namespace OBDErrorErase.EditorSource.Utils
         public static string GetFilePath(string subFolderName, string fileName, AppFileExtension extension)
         {
             return $"{GetSubfolderPath(subFolderName)}{fileName}.{extension}";
+        }
+
+        public static string OpenFileFromDialog(AppFileExtension extension)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = $"{extension} files (*.{extension})|*.{extension}|All files (*.*)|*.*";
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    return openFileDialog.FileName;
+                }
+            }
+
+            return "";
+        }
+
+        public static Stream? GetFilestreamForWriting(AppFileExtension extension)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+            saveFileDialog.Filter = $"{extension} files (*.{extension})|*.{extension}|All files (*.*)|*.*";
+            saveFileDialog.RestoreDirectory = true;
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var stream = saveFileDialog.OpenFile();
+                if (stream != null)
+                {
+                    return stream;
+                }
+            }
+
+            return null;
+        }
+
+        public static byte[] LoadBinaryFile(string path)
+        {
+            byte[] fileBytes;
+
+            using (FileStream fs = File.OpenRead(path))
+            {
+                fileBytes = new byte[fs.Length];
+                fs.Read(fileBytes, 0, (int)fs.Length);
+            }
+
+            return fileBytes;
+        }
+
+        internal static void SaveBinaryFile(byte[] data)
+        {
+            var fileStream = GetFilestreamForWriting(AppFileExtension.bin);
+
+            if (fileStream == null || !fileStream.CanWrite)
+            {
+                MessageBox.Show("Couldn't open file for writing!", "Error Saving File", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            fileStream.Write(data, 0, data.Length);
+            fileStream.Dispose();
         }
     }
 }
