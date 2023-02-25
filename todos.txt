@@ -1,39 +1,55 @@
-- file preview
-- open binary file
-- display file path
-- flip bytes behavior
-
-eraser tab:
-	- map modify check list
-	- implement select all functionality
-	- update X / Y deleted thing after process 
-
-- editor tab:
-	- GUI: group profile type dropdown and editor frame
-	- allow removal of first subprofile as long as it's not the only one in the list
-	- load the editor gui frame
-	- when there's a current subprofile, it should be the selection too
-
-- profile editors and GUIs
-
-- delphi editor and eraser
-
-- GUI graphics
-- GUI alignments
+HIGH PRIORITY BUGS:
+	- switch profile type should create subprofile too
+	- open binary button opens dialog twice
 
 
-bosch:
-dtc: 0000
-DO add width, add option to type in zero and get the right string length
+TO IMPLEMENT:
+	- open binary file
+	- display file path
+	- file preview
+	- flip bytes behavior
 
-then round down to the row number using the ratio between the error width and the new value width
+	- profile editors and GUIs
+
+	- eraser tab:
+		- map modify check list
+		- update X / Y deleted thing after process
+		- implement select all functionality
+
+	- editor tab:
+		+ GUI: group profile type dropdown and editor frame
+		- load the editor gui frame on dropdown select
+		- when there's a current subprofile, it should be the selection too
+		- allow removal of first subprofile as long as it's not the only one in the list
 
 
-delphi:
-single map: 0
-just type in the entire value, no need for width
+	- delphi eraser functionality
 
-address
-height
-new value
-error column (8 bit)
+
+TO PRETTIFY:
+	- GUI graphics
+	- GUI alignments
+
+
+NICE TO HAVES:
+	- new / duplicate profile button should send to editor tab
+	- remove profile button should select next (also, what happens in the editor tab?)
+
+
+BEHAVIOURS:
+	bosch:
+		dtc default: 0000
+		DO add width, add option to type in zero and get the right string length
+
+		then round down to the row number using the ratio between the error width and the new value width
+
+
+	delphi:
+		single map: 0
+		just type in the entire value, no need for width
+
+		values:
+			address
+			height
+			new value
+			error column (8 bit)

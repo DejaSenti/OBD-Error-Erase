@@ -24,15 +24,16 @@ namespace OBDErrorErase
             EraserLabelErrorCounter = new Label();
             EraserButtonRun = new Button();
             EditorTabPage = new TabPage();
+            EditorGroupBox = new GroupBox();
+            EditorComboBoxProfileType = new ComboBox();
+            EditorPanelEditFrame = new Panel();
+            EditorLabelProfileTypeSelect = new Label();
             EditorButtonDuplicateSubProfile = new Button();
             EditorButtonRemoveSubProfile = new Button();
             EditorLabelProfileSettings = new Label();
-            EditorLabelProfileTypeSelect = new Label();
             EditorLabelSubprofiles = new Label();
             EditorLabelName = new Label();
             EditorLabelManufacturer = new Label();
-            EditorPanelEditFrame = new Panel();
-            EditorComboBoxProfileType = new ComboBox();
             EditorListSubprofiles = new ListBox();
             EditorTextBoxComputerName = new TextBox();
             EditorDropdownManufacturer = new ComboBox();
@@ -49,17 +50,16 @@ namespace OBDErrorErase
             MainTextboxProfileFilter = new TextBox();
             MainListProfiles = new ListBox();
             MainLabelPreviewFile = new Label();
-            EditorGroupBox = new GroupBox();
-            this.MainLabelSelectProfile = new Label();
-            this.MainLabelLoadedBinaryFile = new Label();
+            MainLabelSelectProfile = new Label();
+            MainLabelLoadedBinaryFile = new Label();
             MainTabControl.SuspendLayout();
             EraserTabPage.SuspendLayout();
             EraserPanelMapSelector.SuspendLayout();
             EraserPanelErrorPresets.SuspendLayout();
             EditorTabPage.SuspendLayout();
+            EditorGroupBox.SuspendLayout();
             MainTableLayoutPanelProfileButtons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)MainDataGridErrorPreview).BeginInit();
-            EditorGroupBox.SuspendLayout();
             SuspendLayout();
             // 
             // MainTabControl
@@ -261,6 +261,47 @@ namespace OBDErrorErase
             EditorTabPage.UseVisualStyleBackColor = true;
             EditorTabPage.Click += EditorTabPage_Click;
             // 
+            // EditorGroupBox
+            // 
+            EditorGroupBox.Controls.Add(EditorComboBoxProfileType);
+            EditorGroupBox.Controls.Add(EditorPanelEditFrame);
+            EditorGroupBox.Controls.Add(EditorLabelProfileTypeSelect);
+            EditorGroupBox.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            EditorGroupBox.Location = new Point(6, 181);
+            EditorGroupBox.Name = "EditorGroupBox";
+            EditorGroupBox.Size = new Size(423, 482);
+            EditorGroupBox.TabIndex = 52;
+            EditorGroupBox.TabStop = false;
+            EditorGroupBox.Text = "Editor";
+            // 
+            // EditorComboBoxProfileType
+            // 
+            EditorComboBoxProfileType.DropDownStyle = ComboBoxStyle.DropDownList;
+            EditorComboBoxProfileType.FormattingEnabled = true;
+            EditorComboBoxProfileType.Location = new Point(12, 47);
+            EditorComboBoxProfileType.Name = "EditorComboBoxProfileType";
+            EditorComboBoxProfileType.Size = new Size(179, 23);
+            EditorComboBoxProfileType.TabIndex = 42;
+            EditorComboBoxProfileType.SelectedIndexChanged += EditorComboBoxProfileType_SelectedIndexChanged_1;
+            // 
+            // EditorPanelEditFrame
+            // 
+            EditorPanelEditFrame.Location = new Point(12, 76);
+            EditorPanelEditFrame.Name = "EditorPanelEditFrame";
+            EditorPanelEditFrame.Size = new Size(400, 400);
+            EditorPanelEditFrame.TabIndex = 43;
+            EditorPanelEditFrame.Paint += panel2_Paint;
+            // 
+            // EditorLabelProfileTypeSelect
+            // 
+            EditorLabelProfileTypeSelect.AutoSize = true;
+            EditorLabelProfileTypeSelect.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            EditorLabelProfileTypeSelect.Location = new Point(12, 27);
+            EditorLabelProfileTypeSelect.Name = "EditorLabelProfileTypeSelect";
+            EditorLabelProfileTypeSelect.Size = new Size(105, 15);
+            EditorLabelProfileTypeSelect.TabIndex = 48;
+            EditorLabelProfileTypeSelect.Text = "Select Profile Type:";
+            // 
             // EditorButtonDuplicateSubProfile
             // 
             EditorButtonDuplicateSubProfile.BackColor = Color.NavajoWhite;
@@ -294,16 +335,6 @@ namespace OBDErrorErase
             EditorLabelProfileSettings.Text = "Profile Settings:";
             EditorLabelProfileSettings.Click += label6_Click;
             // 
-            // EditorLabelProfileTypeSelect
-            // 
-            EditorLabelProfileTypeSelect.AutoSize = true;
-            EditorLabelProfileTypeSelect.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            EditorLabelProfileTypeSelect.Location = new Point(12, 27);
-            EditorLabelProfileTypeSelect.Name = "EditorLabelProfileTypeSelect";
-            EditorLabelProfileTypeSelect.Size = new Size(105, 15);
-            EditorLabelProfileTypeSelect.TabIndex = 48;
-            EditorLabelProfileTypeSelect.Text = "Select Profile Type:";
-            // 
             // EditorLabelSubprofiles
             // 
             EditorLabelSubprofiles.AutoSize = true;
@@ -331,24 +362,6 @@ namespace OBDErrorErase
             EditorLabelManufacturer.Size = new Size(82, 15);
             EditorLabelManufacturer.TabIndex = 45;
             EditorLabelManufacturer.Text = "Manufacturer:";
-            // 
-            // EditorPanelEditFrame
-            // 
-            EditorPanelEditFrame.Location = new Point(12, 76);
-            EditorPanelEditFrame.Name = "EditorPanelEditFrame";
-            EditorPanelEditFrame.Size = new Size(400, 400);
-            EditorPanelEditFrame.TabIndex = 43;
-            EditorPanelEditFrame.Paint += panel2_Paint;
-            // 
-            // EditorComboBoxProfileType
-            // 
-            EditorComboBoxProfileType.DropDownStyle = ComboBoxStyle.DropDownList;
-            EditorComboBoxProfileType.FormattingEnabled = true;
-            EditorComboBoxProfileType.Location = new Point(12, 47);
-            EditorComboBoxProfileType.Name = "EditorComboBoxProfileType";
-            EditorComboBoxProfileType.Size = new Size(179, 23);
-            EditorComboBoxProfileType.TabIndex = 42;
-            EditorComboBoxProfileType.SelectedIndexChanged += EditorComboBoxProfileType_SelectedIndexChanged_1;
             // 
             // EditorListSubprofiles
             // 
@@ -516,6 +529,7 @@ namespace OBDErrorErase
             // 
             // MainLabelPreviewFile
             // 
+            MainLabelPreviewFile.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             MainLabelPreviewFile.Location = new Point(289, 132);
             MainLabelPreviewFile.Name = "MainLabelPreviewFile";
             MainLabelPreviewFile.Size = new Size(61, 24);
@@ -523,44 +537,31 @@ namespace OBDErrorErase
             MainLabelPreviewFile.Text = "Preview:";
             MainLabelPreviewFile.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // EditorGroupBox
-            // 
-            EditorGroupBox.Controls.Add(EditorComboBoxProfileType);
-            EditorGroupBox.Controls.Add(EditorPanelEditFrame);
-            EditorGroupBox.Controls.Add(EditorLabelProfileTypeSelect);
-            EditorGroupBox.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            EditorGroupBox.Location = new Point(6, 181);
-            EditorGroupBox.Name = "EditorGroupBox";
-            EditorGroupBox.Size = new Size(423, 482);
-            EditorGroupBox.TabIndex = 52;
-            EditorGroupBox.TabStop = false;
-            EditorGroupBox.Text = "Editor";
-            // 
             // MainLabelSelectProfile
             // 
-            this.MainLabelSelectProfile.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            this.MainLabelSelectProfile.Location = new Point(22, 85);
-            this.MainLabelSelectProfile.Name = "MainLabelSelectProfile";
-            this.MainLabelSelectProfile.Size = new Size(235, 24);
-            this.MainLabelSelectProfile.TabIndex = 56;
-            this.MainLabelSelectProfile.Text = "Select Profile:";
-            this.MainLabelSelectProfile.TextAlign = ContentAlignment.MiddleLeft;
+            MainLabelSelectProfile.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            MainLabelSelectProfile.Location = new Point(22, 85);
+            MainLabelSelectProfile.Name = "MainLabelSelectProfile";
+            MainLabelSelectProfile.Size = new Size(235, 24);
+            MainLabelSelectProfile.TabIndex = 56;
+            MainLabelSelectProfile.Text = "Select Profile:";
+            MainLabelSelectProfile.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // MainLabelLoadedBinaryFile
             // 
-            this.MainLabelLoadedBinaryFile.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            this.MainLabelLoadedBinaryFile.Location = new Point(290, 85);
-            this.MainLabelLoadedBinaryFile.Name = "MainLabelLoadedBinaryFile";
-            this.MainLabelLoadedBinaryFile.Size = new Size(235, 24);
-            this.MainLabelLoadedBinaryFile.TabIndex = 57;
-            this.MainLabelLoadedBinaryFile.Text = "Loaded Binary:";
-            this.MainLabelLoadedBinaryFile.TextAlign = ContentAlignment.MiddleLeft;
+            MainLabelLoadedBinaryFile.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            MainLabelLoadedBinaryFile.Location = new Point(290, 85);
+            MainLabelLoadedBinaryFile.Name = "MainLabelLoadedBinaryFile";
+            MainLabelLoadedBinaryFile.Size = new Size(235, 24);
+            MainLabelLoadedBinaryFile.TabIndex = 57;
+            MainLabelLoadedBinaryFile.Text = "Loaded Binary:";
+            MainLabelLoadedBinaryFile.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // Main
             // 
-            ClientSize = new Size(1010, 725);
-            Controls.Add(this.MainLabelLoadedBinaryFile);
-            Controls.Add(this.MainLabelSelectProfile);
+            ClientSize = new Size(1017, 736);
+            Controls.Add(MainLabelLoadedBinaryFile);
+            Controls.Add(MainLabelSelectProfile);
             Controls.Add(MainLabelPreviewFile);
             Controls.Add(MainTabControl);
             Controls.Add(MainTableLayoutPanelProfileButtons);
@@ -581,10 +582,10 @@ namespace OBDErrorErase
             EraserPanelErrorPresets.PerformLayout();
             EditorTabPage.ResumeLayout(false);
             EditorTabPage.PerformLayout();
-            MainTableLayoutPanelProfileButtons.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)MainDataGridErrorPreview).EndInit();
             EditorGroupBox.ResumeLayout(false);
             EditorGroupBox.PerformLayout();
+            MainTableLayoutPanelProfileButtons.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)MainDataGridErrorPreview).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
