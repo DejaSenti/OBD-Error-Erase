@@ -31,7 +31,7 @@ namespace OBDErrorErase.EditorSource.GUI
             this.guiHolder = guiHolder;
             profileListController = ServiceContainer.GetService<ProfileListController>();
 
-            profileListController.SubscribeControls(guiHolder.EraserTextboxProfileFilter, guiHolder.EraserListProfiles, OnProfileSelectionChanged);
+            profileListController.SubscribeControls(guiHolder.MainTextboxProfileFilter, guiHolder.MainListProfiles, OnProfileSelectionChanged);
 
             AddGUIListeners();
         }
@@ -45,7 +45,7 @@ namespace OBDErrorErase.EditorSource.GUI
         {
             guiHolder.EraserButtonRefreshPresetList.Click += OnRefreshPresetListClick;
             guiHolder.EraserButtonRun.Click += OnRunClick;
-            guiHolder.EraserButtonFileBrowse.Click += OnBrowseClick;
+            guiHolder.MainButtonFileBrowse.Click += OnBrowseClick;
         }
 
         private void OnBrowseClick(object? sender, EventArgs e) // todo tie to a binary file browse controller thing
@@ -115,7 +115,7 @@ namespace OBDErrorErase.EditorSource.GUI
 
         internal void OnCurrentBinaryFileChanged(string path)
         {
-            guiHolder.EraserLabelFilePath.Text = path;
+            guiHolder.MainLabelBinaryFilename.Text = path;
         }
 
         internal List<int> GetSelectedPresetIDs()
@@ -166,7 +166,7 @@ namespace OBDErrorErase.EditorSource.GUI
             var displayMapLocation = currentFile.FindValue(subprofile.Maps[0].SearchWord, 0, currentFile.Length);
             var displayBytes = currentFile.ReadValue(displayMapLocation, FILE_PREVIEW_LENGTH);
 
-            AppHelper.PreviewFile(guiHolder.EraserErrorPreview, displayMapLocation, displayBytes);
+            AppHelper.PreviewFile(guiHolder.MainDataGridErrorPreview, displayMapLocation, displayBytes);
         }
 
         private void UpdateMapSelector()

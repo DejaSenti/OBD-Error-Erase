@@ -20,7 +20,7 @@
             base.Dispose(disposing);
         }
 
-        private TabControl TabControl;
+        private TabControl MainTabControl;
         private TabPage EraserTabPage;
         private Panel EraserPanelErrorPresets;
         public TableLayoutPanel EraserTableLayoutErrorPresets;
@@ -32,33 +32,36 @@
         public Button EraserButtonRun;
         private TabPage EditorTabPage;
         public ComboBox EditorComboBoxProfileType;
-        public CheckBox EditorCheckboxFlipBytes;
+        public CheckBox MainCheckboxFlipBytes;
         public ListBox EditorListSubprofiles;
         public TextBox EditorTextBoxComputerName;
         public ComboBox EditorDropdownManufacturer;
-        private TableLayoutPanel TableLayoutPanelProfileButtons;
-        public Button EditorButtonNewProfile;
-        public Button EditorButtonRemoveProfile;
-        public Button EditorButtonDuplicateProfile;
-        public DataGridView EraserErrorPreview;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        public Label EraserLabelFilePath;
-        public Button EraserButtonFileBrowse;
-        public TextBox EraserTextboxProfileFilter;
-        public ListBox EraserListProfiles;
-        private Panel panel1;
-        public TableLayoutPanel tableLayoutPanel2;
+        private TableLayoutPanel MainTableLayoutPanelProfileButtons;
+        public Button MainButtonNewProfile;
+        public Button MainButtonRemoveProfile;
+        public Button MainButtonDuplicateProfile;
+        public DataGridView MainDataGridErrorPreview;
+        private DataGridViewTextBoxColumn DataGridViewFilePreviewColumnAddress;
+        private DataGridViewTextBoxColumn DataGridViewFilePreviewColumnError;
+        public Label MainLabelBinaryFilename;
+        public Button MainButtonFileBrowse;
+        public TextBox MainTextboxProfileFilter;
+        public ListBox MainListProfiles;
+        private Panel EraserPanelMapSelector;
+        public TableLayoutPanel EraserTableLayoutMapSelector;
         private CheckBox EraserCheckBoxSelectAllMaps;
         private CheckBox EraserCheckBoxSelectAllPresets;
-        private Panel panel2;
-        private Label label4;
-        private Label label3;
-        private Label label2;
-        private Label label1;
-        public Label label5;
-        private Label label6;
+        private Panel EditorPanelEditFrame;
+        private Label EditorLabelProfileTypeSelect;
+        private Label EditorLabelSubprofiles;
+        private Label EditorLabelName;
+        private Label EditorLabelManufacturer;
+        public Label MainLabelPreviewFile;
+        private Label EditorLabelProfileSettings;
         public Button EditorButtonDuplicateSubProfile;
         public Button EditorButtonRemoveSubProfile;
+        private GroupBox EditorGroupBox;
+        public Label MainLabelSelectProfile;
+        public Label MainLabelLoadedBinaryFile;
     }
 }

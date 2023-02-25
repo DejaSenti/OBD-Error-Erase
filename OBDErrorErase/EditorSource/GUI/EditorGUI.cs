@@ -35,7 +35,7 @@ namespace OBDErrorErase.EditorSource.GUI
             this.guiHolder = guiHolder;
             profileListController = ServiceContainer.GetService<ProfileListController>();
 
-            profileListController.SubscribeControls(guiHolder.EraserTextboxProfileFilter, guiHolder.EraserListProfiles, OnProfileListSelectionChanged);
+            profileListController.SubscribeControls(guiHolder.MainTextboxProfileFilter, guiHolder.MainListProfiles, OnProfileListSelectionChanged);
 
             AddListeners();
 
@@ -47,9 +47,9 @@ namespace OBDErrorErase.EditorSource.GUI
 
         private void AddListeners()
         {
-            guiHolder.EditorButtonNewProfile.Click += OnNewProfileClicked;
-            guiHolder.EditorButtonDuplicateProfile.Click += OnDuplicateProfileClicked;
-            guiHolder.EditorButtonRemoveProfile.Click += OnRemoveProfileClicked;
+            guiHolder.MainButtonNewProfile.Click += OnNewProfileClicked;
+            guiHolder.MainButtonDuplicateProfile.Click += OnDuplicateProfileClicked;
+            guiHolder.MainButtonRemoveProfile.Click += OnRemoveProfileClicked;
 
             guiHolder.EditorDropdownManufacturer.Validated += OnManufacturerValueValidated;
             guiHolder.EditorDropdownManufacturer.KeyUp += OnManufacturerKeyUp;
@@ -65,7 +65,7 @@ namespace OBDErrorErase.EditorSource.GUI
 
             guiHolder.EditorComboBoxProfileType.SelectionChangeCommitted += OnProfileTypeChangeCommitted;
 
-            guiHolder.EraserButtonFileBrowse.Click += OnBrowseClick;
+            guiHolder.MainButtonFileBrowse.Click += OnBrowseClick;
         }
 
         #region Event Listeners
@@ -165,7 +165,7 @@ namespace OBDErrorErase.EditorSource.GUI
 
             UpdateSubProfilesList(currentProfile.Subprofiles);
 
-            profileListController.UpdateProfilesList(guiHolder.EraserListProfiles);
+            profileListController.UpdateProfilesList(guiHolder.MainListProfiles);
 
             UpdateAllProfileEnabledStatuses();
         }
@@ -190,7 +190,7 @@ namespace OBDErrorErase.EditorSource.GUI
             guiHolder.EditorDropdownManufacturer.Items.Clear();
             guiHolder.EditorDropdownManufacturer.Items.AddRange(newManufacturers);
 
-            profileListController.UpdateProfilesList(guiHolder.EraserListProfiles);
+            profileListController.UpdateProfilesList(guiHolder.MainListProfiles);
             UpdateAllProfileEnabledStatuses();
         }
 
@@ -214,15 +214,15 @@ namespace OBDErrorErase.EditorSource.GUI
 
         private void UpdateAllProfileEnabledStatuses()
         {
-            guiHolder.EditorButtonRemoveProfile.Enabled = !string.IsNullOrEmpty(profileListController.SelectedProfileID);
-            guiHolder.EditorButtonDuplicateProfile.Enabled = !string.IsNullOrEmpty(profileListController.SelectedProfileID);
+            guiHolder.MainButtonRemoveProfile.Enabled = !string.IsNullOrEmpty(profileListController.SelectedProfileID);
+            guiHolder.MainButtonDuplicateProfile.Enabled = !string.IsNullOrEmpty(profileListController.SelectedProfileID);
             guiHolder.EditorButtonDuplicateSubProfile.Enabled = !string.IsNullOrEmpty(profileListController.SelectedProfileID) && currentSubProfileIndex > -1;
             guiHolder.EditorButtonRemoveSubProfile.Enabled = !string.IsNullOrEmpty(profileListController.SelectedProfileID) && currentSubProfileIndex > 0;
         }
 
         internal void OnCurrentBinaryFileChanged(BinaryFile file, string path) // todo get this out of here into some file preview controller that will work with both preview boxes
         {
-            guiHolder.EraserLabelFilePath.Text = path;
+            guiHolder.MainLabelBinaryFilename.Text = path;
             //todo implement
 
             // look at selected subprofile
