@@ -573,6 +573,7 @@ namespace OBDErrorErase
             Controls.Add(MainCheckboxFlipBytes);
             Name = "Main";
             Text = "OBD Error Erase";
+            Load += Main_Load;
             MainTabControl.ResumeLayout(false);
             EraserTabPage.ResumeLayout(false);
             EraserTabPage.PerformLayout();
@@ -866,6 +867,11 @@ namespace OBDErrorErase
         }
 
         private void EditorTabPage_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Main_Load(object sender, EventArgs e)
         {
 
         }

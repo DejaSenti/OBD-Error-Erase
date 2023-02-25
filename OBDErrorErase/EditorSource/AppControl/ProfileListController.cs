@@ -21,71 +21,8 @@ namespace OBDErrorErase.EditorSource.AppControl
         {
             controlsTuples.Add((profileList, filterTextField, profileSelectionChange));
 
-            AddControlListeners(profileList, filterTextField);
 
             UpdateProfilesList(profileList);
-        }
-
-        private void AddControlListeners(ListBox profileList, TextBox filter)
-        {
-            filter.TextChanged += OnFilterTextFieldChanged;
-            profileList.SelectedIndexChanged += OnSelectionChanged;
-        }
-
-        private void RemoveControlListeners(ListBox profileList, TextBox filter)
-        {
-            filter.TextChanged -= OnFilterTextFieldChanged;
-            profileList.SelectedIndexChanged -= OnSelectionChanged;
-        }
-
-        private void OnSelectionChanged(object? sender, EventArgs e)
-        {
-            if (sender == null)
-                return;
-
-            ListBox list = (ListBox)sender;
-
-            if (list.SelectedIndex == -1)
-                return;
-
-            var desiredProfileID = (string)list.Items[list.SelectedIndex];
-
-            if (desiredProfileID == SelectedProfileID)
-                return;
-
-            SelectedProfileID = desiredProfileID;
-
-            foreach (var kvp in controlsTuples)
-            {
-                kvp.profileChangedCallback();
-            }
-        }
-
-        private void OnFilterTextFieldChanged(object? sender, EventArgs e)
-        {
-            if (sender == null) 
-                return;
-
-            TextBox textBox = (TextBox)sender;
-
-            currentFilterWords = Regex.Split(textBox.Text, @"\s+");
-
-            foreach (var kvp in controlsTuples)
-            {
-                RemoveControlListeners(kvp.profileList, kvp.filter);
-
-                if (kvp.filter != textBox)
-                {
-                    kvp.filter.Text = textBox.Text;
-                }
-
-                UpdateProfilesList(kvp.profileList);
-
-                if (!string.IsNullOrEmpty(SelectedProfileID) && kvp.profileList.Items.Contains(SelectedProfileID))
-                    kvp.profileList.SelectedItem = SelectedProfileID;
-
-                AddControlListeners(kvp.profileList, kvp.filter);
-            }
         }
 
         public void UpdateProfilesList(ListBox profileList)

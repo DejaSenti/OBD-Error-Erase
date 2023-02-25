@@ -2,18 +2,12 @@
 using OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors;
 using OBDErrorErase.EditorSource.Configs;
 using OBDErrorErase.EditorSource.AppControl;
-using OBDErrorErase.EditorSource.Utils;
 using OBDErrorErase.EditorSource.FileManagement;
 
 namespace OBDErrorErase.EditorSource.GUI
 {
     public class EditorGUI
     {
-        public event Action? RequestNewProfileEvent;
-        public event Action? RequestDuplicateProfileEvent;
-        public event Action<string>? RequestRemoveProfileEvent;
-        public event Action<string>? RequestLoadProfileEvent;
-
         public event Action<string>? RequestManufacturerNameChangeEvent;
         public event Action<string>? RequestComputerNameChangeEvent;
 
@@ -23,7 +17,6 @@ namespace OBDErrorErase.EditorSource.GUI
         public event Action? RequestDuplicateCurrentSubprofile;
         public event Action? RequestRemoveCurrentSubprofile;
 
-        public event Action<string>? BinaryFileBrowse;
 
         private readonly Main guiHolder;
         private ProfileListController profileListController;
@@ -33,9 +26,6 @@ namespace OBDErrorErase.EditorSource.GUI
         public EditorGUI(Main guiHolder)
         {
             this.guiHolder = guiHolder;
-            profileListController = ServiceContainer.GetService<ProfileListController>();
-
-            profileListController.SubscribeControls(guiHolder.MainTextboxProfileFilter, guiHolder.MainListProfiles, OnProfileListSelectionChanged);
 
             AddListeners();
 
@@ -47,9 +37,6 @@ namespace OBDErrorErase.EditorSource.GUI
 
         private void AddListeners()
         {
-            guiHolder.MainButtonNewProfile.Click += OnNewProfileClicked;
-            guiHolder.MainButtonDuplicateProfile.Click += OnDuplicateProfileClicked;
-            guiHolder.MainButtonRemoveProfile.Click += OnRemoveProfileClicked;
 
             guiHolder.EditorDropdownManufacturer.Validated += OnManufacturerValueValidated;
             guiHolder.EditorDropdownManufacturer.KeyUp += OnManufacturerKeyUp;
@@ -65,7 +52,6 @@ namespace OBDErrorErase.EditorSource.GUI
 
             guiHolder.EditorComboBoxProfileType.SelectionChangeCommitted += OnProfileTypeChangeCommitted;
 
-            guiHolder.MainButtonFileBrowse.Click += OnBrowseClick;
         }
 
         #region Event Listeners
@@ -120,35 +106,6 @@ namespace OBDErrorErase.EditorSource.GUI
         private void OnManufacturerChangeCommitted(object? sender, EventArgs e)
         {
             RequestManufacturerNameChangeEvent?.Invoke((string)guiHolder.EditorDropdownManufacturer.SelectedItem);
-        }
-
-        private void OnProfileListSelectionChanged()
-        {
-            UpdateAllProfileEnabledStatuses();
-
-            RequestLoadProfileEvent?.Invoke(profileListController.SelectedProfileID);
-        }
-
-        private void OnNewProfileClicked(object? sender, EventArgs e)
-        {
-            RequestNewProfileEvent?.Invoke();
-        }
-
-        private void OnRemoveProfileClicked(object? sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(profileListController.SelectedProfileID))
-                RequestRemoveProfileEvent?.Invoke(profileListController.SelectedProfileID);
-        }
-
-        private void OnDuplicateProfileClicked(object? sender, EventArgs e)
-        {
-            RequestDuplicateProfileEvent?.Invoke();
-        }
-
-        private void OnBrowseClick(object? sender, EventArgs e) // todo tie to a binary file browse controller thing
-        {
-            var filePath = AppFileHelper.OpenFileFromDialog(AppFileExtension.bin);
-            BinaryFileBrowse?.Invoke(filePath);
         }
 
         #endregion

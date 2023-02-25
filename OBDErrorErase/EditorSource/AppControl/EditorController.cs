@@ -5,6 +5,55 @@ using OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors;
 
 namespace OBDErrorErase.EditorSource.AppControl
 {
+    public class MainController
+    {
+        // new profile event -> notify main controller (should switch to editor if needed and notify it)
+        // duplicate profile event -> notify main controller (should switch to editor if needed and notify it)
+        // remove profile event -> select previous in list(act accordingly if there isn't one), notify main controller
+        // binary file browse event -> notify main controller with path (gotta add some function that will change the label, to be called by the controller on successful load)
+        // profile selection -> notify main controller (should notify editor and eraser guis)
+
+        private MainGUI mainGUI;
+
+        public MainController(MainGUI mainGUI)
+        {
+            this.mainGUI = mainGUI;
+        }
+
+        private void AddGUIListeners()
+        {
+            mainGUI.RequestNewProfileEvent += OnNewProfileRequested;
+            mainGUI.RequestRemoveProfileEvent += OnRemoveProfileRequested;
+            mainGUI.RequestLoadProfileEvent += OnLoadProfileRequested;
+            mainGUI.RequestDuplicateProfileEvent += OnProfileDuplicationRequested;
+            mainGUI.RequestBinaryFileBrowseEvent += OnBinaryFileLoadRequested;
+        }
+
+        private void OnBinaryFileLoadRequested(string obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnProfileDuplicationRequested()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnLoadProfileRequested(string obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnRemoveProfileRequested(string obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnNewProfileRequested()
+        {
+            throw new NotImplementedException();
+        }
+    }
 
     public class EditorController
     {
@@ -29,10 +78,6 @@ namespace OBDErrorErase.EditorSource.AppControl
 
         private void AddGUIListeners()
         {
-            editorGUI.RequestNewProfileEvent += OnNewProfileRequested;
-            editorGUI.RequestRemoveProfileEvent += OnRemoveProfileRequested;
-            editorGUI.RequestLoadProfileEvent += OnLoadProfileRequested;
-            editorGUI.RequestDuplicateProfileEvent += OnProfileDuplicationRequested;
 
             editorGUI.RequestManufacturerNameChangeEvent += OnManufacturerNameChangeRequested;
             editorGUI.RequestComputerNameChangeEvent += OnComputerNameChangeRequest;
@@ -43,7 +88,6 @@ namespace OBDErrorErase.EditorSource.AppControl
 
             editorGUI.RequestProfileTypeChangeEvent += OnProfileTypeChangeRequested;
 
-            editorGUI.BinaryFileBrowse += OnBinaryFileLoadRequested;
         }
 
         private void OnDuplicateCurrentSubprofileRequested()
@@ -72,25 +116,6 @@ namespace OBDErrorErase.EditorSource.AppControl
         {
             profileManager.SetCurrentSubProfile(newIndex);
             editorGUI.OnCurrentSubprofileChanged(profileManager.CurrentSubProfileIndex);
-        }
-
-        private void RemoveGUIListeners()
-        {
-            editorGUI.RequestNewProfileEvent -= OnNewProfileRequested;
-            editorGUI.RequestRemoveProfileEvent -= OnRemoveProfileRequested;
-            editorGUI.RequestLoadProfileEvent -= OnLoadProfileRequested;
-            editorGUI.RequestDuplicateProfileEvent -= OnProfileDuplicationRequested;
-
-            editorGUI.RequestManufacturerNameChangeEvent -= OnManufacturerNameChangeRequested;
-            editorGUI.RequestComputerNameChangeEvent -= OnComputerNameChangeRequest;
-
-            editorGUI.RequestDuplicateCurrentSubprofile -= OnDuplicateCurrentSubprofileRequested;
-            editorGUI.RequestRemoveCurrentSubprofile -= OnRemoveCurrentSubprofileRequested;
-            editorGUI.RequestChangeCurrentSubprofile -= OnChangeCurrentSubprofileRequested;
-
-            editorGUI.RequestProfileTypeChangeEvent -= OnProfileTypeChangeRequested;
-
-            editorGUI.BinaryFileBrowse -= OnBinaryFileLoadRequested;
         }
 
         private void OnNewProfileRequested()
