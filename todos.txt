@@ -1,6 +1,7 @@
 HIGH PRIORITY BUGS:
 	- switch profile type should create subprofile too
 	- open binary button opens dialog twice
+	- cancel on open file throws exception
 
 
 TO IMPLEMENT:
