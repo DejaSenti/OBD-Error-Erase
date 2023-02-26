@@ -6,6 +6,8 @@ namespace OBDErrorErase.EditorSource.AppControl
 {
     public class MainController
     {
+        private readonly int PREVIEW_LENGTH = 100;
+
         private MainGUI mainGUI;
         private ProfileManager profileManager;
         private BinaryFileManager binaryFileManager;
@@ -93,15 +95,19 @@ namespace OBDErrorErase.EditorSource.AppControl
                 {
                     mainGUI.LoadEditorTab();
                 }
-                else if (result == DialogResult.No)
-                {
-                    return;
-                }
+
+                return;
             }
 
-            editorController.OnChangeCurrentSubprofileRequested(profileManager.CurrentSubProfileIndex);
+            profileManager.SetCurrentSubprofile(subprofile);
+            editorController.OnNewSubprofileLoaded();
 
-            mainGUI.UpdateFilePreview();
+            var file = binaryFileManager.CurrentFile;
+            var displayLocation = file.FindValue(subprofile.Maps[0].SearchWord, 0, file.Length);
+
+            var errorList = file.ReadValue(displayLocation, PREVIEW_LENGTH);
+
+            mainGUI.UpdateFilePreview(displayLocation, errorList);
         }
 
         private void OnNewProfileRequested()

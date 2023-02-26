@@ -42,7 +42,7 @@ namespace OBDErrorErase
             MainButtonNewProfile = new Button();
             MainButtonRemoveProfile = new Button();
             MainButtonDuplicateProfile = new Button();
-            MainDataGridErrorPreview = new DataGridView();
+            MainDataGridFilePreview = new DataGridView();
             DataGridViewFilePreviewColumnAddress = new DataGridViewTextBoxColumn();
             DataGridViewFilePreviewColumnError = new DataGridViewTextBoxColumn();
             MainLabelBinaryFilename = new Label();
@@ -59,7 +59,7 @@ namespace OBDErrorErase
             EditorTabPage.SuspendLayout();
             EditorGroupBox.SuspendLayout();
             MainTableLayoutPanelProfileButtons.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)MainDataGridErrorPreview).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)MainDataGridFilePreview).BeginInit();
             SuspendLayout();
             // 
             // MainTabControl
@@ -456,25 +456,25 @@ namespace OBDErrorErase
             MainButtonDuplicateProfile.Text = "Duplicate";
             MainButtonDuplicateProfile.UseVisualStyleBackColor = false;
             // 
-            // MainDataGridErrorPreview
+            // MainDataGridFilePreview
             // 
-            MainDataGridErrorPreview.AllowUserToAddRows = false;
-            MainDataGridErrorPreview.AllowUserToDeleteRows = false;
-            MainDataGridErrorPreview.AllowUserToResizeColumns = false;
-            MainDataGridErrorPreview.AllowUserToResizeRows = false;
-            MainDataGridErrorPreview.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            MainDataGridErrorPreview.Columns.AddRange(new DataGridViewColumn[] { DataGridViewFilePreviewColumnAddress, DataGridViewFilePreviewColumnError });
-            MainDataGridErrorPreview.EditMode = DataGridViewEditMode.EditProgrammatically;
-            MainDataGridErrorPreview.Location = new Point(289, 157);
-            MainDataGridErrorPreview.Name = "MainDataGridErrorPreview";
-            MainDataGridErrorPreview.ReadOnly = true;
-            MainDataGridErrorPreview.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
-            MainDataGridErrorPreview.RowTemplate.Height = 25;
-            MainDataGridErrorPreview.RowTemplate.ReadOnly = true;
-            MainDataGridErrorPreview.RowTemplate.Resizable = DataGridViewTriState.False;
-            MainDataGridErrorPreview.SelectionMode = DataGridViewSelectionMode.CellSelect;
-            MainDataGridErrorPreview.Size = new Size(236, 559);
-            MainDataGridErrorPreview.TabIndex = 52;
+            MainDataGridFilePreview.AllowUserToAddRows = false;
+            MainDataGridFilePreview.AllowUserToDeleteRows = false;
+            MainDataGridFilePreview.AllowUserToResizeColumns = false;
+            MainDataGridFilePreview.AllowUserToResizeRows = false;
+            MainDataGridFilePreview.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            MainDataGridFilePreview.Columns.AddRange(new DataGridViewColumn[] { DataGridViewFilePreviewColumnAddress, DataGridViewFilePreviewColumnError });
+            MainDataGridFilePreview.EditMode = DataGridViewEditMode.EditProgrammatically;
+            MainDataGridFilePreview.Location = new Point(289, 157);
+            MainDataGridFilePreview.Name = "MainDataGridFilePreview";
+            MainDataGridFilePreview.ReadOnly = true;
+            MainDataGridFilePreview.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
+            MainDataGridFilePreview.RowTemplate.Height = 25;
+            MainDataGridFilePreview.RowTemplate.ReadOnly = true;
+            MainDataGridFilePreview.RowTemplate.Resizable = DataGridViewTriState.False;
+            MainDataGridFilePreview.SelectionMode = DataGridViewSelectionMode.CellSelect;
+            MainDataGridFilePreview.Size = new Size(236, 559);
+            MainDataGridFilePreview.TabIndex = 52;
             // 
             // DataGridViewFilePreviewColumnAddress
             // 
@@ -559,13 +559,13 @@ namespace OBDErrorErase
             // 
             // Main
             // 
-            ClientSize = new Size(1017, 736);
+            ClientSize = new Size(1014, 736);
             Controls.Add(MainLabelLoadedBinaryFile);
             Controls.Add(MainLabelSelectProfile);
             Controls.Add(MainLabelPreviewFile);
             Controls.Add(MainTabControl);
             Controls.Add(MainTableLayoutPanelProfileButtons);
-            Controls.Add(MainDataGridErrorPreview);
+            Controls.Add(MainDataGridFilePreview);
             Controls.Add(MainLabelBinaryFilename);
             Controls.Add(MainButtonFileBrowse);
             Controls.Add(MainTextboxProfileFilter);
@@ -586,7 +586,7 @@ namespace OBDErrorErase
             EditorGroupBox.ResumeLayout(false);
             EditorGroupBox.PerformLayout();
             MainTableLayoutPanelProfileButtons.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)MainDataGridErrorPreview).EndInit();
+            ((System.ComponentModel.ISupportInitialize)MainDataGridFilePreview).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }

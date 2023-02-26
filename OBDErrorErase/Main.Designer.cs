@@ -36,7 +36,7 @@
         public Button MainButtonNewProfile;
         public Button MainButtonRemoveProfile;
         public Button MainButtonDuplicateProfile;
-        public DataGridView MainDataGridErrorPreview;
+        public DataGridView MainDataGridFilePreview;
         private DataGridViewTextBoxColumn DataGridViewFilePreviewColumnAddress;
         private DataGridViewTextBoxColumn DataGridViewFilePreviewColumnError;
         public Label MainLabelBinaryFilename;

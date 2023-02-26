@@ -170,9 +170,14 @@ namespace OBDErrorErase.EditorSource.GUI
             guiHolder.MainTabControl.SelectedTab = guiHolder.MainTabControl.TabPages["EditorTabPage"];
         }
 
-        internal void UpdateFilePreview()
+        internal void UpdateFilePreview(int startAddress, byte[] errors)
         {
-            // todo implement
+            guiHolder.MainDataGridFilePreview.Rows.Clear();
+
+            for (int i = 0; i < errors.Length; i += 2)
+            {
+                guiHolder.MainDataGridFilePreview.Rows.Add((startAddress + i).ToString("X"), Convert.ToHexString(errors[i..(i+2)]));
+            }
         }
 
         internal string? GetNextProfileSelection()

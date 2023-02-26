@@ -64,7 +64,7 @@ namespace OBDErrorErase.EditorSource.AppControl
         public void OnChangeCurrentSubprofileRequested(int newIndex)
         {
             profileManager.SetCurrentSubprofile(newIndex);
-            editorGUI.OnCurrentSubprofileChanged(profileManager.CurrentSubProfileIndex);
+            OnNewSubprofileLoaded();
         }
 
         private void OnManufacturerNameChangeRequested(string newManufacturer)
@@ -114,6 +114,11 @@ namespace OBDErrorErase.EditorSource.AppControl
 
             editorGUI.OnCurrentProfileChanged(newProfile);
 
+            editorGUI.OnCurrentSubprofileChanged(profileManager.CurrentSubProfileIndex);
+        }
+
+        internal void OnNewSubprofileLoaded()
+        {
             editorGUI.OnCurrentSubprofileChanged(profileManager.CurrentSubProfileIndex);
         }
     }
