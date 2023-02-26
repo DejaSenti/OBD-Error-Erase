@@ -7,6 +7,7 @@ namespace OBDErrorErase
 {
     internal static class Program
     {
+        private static MainController mainController;
         private static EditorController editorController;
         private static EraserController eraserController;
 
@@ -31,17 +32,18 @@ namespace OBDErrorErase
         {
             var editorGUI = new EditorGUI(mainForm);
             editorController = new EditorController(editorGUI);
+
             var eraserGUI = new EraserGUI(mainForm);
             eraserController = new EraserController(eraserGUI);
+
+            var mainGUI = new MainGUI(mainForm);
+            mainController = new MainController(mainGUI, editorController, eraserController);
         }
 
         private static void InitializeServices()
         {
             ServiceContainer.AddService(new BinaryFileManager());
-
-            var profileManager = new ProfileManager();
-            ServiceContainer.AddService(profileManager);
-            ServiceContainer.AddService(new ProfileListController(profileManager.ProfileIDs));
+            ServiceContainer.AddService(new ProfileManager());
         }
     }
 }

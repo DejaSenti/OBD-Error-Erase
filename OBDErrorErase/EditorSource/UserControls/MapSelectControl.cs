@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace OBDErrorErase
+﻿namespace OBDErrorErase
 {
     public partial class MapSelectControl : UserControl
     {
-        public MapSelectControl()
+        public bool IsChecked => Checkbox.Checked;
+
+        public int ID { get; }
+
+        public MapSelectControl(string name, int id)
         {
+            ID = id;
             InitializeComponent();
+
+            Checkbox.Text = name;
+            Checkbox.Checked = true;
         }
     }
 }

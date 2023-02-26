@@ -5,62 +5,12 @@ using OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors;
 
 namespace OBDErrorErase.EditorSource.AppControl
 {
-    public class MainController
-    {
-        // new profile event -> notify main controller (should switch to editor if needed and notify it)
-        // duplicate profile event -> notify main controller (should switch to editor if needed and notify it)
-        // remove profile event -> select previous in list(act accordingly if there isn't one), notify main controller
-        // binary file browse event -> notify main controller with path (gotta add some function that will change the label, to be called by the controller on successful load)
-        // profile selection -> notify main controller (should notify editor and eraser guis)
-
-        private MainGUI mainGUI;
-
-        public MainController(MainGUI mainGUI)
-        {
-            this.mainGUI = mainGUI;
-        }
-
-        private void AddGUIListeners()
-        {
-            mainGUI.RequestNewProfileEvent += OnNewProfileRequested;
-            mainGUI.RequestRemoveProfileEvent += OnRemoveProfileRequested;
-            mainGUI.RequestLoadProfileEvent += OnLoadProfileRequested;
-            mainGUI.RequestDuplicateProfileEvent += OnProfileDuplicationRequested;
-            mainGUI.RequestBinaryFileBrowseEvent += OnBinaryFileLoadRequested;
-        }
-
-        private void OnBinaryFileLoadRequested(string obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnProfileDuplicationRequested()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnLoadProfileRequested(string obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnRemoveProfileRequested(string obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnNewProfileRequested()
-        {
-            throw new NotImplementedException();
-        }
-    }
 
     public class EditorController
     {
         private EditorGUI editorGUI;
 
         private ProfileManager profileManager;
-        private BinaryFileManager binaryFileManager;
 
         private IProfileEditorController profileEditor;
         private IProfileEditorGUI profileEditorGUI;
@@ -69,7 +19,6 @@ namespace OBDErrorErase.EditorSource.AppControl
         {
             this.editorGUI = editorGUI;
             profileManager = ServiceContainer.GetService<ProfileManager>();
-            binaryFileManager = ServiceContainer.GetService<BinaryFileManager>();
 
             editorGUI.OnProfileDBChanged(profileManager.GetManufacturers());
 
@@ -78,6 +27,7 @@ namespace OBDErrorErase.EditorSource.AppControl
 
         private void AddGUIListeners()
         {
+            // todo listen to any changes in the editor frame gui
 
             editorGUI.RequestManufacturerNameChangeEvent += OnManufacturerNameChangeRequested;
             editorGUI.RequestComputerNameChangeEvent += OnComputerNameChangeRequest;
@@ -87,7 +37,6 @@ namespace OBDErrorErase.EditorSource.AppControl
             editorGUI.RequestChangeCurrentSubprofile += OnChangeCurrentSubprofileRequested;
 
             editorGUI.RequestProfileTypeChangeEvent += OnProfileTypeChangeRequested;
-
         }
 
         private void OnDuplicateCurrentSubprofileRequested()
@@ -96,9 +45,9 @@ namespace OBDErrorErase.EditorSource.AppControl
                 return;
 
             profileManager.DuplicateCurrentSubprofile();
-            profileManager.SetCurrentSubProfile(profileManager.CurrentProfile.Subprofiles.Count - 1);
+            profileManager.SetCurrentSubprofile(profileManager.CurrentProfile.Subprofiles.Count - 1);
 
-            editorGUI.UpdateSubProfilesList(profileManager.CurrentProfile.Subprofiles);
+            editorGUI.UpdateSubprofilesList(profileManager.CurrentProfile.Subprofiles);
             editorGUI.OnCurrentSubprofileChanged(profileManager.CurrentSubProfileIndex);
         }
 
@@ -108,40 +57,14 @@ namespace OBDErrorErase.EditorSource.AppControl
                 return;
 
             profileManager.RemoveCurrentSubProfile();
-            editorGUI.UpdateSubProfilesList(profileManager.CurrentProfile.Subprofiles);
+            editorGUI.UpdateSubprofilesList(profileManager.CurrentProfile.Subprofiles);
             editorGUI.OnCurrentSubprofileChanged(profileManager.CurrentSubProfileIndex);
         }
 
-        private void OnChangeCurrentSubprofileRequested(int newIndex)
+        public void OnChangeCurrentSubprofileRequested(int newIndex)
         {
-            profileManager.SetCurrentSubProfile(newIndex);
+            profileManager.SetCurrentSubprofile(newIndex);
             editorGUI.OnCurrentSubprofileChanged(profileManager.CurrentSubProfileIndex);
-        }
-
-        private void OnNewProfileRequested()
-        {
-            var newProfile = profileManager.CreateNewProfile();
-
-            SetCurrentProfile(newProfile);
-            editorGUI.OnProfileDBChanged(profileManager.GetManufacturers());
-        }
-
-        private void OnRemoveProfileRequested(string profileID)
-        {
-            profileManager.RemoveProfile(profileID);
-            editorGUI.OnProfileDBChanged(profileManager.GetManufacturers());
-            editorGUI.OnProfileRemoved();
-        }
-
-        private void OnProfileDuplicationRequested()
-        {
-            var newProfile = profileManager.DuplicateCurrentProfile();
-
-            if (newProfile != null)
-            {
-                SetCurrentProfile(newProfile);
-                editorGUI.OnProfileDBChanged(profileManager.GetManufacturers());
-            }
         }
 
         private void OnManufacturerNameChangeRequested(string newManufacturer)
@@ -167,33 +90,17 @@ namespace OBDErrorErase.EditorSource.AppControl
 
         private void OnProfileTypeChangeRequested(ProfileType type)
         {
+            if (profileManager.CurrentProfile == null)
+                return;
+
             profileManager.ChangeCurrentProfileType(type);
 
-            SetCurrentProfile(profileManager.CurrentProfile);
+            OnNewProfileLoaded(profileManager.CurrentProfile);
         }
 
-        private void OnBinaryFileLoadRequested(string path) // todo unite this and the eraser load in some common controller like the profile list
+        internal void OnNewProfileLoaded(Profile newProfile)
         {
-            var file = binaryFileManager.LoadBinaryFile(path);
-            binaryFileManager.SetCurrentFile(file);
-            editorGUI.OnCurrentBinaryFileChanged(file, path);
-        }
-
-        private void OnLoadProfileRequested(string id)
-        {
-            var profile = profileManager.LoadProfile(id);
-
-            SetCurrentProfile(profile);
-        }
-
-        private void OnProfileSaveRequested()
-        {
-            profileManager.SaveCurrentProfile();
-        }
-
-        private void SetCurrentProfile(Profile newProfile)
-        {
-            profileManager.SetCurrentProfile(newProfile);
+            editorGUI.OnProfileDBChanged(profileManager.GetManufacturers());
 
             profileEditor?.Dispose();
             profileEditorGUI?.Dispose();

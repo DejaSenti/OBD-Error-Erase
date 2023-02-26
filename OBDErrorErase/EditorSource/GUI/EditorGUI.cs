@@ -1,7 +1,6 @@
 ﻿using OBDErrorErase.EditorSource.ProfileManagement;
 using OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors;
 using OBDErrorErase.EditorSource.Configs;
-using OBDErrorErase.EditorSource.AppControl;
 using OBDErrorErase.EditorSource.FileManagement;
 
 namespace OBDErrorErase.EditorSource.GUI
@@ -17,9 +16,7 @@ namespace OBDErrorErase.EditorSource.GUI
         public event Action? RequestDuplicateCurrentSubprofile;
         public event Action? RequestRemoveCurrentSubprofile;
 
-
         private readonly Main guiHolder;
-        private ProfileListController profileListController;
 
         private int currentSubProfileIndex = -1;
 
@@ -114,15 +111,12 @@ namespace OBDErrorErase.EditorSource.GUI
 
         internal void OnCurrentProfileChanged(Profile currentProfile)
         {
-            profileListController.SelectedProfileID = currentProfile.ID;
             guiHolder.EditorTextBoxComputerName.Text = currentProfile.Name;
             guiHolder.EditorDropdownManufacturer.Text = currentProfile.Manufacturer;
 
             guiHolder.EditorComboBoxProfileType.SelectedIndex = (int)currentProfile.Type;
 
-            UpdateSubProfilesList(currentProfile.Subprofiles);
-
-            profileListController.UpdateProfilesList(guiHolder.MainListProfiles);
+            UpdateSubprofilesList(currentProfile.Subprofiles);
 
             UpdateAllProfileEnabledStatuses();
         }
@@ -137,8 +131,6 @@ namespace OBDErrorErase.EditorSource.GUI
 
         public void OnProfileRemoved()
         {
-            profileListController.SelectedProfileID = "";
-
             UpdateAllProfileEnabledStatuses();
         }
 
@@ -147,7 +139,6 @@ namespace OBDErrorErase.EditorSource.GUI
             guiHolder.EditorDropdownManufacturer.Items.Clear();
             guiHolder.EditorDropdownManufacturer.Items.AddRange(newManufacturers);
 
-            profileListController.UpdateProfilesList(guiHolder.MainListProfiles);
             UpdateAllProfileEnabledStatuses();
         }
 
@@ -158,7 +149,7 @@ namespace OBDErrorErase.EditorSource.GUI
             //todo implement
         }
 
-        public void UpdateSubProfilesList(IReadOnlyList<SubprofileData> subprofiles)
+        public void UpdateSubprofilesList(IReadOnlyList<SubprofileData> subprofiles)
         {
             guiHolder.EditorListSubprofiles.Items.Clear();
 
@@ -171,10 +162,8 @@ namespace OBDErrorErase.EditorSource.GUI
 
         private void UpdateAllProfileEnabledStatuses()
         {
-            guiHolder.MainButtonRemoveProfile.Enabled = !string.IsNullOrEmpty(profileListController.SelectedProfileID);
-            guiHolder.MainButtonDuplicateProfile.Enabled = !string.IsNullOrEmpty(profileListController.SelectedProfileID);
-            guiHolder.EditorButtonDuplicateSubProfile.Enabled = !string.IsNullOrEmpty(profileListController.SelectedProfileID) && currentSubProfileIndex > -1;
-            guiHolder.EditorButtonRemoveSubProfile.Enabled = !string.IsNullOrEmpty(profileListController.SelectedProfileID) && currentSubProfileIndex > 0;
+            guiHolder.EditorButtonDuplicateSubProfile.Enabled = currentSubProfileIndex > -1;
+            guiHolder.EditorButtonRemoveSubProfile.Enabled = guiHolder.EditorListSubprofiles.Items.Count > 1;
         }
 
         internal void OnCurrentBinaryFileChanged(BinaryFile file, string path) // todo get this out of here into some file preview controller that will work with both preview boxes

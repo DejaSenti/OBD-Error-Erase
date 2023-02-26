@@ -176,7 +176,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             CurrentProfile = CreateNewProfile(newType, CurrentProfile.Manufacturer, CurrentProfile.Name);
         }
 
-        public void SetCurrentSubProfile(int newIndex)
+        public void SetCurrentSubprofile(int newIndex)
         {
             if (CurrentProfile == null)
                 return;
@@ -189,7 +189,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             if (CurrentProfile == null)
                 return;
 
-            SetCurrentSubProfile(CurrentProfile.Subprofiles.IndexOf(subprofile));
+            SetCurrentSubprofile(CurrentProfile.Subprofiles.IndexOf(subprofile));
         }
 
         public void DuplicateCurrentSubprofile()

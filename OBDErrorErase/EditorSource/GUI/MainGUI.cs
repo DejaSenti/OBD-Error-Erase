@@ -1,4 +1,6 @@
-﻿using OBDErrorErase.EditorSource.Configs;
+﻿using OBDErrorErase.EditorSource.AppControl;
+using OBDErrorErase.EditorSource.Configs;
+using OBDErrorErase.EditorSource.ProfileManagement;
 using OBDErrorErase.EditorSource.Utils;
 using System.Text.RegularExpressions;
 
@@ -11,18 +13,18 @@ namespace OBDErrorErase.EditorSource.GUI
         public event Action<string>? RequestRemoveProfileEvent;
         public event Action<string>? RequestLoadProfileEvent;
         public event Action<string>? RequestBinaryFileBrowseEvent;
+        public event Action<bool>? FlipBytesEvent;
 
         private Main guiHolder;
 
         private string[]? currentFilterWords;
         private string SelectedProfileID { get; set; } = "";
 
-        private IReadOnlyList<string> profileIDsRef;
-
-        public MainGUI(Main guiHolder, IReadOnlyList<string> profileIDsRef)
+        public MainGUI(Main guiHolder)
         {
             this.guiHolder = guiHolder;
-            this.profileIDsRef = profileIDsRef;
+
+            UpdateProfilesList();
 
             AddListeners();
         }
@@ -36,6 +38,15 @@ namespace OBDErrorErase.EditorSource.GUI
 
             guiHolder.MainTextboxProfileFilter.TextChanged += OnFilterTextFieldChanged;
             guiHolder.MainListProfiles.SelectedIndexChanged += OnSelectionChanged;
+
+            guiHolder.MainCheckboxFlipBytes.CheckedChanged += OnFlipBytesToggled;
+        }
+
+        private void OnFlipBytesToggled(object? sender, EventArgs e)
+        {
+            CheckBox checkBox = guiHolder.MainCheckboxFlipBytes;
+
+            FlipBytesEvent?.Invoke(checkBox.Checked);
         }
 
         #region Event Notifications
@@ -55,9 +66,6 @@ namespace OBDErrorErase.EditorSource.GUI
             SelectedProfileID = desiredProfileID;
 
             RequestLoadProfileEvent?.Invoke(SelectedProfileID);
-
-            // TODO call this only from the controller on successful profile load!
-            // UpdateAllProfileEnabledStatuses(); 
         }
 
         private void OnFilterTextFieldChanged(object? sender, EventArgs e)
@@ -74,10 +82,7 @@ namespace OBDErrorErase.EditorSource.GUI
 
         private void OnNewProfileClicked(object? sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(SelectedProfileID))
-                return;
-
-            RequestNewProfileEvent?.Invoke(); // todo controller should call select on newly created profile
+            RequestNewProfileEvent?.Invoke();
         }
 
         private void OnDuplicateProfileClicked(object? sender, EventArgs e)
@@ -85,7 +90,7 @@ namespace OBDErrorErase.EditorSource.GUI
             if (string.IsNullOrEmpty(SelectedProfileID))
                 return;
 
-            RequestDuplicateProfileEvent?.Invoke(); // todo controller should call select on newly created profile
+            RequestDuplicateProfileEvent?.Invoke();
         }
 
         private void OnRemoveProfileClicked(object? sender, EventArgs e)
@@ -103,13 +108,23 @@ namespace OBDErrorErase.EditorSource.GUI
             if (filePath == null || !Path.Exists(filePath))
                 return;
 
-            RequestBinaryFileBrowseEvent?.Invoke(filePath); // controller should call update filename label on successful load
+            RequestBinaryFileBrowseEvent?.Invoke(filePath);
         }
 
         #endregion
 
-        private void UpdateAllProfileEnabledStatuses()
+        public void UpdateFilenameLabel(string filename)
         {
+            guiHolder.MainLabelBinaryFilename.Text = filename;
+        }
+
+        public void UpdateProfileSelection(string newSelection)
+        {
+            SelectedProfileID = newSelection;
+
+            if (!string.IsNullOrEmpty(SelectedProfileID) && guiHolder.MainListProfiles.Items.Contains(SelectedProfileID))
+                guiHolder.MainListProfiles.SelectedItem = SelectedProfileID;
+
             guiHolder.MainButtonRemoveProfile.Enabled = !string.IsNullOrEmpty(SelectedProfileID);
             guiHolder.MainButtonDuplicateProfile.Enabled = !string.IsNullOrEmpty(SelectedProfileID);
         }
@@ -119,6 +134,9 @@ namespace OBDErrorErase.EditorSource.GUI
             var profileList = guiHolder.MainListProfiles;
 
             profileList.Items.Clear();
+
+            var profileManager = ServiceContainer.GetService<ProfileManager>();
+            var profileIDsRef = profileManager.ProfileIDs;
 
             foreach (var profileID in profileIDsRef)
             {
@@ -145,6 +163,38 @@ namespace OBDErrorErase.EditorSource.GUI
                 index += filterWord.Length;
             }
             return true;
+        }
+
+        internal void LoadEditorTab()
+        {
+            guiHolder.MainTabControl.SelectedTab = guiHolder.MainTabControl.TabPages["EditorTabPage"];
+        }
+
+        internal void UpdateFilePreview()
+        {
+            // todo implement
+        }
+
+        internal string? GetNextProfileSelection()
+        {
+            ListBox list = guiHolder.MainListProfiles;
+
+            if (list.SelectedIndex == -1 || list.Items.Count == 1)
+                return null;
+
+            var nextIndex = list.SelectedIndex + 1 == list.Items.Count ? list.SelectedIndex - 1 : list.SelectedIndex + 1;
+
+            var desiredProfileID = (string)list.Items[nextIndex];
+
+            return desiredProfileID;
+        }
+
+        internal void OnProfileDBChanged(string[] newManufacturers)
+        {
+            guiHolder.EditorDropdownManufacturer.Items.Clear();
+            guiHolder.EditorDropdownManufacturer.Items.AddRange(newManufacturers);
+
+            UpdateProfilesList();
         }
     }
 }

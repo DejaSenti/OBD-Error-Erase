@@ -19,9 +19,6 @@
             }
             base.Dispose(disposing);
         }
-
-        private TabControl MainTabControl;
-        private TabPage EraserTabPage;
         private Panel EraserPanelErrorPresets;
         public TableLayoutPanel EraserTableLayoutErrorPresets;
         public TextBox EraserTextboxErrorList;
@@ -30,7 +27,6 @@
         public Button EraserButtonRefreshPresetList;
         public Label EraserLabelErrorCounter;
         public Button EraserButtonRun;
-        private TabPage EditorTabPage;
         public ComboBox EditorComboBoxProfileType;
         public CheckBox MainCheckboxFlipBytes;
         public ListBox EditorListSubprofiles;
@@ -49,8 +45,6 @@
         public ListBox MainListProfiles;
         private Panel EraserPanelMapSelector;
         public TableLayoutPanel EraserTableLayoutMapSelector;
-        private CheckBox EraserCheckBoxSelectAllMaps;
-        private CheckBox EraserCheckBoxSelectAllPresets;
         private Panel EditorPanelEditFrame;
         private Label EditorLabelProfileTypeSelect;
         private Label EditorLabelSubprofiles;
@@ -63,5 +57,10 @@
         private GroupBox EditorGroupBox;
         public Label MainLabelSelectProfile;
         public Label MainLabelLoadedBinaryFile;
+        public CheckBox EraserCheckBoxSelectAllMaps;
+        public CheckBox EraserCheckBoxSelectAllPresets;
+        public TabControl MainTabControl;
+        public TabPage EraserTabPage;
+        public TabPage EditorTabPage;
     }
 }

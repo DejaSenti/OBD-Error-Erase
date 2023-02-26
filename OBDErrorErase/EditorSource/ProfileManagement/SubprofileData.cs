@@ -1,5 +1,6 @@
 ﻿using OBDErrorErase.EditorSource.FileManagement;
 using OBDErrorErase.EditorSource.Maps;
+using System.CodeDom.Compiler;
 using System.Text.Json.Serialization;
 
 namespace OBDErrorErase.EditorSource.ProfileManagement
@@ -41,6 +42,18 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             Maps.ClearDirty();
             foreach (var map in Maps)
                 map.ClearDirty();
+        }
+
+        public List<string> GetMapNameList()
+        {
+            var result = new List<string>();
+
+            foreach (var map in Maps)
+            {
+                result.Add(map.Name);
+            }
+
+            return result;
         }
     }
 }

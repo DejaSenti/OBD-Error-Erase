@@ -23,7 +23,12 @@ namespace OBDErrorErase.EditorSource.AppControl
             profileManager = ServiceContainer.GetService<ProfileManager>();
             binaryFileManager = ServiceContainer.GetService<BinaryFileManager>();
 
-            PopulateErrorPresets();
+            RefreshPresetList();
+
+            if (profileManager.CurrentSubProfile != null)
+            {
+                eraserGUI.PopulateMapList(profileManager.CurrentSubProfile.GetMapNameList());
+            }
 
             AddGUIListeners();
         }
@@ -32,13 +37,12 @@ namespace OBDErrorErase.EditorSource.AppControl
         {
             eraserGUI.PresetOpenClicked += OnPresetOpenClicked;
             eraserGUI.PresetDeleteRequested += OnPresetDeleteRequested;
-            eraserGUI.PresetListRefreshClicked += PopulateErrorPresets;
+            eraserGUI.PresetListRefreshClicked += RefreshPresetList;
+
             eraserGUI.RunClicked += OnErrorEraseRequested;
-            eraserGUI.BinaryFileBrowse += OnBinaryFileLoadRequested;
-            eraserGUI.RequestLoadProfileEvent += OnProfileSelected;
         }
 
-        private void PopulateErrorPresets()
+        private void RefreshPresetList()
         {
             var errorPresetFiles = AppFileHelper.GetAllFilesInAppSubFolder(AppFolderNames.PRESETS, AppFileExtension.txt);
 
@@ -62,50 +66,14 @@ namespace OBDErrorErase.EditorSource.AppControl
             process.Start();
         }
 
-        public void OnProfileSelected(string id)
-        {
-            var newProfile = profileManager.LoadProfile(id);
-
-            if (newProfile == null)
-                return;
-
-            profileManager.SetCurrentProfile(newProfile);
-
-            UpdateSubprofile();
-        }
-
-        public void OnBinaryFileLoadRequested(string path)
-        {
-            var file = binaryFileManager.LoadBinaryFile(path);
-
-            if (file == null)
-                return;
-
-            binaryFileManager.SetCurrentFile(file);
-            eraserGUI.OnCurrentBinaryFileChanged(path);
-
-            UpdateSubprofile();
-        }
-
-        private void UpdateSubprofile()
-        {
-            SubprofileData? subprofile = null;
-
-            if (binaryFileManager.CurrentFile == null || profileManager.CurrentProfile == null)
-                return;
-
-            subprofile = profileManager.CurrentProfile.GetMatchingSubprofile(binaryFileManager.CurrentFile);
-			
-            profileManager.SetCurrentSubProfile(subprofile);
-
-            eraserGUI.OnSubprofileUpdate(binaryFileManager.CurrentFile, subprofile);
-        }
-
         public void OnErrorEraseRequested()
         {
             var errorList = GetErrorList();
 
-            if (!IsErasingValid() || errorList.Count == 0)
+            if (errorList.Count == 0 || 
+                binaryFileManager.CurrentFile == null ||
+                profileManager.CurrentProfile == null || 
+                profileManager.CurrentSubProfile == null)
             {
                 eraserGUI.OnInvalidErasingAttempt();
                 return;
@@ -118,12 +86,6 @@ namespace OBDErrorErase.EditorSource.AppControl
             eraserGUI.OnProcessComplete(totalErased, errorList.Count);
 
             binaryFileManager.SaveBinaryFile();
-        }
-
-        private bool IsErasingValid()
-        {
-            return binaryFileManager.CurrentFile != null &&
-                profileManager.CurrentProfile != null && profileManager.CurrentSubProfile != null;
         }
 
         private List<string> GetErrorList()
@@ -153,14 +115,12 @@ namespace OBDErrorErase.EditorSource.AppControl
             list.AddRange(splitErrors);
         }
 
-        private void RemoveGUIListeners()
+        internal void OnNewProfileLoaded()
         {
-            eraserGUI.PresetOpenClicked -= OnPresetOpenClicked;
-            eraserGUI.PresetDeleteRequested -= OnPresetDeleteRequested;
-            eraserGUI.PresetListRefreshClicked -= PopulateErrorPresets;
-            eraserGUI.RunClicked -= OnErrorEraseRequested;
-            eraserGUI.BinaryFileBrowse -= OnBinaryFileLoadRequested;
-            eraserGUI.RequestLoadProfileEvent -= OnProfileSelected;
+            if (profileManager.CurrentSubProfile == null)
+                return;
+
+            eraserGUI.PopulateMapList(profileManager.CurrentSubProfile.GetMapNameList());
         }
     }
 }

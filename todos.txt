@@ -1,7 +1,7 @@
 HIGH PRIORITY BUGS:
 	- switch profile type should create subprofile too
-	- open binary button opens dialog twice
-	- cancel on open file throws exception
+	+ open binary button opens dialog twice
+	+ cancel on open file throws exception
 
 
 TO IMPLEMENT:
@@ -33,8 +33,9 @@ TO PRETTIFY:
 
 
 NICE TO HAVES:
-	- new / duplicate profile button should send to editor tab
-	- remove profile button should select next (also, what happens in the editor tab?)
+	+ new / duplicate profile button should send to editor tab
+	+ remove profile button should select next (also, what happens in the editor tab?)
+	- 'select all' checkboxes should become indeterminate when not all checkboxes are in the same state
 
 
 BEHAVIOURS:
