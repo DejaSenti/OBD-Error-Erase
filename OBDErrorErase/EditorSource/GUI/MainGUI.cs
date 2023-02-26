@@ -42,13 +42,6 @@ namespace OBDErrorErase.EditorSource.GUI
             guiHolder.MainCheckboxFlipBytes.CheckedChanged += OnFlipBytesToggled;
         }
 
-        private void OnFlipBytesToggled(object? sender, EventArgs e)
-        {
-            CheckBox checkBox = guiHolder.MainCheckboxFlipBytes;
-
-            FlipBytesEvent?.Invoke(checkBox.Checked);
-        }
-
         #region Event Notifications
 
         private void OnSelectionChanged(object? sender, EventArgs e)
@@ -109,6 +102,13 @@ namespace OBDErrorErase.EditorSource.GUI
                 return;
 
             RequestBinaryFileBrowseEvent?.Invoke(filePath);
+        }
+
+        private void OnFlipBytesToggled(object? sender, EventArgs e)
+        {
+            CheckBox checkBox = guiHolder.MainCheckboxFlipBytes;
+
+            FlipBytesEvent?.Invoke(checkBox.Checked);
         }
 
         #endregion

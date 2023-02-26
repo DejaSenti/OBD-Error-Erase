@@ -40,8 +40,12 @@ namespace OBDErrorErase.EditorSource.AppControl
 
         private void OnFlipBytesToggled(bool value)
         {
-            // todo implement
-            throw new NotImplementedException();
+            if (binaryFileManager.CurrentFile == null || profileManager.CurrentSubProfile == null)
+                return;
+
+            profileManager.CurrentSubProfile.FlipBytes = value;
+
+            UpdateFilePreview();
         }
 
         private void OnBinaryFileLoadRequested(string path)
@@ -102,10 +106,30 @@ namespace OBDErrorErase.EditorSource.AppControl
             profileManager.SetCurrentSubprofile(subprofile);
             editorController.OnNewSubprofileLoaded();
 
+            UpdateFilePreview();
+        }
+
+        private void UpdateFilePreview()
+        {
+            var subprofile = profileManager.CurrentSubProfile;
+
+            if (subprofile == null || binaryFileManager.CurrentFile == null) 
+                return;
+
             var file = binaryFileManager.CurrentFile;
             var displayLocation = file.FindValue(subprofile.Maps[0].SearchWord, 0, file.Length);
 
             var errorList = file.ReadValue(displayLocation, PREVIEW_LENGTH);
+
+            if (subprofile.FlipBytes)
+            {
+                for (int i = 0; i < errorList.Length; i += 2)
+                {
+                    var temp = errorList[i];
+                    errorList[i] = errorList[i + 1];
+                    errorList[i + 1] = temp;
+                }
+            }
 
             mainGUI.UpdateFilePreview(displayLocation, errorList);
         }

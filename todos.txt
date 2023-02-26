@@ -1,21 +1,22 @@
 HIGH PRIORITY BUGS:
-	- switch profile type should create subprofile too
+	- cancel on save file throws error
+	- switch profile type should create subprofile too (no defaults for delphi)
 	+ open binary button opens dialog twice
 	+ cancel on open file throws exception
 
 
 TO IMPLEMENT:
-	- open binary file
-	- display file path
-	- file preview
-	- flip bytes behavior
+	+ open binary file
+	+ display file path
+	+ file preview
+	+ flip bytes behavior
 
 	- profile editors and GUIs
 
-	- eraser tab:
-		- map modify check list
-		- update X / Y deleted thing after process
-		- implement select all functionality
+	+ eraser tab:
+		+ map modify check list
+		+ update X / Y deleted thing after process
+		+ implement select all functionality
 
 	- editor tab:
 		+ GUI: group profile type dropdown and editor frame
