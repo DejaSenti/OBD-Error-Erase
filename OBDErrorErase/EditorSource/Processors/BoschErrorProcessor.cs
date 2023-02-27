@@ -12,7 +12,7 @@ namespace OBDErrorErase.EditorSource.Processors
             profile.Manufacturer = "None";
             profile.Name = "None";
             profile.Subprofiles.Add(new SubprofileData());
-            profile.Subprofiles[0].Maps.Add(new MapBosch("DTC", "0000"));
+            profile.AddNewMap(new MapBosch(MapBosch.ERROR_LIST, "0000"));
         }
 
         public int Process(BinaryFile file, SubprofileData subprofile, List<string> errors, List<int> mapIndices)

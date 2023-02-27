@@ -8,8 +8,8 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
         {
             return type switch
             {
-                ProfileType.BOSCH => new BoschProfileEditor(),
-                ProfileType.DELPHI => new DelphiProfileEditor(),
+                ProfileType.BOSCH => new BoschProfileEditorController(),
+                ProfileType.DELPHI => new DelphiProfileEditorController(),
                 _ => throw new Exception($"Profile type {type} was not recognized!")
             };
         }

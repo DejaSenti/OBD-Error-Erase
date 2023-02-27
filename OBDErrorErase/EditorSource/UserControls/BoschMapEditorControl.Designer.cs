@@ -80,7 +80,6 @@
             // 
             Width.Dock = DockStyle.Fill;
             Width.FormattingEnabled = true;
-            Width.Items.AddRange(new object[] { "8bit", "16bit", "32bit", "64bit" });
             Width.Location = new Point(135, 8);
             Width.Margin = new Padding(3, 8, 3, 8);
             Width.Name = "Width";

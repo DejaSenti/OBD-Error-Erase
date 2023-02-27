@@ -1,4 +1,5 @@
 ﻿using OBDErrorErase.EditorSource.FileManagement;
+using OBDErrorErase.EditorSource.Maps;
 using OBDErrorErase.EditorSource.Processors;
 using System.Text.Json.Serialization;
 
@@ -33,6 +34,19 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             this.name = name;
 
             processor = ErrorProcessorFactory.Create(type);
+        }
+
+        public void AddNewMap(BaseProfileMap newMap)
+        {
+            foreach (var subprofile in Subprofiles)
+            {
+                subprofile.Maps.Add(newMap);
+            }
+        }
+
+        public void RemoveMap(int index)
+        {
+
         }
 
         internal void PopulateDefaults()

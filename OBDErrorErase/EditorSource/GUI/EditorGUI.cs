@@ -144,8 +144,6 @@ namespace OBDErrorErase.EditorSource.GUI
 
         public void SetProfileEditorGUI(IProfileEditorGUI profileEditorGUI)
         {
-            //todo implement
-            // add the EditorBosch control and house it in the frame
             var control = profileEditorGUI.UserControl;
 
             if (control == null)

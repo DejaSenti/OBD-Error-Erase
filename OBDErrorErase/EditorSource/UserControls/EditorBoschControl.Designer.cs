@@ -1,6 +1,6 @@
 ﻿namespace OBDErrorErase
 {
-    partial class EditorBosch
+    partial class EditorBoschControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -152,7 +152,6 @@
             LabelName.TabIndex = 0;
             LabelName.Text = "Name";
             LabelName.TextAlign = ContentAlignment.MiddleCenter;
-            LabelName.Click += label1_Click;
             // 
             // ButtonAddMap
             // 

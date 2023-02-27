@@ -1,6 +1,6 @@
 ﻿namespace OBDErrorErase
 {
-    partial class EditorDelphi
+    partial class EditorDelphiControl
     {
         /// <summary> 
         /// Required designer variable.

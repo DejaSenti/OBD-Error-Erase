@@ -2,7 +2,7 @@
 
 namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
 {
-    internal class DelphiProfileEditor : IProfileEditorController
+    internal class DelphiProfileEditorController : IProfileEditorController
     {
         public void SetGUI(IProfileEditorGUI profileEditorGUI)
         {

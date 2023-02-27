@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace OBDErrorErase
 {
-    public partial class EditorBosch : UserControl
+    public partial class EditorDelphiControl : UserControl
     {
-        public EditorBosch()
+        public EditorDelphiControl()
         {
             InitializeComponent();
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

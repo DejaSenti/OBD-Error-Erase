@@ -30,12 +30,22 @@ namespace OBDErrorErase.EditorSource.Maps
             Name = name;
         }
 
+        public DirtyList<byte> CreateSearchWord(int location, BinaryFile file)
+        {
+            return new DirtyList<byte>(file.ReadValue(location, SEARCH_WORD_LENGTH));
+        }
+
         public void SetSearchWord(int location, BinaryFile file)
         {
             if (file != null)
             {
-                SearchWord = new DirtyList<byte>(file.ReadValue(location, SEARCH_WORD_LENGTH));
+                SearchWord = CreateSearchWord(location, file);
             }
+		}
+
+        public void SetSearchWord(DirtyList<byte> searchWord)
+        {
+            SearchWord = searchWord;
 		}
 		
         public virtual void ClearDirty(bool deep = true)
