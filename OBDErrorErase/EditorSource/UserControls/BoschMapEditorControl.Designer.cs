@@ -28,153 +28,101 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.Name = new System.Windows.Forms.TextBox();
-            this.Address = new System.Windows.Forms.TextBox();
-            this.Width = new System.Windows.Forms.ComboBox();
-            this.NewValue = new System.Windows.Forms.TextBox();
-            this.Remove = new System.Windows.Forms.Button();
-            this.tableLayoutPanel2.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.SuspendLayout();
+            TableLayoutFields = new TableLayoutPanel();
+            MapName = new TextBox();
+            Address = new TextBox();
+            Width = new ComboBox();
+            NewValue = new TextBox();
+            Remove = new Button();
+            TableLayoutFields.SuspendLayout();
+            SuspendLayout();
             // 
-            // tableLayoutPanel2
+            // TableLayoutFields
             // 
-            this.tableLayoutPanel2.ColumnCount = 5;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel2.Controls.Add(this.label5, 1, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(200, 100);
-            this.tableLayoutPanel2.TabIndex = 0;
+            TableLayoutFields.ColumnCount = 5;
+            TableLayoutFields.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+            TableLayoutFields.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+            TableLayoutFields.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+            TableLayoutFields.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+            TableLayoutFields.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+            TableLayoutFields.Controls.Add(MapName, 0, 0);
+            TableLayoutFields.Controls.Add(Address, 1, 0);
+            TableLayoutFields.Controls.Add(Width, 2, 0);
+            TableLayoutFields.Controls.Add(NewValue, 3, 0);
+            TableLayoutFields.Controls.Add(Remove, 4, 0);
+            TableLayoutFields.Dock = DockStyle.Fill;
+            TableLayoutFields.Location = new Point(0, 0);
+            TableLayoutFields.Name = "TableLayoutFields";
+            TableLayoutFields.RowCount = 1;
+            TableLayoutFields.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            TableLayoutFields.Size = new Size(330, 40);
+            TableLayoutFields.TabIndex = 7;
             // 
-            // label5
+            // MapName
             // 
-            this.label5.AutoSize = true;
-            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label5.Location = new System.Drawing.Point(43, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(34, 100);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "Address";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label6.Location = new System.Drawing.Point(123, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(34, 100);
-            this.label6.TabIndex = 3;
-            this.label6.Text = "New Value";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 5;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.Controls.Add(this.Name, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.Address, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.Width, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.NewValue, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.Remove, 4, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(330, 40);
-            this.tableLayoutPanel1.TabIndex = 6;
-            this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint_1);
-            // 
-            // Name
-            // 
-            this.Name.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Name.Location = new System.Drawing.Point(3, 8);
-            this.Name.Margin = new System.Windows.Forms.Padding(3, 8, 3, 8);
-            this.Name.Name = "Name";
-            this.Name.Size = new System.Drawing.Size(60, 23);
-            this.Name.TabIndex = 0;
+            MapName.Dock = DockStyle.Fill;
+            MapName.Location = new Point(3, 8);
+            MapName.Margin = new Padding(3, 8, 3, 8);
+            MapName.Name = "MapName";
+            MapName.Size = new Size(60, 23);
+            MapName.TabIndex = 0;
             // 
             // Address
             // 
-            this.Address.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Address.Location = new System.Drawing.Point(69, 8);
-            this.Address.Margin = new System.Windows.Forms.Padding(3, 8, 3, 8);
-            this.Address.Name = "Address";
-            this.Address.Size = new System.Drawing.Size(60, 23);
-            this.Address.TabIndex = 1;
+            Address.Dock = DockStyle.Fill;
+            Address.Location = new Point(69, 8);
+            Address.Margin = new Padding(3, 8, 3, 8);
+            Address.Name = "Address";
+            Address.Size = new Size(60, 23);
+            Address.TabIndex = 1;
             // 
             // Width
             // 
-            this.Width.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Width.FormattingEnabled = true;
-            this.Width.Items.AddRange(new object[] {
-            "8bit",
-            "16bit",
-            "32bit",
-            "64bit"});
-            this.Width.Location = new System.Drawing.Point(135, 8);
-            this.Width.Margin = new System.Windows.Forms.Padding(3, 8, 3, 8);
-            this.Width.Name = "Width";
-            this.Width.Size = new System.Drawing.Size(60, 23);
-            this.Width.TabIndex = 2;
+            Width.Dock = DockStyle.Fill;
+            Width.FormattingEnabled = true;
+            Width.Items.AddRange(new object[] { "8bit", "16bit", "32bit", "64bit" });
+            Width.Location = new Point(135, 8);
+            Width.Margin = new Padding(3, 8, 3, 8);
+            Width.Name = "Width";
+            Width.Size = new Size(60, 23);
+            Width.TabIndex = 2;
             // 
             // NewValue
             // 
-            this.NewValue.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.NewValue.Location = new System.Drawing.Point(201, 8);
-            this.NewValue.Margin = new System.Windows.Forms.Padding(3, 8, 3, 8);
-            this.NewValue.Name = "NewValue";
-            this.NewValue.Size = new System.Drawing.Size(60, 23);
-            this.NewValue.TabIndex = 3;
+            NewValue.Dock = DockStyle.Fill;
+            NewValue.Location = new Point(201, 8);
+            NewValue.Margin = new Padding(3, 8, 3, 8);
+            NewValue.Name = "NewValue";
+            NewValue.Size = new Size(60, 23);
+            NewValue.TabIndex = 3;
             // 
             // Remove
             // 
-            this.Remove.BackColor = System.Drawing.Color.LightCoral;
-            this.Remove.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Remove.Location = new System.Drawing.Point(267, 3);
-            this.Remove.Name = "Remove";
-            this.Remove.Size = new System.Drawing.Size(60, 34);
-            this.Remove.TabIndex = 4;
-            this.Remove.Text = "Remove";
-            this.Remove.UseVisualStyleBackColor = false;
+            Remove.BackColor = Color.LightCoral;
+            Remove.Dock = DockStyle.Fill;
+            Remove.Location = new Point(267, 3);
+            Remove.Name = "Remove";
+            Remove.Size = new Size(60, 34);
+            Remove.TabIndex = 4;
+            Remove.Text = "Remove";
+            Remove.UseVisualStyleBackColor = false;
             // 
             // BoschMapEditorControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.tableLayoutPanel1);
-            this.Name.Name = "BoschMapEditorControl";
-            this.Size = new System.Drawing.Size(330, 40);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(TableLayoutFields);
+            Name = "BoschMapEditorControl";
+            Size = new Size(330, 40);
+            TableLayoutFields.ResumeLayout(false);
+            TableLayoutFields.PerformLayout();
+            ResumeLayout(false);
         }
 
         #endregion
 
-        private TableLayoutPanel tableLayoutPanel2;
-        private Label label5;
-        private Label label6;
-        private TableLayoutPanel tableLayoutPanel1;
-        public TextBox Name;
+        private TableLayoutPanel TableLayoutFields;
+        public TextBox MapName;
         public TextBox Address;
         public ComboBox Width;
         public TextBox NewValue;

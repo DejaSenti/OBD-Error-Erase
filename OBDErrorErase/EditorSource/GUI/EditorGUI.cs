@@ -34,7 +34,6 @@ namespace OBDErrorErase.EditorSource.GUI
 
         private void AddListeners()
         {
-
             guiHolder.EditorDropdownManufacturer.Validated += OnManufacturerValueValidated;
             guiHolder.EditorDropdownManufacturer.KeyUp += OnManufacturerKeyUp;
             guiHolder.EditorDropdownManufacturer.SelectionChangeCommitted += OnManufacturerChangeCommitted;
@@ -48,7 +47,6 @@ namespace OBDErrorErase.EditorSource.GUI
             guiHolder.EditorListSubprofiles.SelectedIndexChanged += OnSubProfileListSelectionChanged;
 
             guiHolder.EditorComboBoxProfileType.SelectionChangeCommitted += OnProfileTypeChangeCommitted;
-
         }
 
         #region Event Listeners

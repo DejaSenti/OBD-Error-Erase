@@ -1,6 +1,6 @@
 ﻿namespace OBDErrorErase
 {
-    partial class DelphiMapEditorControl
+    partial class EditorDelphi
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,8 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            SuspendLayout();
+            // 
+            // EditorDelphi
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            Name = "EditorDelphi";
+            ResumeLayout(false);
         }
 
         #endregion

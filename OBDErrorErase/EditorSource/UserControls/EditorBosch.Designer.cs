@@ -28,223 +28,208 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ComboBoxMapLengthAlgorithm = new System.Windows.Forms.ComboBox();
-            this.TextBoxMapLength = new System.Windows.Forms.TextBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.ButtonAddMap = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.panel1.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.SuspendLayout();
+            ComboBoxMapLengthAlgorithm = new ComboBox();
+            TextBoxMapLength = new TextBox();
+            PanelMaps = new Panel();
+            TableLayoutMaps = new TableLayoutPanel();
+            TableLayoutLabels = new TableLayoutPanel();
+            LabelAddress = new Label();
+            LabelNewValue = new Label();
+            LabelWidth = new Label();
+            LabelName = new Label();
+            ButtonAddMap = new Button();
+            GroupBoxMapLength = new GroupBox();
+            LabelMapLengthManualEntry = new Label();
+            LabelMapLengthSelectAlgorithm = new Label();
+            PanelMaps.SuspendLayout();
+            TableLayoutLabels.SuspendLayout();
+            GroupBoxMapLength.SuspendLayout();
+            SuspendLayout();
             // 
             // ComboBoxMapLengthAlgorithm
             // 
-            this.ComboBoxMapLengthAlgorithm.Items.AddRange(new object[] {
-            "Manual",
-            "BMW"});
-            this.ComboBoxMapLengthAlgorithm.Location = new System.Drawing.Point(173, 29);
-            this.ComboBoxMapLengthAlgorithm.Name = "ComboBoxMapLengthAlgorithm";
-            this.ComboBoxMapLengthAlgorithm.Size = new System.Drawing.Size(151, 23);
-            this.ComboBoxMapLengthAlgorithm.TabIndex = 0;
+            ComboBoxMapLengthAlgorithm.Items.AddRange(new object[] { "Manual", "BMW" });
+            ComboBoxMapLengthAlgorithm.Location = new Point(173, 29);
+            ComboBoxMapLengthAlgorithm.Name = "ComboBoxMapLengthAlgorithm";
+            ComboBoxMapLengthAlgorithm.Size = new Size(151, 23);
+            ComboBoxMapLengthAlgorithm.TabIndex = 0;
             // 
             // TextBoxMapLength
             // 
-            this.TextBoxMapLength.Location = new System.Drawing.Point(173, 58);
-            this.TextBoxMapLength.Name = "TextBoxMapLength";
-            this.TextBoxMapLength.PlaceholderText = "Enter Length...";
-            this.TextBoxMapLength.Size = new System.Drawing.Size(151, 23);
-            this.TextBoxMapLength.TabIndex = 1;
+            TextBoxMapLength.Location = new Point(173, 58);
+            TextBoxMapLength.Name = "TextBoxMapLength";
+            TextBoxMapLength.PlaceholderText = "Enter Length...";
+            TextBoxMapLength.Size = new Size(151, 23);
+            TextBoxMapLength.TabIndex = 1;
             // 
-            // panel1
+            // PanelMaps
             // 
-            this.panel1.AutoScroll = true;
-            this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panel1.Controls.Add(this.tableLayoutPanel2);
-            this.panel1.Location = new System.Drawing.Point(34, 135);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(330, 262);
-            this.panel1.TabIndex = 2;
+            PanelMaps.AutoScroll = true;
+            PanelMaps.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            PanelMaps.Controls.Add(TableLayoutMaps);
+            PanelMaps.Location = new Point(34, 135);
+            PanelMaps.Name = "PanelMaps";
+            PanelMaps.Size = new Size(330, 262);
+            PanelMaps.TabIndex = 2;
             // 
-            // tableLayoutPanel1
+            // TableLayoutMaps
             // 
-            this.tableLayoutPanel1.ColumnCount = 5;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.Controls.Add(this.label2, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label4, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label3, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.ButtonAddMap, 4, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(34, 100);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(330, 32);
-            this.tableLayoutPanel1.TabIndex = 0;
+            TableLayoutMaps.AutoSize = true;
+            TableLayoutMaps.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            TableLayoutMaps.ColumnCount = 1;
+            TableLayoutMaps.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            TableLayoutMaps.Dock = DockStyle.Top;
+            TableLayoutMaps.Location = new Point(0, 0);
+            TableLayoutMaps.MaximumSize = new Size(330, 0);
+            TableLayoutMaps.MinimumSize = new Size(330, 40);
+            TableLayoutMaps.Name = "TableLayoutMaps";
+            TableLayoutMaps.RowCount = 1;
+            TableLayoutMaps.RowStyles.Add(new RowStyle());
+            TableLayoutMaps.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            TableLayoutMaps.Size = new Size(330, 40);
+            TableLayoutMaps.TabIndex = 0;
             // 
-            // label1
+            // TableLayoutLabels
             // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Location = new System.Drawing.Point(3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(60, 32);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Name";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            TableLayoutLabels.ColumnCount = 5;
+            TableLayoutLabels.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+            TableLayoutLabels.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+            TableLayoutLabels.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+            TableLayoutLabels.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+            TableLayoutLabels.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+            TableLayoutLabels.Controls.Add(LabelAddress, 1, 0);
+            TableLayoutLabels.Controls.Add(LabelNewValue, 3, 0);
+            TableLayoutLabels.Controls.Add(LabelWidth, 2, 0);
+            TableLayoutLabels.Controls.Add(LabelName, 0, 0);
+            TableLayoutLabels.Controls.Add(ButtonAddMap, 4, 0);
+            TableLayoutLabels.Location = new Point(34, 100);
+            TableLayoutLabels.Name = "TableLayoutLabels";
+            TableLayoutLabels.RowCount = 1;
+            TableLayoutLabels.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            TableLayoutLabels.Size = new Size(330, 32);
+            TableLayoutLabels.TabIndex = 0;
             // 
-            // label3
+            // LabelAddress
             // 
-            this.label3.AutoSize = true;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Location = new System.Drawing.Point(135, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(60, 32);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Width";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            LabelAddress.AutoSize = true;
+            LabelAddress.Dock = DockStyle.Fill;
+            LabelAddress.Location = new Point(69, 0);
+            LabelAddress.Name = "LabelAddress";
+            LabelAddress.Size = new Size(60, 32);
+            LabelAddress.TabIndex = 4;
+            LabelAddress.Text = "Address";
+            LabelAddress.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // label4
+            // LabelNewValue
             // 
-            this.label4.AutoSize = true;
-            this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label4.Location = new System.Drawing.Point(201, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(60, 32);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "New Value";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            LabelNewValue.AutoSize = true;
+            LabelNewValue.Dock = DockStyle.Fill;
+            LabelNewValue.Location = new Point(201, 0);
+            LabelNewValue.Name = "LabelNewValue";
+            LabelNewValue.Size = new Size(60, 32);
+            LabelNewValue.TabIndex = 3;
+            LabelNewValue.Text = "New Value";
+            LabelNewValue.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // label2
+            // LabelWidth
             // 
-            this.label2.AutoSize = true;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Location = new System.Drawing.Point(69, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(60, 32);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Address";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            LabelWidth.AutoSize = true;
+            LabelWidth.Dock = DockStyle.Fill;
+            LabelWidth.Location = new Point(135, 0);
+            LabelWidth.Name = "LabelWidth";
+            LabelWidth.Size = new Size(60, 32);
+            LabelWidth.TabIndex = 2;
+            LabelWidth.Text = "Width";
+            LabelWidth.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // tableLayoutPanel2
+            // LabelName
             // 
-            this.tableLayoutPanel2.AutoSize = true;
-            this.tableLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel2.MaximumSize = new System.Drawing.Size(330, 0);
-            this.tableLayoutPanel2.MinimumSize = new System.Drawing.Size(330, 40);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(330, 40);
-            this.tableLayoutPanel2.TabIndex = 0;
+            LabelName.AutoSize = true;
+            LabelName.Dock = DockStyle.Fill;
+            LabelName.Location = new Point(3, 0);
+            LabelName.Name = "LabelName";
+            LabelName.Size = new Size(60, 32);
+            LabelName.TabIndex = 0;
+            LabelName.Text = "Name";
+            LabelName.TextAlign = ContentAlignment.MiddleCenter;
+            LabelName.Click += label1_Click;
             // 
             // ButtonAddMap
             // 
-            this.ButtonAddMap.BackColor = System.Drawing.Color.LightGreen;
-            this.ButtonAddMap.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ButtonAddMap.Location = new System.Drawing.Point(267, 3);
-            this.ButtonAddMap.Name = "ButtonAddMap";
-            this.ButtonAddMap.Size = new System.Drawing.Size(60, 26);
-            this.ButtonAddMap.TabIndex = 5;
-            this.ButtonAddMap.Text = "Add";
-            this.ButtonAddMap.UseVisualStyleBackColor = false;
+            ButtonAddMap.BackColor = Color.LightGreen;
+            ButtonAddMap.Dock = DockStyle.Fill;
+            ButtonAddMap.Location = new Point(267, 3);
+            ButtonAddMap.Name = "ButtonAddMap";
+            ButtonAddMap.Size = new Size(60, 26);
+            ButtonAddMap.TabIndex = 5;
+            ButtonAddMap.Text = "Add";
+            ButtonAddMap.UseVisualStyleBackColor = false;
             // 
-            // label6
+            // GroupBoxMapLength
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(137, 13);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(64, 15);
-            this.label6.TabIndex = 4;
-            this.label6.Text = "Algorithm:";
+            GroupBoxMapLength.Controls.Add(LabelMapLengthManualEntry);
+            GroupBoxMapLength.Controls.Add(LabelMapLengthSelectAlgorithm);
+            GroupBoxMapLength.Controls.Add(ComboBoxMapLengthAlgorithm);
+            GroupBoxMapLength.Controls.Add(TextBoxMapLength);
+            GroupBoxMapLength.Location = new Point(34, 3);
+            GroupBoxMapLength.Name = "GroupBoxMapLength";
+            GroupBoxMapLength.Size = new Size(330, 91);
+            GroupBoxMapLength.TabIndex = 5;
+            GroupBoxMapLength.TabStop = false;
+            GroupBoxMapLength.Text = "Map Length";
             // 
-            // groupBox1
+            // LabelMapLengthManualEntry
             // 
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.ComboBoxMapLengthAlgorithm);
-            this.groupBox1.Controls.Add(this.TextBoxMapLength);
-            this.groupBox1.Location = new System.Drawing.Point(34, 3);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(330, 91);
-            this.groupBox1.TabIndex = 5;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Map Length";
+            LabelMapLengthManualEntry.AutoSize = true;
+            LabelMapLengthManualEntry.Location = new Point(6, 63);
+            LabelMapLengthManualEntry.Margin = new Padding(3);
+            LabelMapLengthManualEntry.Name = "LabelMapLengthManualEntry";
+            LabelMapLengthManualEntry.Size = new Size(80, 15);
+            LabelMapLengthManualEntry.TabIndex = 3;
+            LabelMapLengthManualEntry.Text = "Manual Entry:";
             // 
-            // label5
+            // LabelMapLengthSelectAlgorithm
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 34);
-            this.label5.Margin = new System.Windows.Forms.Padding(3);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(98, 15);
-            this.label5.TabIndex = 2;
-            this.label5.Text = "Select Algorithm:";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 63);
-            this.label7.Margin = new System.Windows.Forms.Padding(3);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(80, 15);
-            this.label7.TabIndex = 3;
-            this.label7.Text = "Manual Entry:";
+            LabelMapLengthSelectAlgorithm.AutoSize = true;
+            LabelMapLengthSelectAlgorithm.Location = new Point(6, 34);
+            LabelMapLengthSelectAlgorithm.Margin = new Padding(3);
+            LabelMapLengthSelectAlgorithm.Name = "LabelMapLengthSelectAlgorithm";
+            LabelMapLengthSelectAlgorithm.Size = new Size(98, 15);
+            LabelMapLengthSelectAlgorithm.TabIndex = 2;
+            LabelMapLengthSelectAlgorithm.Text = "Select Algorithm:";
             // 
             // EditorBosch
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.tableLayoutPanel1);
-            this.Controls.Add(this.panel1);
-            this.Name = "EditorBosch";
-            this.Size = new System.Drawing.Size(400, 400);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(GroupBoxMapLength);
+            Controls.Add(TableLayoutLabels);
+            Controls.Add(PanelMaps);
+            Name = "EditorBosch";
+            Size = new Size(400, 400);
+            PanelMaps.ResumeLayout(false);
+            PanelMaps.PerformLayout();
+            TableLayoutLabels.ResumeLayout(false);
+            TableLayoutLabels.PerformLayout();
+            GroupBoxMapLength.ResumeLayout(false);
+            GroupBoxMapLength.PerformLayout();
+            ResumeLayout(false);
         }
 
         #endregion
-        private Panel panel1;
-        private TableLayoutPanel tableLayoutPanel1;
-        private Label label1;
-        private Label label2;
-        private Label label4;
-        private Label label3;
-        private TableLayoutPanel tableLayoutPanel2;
+        private Panel PanelMaps;
+        private TableLayoutPanel TableLayoutLabels;
+        private Label LabelName;
+        private Label LabelAddress;
+        private Label LabelNewValue;
+        private Label LabelWidth;
+        private TableLayoutPanel TableLayoutMaps;
         public ComboBox ComboBoxMapLengthAlgorithm;
         public TextBox TextBoxMapLength;
         public Button ButtonAddMap;
         private Label label6;
-        private GroupBox groupBox1;
-        private Label label7;
-        private Label label5;
+        private GroupBox GroupBoxMapLength;
+        private Label LabelMapLengthManualEntry;
+        private Label LabelMapLengthSelectAlgorithm;
     }
 }

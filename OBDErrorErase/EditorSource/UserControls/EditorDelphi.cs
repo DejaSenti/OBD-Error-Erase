@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace OBDErrorErase
 {
-    public partial class DelphiMapEditorControl : UserControl
+    public partial class EditorDelphi : UserControl
     {
-        public DelphiMapEditorControl()
+        public EditorDelphi()
         {
             InitializeComponent();
         }
