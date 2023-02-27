@@ -97,16 +97,14 @@ namespace OBDErrorErase.EditorSource.Utils
             saveFileDialog.Filter = $"{extension} files (*.{extension})|*.{extension}|All files (*.*)|*.*";
             saveFileDialog.RestoreDirectory = true;
 
+            Stream? stream = null;
+
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                var stream = saveFileDialog.OpenFile();
-                if (stream != null)
-                {
-                    return stream;
-                }
+                stream = saveFileDialog.OpenFile();
             }
 
-            return null;
+            return stream;
         }
 
         public static byte[] LoadBinaryFile(string path)
@@ -126,7 +124,11 @@ namespace OBDErrorErase.EditorSource.Utils
         {
             var fileStream = GetFilestreamForWriting(AppFileExtension.bin);
 
-            if (fileStream == null || !fileStream.CanWrite)
+            if (fileStream == null)
+            {
+                return;
+            }
+            else if (!fileStream.CanWrite)
             {
                 MessageBox.Show("Couldn't open file for writing!", "Error Saving File", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;

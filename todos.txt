@@ -1,8 +1,8 @@
 HIGH PRIORITY BUGS:
-	- cancel on save file throws error
-	- switch profile type should create subprofile too (no defaults for delphi)
+	+ cancel on save file throws error
 	+ open binary button opens dialog twice
 	+ cancel on open file throws exception
+	- switch profile type should create subprofile too (no defaults for delphi)
 
 
 TO IMPLEMENT:
