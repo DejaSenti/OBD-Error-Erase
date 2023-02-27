@@ -108,13 +108,13 @@ namespace OBDErrorErase.EditorSource.AppControl
             profileEditor = ProfileEditorFactory.GetEditorController(newProfile.Type);
             profileEditorGUI = ProfileEditorGUIFactory.GetEditorGUI(newProfile.Type);
 
-            profileEditor.SetGUI(profileEditorGUI);
-
             editorGUI.SetProfileEditorGUI(profileEditorGUI);
 
             editorGUI.OnCurrentProfileChanged(newProfile);
 
             editorGUI.OnCurrentSubprofileChanged(profileManager.CurrentSubProfileIndex);
+
+            profileEditor.SetGUI(profileEditorGUI);
         }
 
         internal void OnNewSubprofileLoaded()

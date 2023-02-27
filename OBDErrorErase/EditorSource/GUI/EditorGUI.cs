@@ -145,6 +145,16 @@ namespace OBDErrorErase.EditorSource.GUI
         public void SetProfileEditorGUI(IProfileEditorGUI profileEditorGUI)
         {
             //todo implement
+            // add the EditorBosch control and house it in the frame
+            var control = profileEditorGUI.UserControl;
+
+            if (control == null)
+                return;
+
+            var frame = guiHolder.EditorPanelEditFrame;
+
+            frame.Controls.Add(control);
+            control.Parent = frame;
         }
 
         public void UpdateSubprofilesList(IReadOnlyList<SubprofileData> subprofiles)
@@ -162,19 +172,6 @@ namespace OBDErrorErase.EditorSource.GUI
         {
             guiHolder.EditorButtonDuplicateSubProfile.Enabled = currentSubProfileIndex > -1;
             guiHolder.EditorButtonRemoveSubProfile.Enabled = guiHolder.EditorListSubprofiles.Items.Count > 1;
-        }
-
-        internal void OnCurrentBinaryFileChanged(BinaryFile file, string path) // todo get this out of here into some file preview controller that will work with both preview boxes
-        {
-            guiHolder.MainLabelBinaryFilename.Text = path;
-            //todo implement
-
-            // look at selected subprofile
-            // get location of first map
-            // read display bytes
-            // update preview display
-
-            //AppHelper.PreviewFile(guiHolder.EditorErrorPreview, displayMapLocation, displayBytes);
         }
     }
 }

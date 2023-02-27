@@ -1,4 +1,5 @@
 ﻿using OBDErrorErase.EditorSource.FileManagement;
+using OBDErrorErase.EditorSource.Maps;
 using OBDErrorErase.EditorSource.ProfileManagement;
 
 namespace OBDErrorErase.EditorSource.Processors
@@ -7,7 +8,10 @@ namespace OBDErrorErase.EditorSource.Processors
     {
         public void PopulateProfileDefaults(Profile profile)
         {
-            //throw new NotImplementedException();
+            profile.Manufacturer = "None";
+            profile.Name = "None";
+            profile.Subprofiles.Add(new SubprofileData());
+            profile.Subprofiles[0].Maps.Add(new MapDelphi());
         }
 
         public int Process(BinaryFile file, SubprofileData subprofile, List<string> errors, List<int> mapIndices)

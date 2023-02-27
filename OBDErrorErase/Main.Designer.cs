@@ -45,7 +45,6 @@
         public ListBox MainListProfiles;
         private Panel EraserPanelMapSelector;
         public TableLayoutPanel EraserTableLayoutMapSelector;
-        private Panel EditorPanelEditFrame;
         private Label EditorLabelProfileTypeSelect;
         private Label EditorLabelSubprofiles;
         private Label EditorLabelName;
@@ -62,5 +61,6 @@
         public TabControl MainTabControl;
         public TabPage EraserTabPage;
         public TabPage EditorTabPage;
+        public Panel EditorPanelEditFrame;
     }
 }
