@@ -48,7 +48,7 @@
             // 
             // ComboBoxMapLengthAlgorithm
             // 
-            ComboBoxMapLengthAlgorithm.Items.AddRange(new object[] { "Manual", "BMW" });
+            ComboBoxMapLengthAlgorithm.DropDownStyle = ComboBoxStyle.DropDownList;
             ComboBoxMapLengthAlgorithm.Location = new Point(173, 29);
             ComboBoxMapLengthAlgorithm.Name = "ComboBoxMapLengthAlgorithm";
             ComboBoxMapLengthAlgorithm.Size = new Size(151, 23);

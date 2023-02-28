@@ -5,6 +5,9 @@ namespace OBDErrorErase
 {
     public partial class EditorBoschControl : UserControl
     {
+        private const string MANUAL = "Manual";
+        private readonly List<string> LENGTH_ALGORITHMS = new List<string> { MANUAL, "BMW" };
+
         public event Action<int>? MapRemoved;
         public event Action<int, BoschMapEditorContent>? ContentChanged;
 
@@ -15,6 +18,16 @@ namespace OBDErrorErase
             InitializeComponent();
 
             controls = new();
+
+            ComboBoxMapLengthAlgorithm.Items.AddRange(LENGTH_ALGORITHMS.ToArray());
+            ComboBoxMapLengthAlgorithm.SelectedIndex = 0;
+
+            ComboBoxMapLengthAlgorithm.SelectionChangeCommitted += OnLengthAlgorithmChangeCommitted;
+        }
+
+        private void OnLengthAlgorithmChangeCommitted(object? sender, EventArgs e)
+        {
+            TextBoxMapLength.Enabled = (ComboBoxMapLengthAlgorithm.SelectedIndex == LENGTH_ALGORITHMS.IndexOf(MANUAL));
         }
 
         public void AddRow(string name, string newValue)

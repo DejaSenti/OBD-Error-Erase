@@ -79,6 +79,7 @@
             // Width
             // 
             Width.Dock = DockStyle.Fill;
+            Width.DropDownStyle = ComboBoxStyle.DropDownList;
             Width.FormattingEnabled = true;
             Width.Location = new Point(135, 8);
             Width.Margin = new Padding(3, 8, 3, 8);
