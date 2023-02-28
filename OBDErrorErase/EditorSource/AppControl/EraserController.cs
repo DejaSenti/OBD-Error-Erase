@@ -122,5 +122,16 @@ namespace OBDErrorErase.EditorSource.AppControl
 
             eraserGUI.PopulateMapList(profileManager.CurrentSubProfile.GetMapNameList());
         }
+
+        internal void OnProfileUnloaded()
+        {
+            eraserGUI.SetEraseButtonEnabled(false);
+            eraserGUI.ClearFields();
+        }
+
+        internal void OnEraseAvailable()
+        {
+            eraserGUI.SetEraseButtonEnabled(true);
+        }
     }
 }

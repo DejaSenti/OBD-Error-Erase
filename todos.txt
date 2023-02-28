@@ -20,7 +20,7 @@ TO IMPLEMENT:
 
 	- editor tab:
 		+ GUI: group profile type dropdown and editor frame
-		- load the editor gui frame on dropdown select
+		+ load the editor gui frame on dropdown select
 		- when there's a current subprofile, it should be the selection too
 		- allow removal of first subprofile as long as it's not the only one in the list
 

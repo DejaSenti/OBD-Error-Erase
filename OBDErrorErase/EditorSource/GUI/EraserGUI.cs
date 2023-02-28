@@ -18,6 +18,8 @@
             this.guiHolder = guiHolder;
 
             AddGUIListeners();
+
+            SetEraseButtonEnabled(false);
         }
 
         private void AddGUIListeners()
@@ -173,6 +175,17 @@
         internal void OnInvalidErasingAttempt()
         {
             MessageBox.Show("Cannot process!\rCheck that you loaded a file, selected a profile, and have errors you want to erase!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        internal void ClearFields()
+        {
+            PopulateMapList(new List<string>());
+            guiHolder.EraserCheckBoxSelectAllMaps.Checked = false;
+        }
+
+        internal void SetEraseButtonEnabled(bool value)
+        {
+            guiHolder.EraserButtonRun.Enabled = value;
         }
     }
 }

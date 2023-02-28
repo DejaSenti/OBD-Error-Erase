@@ -171,5 +171,14 @@ namespace OBDErrorErase.EditorSource.GUI
             guiHolder.EditorButtonDuplicateSubProfile.Enabled = currentSubProfileIndex > -1;
             guiHolder.EditorButtonRemoveSubProfile.Enabled = guiHolder.EditorListSubprofiles.Items.Count > 1;
         }
+
+        internal void ClearFields()
+        {
+            guiHolder.EditorDropdownManufacturer.Text = string.Empty;
+            guiHolder.EditorTextBoxComputerName.Text = string.Empty;
+            guiHolder.EditorComboBoxProfileType.SelectedIndex = -1;
+            UpdateSubprofilesList(new List<SubprofileData>());
+            UpdateAllProfileEnabledStatuses();
+        }
     }
 }

@@ -8,6 +8,8 @@ namespace OBDErrorErase.EditorSource.AppControl
 
     public class EditorController
     {
+        public event Action ProfileEditedEvent;
+
         private EditorGUI editorGUI;
 
         private ProfileManager profileManager;
@@ -30,7 +32,7 @@ namespace OBDErrorErase.EditorSource.AppControl
             // todo listen to any changes in the editor frame gui
 
             editorGUI.RequestManufacturerNameChangeEvent += OnManufacturerNameChangeRequested;
-            editorGUI.RequestComputerNameChangeEvent += OnComputerNameChangeRequest;
+            editorGUI.RequestComputerNameChangeEvent += OnComputerNameChangeRequested;
 
             editorGUI.RequestDuplicateCurrentSubprofile += OnDuplicateCurrentSubprofileRequested;
             editorGUI.RequestRemoveCurrentSubprofile += OnRemoveCurrentSubprofileRequested;
@@ -77,15 +79,19 @@ namespace OBDErrorErase.EditorSource.AppControl
             editorGUI.OnCurrentProfileChanged(profileManager.CurrentProfile);
 
             editorGUI.OnProfileDBChanged(profileManager.GetManufacturers());
+
+            ProfileEditedEvent?.Invoke();
         }
 
-        private void OnComputerNameChangeRequest(string newName)
+        private void OnComputerNameChangeRequested(string newName)
         {
             if (profileManager.CurrentProfile == null)
                 return;
 
             profileManager.SetCurrentProfileName(newName);
             editorGUI.OnCurrentProfileChanged(profileManager.CurrentProfile);
+
+            ProfileEditedEvent?.Invoke();
         }
 
         private void OnProfileTypeChangeRequested(ProfileType type)
@@ -120,6 +126,15 @@ namespace OBDErrorErase.EditorSource.AppControl
         internal void OnNewSubprofileLoaded()
         {
             editorGUI.OnCurrentSubprofileChanged(profileManager.CurrentSubProfileIndex);
+        }
+
+        internal void OnProfileUnloaded()
+        {
+            editorGUI.ClearFields();
+            editorGUI.OnCurrentSubprofileChanged(profileManager.CurrentSubProfileIndex);
+
+            profileEditor?.Dispose();
+            profileEditorGUI?.Dispose();
         }
     }
 }

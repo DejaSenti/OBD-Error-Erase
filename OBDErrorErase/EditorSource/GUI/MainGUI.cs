@@ -18,7 +18,7 @@ namespace OBDErrorErase.EditorSource.GUI
         private Main guiHolder;
 
         private string[]? currentFilterWords;
-        private string SelectedProfileID { get; set; } = "";
+        public string SelectedProfileID { get; set; } = "";
 
         public MainGUI(Main guiHolder)
         {
@@ -27,6 +27,14 @@ namespace OBDErrorErase.EditorSource.GUI
             UpdateProfilesList();
 
             AddListeners();
+
+            UpdateProfileManagementButtons();
+        }
+
+        private void UpdateProfileManagementButtons()
+        {
+            guiHolder.MainButtonDuplicateProfile.Enabled = guiHolder.MainListProfiles.SelectedIndex > -1;
+            guiHolder.MainButtonRemoveProfile.Enabled = guiHolder.MainListProfiles.SelectedIndex > -1;
         }
 
         private void AddListeners()
@@ -180,12 +188,12 @@ namespace OBDErrorErase.EditorSource.GUI
             }
         }
 
-        internal string? GetNextProfileSelection()
+        internal string GetNextProfileSelection()
         {
             ListBox list = guiHolder.MainListProfiles;
 
             if (list.SelectedIndex == -1 || list.Items.Count == 1)
-                return null;
+                return "";
 
             var nextIndex = list.SelectedIndex + 1 == list.Items.Count ? list.SelectedIndex - 1 : list.SelectedIndex + 1;
 
@@ -200,6 +208,14 @@ namespace OBDErrorErase.EditorSource.GUI
             guiHolder.EditorDropdownManufacturer.Items.AddRange(newManufacturers);
 
             UpdateProfilesList();
+        }
+
+        internal void ClearFields()
+        {
+            guiHolder.MainListProfiles.SelectedIndex = -1;
+            guiHolder.MainDataGridFilePreview.Rows.Clear();
+
+            UpdateProfileManagementButtons();
         }
     }
 }

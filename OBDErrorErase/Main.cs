@@ -225,7 +225,6 @@ namespace OBDErrorErase
             EraserLabelErrorCounter.Name = "EraserLabelErrorCounter";
             EraserLabelErrorCounter.Size = new Size(300, 31);
             EraserLabelErrorCounter.TabIndex = 45;
-            EraserLabelErrorCounter.Text = "Deleted: X / Y";
             EraserLabelErrorCounter.TextAlign = ContentAlignment.MiddleLeft;
             EraserLabelErrorCounter.Click += EraserLabelErrorCounter_Click_1;
             // 
@@ -496,7 +495,6 @@ namespace OBDErrorErase
             MainLabelBinaryFilename.Name = "MainLabelBinaryFilename";
             MainLabelBinaryFilename.Size = new Size(235, 24);
             MainLabelBinaryFilename.TabIndex = 51;
-            MainLabelBinaryFilename.Text = "some_binary_file_with_a_long_name.bin";
             MainLabelBinaryFilename.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // MainButtonFileBrowse

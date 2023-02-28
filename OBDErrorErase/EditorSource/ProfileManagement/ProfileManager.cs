@@ -1,7 +1,6 @@
 ﻿using OBDErrorErase.EditorSource.Configs;
 using OBDErrorErase.EditorSource.Utils;
 using System.Text.Json;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace OBDErrorErase.EditorSource.ProfileManagement
 {
@@ -246,6 +245,12 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
                 fileCountByManufacturer[manufacturer] = 0;
 
             fileCountByManufacturer[manufacturer]++;
+        }
+
+        internal void UnloadProfile()
+        {
+            CurrentProfile = null;
+            CurrentSubProfileIndex = -1;
         }
     }
 }

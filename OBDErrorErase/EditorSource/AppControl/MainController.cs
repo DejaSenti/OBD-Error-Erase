@@ -36,6 +36,18 @@ namespace OBDErrorErase.EditorSource.AppControl
             mainGUI.RequestBinaryFileBrowseEvent += OnBinaryFileLoadRequested;
 
             mainGUI.FlipBytesEvent += OnFlipBytesToggled;
+
+            editorController.ProfileEditedEvent += OnProfileEdited;
+        }
+
+        private void OnProfileEdited()
+        {
+            if (profileManager.CurrentProfile != null && profileManager.CurrentProfile.ID != mainGUI.SelectedProfileID)
+            {
+                mainGUI.SelectedProfileID = profileManager.CurrentProfile.ID;
+            }
+
+            OnProfileDBChanged();
         }
 
         private void OnFlipBytesToggled(bool value)
@@ -66,10 +78,12 @@ namespace OBDErrorErase.EditorSource.AppControl
 
         private void OnLoadProfileRequested(string profileID)
         {
-            var profile = profileManager.LoadProfile(profileID);
+            UnloadProfile();
 
-            if (profile == null)
+            if (string.IsNullOrEmpty(profileID))
                 return;
+
+            var profile = profileManager.LoadProfile(profileID);
 
             profileManager.SetCurrentProfile(profile);
 
@@ -105,7 +119,7 @@ namespace OBDErrorErase.EditorSource.AppControl
 
             profileManager.SetCurrentSubprofile(subprofile);
             editorController.OnNewSubprofileLoaded();
-
+            eraserController.OnEraseAvailable();
             UpdateFilePreview();
         }
 
@@ -168,10 +182,15 @@ namespace OBDErrorErase.EditorSource.AppControl
 
             OnProfileDBChanged();
 
-            if (nextProfileID == null)
-                return;
-
             OnLoadProfileRequested(nextProfileID);
+        }
+
+        private void UnloadProfile()
+        {
+            profileManager.UnloadProfile();
+            mainGUI.ClearFields();
+            editorController.OnProfileUnloaded();
+            eraserController.OnProfileUnloaded();
         }
 
         private void OnProfileDBChanged()
