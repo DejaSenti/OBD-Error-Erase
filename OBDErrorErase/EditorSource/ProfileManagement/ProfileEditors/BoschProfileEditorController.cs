@@ -2,7 +2,6 @@
 using OBDErrorErase.EditorSource.FileManagement;
 using OBDErrorErase.EditorSource.Maps;
 using OBDErrorErase.EditorSource.Utils;
-using System.Net;
 
 namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
 {
@@ -78,14 +77,14 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
             int value;
             try
             {
-                value = Convert.ToInt32(address);
+                value = Convert.ToInt32(address, 16);
             }
             catch
             {
                 return;
             }
 
-            ChangeBoschMapParameter(BoschMapParameter.ADDRESS, address, mapIndex);
+            ChangeBoschMapParameter(BoschMapParameter.ADDRESS, value, mapIndex);
             TryLengthCalculation();
         }
 
@@ -170,7 +169,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
             gui.RemoveMap(mapIndex);
         }
 
-        private void PopulateFields() // todo call this when a new profile is loaded
+        private void PopulateFields()
         {
             gui.Clear();
 
@@ -207,7 +206,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
                     var binaryFileManager = ServiceContainer.GetService<BinaryFileManager>();
                     var file = binaryFileManager.CurrentFile;
                     if (file == null)
-                        return;
+                        break;
                     map.SetSearchWord(map.RawLocation, file);
                     break;
 

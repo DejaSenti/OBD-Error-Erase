@@ -1,6 +1,5 @@
 ﻿using OBDErrorErase.EditorSource.Configs;
 using OBDErrorErase.EditorSource.Maps;
-using OBDErrorErase.EditorSource.Utils;
 using static OBDErrorErase.EditorSource.Utils.AppHelper;
 
 namespace OBDErrorErase
@@ -18,7 +17,7 @@ namespace OBDErrorErase
             InitializeComponent();
             MapName.Text = name;
             NewValue.Text = newValue;
-            Address.Text = rawLocation.ToString();
+            Address.Text = rawLocation.ToString("X");
 
             Width.Items.AddRange(ValueWidth.WIDTH.ToArray());
             Width.SelectedIndex = rawWidth;
@@ -31,8 +30,7 @@ namespace OBDErrorErase
 
             AddGUIListeners();
 
-            EnforceValidations(new List<TextBox>() { Address }, new List<Validation>() { char.IsNumber, char.IsControl });
-            EnforceValidations(new List<TextBox>() { NewValue }, new List<Validation>() { char.IsAsciiHexDigit, char.IsControl });
+            EnforceValidations(new List<TextBox>() { NewValue, Address }, new List<Validation>() { char.IsAsciiHexDigit, char.IsControl });
         }
 
         private void AddGUIListeners()
@@ -56,17 +54,17 @@ namespace OBDErrorErase
 
         private void OnAddressKeyUp(object? sender, KeyEventArgs e)
         {
-            AppHelper.RunIfEnterKey(e.KeyCode, () => RequestAddressChangeEvent?.Invoke(this, Address.Text));
+            RunIfEnterKey(e.KeyCode, () => RequestAddressChangeEvent?.Invoke(this, Address.Text));
         }
 
         private void OnMapNameKeyUp(object? sender, KeyEventArgs e)
         {
-            AppHelper.RunIfEnterKey(e.KeyCode, () => RequestMapNameChangeEvent?.Invoke(this, MapName.Text));
+            RunIfEnterKey(e.KeyCode, () => RequestMapNameChangeEvent?.Invoke(this, MapName.Text));
         }
 
         private void OnNewValueKeyUp(object? sender, KeyEventArgs e)
         {
-            AppHelper.RunIfEnterKey(e.KeyCode, () => RequestNewValueChangeEvent?.Invoke(this, NewValue.Text));
+            RunIfEnterKey(e.KeyCode, () => RequestNewValueChangeEvent?.Invoke(this, NewValue.Text));
         }
 
         private void OnRemoveClicked(object? sender, EventArgs e)

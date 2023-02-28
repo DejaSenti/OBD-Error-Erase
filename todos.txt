@@ -2,7 +2,9 @@ HIGH PRIORITY BUGS:
 	+ cancel on save file throws error
 	+ open binary button opens dialog twice
 	+ cancel on open file throws exception
-	- switch profile type should create subprofile too (no defaults for delphi)
+	+ switch profile type should create subprofile too (no defaults for delphi)
+	- subprofile selection doesn't update fields
+	- setting address without binary file loaded will just set in the raw address, should be handled once file is loaded somehow
 
 
 TO IMPLEMENT:
@@ -11,7 +13,7 @@ TO IMPLEMENT:
 	+ file preview
 	+ flip bytes behavior
 
-	- profile editors and GUIs
+	+ profile editors and GUIs
 
 	+ eraser tab:
 		+ map modify check list
@@ -22,7 +24,7 @@ TO IMPLEMENT:
 		+ GUI: group profile type dropdown and editor frame
 		+ load the editor gui frame on dropdown select
 		- when there's a current subprofile, it should be the selection too
-		- allow removal of first subprofile as long as it's not the only one in the list
+		- allow removal of first subprofile as long as it's not the only one in the list (check if it's even relevant once the fields load)
 
 
 	- delphi eraser functionality

@@ -1,5 +1,6 @@
 ﻿using OBDErrorErase.EditorSource.Maps;
 using OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors;
+using OBDErrorErase.EditorSource.Utils;
 using static OBDErrorErase.EditorSource.Utils.AppHelper;
 
 namespace OBDErrorErase
@@ -38,6 +39,8 @@ namespace OBDErrorErase
         {
             ButtonAddMap.Click += OnAddMapClick;
             TextBoxMapLength.Validated += OnMapLengthChange;
+            TextBoxMapLength.Leave += OnMapLengthChange;
+            TextBoxMapLength.KeyUp += OnMapLengthKeyUp;
             ComboBoxMapLengthAlgorithm.SelectionChangeCommitted += OnAlgorithmSelectionChanged;
         }
 
@@ -76,6 +79,11 @@ namespace OBDErrorErase
         private void OnMapLengthChange(object? sender, EventArgs e)
         {
             RequestLengthChangeEvent?.Invoke(TextBoxMapLength.Text);
+        }
+
+        private void OnMapLengthKeyUp(object? sender, KeyEventArgs e)
+        {
+            RunIfEnterKey(e.KeyCode, () => RequestLengthChangeEvent?.Invoke(TextBoxMapLength.Text));
         }
 
         private void OnAlgorithmSelectionChanged(object? sender, EventArgs e)
@@ -118,10 +126,9 @@ namespace OBDErrorErase
 
         internal void AddMap(MapBosch map)
         {
-            string name = map.Name;
             string newValue = Convert.ToHexString(map.NewValue.ToArray());
 
-            var control = new BoschMapEditorControl(name, map.RawLocation, map.RawWidth, newValue);
+            var control = new BoschMapEditorControl(map.Name, map.RawLocation, map.RawWidth, newValue);
 
             AddControlListeners(control);
 
