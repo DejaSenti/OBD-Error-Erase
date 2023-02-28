@@ -65,15 +65,17 @@
             // PanelMaps
             // 
             PanelMaps.AutoScroll = true;
+            PanelMaps.AutoScrollMinSize = new Size(280, 0);
             PanelMaps.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             PanelMaps.Controls.Add(TableLayoutMaps);
             PanelMaps.Location = new Point(34, 135);
             PanelMaps.Name = "PanelMaps";
-            PanelMaps.Size = new Size(330, 262);
+            PanelMaps.Size = new Size(350, 262);
             PanelMaps.TabIndex = 2;
             // 
             // TableLayoutMaps
             // 
+            TableLayoutMaps.AutoScroll = true;
             TableLayoutMaps.AutoSize = true;
             TableLayoutMaps.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             TableLayoutMaps.ColumnCount = 1;
@@ -197,14 +199,14 @@
             LabelMapLengthSelectAlgorithm.TabIndex = 2;
             LabelMapLengthSelectAlgorithm.Text = "Select Algorithm:";
             // 
-            // EditorBosch
+            // EditorBoschControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(GroupBoxMapLength);
             Controls.Add(TableLayoutLabels);
             Controls.Add(PanelMaps);
-            Name = "EditorBosch";
+            Name = "EditorBoschControl";
             Size = new Size(400, 400);
             PanelMaps.ResumeLayout(false);
             PanelMaps.PerformLayout();

@@ -43,9 +43,11 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
             if (profileManager.CurrentProfile == null)
                 return;
 
-            profileManager.CurrentProfile.AddNewMap(new MapBosch());
+            var map = new MapBosch();
 
-            PopulateFields();
+            profileManager.CurrentProfile.AddNewMap(map);
+
+            gui.AddMap(map);
         }
 
         private void OnRemoveMapRequested(int mapIndex)

@@ -23,7 +23,7 @@ namespace OBDErrorErase
 
             TableLayoutMaps.Controls.Add(control);
             TableLayoutMaps.SetRow(control, TableLayoutMaps.Controls.Count - 1);
-            TableLayoutMaps.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            ResetRowStyles();
 
             control.Width.Items.AddRange(ValueWidth.WIDTH.ToArray());
 
@@ -67,14 +67,24 @@ namespace OBDErrorErase
             control.Remove.Click -= OnRemoveClicked;
 
             TableLayoutMaps.Controls.Remove(control);
-            TableLayoutMaps.RowStyles.RemoveAt(0);
+            ResetRowStyles();
 
             control.Dispose();
         }
 
+        private void ResetRowStyles()
+        {
+            TableLayoutMaps.RowStyles.Clear();
+
+            foreach (var control in controls)
+            {
+                TableLayoutMaps.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            }
+        }
+
         public void Clear()
         {
-            foreach(var control in controls)
+            foreach (var control in controls)
             {
                 RemoveRow(control.control);
             }
@@ -100,7 +110,7 @@ namespace OBDErrorErase
 
             BoschMapEditorControl? control = (BoschMapEditorControl?)((((Control?)sender)?.Parent)?.Parent);
 
-            if (control == null) 
+            if (control == null)
                 return;
 
             var index = controls.IndexOf(controls.FirstOrDefault(x => x.control == control));
