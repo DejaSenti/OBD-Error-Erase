@@ -46,7 +46,10 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
 
         public void RemoveMap(int index)
         {
-
+            foreach (var subprofile in Subprofiles)
+            {
+                subprofile.Maps.RemoveAt(index);
+            }
         }
 
         internal void PopulateDefaults()

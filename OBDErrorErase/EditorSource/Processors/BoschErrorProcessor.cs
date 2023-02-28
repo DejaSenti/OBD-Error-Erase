@@ -1,4 +1,5 @@
-﻿using OBDErrorErase.EditorSource.FileManagement;
+﻿using OBDErrorErase.EditorSource.Configs;
+using OBDErrorErase.EditorSource.FileManagement;
 using OBDErrorErase.EditorSource.Maps;
 using OBDErrorErase.EditorSource.ProfileManagement;
 using OBDErrorErase.EditorSource.Utils;
@@ -12,7 +13,7 @@ namespace OBDErrorErase.EditorSource.Processors
             profile.Manufacturer = "None";
             profile.Name = "None";
             profile.Subprofiles.Add(new SubprofileData());
-            profile.AddNewMap(new MapBosch(MapBosch.ERROR_LIST, "0000"));
+            profile.AddNewMap(new MapBosch(MapBosch.DTC, "0000", ValueWidth.WIDTH.IndexOf("16bit")));
         }
 
         public int Process(BinaryFile file, SubprofileData subprofile, List<string> errors, List<int> mapIndices)

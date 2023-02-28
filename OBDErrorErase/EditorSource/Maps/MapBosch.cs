@@ -6,7 +6,8 @@ namespace OBDErrorErase.EditorSource.Maps
     [Serializable]
     public class MapBosch : BaseProfileMap
     {
-        public const string ERROR_LIST = "DTC";
+        public const string DTC = "DTC";
+        public const string CLASS = "class";
 
         [JsonIgnore]
         public override bool IsDirty => base.IsDirty || NewValue.IsDirty;
@@ -14,11 +15,18 @@ namespace OBDErrorErase.EditorSource.Maps
         private DirtyList<byte> newValue = new();
         public DirtyList<byte> NewValue { get => newValue; set { newValue = value; isDirty = true; } }
 
+        private int rawLocation;
+        public int RawLocation { get => rawLocation; set { rawLocation = value; isDirty = true; } }
+
+        private int rawWidth;
+        public int RawWidth { get => rawWidth; set { rawWidth = value; isDirty = true; } }
+
         public MapBosch() { }
 
-        public MapBosch(string name, string newValue) : base(name)
+        public MapBosch(string name, string newValue, int rawWidth) : base(name)
         {
             NewValue = new DirtyList<byte>(Convert.FromHexString(newValue));
+            RawWidth = rawWidth;
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using OBDErrorErase.EditorSource.ProfileManagement;
 using OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors;
 using OBDErrorErase.EditorSource.Configs;
-using OBDErrorErase.EditorSource.FileManagement;
+using OBDErrorErase.EditorSource.Utils;
 
 namespace OBDErrorErase.EditorSource.GUI
 {
@@ -79,7 +79,7 @@ namespace OBDErrorErase.EditorSource.GUI
 
         private void OnComputerNameKeyUp(object? sender, KeyEventArgs e)
         {
-            RunIfEnterKey(e.KeyCode, () => RequestComputerNameChangeEvent?.Invoke(guiHolder.EditorTextBoxComputerName.Text));
+            AppHelper.RunIfEnterKey(e.KeyCode, () => RequestComputerNameChangeEvent?.Invoke(guiHolder.EditorTextBoxComputerName.Text));
         }
 
         private void OnManufacturerValueValidated(object? sender, EventArgs e)
@@ -89,13 +89,7 @@ namespace OBDErrorErase.EditorSource.GUI
 
         private void OnManufacturerKeyUp(object? sender, KeyEventArgs e)
         {
-            RunIfEnterKey(e.KeyCode, () => RequestManufacturerNameChangeEvent?.Invoke(guiHolder.EditorDropdownManufacturer.Text));
-        }
-
-        private void RunIfEnterKey(Keys keyCode, Action method)
-        {
-            if (keyCode == Keys.Enter || keyCode == Keys.Return)
-                method.Invoke();
+            AppHelper.RunIfEnterKey(e.KeyCode, () => RequestManufacturerNameChangeEvent?.Invoke(guiHolder.EditorDropdownManufacturer.Text));
         }
 
         private void OnManufacturerChangeCommitted(object? sender, EventArgs e)

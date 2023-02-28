@@ -1,6 +1,4 @@
-﻿using OBDErrorErase.EditorSource.ProfileManagement;
-
-namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
+﻿namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
 {
     public static class ProfileEditorGUIFactory
     {

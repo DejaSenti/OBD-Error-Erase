@@ -1,6 +1,6 @@
 ﻿namespace OBDErrorErase
 {
-    partial class EditorBoschControl
+    partial class BoschProfileEditorGUI
     {
         /// <summary> 
         /// Required designer variable.
@@ -199,14 +199,14 @@
             LabelMapLengthSelectAlgorithm.TabIndex = 2;
             LabelMapLengthSelectAlgorithm.Text = "Select Algorithm:";
             // 
-            // EditorBoschControl
+            // BoschProfileEditorGUI
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(GroupBoxMapLength);
             Controls.Add(TableLayoutLabels);
             Controls.Add(PanelMaps);
-            Name = "EditorBoschControl";
+            Name = "BoschProfileEditorGUI";
             Size = new Size(400, 400);
             PanelMaps.ResumeLayout(false);
             PanelMaps.PerformLayout();

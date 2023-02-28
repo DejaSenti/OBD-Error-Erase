@@ -1,11 +1,12 @@
 ﻿using OBDErrorErase.EditorSource.AppControl;
-using OBDErrorErase.EditorSource.Configs;
 using OBDErrorErase.EditorSource.FileManagement;
 using OBDErrorErase.EditorSource.Maps;
+using OBDErrorErase.EditorSource.Utils;
+using System.Net;
 
 namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
 {
-    internal class BoschProfileEditorController : IProfileEditorController
+    internal partial class BoschProfileEditorController : IProfileEditorController
     {
         private BoschProfileEditorGUI gui;
         private ProfileManager profileManager;
@@ -28,14 +29,115 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
         {
             gui.RequestAddMap += OnAddMapRequested;
             gui.RequestMapRemoveEvent += OnRemoveMapRequested;
-            gui.RequestContentChangeEvent += OnContentChangeRequested;
+            gui.RequestLengthChangeEvent += OnChangeMapLengthRequested;
+            gui.RequestChangeLengthAlgorithm += OnChangeLengthAlgorithmRequested;
+
+            gui.RequestAddressChangeEvent += OnAddressChangeRequest;
+            gui.RequestMapNameChangeEvent += OnMapNameChangeRequest;
+            gui.RequestNewValueChangeEvent += OnNewValueChangeRequest;
+            gui.RequestWidthChangeEvent += OnWidthChangeRequest;
         }
 
         private void RemoveListeners()
         {
             gui.RequestAddMap -= OnAddMapRequested;
             gui.RequestMapRemoveEvent -= OnRemoveMapRequested;
-            gui.RequestContentChangeEvent -= OnContentChangeRequested;
+            gui.RequestLengthChangeEvent -= OnChangeMapLengthRequested;
+            gui.RequestChangeLengthAlgorithm -= OnChangeLengthAlgorithmRequested;
+
+            gui.RequestAddressChangeEvent -= OnAddressChangeRequest;
+            gui.RequestMapNameChangeEvent -= OnMapNameChangeRequest;
+            gui.RequestNewValueChangeEvent -= OnNewValueChangeRequest;
+            gui.RequestWidthChangeEvent -= OnWidthChangeRequest;
+        }
+
+        private void OnWidthChangeRequest(int mapIndex, int widthIndex)
+        {
+            ChangeBoschMapParameter(BoschMapParameter.WIDTH, widthIndex, mapIndex);
+        }
+
+        private void OnNewValueChangeRequest(int mapIndex, string newValue)
+        {
+            if (!AppHelper.IsHex(newValue))
+                return;
+
+            ChangeBoschMapParameter(BoschMapParameter.NEW_VALUE, newValue, mapIndex);
+        }
+
+        private void OnMapNameChangeRequest(int mapIndex, string mapName)
+        {
+            ChangeBoschMapParameter(BoschMapParameter.NAME, mapName, mapIndex);
+            TryLengthCalculation();
+        }
+
+        private void OnAddressChangeRequest(int mapIndex, string address)
+        {
+            if (!AppHelper.IsHex(address))
+                return;
+
+            int value;
+            try
+            {
+                value = Convert.ToInt32(address);
+            }
+            catch
+            {
+                return;
+            }
+
+            ChangeBoschMapParameter(BoschMapParameter.ADDRESS, address, mapIndex);
+            TryLengthCalculation();
+        }
+
+        private void OnChangeMapLengthRequested(string length)
+        {
+            int value;
+            try
+            {
+                value = Convert.ToInt32(length);
+            }
+            catch
+            {
+                return;
+            }
+
+            ChangeBoschMapParameter(BoschMapParameter.LENGTH, value, 0);
+        }
+
+        private void OnChangeLengthAlgorithmRequested()
+        {
+            TryLengthCalculation();
+        }
+
+        private void TryLengthCalculation()
+        {
+            BoschLengthAlgorithm algorithm = gui.GetLengthAlgorithm();
+
+            switch (algorithm)
+            {
+                case BoschLengthAlgorithm.MANUAL:
+                    break;
+                case BoschLengthAlgorithm.BMW:
+                    if (profileManager.CurrentSubProfile == null)
+                        return;
+
+                    int dtcLocation = gui.GetMapLocation(MapBosch.DTC);
+                    int classLocation = gui.GetMapLocation(MapBosch.CLASS);
+
+                    if (dtcLocation == -1 || classLocation == -1 || dtcLocation > classLocation)
+                    {
+                        gui.TextBoxMapLength.Text = string.Empty;
+                        return;
+                    }
+
+                    var length = classLocation - dtcLocation;
+
+                    ChangeBoschMapParameter(BoschMapParameter.LENGTH, length, 0);
+                    gui.TextBoxMapLength.Text = length.ToString();
+                    break;
+                default:
+                    return;
+            }
         }
 
         private void OnAddMapRequested()
@@ -47,6 +149,8 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
 
             profileManager.CurrentProfile.AddNewMap(map);
 
+            profileManager.SaveCurrentProfile();
+
             gui.AddMap(map);
         }
 
@@ -56,67 +160,19 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
             if (profile == null)
                 return;
 
-            if (profile.Subprofiles[0].Maps[mapIndex].Name == MapBosch.ERROR_LIST)
+            if (profile.Subprofiles[0].Maps[mapIndex].Name == MapBosch.DTC)
                 return;
 
             profile.RemoveMap(mapIndex);
 
-            gui.RemoveMapRow(mapIndex);
+            profileManager.SaveCurrentProfile();
+
+            gui.RemoveMap(mapIndex);
         }
-        
-        private void OnContentChangeRequested(int index, BoschMapEditorContent newMapData)
-        {
-            if (profileManager.CurrentSubProfile == null)
-                return;
-
-            var map = profileManager.CurrentSubProfile.Maps[index] as MapBosch;
-
-            if (map == null) 
-                return;
-
-            if (newMapData.Name != MapBosch.ERROR_LIST)
-            {
-                map.Name = newMapData.Name;
-            }
-
-            var binaryFileManager = ServiceContainer.GetService<BinaryFileManager>();
-            var file = binaryFileManager.CurrentFile;
-
-            if (file != null)
-            {
-                var location = Convert.ToInt32(newMapData.Address);
-
-                var searchWord = map.CreateSearchWord(location, file);
-
-                if (searchWord != map.SearchWord)
-                {
-                    map.SetSearchWord(searchWord);
-                }
-            }
-
-            // new value: fits width ? overwrite : match width and overwrite
-            var width = 2 ^ (newMapData.Width + 1);
-            if (width > newMapData.NewValue.Length)
-            {
-                newMapData.NewValue = newMapData.NewValue.PadRight(width, newMapData.NewValue[newMapData.NewValue.Length - 1]);
-            }
-            else if (width < newMapData.NewValue.Length)
-            {
-                newMapData.NewValue = newMapData.NewValue.Substring(0, width);
-            }
-
-            var newValue = Convert.FromHexString(newMapData.NewValue).ToList();
-
-            if (map.NewValue != newValue)
-            {
-                map.NewValue.Clear();
-                map.NewValue.AddRange(newValue);
-            }
-        } 
 
         private void PopulateFields() // todo call this when a new profile is loaded
         {
-            gui.ClearControl();
+            gui.Clear();
 
             var subprofile = profileManager.CurrentSubProfile;
             if (subprofile == null)
@@ -126,6 +182,77 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
             {
                 gui.AddMap(map);
             }
+
+            gui.TextBoxMapLength.Text = subprofile.MapLength.ToString();
+        }
+
+        private void ChangeBoschMapParameter(BoschMapParameter parameter, object value, int mapIndex)
+        {
+            if (profileManager.CurrentSubProfile == null)
+                return;
+
+            var map = profileManager.CurrentSubProfile.Maps[mapIndex] as MapBosch;
+
+            if (map == null)
+                return;
+
+            switch (parameter)
+            {
+                case BoschMapParameter.NAME:
+                    map.Name = (string)value;
+                    break;
+
+                case BoschMapParameter.ADDRESS:
+                    map.RawLocation = (int)value;
+                    var binaryFileManager = ServiceContainer.GetService<BinaryFileManager>();
+                    var file = binaryFileManager.CurrentFile;
+                    if (file == null)
+                        return;
+                    map.SetSearchWord(map.RawLocation, file);
+                    break;
+
+                case BoschMapParameter.NEW_VALUE:
+                    string newValue = ValidateNewValue((string)value, map.RawWidth);
+                    map.NewValue.Clear();
+                    map.NewValue.AddRange(Convert.FromHexString(newValue));
+                    gui.SetNewValueField(mapIndex, newValue);
+                    break;
+
+                case BoschMapParameter.LENGTH:
+                    profileManager.CurrentSubProfile.MapLength = (int)value;
+                    break;
+
+                case BoschMapParameter.WIDTH:
+                    map.RawWidth = (int)value;
+                    map.NewValue.Clear();
+                    gui.SetNewValueField(mapIndex, string.Empty);
+                    break;
+                default:
+                    return;
+            }
+
+            profileManager.SaveCurrentProfile();
+        }
+
+        private string ValidateNewValue(string value, int rawWidth)
+        {
+            var length = (int)Math.Pow(2, rawWidth + 1);
+
+            if (string.IsNullOrEmpty(value))
+            {
+                value = "0";
+            }
+
+            if (value.Length < length)
+            {
+                value = value.PadRight(length, value[value.Length - 1]);
+            }
+            else if (value.Length > length) 
+            {
+                value = value.Substring(0, length);
+            }
+
+            return value;
         }
 
         public void Dispose()
