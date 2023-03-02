@@ -26,7 +26,7 @@ TO IMPLEMENT:
 		+ when there's a current subprofile, it should be the selection too
 		+ allow removal of first subprofile as long as it's not the only one in the list (check if it's even relevant once the fields load)
 		+ enable / disable address fields if there is a binary file loaded
-			- fix behaviour when subprofile is loaded
+			+ fix behaviour when subprofile is loaded
 		+ update file preview on address change
 
 	- delphi eraser functionality

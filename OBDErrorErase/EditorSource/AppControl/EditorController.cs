@@ -1,4 +1,5 @@
-﻿using OBDErrorErase.EditorSource.GUI;
+﻿using OBDErrorErase.EditorSource.FileManagement;
+using OBDErrorErase.EditorSource.GUI;
 using OBDErrorErase.EditorSource.ProfileManagement;
 using OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors;
 
@@ -133,6 +134,12 @@ namespace OBDErrorErase.EditorSource.AppControl
         {
             editorGUI.OnCurrentSubprofileChanged(profileManager.CurrentSubProfileIndex);
             profileEditor.OnCurrentSubprofileChanged();
+
+            var binaryFileManager = ServiceContainer.GetService<BinaryFileManager>();
+            if (binaryFileManager.CurrentFile != null)
+            {
+                profileEditorGUI.EnableAddressFields();
+            }
         }
 
         internal void OnProfileUnloaded()
