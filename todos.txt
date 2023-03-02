@@ -3,8 +3,8 @@ HIGH PRIORITY BUGS:
 	+ open binary button opens dialog twice
 	+ cancel on open file throws exception
 	+ switch profile type should create subprofile too (no defaults for delphi)
-	- subprofile selection doesn't update fields
-	- setting address without binary file loaded will just set in the raw address, should be handled once file is loaded somehow
+	+ subprofile selection doesn't update fields
+	+ setting address without binary file loaded will just set in the raw address, should be handled once file is loaded somehow
 
 
 TO IMPLEMENT:
@@ -20,12 +20,14 @@ TO IMPLEMENT:
 		+ update X / Y deleted thing after process
 		+ implement select all functionality
 
-	- editor tab:
+	+ editor tab:
 		+ GUI: group profile type dropdown and editor frame
 		+ load the editor gui frame on dropdown select
-		- when there's a current subprofile, it should be the selection too
-		- allow removal of first subprofile as long as it's not the only one in the list (check if it's even relevant once the fields load)
-
+		+ when there's a current subprofile, it should be the selection too
+		+ allow removal of first subprofile as long as it's not the only one in the list (check if it's even relevant once the fields load)
+		+ enable / disable address fields if there is a binary file loaded
+			- fix behaviour when subprofile is loaded
+		+ update file preview on address change
 
 	- delphi eraser functionality
 

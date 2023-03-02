@@ -7,6 +7,8 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
 {
     internal partial class DelphiProfileEditorController : IProfileEditorController
     {
+        public event Action? AddressChangedEvent;
+
         private DelphiProfileEditorGUI gui;
         private ProfileManager profileManager;
 
@@ -88,6 +90,8 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
             }
 
             ChangeDelphiMapParameter(DelphiMapParameter.ADDRESS, value);
+
+            AddressChangedEvent?.Invoke();
         }
 
         private void ChangeDelphiMapParameter(DelphiMapParameter parameter, object value)

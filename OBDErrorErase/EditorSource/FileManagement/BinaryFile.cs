@@ -21,9 +21,9 @@ namespace OBDErrorErase.EditorSource.FileManagement
             {
                 bool isMatch = true;
 
-                for (int j = 0; (start + j < Length) && (j < value.Length); ++j)
+                for (int j = 0; (i + j < Length) && (j < value.Length); ++j)
                 {
-                    if (value[j] != data[start + j])
+                    if (value[j] != data[i + j])
                     {
                         isMatch = false;
                         break;

@@ -129,6 +129,7 @@ namespace OBDErrorErase
             string newValue = Convert.ToHexString(map.NewValue.ToArray());
 
             var control = new BoschMapEditorControl(map.Name, map.RawLocation, map.RawWidth, newValue);
+            control.Address.Enabled = controls.Count > 0 ? controls[0].Address.Enabled : false;
 
             AddControlListeners(control);
 
@@ -142,6 +143,7 @@ namespace OBDErrorErase
         public void RemoveMap(int index)
         {
             var control = controls[index];
+            controls.RemoveAt(index);
 
             RemoveRow(control);
         }
@@ -201,6 +203,14 @@ namespace OBDErrorErase
             var control = controls[mapIndex];
 
             control.NewValue.Text = value;
+        }
+
+        public void EnableAddressFields()
+        {
+            foreach (var control in controls)
+            {
+                control.Address.Enabled = true;
+            }
         }
     }
 }

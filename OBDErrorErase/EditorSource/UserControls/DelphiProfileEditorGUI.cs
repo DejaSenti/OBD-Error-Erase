@@ -20,6 +20,8 @@ namespace OBDErrorErase
 
             EnforceValidations(new List<TextBox>() { Length, ErrorColumn }, new List<Validation>() { char.IsNumber, char.IsControl });
             EnforceValidations(new List<TextBox>() { Address, NewValue }, new List<Validation>() { char.IsAsciiHexDigit, char.IsControl });
+
+            Address.Enabled = false;
         }
 
         private void AddGUIListeners()
@@ -118,6 +120,11 @@ namespace OBDErrorErase
             ErrorColumn.Text = errorColumn;
             Length.Text = mapLength.ToString();
             NewValue.Text = newValue;
+        }
+
+        public void EnableAddressFields()
+        {
+            Address.Enabled = true;
         }
     }
 }

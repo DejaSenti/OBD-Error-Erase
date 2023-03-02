@@ -7,6 +7,8 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
 {
     internal partial class BoschProfileEditorController : IProfileEditorController
     {
+        public event Action? AddressChangedEvent;
+
         private BoschProfileEditorGUI gui;
         private ProfileManager profileManager;
 
@@ -86,6 +88,11 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
 
             ChangeBoschMapParameter(BoschMapParameter.ADDRESS, value, mapIndex);
             TryLengthCalculation();
+
+            if (mapIndex == 0)
+            {
+                AddressChangedEvent?.Invoke();
+            }
         }
 
         private void OnChangeMapLengthRequested(string length)

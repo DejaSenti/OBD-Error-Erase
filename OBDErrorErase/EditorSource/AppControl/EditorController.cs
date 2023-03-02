@@ -4,10 +4,10 @@ using OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors;
 
 namespace OBDErrorErase.EditorSource.AppControl
 {
-
     public class EditorController
     {
-        public event Action ProfileEditedEvent;
+        public event Action? ProfileEditedEvent;
+        public event Action? AddressChangedEvent;
 
         private EditorGUI editorGUI;
 
@@ -115,12 +115,12 @@ namespace OBDErrorErase.EditorSource.AppControl
         {
             editorGUI.OnProfileDBChanged(profileManager.GetManufacturers());
 
-            profileEditor?.Dispose();
-            profileEditorGUI?.Dispose();
+            DisposeProfileEditor();
 
             profileEditor = ProfileEditorFactory.GetEditorController(newProfile.Type);
             profileEditorGUI = ProfileEditorGUIFactory.GetEditorGUI(newProfile.Type);
             profileEditor.SetGUI(profileEditorGUI);
+            profileEditor.AddressChangedEvent += OnAddressChanged;
 
             editorGUI.SetProfileEditorGUI(profileEditorGUI);
 
@@ -139,6 +139,29 @@ namespace OBDErrorErase.EditorSource.AppControl
         {
             editorGUI.ClearFields();
             editorGUI.OnCurrentSubprofileChanged(profileManager.CurrentSubProfileIndex);
+            
+            DisposeProfileEditor();
+        }
+
+        private void OnAddressChanged()
+        {
+            AddressChangedEvent?.Invoke();
+        }
+
+        internal void EnableAddressFields()
+        {
+            if (profileEditorGUI != null)
+            {
+                profileEditorGUI.EnableAddressFields();
+            }
+        }
+
+        private void DisposeProfileEditor()
+        {
+            if (profileEditor != null)
+            {
+                profileEditor.AddressChangedEvent -= OnAddressChanged;
+            }
 
             profileEditor?.Dispose();
             profileEditorGUI?.Dispose();

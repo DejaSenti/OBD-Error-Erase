@@ -38,6 +38,12 @@ namespace OBDErrorErase.EditorSource.AppControl
             mainGUI.FlipBytesEvent += OnFlipBytesToggled;
 
             editorController.ProfileEditedEvent += OnProfileEdited;
+            editorController.AddressChangedEvent += OnAddressChanged;
+        }
+
+        private void OnAddressChanged()
+        {
+            UpdateFilePreview();
         }
 
         private void OnProfileEdited()
@@ -87,13 +93,13 @@ namespace OBDErrorErase.EditorSource.AppControl
 
             profileManager.SetCurrentProfile(profile);
 
+            editorController.OnNewProfileLoaded(profile);
+            eraserController.OnNewProfileLoaded();
+
             if (binaryFileManager.CurrentFile != null)
             {
                 OnBinaryAndProfileLoaded();
             }
-
-            editorController.OnNewProfileLoaded(profile);
-            eraserController.OnNewProfileLoaded();
 
             mainGUI.UpdateProfileSelection(profileID);
         }
@@ -119,6 +125,7 @@ namespace OBDErrorErase.EditorSource.AppControl
 
             profileManager.SetCurrentSubprofile(subprofile);
             editorController.OnNewSubprofileLoaded();
+            editorController.EnableAddressFields();
             eraserController.OnEraseAvailable();
             UpdateFilePreview();
         }
@@ -132,6 +139,9 @@ namespace OBDErrorErase.EditorSource.AppControl
 
             var file = binaryFileManager.CurrentFile;
             var displayLocation = file.FindValue(subprofile.Maps[0].SearchWord, 0, file.Length);
+
+            if (displayLocation == -1)
+                return;
 
             var errorList = file.ReadValue(displayLocation, PREVIEW_LENGTH);
 
