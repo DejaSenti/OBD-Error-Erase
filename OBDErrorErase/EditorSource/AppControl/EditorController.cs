@@ -55,9 +55,19 @@ namespace OBDErrorErase.EditorSource.AppControl
             if (profileManager.CurrentProfile == null)
                 return;
 
+            int nextSubprofileIndex = editorGUI.GetNextSubprofileIndex();
+
+            if (nextSubprofileIndex == -1) // not supposed to happen
+                return;
+
             profileManager.RemoveCurrentSubProfile();
             editorGUI.UpdateSubprofilesList(profileManager.CurrentProfile.Subprofiles);
+
+            profileManager.SetCurrentSubprofile(nextSubprofileIndex);
+
             editorGUI.OnCurrentSubprofileChanged(profileManager.CurrentSubProfileIndex);
+
+            profileEditor.OnCurrentSubprofileChanged();
         }
 
         public void OnChangeCurrentSubprofileRequested(int newIndex)
@@ -110,19 +120,19 @@ namespace OBDErrorErase.EditorSource.AppControl
 
             profileEditor = ProfileEditorFactory.GetEditorController(newProfile.Type);
             profileEditorGUI = ProfileEditorGUIFactory.GetEditorGUI(newProfile.Type);
+            profileEditor.SetGUI(profileEditorGUI);
 
             editorGUI.SetProfileEditorGUI(profileEditorGUI);
 
             editorGUI.OnCurrentProfileChanged(newProfile);
 
             editorGUI.OnCurrentSubprofileChanged(profileManager.CurrentSubProfileIndex);
-
-            profileEditor.SetGUI(profileEditorGUI);
         }
 
         internal void OnNewSubprofileLoaded()
         {
             editorGUI.OnCurrentSubprofileChanged(profileManager.CurrentSubProfileIndex);
+            profileEditor.OnCurrentSubprofileChanged();
         }
 
         internal void OnProfileUnloaded()

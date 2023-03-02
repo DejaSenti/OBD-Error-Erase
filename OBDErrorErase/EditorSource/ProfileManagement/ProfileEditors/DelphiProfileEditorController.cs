@@ -137,6 +137,11 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
             gui.RequestNewValueChangeEvent -= OnNewValueChangeRequested;
         }
 
+        public void OnCurrentSubprofileChanged()
+        {
+            PopulateFields();
+        }
+
         private void PopulateFields()
         {
             gui.Clear();

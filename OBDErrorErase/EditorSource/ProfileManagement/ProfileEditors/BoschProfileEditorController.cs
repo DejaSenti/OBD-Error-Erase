@@ -254,6 +254,11 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
             return value;
         }
 
+        public void OnCurrentSubprofileChanged()
+        {
+            PopulateFields();
+        }
+
         public void Dispose()
         {
             RemoveListeners();

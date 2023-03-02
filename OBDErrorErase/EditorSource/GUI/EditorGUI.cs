@@ -174,5 +174,17 @@ namespace OBDErrorErase.EditorSource.GUI
             UpdateSubprofilesList(new List<SubprofileData>());
             UpdateAllProfileEnabledStatuses();
         }
+
+        internal int GetNextSubprofileIndex()
+        {
+            var list = guiHolder.EditorListSubprofiles;
+
+            if (list.SelectedIndex == -1 || list.Items.Count == 1)
+                return -1;
+
+            var nextIndex = list.SelectedIndex + 1 == list.Items.Count ? list.SelectedIndex - 1 : list.SelectedIndex;
+
+            return nextIndex;
+        }
     }
 }

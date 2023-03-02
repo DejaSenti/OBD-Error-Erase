@@ -6,5 +6,6 @@ namespace OBDErrorErase.EditorSource.AppControl
     {
         void SetGUI(IProfileEditorGUI profileEditorGUI);
         void Dispose();
+        void OnCurrentSubprofileChanged();
     }
 }
