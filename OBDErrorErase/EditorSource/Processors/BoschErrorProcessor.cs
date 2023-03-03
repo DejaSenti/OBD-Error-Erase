@@ -21,6 +21,9 @@ namespace OBDErrorErase.EditorSource.Processors
             int totalErased = 0;
             var mapsToProcess = subprofile.Maps.GetElementsAtIndexes(mapIndices);
 
+            if (mapsToProcess.Count == 0)
+                return 0;
+
             Dictionary<BaseProfileMap, int> locationByMap = new();
 
             foreach (var map in mapsToProcess)

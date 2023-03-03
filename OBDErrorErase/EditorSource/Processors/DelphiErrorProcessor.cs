@@ -23,23 +23,38 @@ namespace OBDErrorErase.EditorSource.Processors
                 return 0;
             }
 
-            // write new value
             int start = file.FindValue(map.SearchWord, 0, file.Length);
 
+            if (start == -1)
+                return 0;
+            
+            int mapEnd = start + subprofile.MapLength;
+
             int totalErased = 0;
-            // for each error
+
             foreach (var error in errors)
             {
-                // find location, round down according to column number
+                List<int> errorLocations = new();
+
                 byte[] byteError = Convert.FromHexString(error);
-                var location = file.FindValue(byteError, start, start + subprofile.MapLength);
-                
-                if (location == -1)
-                    continue;
 
-                location -= map.ErrorColumn - 1;
+                int seeker = start;
+                do
+                {
+                    seeker = file.FindValue(byteError, seeker, mapEnd);
 
-                file.WriteValue(location, map.NewValue.ToArray());
+                    if ((seeker != -1) && (((seeker - start) % map.NewValue.Count) == map.ErrorColumn))
+                    {
+                        errorLocations.Add(seeker - map.ErrorColumn);
+                        seeker += map.NewValue.Count;
+                    }
+                } while (seeker != -1);
+
+                foreach (var location in errorLocations)
+                {
+                    file.WriteValue(location, map.NewValue.ToArray());
+                }
+
                 ++totalErased;
             }
 
