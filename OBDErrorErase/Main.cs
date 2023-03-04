@@ -11,6 +11,7 @@ namespace OBDErrorErase
         {
             MainTabControl = new TabControl();
             EraserTabPage = new TabPage();
+            label1 = new Label();
             EraserCheckBoxSelectAllMaps = new CheckBox();
             EraserButtonRefreshPresetList = new Button();
             EraserTextboxErrorList = new TextBox();
@@ -38,7 +39,6 @@ namespace OBDErrorErase
             EditorTextBoxComputerName = new TextBox();
             EditorDropdownManufacturer = new ComboBox();
             MainCheckboxFlipBytes = new CheckBox();
-            MainTableLayoutPanelProfileButtons = new TableLayoutPanel();
             MainButtonNewProfile = new Button();
             MainButtonRemoveProfile = new Button();
             MainButtonDuplicateProfile = new Button();
@@ -50,30 +50,37 @@ namespace OBDErrorErase
             MainTextboxProfileFilter = new TextBox();
             MainListProfiles = new ListBox();
             MainLabelPreviewFile = new Label();
-            MainLabelSelectProfile = new Label();
             MainLabelLoadedBinaryFile = new Label();
+            panel1 = new Panel();
+            groupBox1 = new GroupBox();
+            groupBox2 = new GroupBox();
             MainTabControl.SuspendLayout();
             EraserTabPage.SuspendLayout();
             EraserPanelMapSelector.SuspendLayout();
             EraserPanelErrorPresets.SuspendLayout();
             EditorTabPage.SuspendLayout();
             EditorGroupBox.SuspendLayout();
-            MainTableLayoutPanelProfileButtons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)MainDataGridFilePreview).BeginInit();
+            panel1.SuspendLayout();
+            groupBox1.SuspendLayout();
+            groupBox2.SuspendLayout();
             SuspendLayout();
             // 
             // MainTabControl
             // 
             MainTabControl.Controls.Add(EraserTabPage);
             MainTabControl.Controls.Add(EditorTabPage);
-            MainTabControl.Location = new Point(555, 19);
+            MainTabControl.Location = new Point(554, 14);
+            MainTabControl.Margin = new Padding(5);
             MainTabControl.Name = "MainTabControl";
             MainTabControl.SelectedIndex = 0;
-            MainTabControl.Size = new Size(443, 697);
+            MainTabControl.Size = new Size(443, 700);
             MainTabControl.TabIndex = 54;
             // 
             // EraserTabPage
             // 
+            EraserTabPage.BackColor = Color.White;
+            EraserTabPage.Controls.Add(label1);
             EraserTabPage.Controls.Add(EraserCheckBoxSelectAllMaps);
             EraserTabPage.Controls.Add(EraserButtonRefreshPresetList);
             EraserTabPage.Controls.Add(EraserTextboxErrorList);
@@ -87,15 +94,23 @@ namespace OBDErrorErase
             EraserTabPage.Location = new Point(4, 24);
             EraserTabPage.Name = "EraserTabPage";
             EraserTabPage.Padding = new Padding(3);
-            EraserTabPage.Size = new Size(435, 669);
+            EraserTabPage.Size = new Size(435, 672);
             EraserTabPage.TabIndex = 0;
             EraserTabPage.Text = "Erase Errors";
-            EraserTabPage.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(277, 30);
+            label1.Name = "label1";
+            label1.Size = new Size(46, 15);
+            label1.TabIndex = 54;
+            label1.Text = "Refresh";
             // 
             // EraserCheckBoxSelectAllMaps
             // 
             EraserCheckBoxSelectAllMaps.AutoSize = true;
-            EraserCheckBoxSelectAllMaps.Location = new Point(57, 373);
+            EraserCheckBoxSelectAllMaps.Location = new Point(54, 373);
             EraserCheckBoxSelectAllMaps.Name = "EraserCheckBoxSelectAllMaps";
             EraserCheckBoxSelectAllMaps.Size = new Size(74, 19);
             EraserCheckBoxSelectAllMaps.TabIndex = 53;
@@ -104,12 +119,17 @@ namespace OBDErrorErase
             // 
             // EraserButtonRefreshPresetList
             // 
-            EraserButtonRefreshPresetList.BackColor = Color.PaleGreen;
-            EraserButtonRefreshPresetList.Location = new Point(276, 29);
+            EraserButtonRefreshPresetList.BackColor = Color.Transparent;
+            EraserButtonRefreshPresetList.BackgroundImage = Properties.Resources.ButtonRefresh;
+            EraserButtonRefreshPresetList.BackgroundImageLayout = ImageLayout.Stretch;
+            EraserButtonRefreshPresetList.FlatAppearance.BorderSize = 0;
+            EraserButtonRefreshPresetList.FlatStyle = FlatStyle.Flat;
+            EraserButtonRefreshPresetList.Location = new Point(325, 21);
+            EraserButtonRefreshPresetList.MaximumSize = new Size(32, 32);
+            EraserButtonRefreshPresetList.MinimumSize = new Size(32, 32);
             EraserButtonRefreshPresetList.Name = "EraserButtonRefreshPresetList";
-            EraserButtonRefreshPresetList.Size = new Size(81, 24);
+            EraserButtonRefreshPresetList.Size = new Size(32, 32);
             EraserButtonRefreshPresetList.TabIndex = 46;
-            EraserButtonRefreshPresetList.Text = "Refresh List";
             EraserButtonRefreshPresetList.UseVisualStyleBackColor = false;
             // 
             // EraserTextboxErrorList
@@ -118,6 +138,7 @@ namespace OBDErrorErase
             EraserTextboxErrorList.Multiline = true;
             EraserTextboxErrorList.Name = "EraserTextboxErrorList";
             EraserTextboxErrorList.PlaceholderText = "Enter a list of errors, separated by commas (e.g. a1c7, 1600, 8461, e56f...):";
+            EraserTextboxErrorList.ScrollBars = ScrollBars.Vertical;
             EraserTextboxErrorList.Size = new Size(303, 73);
             EraserTextboxErrorList.TabIndex = 49;
             // 
@@ -137,8 +158,9 @@ namespace OBDErrorErase
             EraserPanelMapSelector.AutoScrollMinSize = new Size(250, 0);
             EraserPanelMapSelector.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             EraserPanelMapSelector.BackColor = SystemColors.Window;
+            EraserPanelMapSelector.BorderStyle = BorderStyle.FixedSingle;
             EraserPanelMapSelector.Controls.Add(EraserTableLayoutMapSelector);
-            EraserPanelMapSelector.Location = new Point(57, 398);
+            EraserPanelMapSelector.Location = new Point(54, 398);
             EraserPanelMapSelector.Name = "EraserPanelMapSelector";
             EraserPanelMapSelector.Size = new Size(303, 168);
             EraserPanelMapSelector.TabIndex = 51;
@@ -169,6 +191,7 @@ namespace OBDErrorErase
             EraserPanelErrorPresets.AutoScrollMinSize = new Size(250, 0);
             EraserPanelErrorPresets.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             EraserPanelErrorPresets.BackColor = SystemColors.Window;
+            EraserPanelErrorPresets.BorderStyle = BorderStyle.FixedSingle;
             EraserPanelErrorPresets.Controls.Add(EraserTableLayoutErrorPresets);
             EraserPanelErrorPresets.Location = new Point(54, 58);
             EraserPanelErrorPresets.Name = "EraserPanelErrorPresets";
@@ -215,7 +238,7 @@ namespace OBDErrorErase
             // 
             // EraserLabelErrorCounter
             // 
-            EraserLabelErrorCounter.Location = new Point(54, 621);
+            EraserLabelErrorCounter.Location = new Point(57, 621);
             EraserLabelErrorCounter.Name = "EraserLabelErrorCounter";
             EraserLabelErrorCounter.Size = new Size(300, 31);
             EraserLabelErrorCounter.TabIndex = 45;
@@ -224,9 +247,12 @@ namespace OBDErrorErase
             // EraserButtonRun
             // 
             EraserButtonRun.BackColor = Color.DarkSeaGreen;
-            EraserButtonRun.Location = new Point(54, 575);
+            EraserButtonRun.FlatAppearance.BorderColor = Color.White;
+            EraserButtonRun.FlatAppearance.BorderSize = 0;
+            EraserButtonRun.FlatStyle = FlatStyle.Flat;
+            EraserButtonRun.Location = new Point(54, 572);
             EraserButtonRun.Name = "EraserButtonRun";
-            EraserButtonRun.Size = new Size(300, 43);
+            EraserButtonRun.Size = new Size(303, 43);
             EraserButtonRun.TabIndex = 44;
             EraserButtonRun.Text = "Erase Errors";
             EraserButtonRun.UseVisualStyleBackColor = false;
@@ -246,7 +272,7 @@ namespace OBDErrorErase
             EditorTabPage.Location = new Point(4, 24);
             EditorTabPage.Name = "EditorTabPage";
             EditorTabPage.Padding = new Padding(3);
-            EditorTabPage.Size = new Size(435, 669);
+            EditorTabPage.Size = new Size(435, 672);
             EditorTabPage.TabIndex = 1;
             EditorTabPage.Text = "Edit Profiles";
             EditorTabPage.UseVisualStyleBackColor = true;
@@ -257,7 +283,7 @@ namespace OBDErrorErase
             EditorGroupBox.Controls.Add(EditorPanelEditFrame);
             EditorGroupBox.Controls.Add(EditorLabelProfileTypeSelect);
             EditorGroupBox.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            EditorGroupBox.Location = new Point(6, 181);
+            EditorGroupBox.Location = new Point(9, 181);
             EditorGroupBox.Name = "EditorGroupBox";
             EditorGroupBox.Size = new Size(423, 482);
             EditorGroupBox.TabIndex = 52;
@@ -292,31 +318,39 @@ namespace OBDErrorErase
             // 
             // EditorButtonDuplicateSubProfile
             // 
-            EditorButtonDuplicateSubProfile.BackColor = Color.NavajoWhite;
-            EditorButtonDuplicateSubProfile.Location = new Point(338, 7);
+            EditorButtonDuplicateSubProfile.BackColor = Color.Transparent;
+            EditorButtonDuplicateSubProfile.BackgroundImage = Properties.Resources.Duplicate1;
+            EditorButtonDuplicateSubProfile.FlatAppearance.BorderSize = 0;
+            EditorButtonDuplicateSubProfile.FlatStyle = FlatStyle.Flat;
+            EditorButtonDuplicateSubProfile.Location = new Point(332, 6);
             EditorButtonDuplicateSubProfile.Margin = new Padding(30, 15, 30, 15);
+            EditorButtonDuplicateSubProfile.MaximumSize = new Size(36, 36);
+            EditorButtonDuplicateSubProfile.MinimumSize = new Size(36, 36);
             EditorButtonDuplicateSubProfile.Name = "EditorButtonDuplicateSubProfile";
-            EditorButtonDuplicateSubProfile.Size = new Size(33, 35);
+            EditorButtonDuplicateSubProfile.Size = new Size(36, 36);
             EditorButtonDuplicateSubProfile.TabIndex = 50;
-            EditorButtonDuplicateSubProfile.Text = "D";
             EditorButtonDuplicateSubProfile.UseVisualStyleBackColor = false;
             // 
             // EditorButtonRemoveSubProfile
             // 
-            EditorButtonRemoveSubProfile.BackColor = Color.DarkSalmon;
-            EditorButtonRemoveSubProfile.Location = new Point(375, 7);
+            EditorButtonRemoveSubProfile.BackColor = Color.Transparent;
+            EditorButtonRemoveSubProfile.BackgroundImage = Properties.Resources.Delete1;
+            EditorButtonRemoveSubProfile.FlatAppearance.BorderSize = 0;
+            EditorButtonRemoveSubProfile.FlatStyle = FlatStyle.Flat;
+            EditorButtonRemoveSubProfile.Location = new Point(373, 6);
             EditorButtonRemoveSubProfile.Margin = new Padding(30, 15, 30, 15);
+            EditorButtonRemoveSubProfile.MaximumSize = new Size(36, 36);
+            EditorButtonRemoveSubProfile.MinimumSize = new Size(36, 36);
             EditorButtonRemoveSubProfile.Name = "EditorButtonRemoveSubProfile";
-            EditorButtonRemoveSubProfile.Size = new Size(34, 35);
+            EditorButtonRemoveSubProfile.Size = new Size(36, 36);
             EditorButtonRemoveSubProfile.TabIndex = 51;
-            EditorButtonRemoveSubProfile.Text = "R";
             EditorButtonRemoveSubProfile.UseVisualStyleBackColor = false;
             // 
             // EditorLabelProfileSettings
             // 
             EditorLabelProfileSettings.AutoSize = true;
             EditorLabelProfileSettings.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            EditorLabelProfileSettings.Location = new Point(9, 12);
+            EditorLabelProfileSettings.Location = new Point(9, 17);
             EditorLabelProfileSettings.Name = "EditorLabelProfileSettings";
             EditorLabelProfileSettings.Size = new Size(96, 15);
             EditorLabelProfileSettings.TabIndex = 49;
@@ -326,7 +360,7 @@ namespace OBDErrorErase
             // 
             EditorLabelSubprofiles.AutoSize = true;
             EditorLabelSubprofiles.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            EditorLabelSubprofiles.Location = new Point(222, 12);
+            EditorLabelSubprofiles.Location = new Point(222, 17);
             EditorLabelSubprofiles.Name = "EditorLabelSubprofiles";
             EditorLabelSubprofiles.Size = new Size(73, 15);
             EditorLabelSubprofiles.TabIndex = 47;
@@ -355,9 +389,9 @@ namespace OBDErrorErase
             EditorListSubprofiles.FormattingEnabled = true;
             EditorListSubprofiles.IntegralHeight = false;
             EditorListSubprofiles.ItemHeight = 15;
-            EditorListSubprofiles.Location = new Point(222, 45);
+            EditorListSubprofiles.Location = new Point(222, 46);
             EditorListSubprofiles.Name = "EditorListSubprofiles";
-            EditorListSubprofiles.Size = new Size(187, 119);
+            EditorListSubprofiles.Size = new Size(187, 118);
             EditorListSubprofiles.Sorted = true;
             EditorListSubprofiles.TabIndex = 37;
             // 
@@ -383,64 +417,63 @@ namespace OBDErrorErase
             // MainCheckboxFlipBytes
             // 
             MainCheckboxFlipBytes.AutoSize = true;
-            MainCheckboxFlipBytes.Location = new Point(449, 137);
+            MainCheckboxFlipBytes.Location = new Point(169, 155);
             MainCheckboxFlipBytes.Name = "MainCheckboxFlipBytes";
-            MainCheckboxFlipBytes.Size = new Size(76, 19);
+            MainCheckboxFlipBytes.Size = new Size(79, 19);
             MainCheckboxFlipBytes.TabIndex = 40;
             MainCheckboxFlipBytes.Text = "Flip Bytes";
             MainCheckboxFlipBytes.TextAlign = ContentAlignment.MiddleRight;
             MainCheckboxFlipBytes.UseVisualStyleBackColor = true;
             // 
-            // MainTableLayoutPanelProfileButtons
-            // 
-            MainTableLayoutPanelProfileButtons.ColumnCount = 3;
-            MainTableLayoutPanelProfileButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33334F));
-            MainTableLayoutPanelProfileButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33334F));
-            MainTableLayoutPanelProfileButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33334F));
-            MainTableLayoutPanelProfileButtons.Controls.Add(MainButtonNewProfile, 0, 0);
-            MainTableLayoutPanelProfileButtons.Controls.Add(MainButtonRemoveProfile, 2, 0);
-            MainTableLayoutPanelProfileButtons.Controls.Add(MainButtonDuplicateProfile, 1, 0);
-            MainTableLayoutPanelProfileButtons.Location = new Point(22, 19);
-            MainTableLayoutPanelProfileButtons.Name = "MainTableLayoutPanelProfileButtons";
-            MainTableLayoutPanelProfileButtons.RowCount = 1;
-            MainTableLayoutPanelProfileButtons.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            MainTableLayoutPanelProfileButtons.Size = new Size(236, 65);
-            MainTableLayoutPanelProfileButtons.TabIndex = 53;
-            // 
             // MainButtonNewProfile
             // 
-            MainButtonNewProfile.BackColor = Color.DarkSeaGreen;
-            MainButtonNewProfile.Dock = DockStyle.Fill;
-            MainButtonNewProfile.Location = new Point(5, 5);
-            MainButtonNewProfile.Margin = new Padding(5);
+            MainButtonNewProfile.BackColor = Color.Transparent;
+            MainButtonNewProfile.BackgroundImage = Properties.Resources.Add__new_1;
+            MainButtonNewProfile.BackgroundImageLayout = ImageLayout.Center;
+            MainButtonNewProfile.FlatAppearance.BorderSize = 0;
+            MainButtonNewProfile.FlatStyle = FlatStyle.Flat;
+            MainButtonNewProfile.Location = new Point(27, 9);
+            MainButtonNewProfile.Margin = new Padding(20, 5, 20, 5);
+            MainButtonNewProfile.MaximumSize = new Size(36, 36);
+            MainButtonNewProfile.MinimumSize = new Size(36, 36);
             MainButtonNewProfile.Name = "MainButtonNewProfile";
-            MainButtonNewProfile.Size = new Size(68, 55);
+            MainButtonNewProfile.Padding = new Padding(20, 0, 20, 0);
+            MainButtonNewProfile.Size = new Size(36, 36);
             MainButtonNewProfile.TabIndex = 43;
-            MainButtonNewProfile.Text = "New";
             MainButtonNewProfile.UseVisualStyleBackColor = false;
+            MainButtonNewProfile.Click += MainButtonNewProfile_Click;
             // 
             // MainButtonRemoveProfile
             // 
-            MainButtonRemoveProfile.BackColor = Color.DarkSalmon;
-            MainButtonRemoveProfile.Dock = DockStyle.Fill;
-            MainButtonRemoveProfile.Location = new Point(161, 5);
-            MainButtonRemoveProfile.Margin = new Padding(5);
+            MainButtonRemoveProfile.BackColor = Color.Transparent;
+            MainButtonRemoveProfile.BackgroundImage = Properties.Resources.Delete1;
+            MainButtonRemoveProfile.FlatAppearance.BorderSize = 0;
+            MainButtonRemoveProfile.FlatStyle = FlatStyle.Flat;
+            MainButtonRemoveProfile.Location = new Point(179, 9);
+            MainButtonRemoveProfile.Margin = new Padding(20, 5, 20, 5);
+            MainButtonRemoveProfile.MaximumSize = new Size(36, 36);
+            MainButtonRemoveProfile.MinimumSize = new Size(36, 36);
             MainButtonRemoveProfile.Name = "MainButtonRemoveProfile";
-            MainButtonRemoveProfile.Size = new Size(70, 55);
+            MainButtonRemoveProfile.Padding = new Padding(20, 0, 20, 0);
+            MainButtonRemoveProfile.Size = new Size(36, 36);
             MainButtonRemoveProfile.TabIndex = 45;
-            MainButtonRemoveProfile.Text = "Remove";
             MainButtonRemoveProfile.UseVisualStyleBackColor = false;
+            MainButtonRemoveProfile.Click += MainButtonRemoveProfile_Click;
             // 
             // MainButtonDuplicateProfile
             // 
-            MainButtonDuplicateProfile.BackColor = Color.NavajoWhite;
-            MainButtonDuplicateProfile.Dock = DockStyle.Fill;
-            MainButtonDuplicateProfile.Location = new Point(83, 5);
-            MainButtonDuplicateProfile.Margin = new Padding(5);
+            MainButtonDuplicateProfile.BackColor = Color.Transparent;
+            MainButtonDuplicateProfile.BackgroundImage = Properties.Resources.Duplicate1;
+            MainButtonDuplicateProfile.FlatAppearance.BorderSize = 0;
+            MainButtonDuplicateProfile.FlatStyle = FlatStyle.Flat;
+            MainButtonDuplicateProfile.Location = new Point(103, 9);
+            MainButtonDuplicateProfile.Margin = new Padding(20, 5, 20, 5);
+            MainButtonDuplicateProfile.MaximumSize = new Size(36, 36);
+            MainButtonDuplicateProfile.MinimumSize = new Size(36, 36);
             MainButtonDuplicateProfile.Name = "MainButtonDuplicateProfile";
-            MainButtonDuplicateProfile.Size = new Size(68, 55);
+            MainButtonDuplicateProfile.Padding = new Padding(20, 0, 20, 0);
+            MainButtonDuplicateProfile.Size = new Size(36, 36);
             MainButtonDuplicateProfile.TabIndex = 44;
-            MainButtonDuplicateProfile.Text = "Duplicate";
             MainButtonDuplicateProfile.UseVisualStyleBackColor = false;
             // 
             // MainDataGridFilePreview
@@ -449,18 +482,22 @@ namespace OBDErrorErase
             MainDataGridFilePreview.AllowUserToDeleteRows = false;
             MainDataGridFilePreview.AllowUserToResizeColumns = false;
             MainDataGridFilePreview.AllowUserToResizeRows = false;
+            MainDataGridFilePreview.BorderStyle = BorderStyle.None;
+            MainDataGridFilePreview.CellBorderStyle = DataGridViewCellBorderStyle.RaisedHorizontal;
+            MainDataGridFilePreview.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             MainDataGridFilePreview.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             MainDataGridFilePreview.Columns.AddRange(new DataGridViewColumn[] { DataGridViewFilePreviewColumnAddress, DataGridViewFilePreviewColumnError });
             MainDataGridFilePreview.EditMode = DataGridViewEditMode.EditProgrammatically;
-            MainDataGridFilePreview.Location = new Point(289, 157);
+            MainDataGridFilePreview.Location = new Point(12, 178);
             MainDataGridFilePreview.Name = "MainDataGridFilePreview";
             MainDataGridFilePreview.ReadOnly = true;
+            MainDataGridFilePreview.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             MainDataGridFilePreview.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             MainDataGridFilePreview.RowTemplate.Height = 25;
             MainDataGridFilePreview.RowTemplate.ReadOnly = true;
             MainDataGridFilePreview.RowTemplate.Resizable = DataGridViewTriState.False;
             MainDataGridFilePreview.SelectionMode = DataGridViewSelectionMode.CellSelect;
-            MainDataGridFilePreview.Size = new Size(236, 559);
+            MainDataGridFilePreview.Size = new Size(236, 500);
             MainDataGridFilePreview.TabIndex = 52;
             // 
             // DataGridViewFilePreviewColumnAddress
@@ -479,26 +516,31 @@ namespace OBDErrorErase
             // 
             // MainLabelBinaryFilename
             // 
-            MainLabelBinaryFilename.Location = new Point(290, 104);
+            MainLabelBinaryFilename.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            MainLabelBinaryFilename.Location = new Point(13, 103);
             MainLabelBinaryFilename.Name = "MainLabelBinaryFilename";
-            MainLabelBinaryFilename.Size = new Size(235, 24);
+            MainLabelBinaryFilename.Size = new Size(235, 47);
             MainLabelBinaryFilename.TabIndex = 51;
             MainLabelBinaryFilename.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // MainButtonFileBrowse
             // 
-            MainButtonFileBrowse.BackColor = Color.LightBlue;
-            MainButtonFileBrowse.Location = new Point(289, 22);
+            MainButtonFileBrowse.AllowDrop = true;
+            MainButtonFileBrowse.BackColor = Color.AliceBlue;
+            MainButtonFileBrowse.BackgroundImage = Properties.Resources.ButtonUpload;
+            MainButtonFileBrowse.BackgroundImageLayout = ImageLayout.Center;
+            MainButtonFileBrowse.FlatAppearance.BorderColor = Color.FromArgb(224, 224, 224);
+            MainButtonFileBrowse.FlatStyle = FlatStyle.Flat;
+            MainButtonFileBrowse.Location = new Point(12, 28);
             MainButtonFileBrowse.Name = "MainButtonFileBrowse";
-            MainButtonFileBrowse.Size = new Size(236, 59);
+            MainButtonFileBrowse.Size = new Size(236, 54);
             MainButtonFileBrowse.TabIndex = 50;
-            MainButtonFileBrowse.Text = "Open Binary...";
             MainButtonFileBrowse.UseVisualStyleBackColor = false;
             // 
             // MainTextboxProfileFilter
             // 
             MainTextboxProfileFilter.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            MainTextboxProfileFilter.Location = new Point(21, 124);
+            MainTextboxProfileFilter.Location = new Point(12, 103);
             MainTextboxProfileFilter.Name = "MainTextboxProfileFilter";
             MainTextboxProfileFilter.PlaceholderText = "Filter profiles...";
             MainTextboxProfileFilter.Size = new Size(237, 23);
@@ -508,57 +550,82 @@ namespace OBDErrorErase
             // 
             MainListProfiles.FormattingEnabled = true;
             MainListProfiles.ItemHeight = 15;
-            MainListProfiles.Location = new Point(22, 157);
+            MainListProfiles.Location = new Point(12, 148);
             MainListProfiles.Name = "MainListProfiles";
-            MainListProfiles.Size = new Size(236, 559);
+            MainListProfiles.Size = new Size(236, 529);
             MainListProfiles.TabIndex = 48;
             // 
             // MainLabelPreviewFile
             // 
             MainLabelPreviewFile.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            MainLabelPreviewFile.Location = new Point(289, 132);
+            MainLabelPreviewFile.Location = new Point(12, 150);
             MainLabelPreviewFile.Name = "MainLabelPreviewFile";
             MainLabelPreviewFile.Size = new Size(61, 24);
             MainLabelPreviewFile.TabIndex = 55;
             MainLabelPreviewFile.Text = "Preview:";
             MainLabelPreviewFile.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // MainLabelSelectProfile
-            // 
-            MainLabelSelectProfile.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            MainLabelSelectProfile.Location = new Point(22, 85);
-            MainLabelSelectProfile.Name = "MainLabelSelectProfile";
-            MainLabelSelectProfile.Size = new Size(235, 24);
-            MainLabelSelectProfile.TabIndex = 56;
-            MainLabelSelectProfile.Text = "Select Profile:";
-            MainLabelSelectProfile.TextAlign = ContentAlignment.MiddleLeft;
-            // 
             // MainLabelLoadedBinaryFile
             // 
             MainLabelLoadedBinaryFile.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            MainLabelLoadedBinaryFile.Location = new Point(290, 85);
+            MainLabelLoadedBinaryFile.Location = new Point(12, 81);
             MainLabelLoadedBinaryFile.Name = "MainLabelLoadedBinaryFile";
             MainLabelLoadedBinaryFile.Size = new Size(235, 24);
             MainLabelLoadedBinaryFile.TabIndex = 57;
             MainLabelLoadedBinaryFile.Text = "Loaded Binary:";
             MainLabelLoadedBinaryFile.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // panel1
+            // 
+            panel1.Controls.Add(MainButtonRemoveProfile);
+            panel1.Controls.Add(MainButtonNewProfile);
+            panel1.Controls.Add(MainButtonDuplicateProfile);
+            panel1.Location = new Point(7, 28);
+            panel1.Name = "panel1";
+            panel1.Padding = new Padding(10);
+            panel1.Size = new Size(245, 54);
+            panel1.TabIndex = 58;
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(panel1);
+            groupBox1.Controls.Add(MainListProfiles);
+            groupBox1.Controls.Add(MainTextboxProfileFilter);
+            groupBox1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            groupBox1.Location = new Point(14, 14);
+            groupBox1.Margin = new Padding(5);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(260, 700);
+            groupBox1.TabIndex = 49;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Profiles";
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(MainButtonFileBrowse);
+            groupBox2.Controls.Add(MainCheckboxFlipBytes);
+            groupBox2.Controls.Add(MainLabelLoadedBinaryFile);
+            groupBox2.Controls.Add(MainLabelBinaryFilename);
+            groupBox2.Controls.Add(MainLabelPreviewFile);
+            groupBox2.Controls.Add(MainDataGridFilePreview);
+            groupBox2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            groupBox2.Location = new Point(284, 14);
+            groupBox2.Margin = new Padding(5);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(260, 700);
+            groupBox2.TabIndex = 58;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Binary File";
+            // 
             // Main
             // 
-            ClientSize = new Size(1014, 736);
-            Controls.Add(MainLabelLoadedBinaryFile);
-            Controls.Add(MainLabelSelectProfile);
-            Controls.Add(MainLabelPreviewFile);
+            ClientSize = new Size(1010, 726);
+            Controls.Add(groupBox2);
+            Controls.Add(groupBox1);
             Controls.Add(MainTabControl);
-            Controls.Add(MainTableLayoutPanelProfileButtons);
-            Controls.Add(MainDataGridFilePreview);
-            Controls.Add(MainLabelBinaryFilename);
-            Controls.Add(MainButtonFileBrowse);
-            Controls.Add(MainTextboxProfileFilter);
-            Controls.Add(MainListProfiles);
-            Controls.Add(MainCheckboxFlipBytes);
             Name = "Main";
             Text = "OBD Error Erase";
+            Load += Main_Load;
             MainTabControl.ResumeLayout(false);
             EraserTabPage.ResumeLayout(false);
             EraserTabPage.PerformLayout();
@@ -570,10 +637,39 @@ namespace OBDErrorErase
             EditorTabPage.PerformLayout();
             EditorGroupBox.ResumeLayout(false);
             EditorGroupBox.PerformLayout();
-            MainTableLayoutPanelProfileButtons.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)MainDataGridFilePreview).EndInit();
+            panel1.ResumeLayout(false);
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
+        }
+
+        private void Form1_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                e.Effect = DragDropEffects.All;
+            else
+            {
+                String[] strGetFormats = e.Data.GetFormats();
+                e.Effect = DragDropEffects.None;
+            }
+        }
+
+        private void MainButtonNewProfile_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MainButtonRemoveProfile_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

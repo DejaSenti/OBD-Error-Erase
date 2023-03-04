@@ -32,7 +32,6 @@
             TextBoxMapLength = new TextBox();
             PanelMaps = new Panel();
             TableLayoutMaps = new TableLayoutPanel();
-            TableLayoutLabels = new TableLayoutPanel();
             LabelAddress = new Label();
             LabelNewValue = new Label();
             LabelWidth = new Label();
@@ -42,7 +41,6 @@
             LabelMapLengthManualEntry = new Label();
             LabelMapLengthSelectAlgorithm = new Label();
             PanelMaps.SuspendLayout();
-            TableLayoutLabels.SuspendLayout();
             GroupBoxMapLength.SuspendLayout();
             SuspendLayout();
             // 
@@ -91,79 +89,63 @@
             TableLayoutMaps.Size = new Size(330, 40);
             TableLayoutMaps.TabIndex = 0;
             // 
-            // TableLayoutLabels
-            // 
-            TableLayoutLabels.ColumnCount = 5;
-            TableLayoutLabels.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
-            TableLayoutLabels.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
-            TableLayoutLabels.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
-            TableLayoutLabels.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
-            TableLayoutLabels.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
-            TableLayoutLabels.Controls.Add(LabelAddress, 1, 0);
-            TableLayoutLabels.Controls.Add(LabelNewValue, 3, 0);
-            TableLayoutLabels.Controls.Add(LabelWidth, 2, 0);
-            TableLayoutLabels.Controls.Add(LabelName, 0, 0);
-            TableLayoutLabels.Controls.Add(ButtonAddMap, 4, 0);
-            TableLayoutLabels.Location = new Point(34, 100);
-            TableLayoutLabels.Name = "TableLayoutLabels";
-            TableLayoutLabels.RowCount = 1;
-            TableLayoutLabels.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            TableLayoutLabels.Size = new Size(330, 32);
-            TableLayoutLabels.TabIndex = 0;
-            // 
             // LabelAddress
             // 
             LabelAddress.AutoSize = true;
-            LabelAddress.Dock = DockStyle.Fill;
-            LabelAddress.Location = new Point(69, 0);
+            LabelAddress.Location = new Point(110, 115);
+            LabelAddress.Margin = new Padding(0, 8, 3, 8);
             LabelAddress.Name = "LabelAddress";
-            LabelAddress.Size = new Size(60, 32);
+            LabelAddress.Size = new Size(49, 15);
             LabelAddress.TabIndex = 4;
             LabelAddress.Text = "Address";
-            LabelAddress.TextAlign = ContentAlignment.MiddleCenter;
+            LabelAddress.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // LabelNewValue
             // 
             LabelNewValue.AutoSize = true;
-            LabelNewValue.Dock = DockStyle.Fill;
-            LabelNewValue.Location = new Point(201, 0);
+            LabelNewValue.Location = new Point(247, 115);
+            LabelNewValue.Margin = new Padding(0, 8, 3, 8);
             LabelNewValue.Name = "LabelNewValue";
-            LabelNewValue.Size = new Size(60, 32);
+            LabelNewValue.Size = new Size(62, 15);
             LabelNewValue.TabIndex = 3;
             LabelNewValue.Text = "New Value";
-            LabelNewValue.TextAlign = ContentAlignment.MiddleCenter;
+            LabelNewValue.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // LabelWidth
             // 
             LabelWidth.AutoSize = true;
-            LabelWidth.Dock = DockStyle.Fill;
-            LabelWidth.Location = new Point(135, 0);
+            LabelWidth.Location = new Point(180, 115);
+            LabelWidth.Margin = new Padding(0, 8, 3, 8);
             LabelWidth.Name = "LabelWidth";
-            LabelWidth.Size = new Size(60, 32);
+            LabelWidth.Size = new Size(39, 15);
             LabelWidth.TabIndex = 2;
             LabelWidth.Text = "Width";
-            LabelWidth.TextAlign = ContentAlignment.MiddleCenter;
+            LabelWidth.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // LabelName
             // 
             LabelName.AutoSize = true;
-            LabelName.Dock = DockStyle.Fill;
-            LabelName.Location = new Point(3, 0);
+            LabelName.Location = new Point(40, 115);
+            LabelName.Margin = new Padding(0, 8, 3, 8);
             LabelName.Name = "LabelName";
-            LabelName.Size = new Size(60, 32);
+            LabelName.Size = new Size(39, 15);
             LabelName.TabIndex = 0;
             LabelName.Text = "Name";
-            LabelName.TextAlign = ContentAlignment.MiddleCenter;
+            LabelName.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // ButtonAddMap
             // 
-            ButtonAddMap.BackColor = Color.LightGreen;
-            ButtonAddMap.Dock = DockStyle.Fill;
-            ButtonAddMap.Location = new Point(267, 3);
+            ButtonAddMap.BackColor = Color.Transparent;
+            ButtonAddMap.BackgroundImage = Properties.Resources.ButtonNew;
+            ButtonAddMap.BackgroundImageLayout = ImageLayout.Center;
+            ButtonAddMap.FlatAppearance.BorderSize = 0;
+            ButtonAddMap.FlatStyle = FlatStyle.Flat;
+            ButtonAddMap.Location = new Point(322, 103);
+            ButtonAddMap.MaximumSize = new Size(32, 32);
+            ButtonAddMap.MinimumSize = new Size(32, 32);
             ButtonAddMap.Name = "ButtonAddMap";
-            ButtonAddMap.Size = new Size(60, 26);
+            ButtonAddMap.Size = new Size(32, 32);
             ButtonAddMap.TabIndex = 5;
-            ButtonAddMap.Text = "Add";
             ButtonAddMap.UseVisualStyleBackColor = false;
             // 
             // GroupBoxMapLength
@@ -203,23 +185,25 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(LabelNewValue);
+            Controls.Add(ButtonAddMap);
+            Controls.Add(LabelAddress);
+            Controls.Add(LabelWidth);
             Controls.Add(GroupBoxMapLength);
-            Controls.Add(TableLayoutLabels);
             Controls.Add(PanelMaps);
+            Controls.Add(LabelName);
             Name = "BoschProfileEditorGUI";
             Size = new Size(400, 400);
             PanelMaps.ResumeLayout(false);
             PanelMaps.PerformLayout();
-            TableLayoutLabels.ResumeLayout(false);
-            TableLayoutLabels.PerformLayout();
             GroupBoxMapLength.ResumeLayout(false);
             GroupBoxMapLength.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
         private Panel PanelMaps;
-        private TableLayoutPanel TableLayoutLabels;
         private Label LabelName;
         private Label LabelAddress;
         private Label LabelNewValue;

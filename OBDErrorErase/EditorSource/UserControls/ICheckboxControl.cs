@@ -1,4 +1,4 @@
-﻿namespace OBDErrorErase
+﻿namespace OBDErrorErase.EditorSource.GUI
 {
     public interface ICheckboxControl
     {

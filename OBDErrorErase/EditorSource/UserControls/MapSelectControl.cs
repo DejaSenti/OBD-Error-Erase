@@ -1,4 +1,6 @@
-﻿namespace OBDErrorErase
+﻿using OBDErrorErase.EditorSource.GUI;
+
+namespace OBDErrorErase
 {
     public partial class MapSelectControl : UserControl, ICheckboxControl
     {

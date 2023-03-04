@@ -32,7 +32,6 @@
         public ListBox EditorListSubprofiles;
         public TextBox EditorTextBoxComputerName;
         public ComboBox EditorDropdownManufacturer;
-        private TableLayoutPanel MainTableLayoutPanelProfileButtons;
         public Button MainButtonNewProfile;
         public Button MainButtonRemoveProfile;
         public Button MainButtonDuplicateProfile;
@@ -54,7 +53,6 @@
         public Button EditorButtonDuplicateSubProfile;
         public Button EditorButtonRemoveSubProfile;
         private GroupBox EditorGroupBox;
-        public Label MainLabelSelectProfile;
         public Label MainLabelLoadedBinaryFile;
         public CheckBox EraserCheckBoxSelectAllMaps;
         public CheckBox EraserCheckBoxSelectAllPresets;
@@ -62,5 +60,9 @@
         public TabPage EraserTabPage;
         public TabPage EditorTabPage;
         public Panel EditorPanelEditFrame;
+        private Label label1;
+        private Panel panel1;
+        private GroupBox groupBox1;
+        private GroupBox groupBox2;
     }
 }

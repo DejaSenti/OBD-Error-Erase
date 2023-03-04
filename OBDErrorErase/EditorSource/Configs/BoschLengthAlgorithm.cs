@@ -1,4 +1,4 @@
-﻿namespace OBDErrorErase
+﻿namespace OBDErrorErase.EditorSource.Utils
 {
     public enum BoschLengthAlgorithm
     {

@@ -43,6 +43,7 @@ namespace OBDErrorErase.EditorSource.GUI
             guiHolder.MainButtonDuplicateProfile.Click += OnDuplicateProfileClicked;
             guiHolder.MainButtonRemoveProfile.Click += OnRemoveProfileClicked;
             guiHolder.MainButtonFileBrowse.Click += OnBrowseClick;
+            guiHolder.MainButtonFileBrowse.DragDrop += OnDragDrop;
 
             guiHolder.MainTextboxProfileFilter.TextChanged += OnFilterTextFieldChanged;
             guiHolder.MainListProfiles.SelectedIndexChanged += OnSelectionChanged;
@@ -99,7 +100,7 @@ namespace OBDErrorErase.EditorSource.GUI
             if (string.IsNullOrEmpty(SelectedProfileID))
                 return;
 
-            RequestRemoveProfileEvent?.Invoke(SelectedProfileID); // todo controller should call select next profile on successful remove
+            RequestRemoveProfileEvent?.Invoke(SelectedProfileID);
         }
 
         private void OnBrowseClick(object? sender, EventArgs e)
@@ -108,6 +109,21 @@ namespace OBDErrorErase.EditorSource.GUI
 
             if (filePath == null || !Path.Exists(filePath))
                 return;
+
+            RequestBinaryFileBrowseEvent?.Invoke(filePath);
+        }
+
+        private void OnDragDrop(object? sender, DragEventArgs e)
+        {
+            if (e == null)
+                return;
+
+            string[]? files = (string[]?)e.Data?.GetData(DataFormats.FileDrop);
+
+            if (files == null)
+                return;
+
+            string filePath = files[0];
 
             RequestBinaryFileBrowseEvent?.Invoke(filePath);
         }
