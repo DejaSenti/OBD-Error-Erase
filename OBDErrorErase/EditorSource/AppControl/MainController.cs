@@ -96,7 +96,7 @@ namespace OBDErrorErase.EditorSource.AppControl
 
             profileManager.SetCurrentProfile(profile);
 
-            editorController.OnNewProfileLoaded(profile);
+            editorController.OnNewProfileLoaded();
             eraserController.OnNewProfileLoaded();
 
             if (binaryFileManager.CurrentFile != null)

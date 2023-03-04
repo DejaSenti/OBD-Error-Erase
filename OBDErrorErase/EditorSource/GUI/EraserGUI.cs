@@ -55,6 +55,16 @@
             PresetListRefreshClicked?.Invoke();
         }
 
+        private void OnMapCheckboxChanged(object? sender, EventArgs e)
+        {
+            SetSelectAllCheckboxState(mapControls, guiHolder.EraserCheckBoxSelectAllMaps);
+        }
+
+        private void OnPresetCheckboxChanged(object? sender, EventArgs e)
+        {
+            SetSelectAllCheckboxState(presetControls, guiHolder.EraserCheckBoxSelectAllPresets);
+        }
+
         #endregion
 
         private void SetAllCheckboxes<T>(List<T> controlList, CheckBox selectAll) where T : ICheckboxControl
@@ -219,16 +229,6 @@
             mapControls.Clear();
         }
 
-        private void OnMapCheckboxChanged(object? sender, EventArgs e)
-        {
-            SetSelectAllCheckboxState(mapControls, guiHolder.EraserCheckBoxSelectAllMaps);
-        }
-
-        private void OnPresetCheckboxChanged(object? sender, EventArgs e)
-        {
-            SetSelectAllCheckboxState(presetControls, guiHolder.EraserCheckBoxSelectAllPresets);
-        }
-
         private void SetSelectAllCheckboxState<T>(List<T> controls, CheckBox checkbox) where T : ICheckboxControl
         {
             bool allTrue = true;
@@ -269,6 +269,12 @@
         internal void SetEraseButtonEnabled(bool value)
         {
             guiHolder.EraserButtonRun.Enabled = value;
+        }
+
+        internal void UpdateMapSelectorStatus(bool value)
+        {
+            guiHolder.EraserTableLayoutMapSelector.Enabled = value;
+            guiHolder.EraserCheckBoxSelectAllMaps.Enabled = value;
         }
     }
 }

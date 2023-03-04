@@ -122,6 +122,23 @@ namespace OBDErrorErase.EditorSource.AppControl
                 return;
 
             eraserGUI.PopulateMapList(profileManager.CurrentSubProfile.GetMapNameList());
+
+            eraserGUI.UpdateMapSelectorStatus(IsMultimapProfileType());
+        }
+
+        private bool IsMultimapProfileType()
+        {
+            var profile = profileManager.CurrentProfile;
+
+            if (profile == null)
+                return false;
+
+            return profile.Type switch
+            {
+                ProfileType.BOSCH => true,
+                ProfileType.DELPHI => false,
+                _ => false
+            };
         }
 
         internal void OnProfileUnloaded()

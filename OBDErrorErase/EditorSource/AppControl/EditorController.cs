@@ -109,23 +109,26 @@ namespace OBDErrorErase.EditorSource.AppControl
 
             profileManager.ChangeCurrentProfileType(type);
 
-            OnNewProfileLoaded(profileManager.CurrentProfile);
+            OnNewProfileLoaded();
+            ProfileEditedEvent?.Invoke();
         }
 
-        internal void OnNewProfileLoaded(Profile newProfile)
+        internal void OnNewProfileLoaded()
         {
+            var profile = profileManager.CurrentProfile;
+
             editorGUI.OnProfileDBChanged(profileManager.GetManufacturers());
 
             DisposeProfileEditor();
 
-            profileEditor = ProfileEditorFactory.GetEditorController(newProfile.Type);
-            profileEditorGUI = ProfileEditorGUIFactory.GetEditorGUI(newProfile.Type);
+            profileEditor = ProfileEditorFactory.GetEditorController(profile.Type);
+            profileEditorGUI = ProfileEditorGUIFactory.GetEditorGUI(profile.Type);
             profileEditor.SetGUI(profileEditorGUI);
             profileEditor.AddressChangedEvent += OnAddressChanged;
 
             editorGUI.SetProfileEditorGUI(profileEditorGUI);
 
-            editorGUI.OnCurrentProfileChanged(newProfile);
+            editorGUI.OnCurrentProfileChanged(profile);
 
             editorGUI.OnCurrentSubprofileChanged(profileManager.CurrentSubProfileIndex);
         }

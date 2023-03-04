@@ -152,6 +152,8 @@ namespace OBDErrorErase.EditorSource.GUI
                     profileList.Items.Add(profileID);
             }
 
+            profileList.Sorted = true;
+
             profileList.SelectedItem = SelectedProfileID;
         }
 

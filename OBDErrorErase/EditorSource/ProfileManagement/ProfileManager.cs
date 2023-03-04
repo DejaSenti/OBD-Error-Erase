@@ -170,9 +170,11 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             if (CurrentProfile == null)
                 return;
 
+            var profile = CreateNewProfile(newType, CurrentProfile.Manufacturer, CurrentProfile.Name);
+
             RemoveProfile(CurrentProfile.ID);
 
-            CurrentProfile = CreateNewProfile(newType, CurrentProfile.Manufacturer, CurrentProfile.Name);
+            CurrentProfile = profile;
         }
 
         public void SetCurrentSubprofile(int newIndex)

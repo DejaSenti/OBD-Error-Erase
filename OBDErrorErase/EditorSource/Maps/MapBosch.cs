@@ -25,6 +25,9 @@ namespace OBDErrorErase.EditorSource.Maps
 
         public MapBosch(string name, string newValue, int rawWidth) : base(name)
         {
+            if (newValue.Length % 2 != 0)
+                newValue = newValue.PadLeft(newValue.Length + 1, '0');
+
             NewValue = new DirtyList<byte>(Convert.FromHexString(newValue));
             RawWidth = rawWidth;
         }

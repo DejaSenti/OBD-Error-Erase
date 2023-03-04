@@ -10,8 +10,6 @@ namespace OBDErrorErase.EditorSource.Processors
     {
         public void PopulateProfileDefaults(Profile profile)
         {
-            profile.Manufacturer = "None";
-            profile.Name = "None";
             profile.Subprofiles.Add(new SubprofileData());
             profile.AddNewMap(new MapBosch(MapBosch.DTC, "0000", ValueWidth.WIDTH.IndexOf("16bit")));
         }

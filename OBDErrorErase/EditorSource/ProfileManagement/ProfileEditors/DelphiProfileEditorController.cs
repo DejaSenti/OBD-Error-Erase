@@ -121,8 +121,11 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
                     profileManager.CurrentSubProfile.MapLength = (int)value;
                     break;
                 case DelphiMapParameter.NEW_VALUE:
+                    var newValue = (string)value;
+                    if (newValue.Length % 2 != 0)
+                        newValue = newValue.PadLeft(newValue.Length + 1, '0');
                     map.NewValue.Clear();
-                    map.NewValue.AddRange(Convert.FromHexString((string)value));
+                    map.NewValue.AddRange(Convert.FromHexString(newValue));
                     break;
                 default:
                     return;

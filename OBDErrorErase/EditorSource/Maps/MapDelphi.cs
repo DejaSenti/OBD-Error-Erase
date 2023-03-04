@@ -19,7 +19,7 @@ namespace OBDErrorErase.EditorSource.Maps
         private int errorColumn;
         public int ErrorColumn { get => errorColumn; set { errorColumn = value; isDirty = true; } }
 
-        public MapDelphi()
+        public MapDelphi(string name) : base(name)
         {
         }
     }
