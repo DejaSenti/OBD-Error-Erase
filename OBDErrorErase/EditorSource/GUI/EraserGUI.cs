@@ -17,6 +17,9 @@
         {
             this.guiHolder = guiHolder;
 
+            mapControls = new List<MapSelectControl>();
+            presetControls = new List<ErrorPresetControl>();
+
             AddGUIListeners();
 
             SetEraseButtonEnabled(false);
@@ -34,22 +37,12 @@
 
         private void OnSelectAllPresetsToggle(object? sender, EventArgs e)
         {
-            bool value = guiHolder.EraserCheckBoxSelectAllPresets.Checked;
-
-            foreach (var presetControl in presetControls)
-            {
-                presetControl.Checkbox.Checked = value;
-            }
+            SetAllCheckboxes(presetControls, guiHolder.EraserCheckBoxSelectAllPresets);
         }
 
         private void OnSelectAllMapsToggle(object? sender, EventArgs e)
         {
-            bool value = guiHolder.EraserCheckBoxSelectAllMaps.Checked;
-
-            foreach (var mapControl in mapControls)
-            {
-                mapControl.Checkbox.Checked = value;
-            }
+            SetAllCheckboxes(mapControls, guiHolder.EraserCheckBoxSelectAllMaps);
         }
 
         private void OnRunClick(object? sender, EventArgs e)
@@ -62,18 +55,36 @@
             PresetListRefreshClicked?.Invoke();
         }
 
-#endregion
+        #endregion
+
+        private void SetAllCheckboxes<T>(List<T> controlList, CheckBox selectAll) where T : ICheckboxControl
+        {
+            bool value = false;
+            switch (selectAll.CheckState)
+            {
+                case CheckState.Unchecked:
+                    break;
+                case CheckState.Indeterminate:
+                    return;
+                case CheckState.Checked:
+                default:
+                    value = true;
+                    break;
+            }
+
+            foreach (T control in controlList)
+            {
+                control.CheckBox.Checked = value;
+            }
+        }
 
         public void PopulateMapList(List<string> names)
         {
+            ClearMapControls();
+
             var layout = guiHolder.EraserTableLayoutMapSelector;
 
-            layout.Controls.Clear();
-            layout.RowStyles.Clear();
-
             layout.RowCount = names.Count;
-
-            mapControls = new List<MapSelectControl>();
 
             for (int i = 0; i < names.Count; ++i)
             {
@@ -84,25 +95,19 @@
                 layout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
 
                 mapControls.Add(control);
+                control.Checkbox.CheckedChanged += OnMapCheckboxChanged;
             }
+
+            guiHolder.EraserCheckBoxSelectAllMaps.Checked = true;
         }
 
         public void PopulateErrorPresetList(List<string> names)
         {
+            ClearPresetControls();
+
             var layout = guiHolder.EraserTableLayoutErrorPresets;
-
-            foreach (ErrorPresetControl control in layout.Controls)
-            {
-                control.OpenClicked -= OnErrorPresetOpenClicked;
-                control.DeleteClicked -= OnErrorPresetDeleteClicked;
-            }
-
-            layout.Controls.Clear();
-            layout.RowStyles.Clear();
             
             layout.RowCount = names.Count;
-
-            presetControls = new List<ErrorPresetControl>();
 
             for (int i = 0; i < names.Count; ++i)
             {
@@ -115,8 +120,12 @@
                 control.OpenClicked += OnErrorPresetOpenClicked;
                 control.DeleteClicked += OnErrorPresetDeleteClicked;
 
+                control.Checkbox.CheckedChanged += OnPresetCheckboxChanged;
+
                 presetControls.Add(control);
             }
+
+            guiHolder.EraserCheckBoxSelectAllPresets.Checked = true;
         }
 
         private void OnErrorPresetDeleteClicked(ErrorPresetControl control)
@@ -177,10 +186,84 @@
             MessageBox.Show("Cannot process!\rCheck that you loaded a file, selected a profile, and have errors you want to erase!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        internal void ClearFields()
+        private void ClearPresetControls()
         {
-            PopulateMapList(new List<string>());
+            foreach (var control in presetControls)
+            {
+                control.OpenClicked -= OnErrorPresetOpenClicked;
+                control.DeleteClicked -= OnErrorPresetDeleteClicked;
+
+                control.Checkbox.CheckedChanged -= OnPresetCheckboxChanged;
+            }
+
+            guiHolder.EraserTableLayoutErrorPresets.Controls.Clear();
+            guiHolder.EraserTableLayoutErrorPresets.RowStyles.Clear();
+
+            guiHolder.EraserCheckBoxSelectAllPresets.Checked = false;
+
+            presetControls.Clear();
+        }
+
+        internal void ClearMapControls()
+        {
+            foreach (var control in mapControls)
+            {
+                control.Checkbox.CheckedChanged -= OnMapCheckboxChanged;
+            }
+
+            guiHolder.EraserTableLayoutMapSelector.Controls.Clear();
+            guiHolder.EraserTableLayoutMapSelector.RowStyles.Clear();
+
             guiHolder.EraserCheckBoxSelectAllMaps.Checked = false;
+
+            mapControls.Clear();
+        }
+
+        private void OnMapCheckboxChanged(object? sender, EventArgs e)
+        {
+            SetSelectAllCheckboxState(mapControls, guiHolder.EraserCheckBoxSelectAllMaps);
+        }
+
+        private void OnPresetCheckboxChanged(object? sender, EventArgs e)
+        {
+            SetSelectAllCheckboxState(presetControls, guiHolder.EraserCheckBoxSelectAllPresets);
+        }
+
+        private void SetSelectAllCheckboxState<T>(List<T> controls, CheckBox checkbox) where T : ICheckboxControl
+        {
+            bool allTrue = true;
+            bool allFalse = true;
+
+            foreach (var control in controls)
+            {
+                if (control.CheckBox.Checked && allFalse)
+                {
+                    allFalse = false;
+                }
+                else if (!control.CheckBox.Checked && allTrue)
+                {
+                    allTrue = false;
+                }
+
+                if (!allTrue && !allFalse)
+                {
+                    checkbox.CheckState = CheckState.Indeterminate;
+                    return;
+                }
+            }
+
+            if (allTrue)
+            {
+                checkbox.CheckState = CheckState.Checked;
+            }
+            else if (allFalse)
+            {
+                checkbox.CheckState = CheckState.Unchecked;
+            }
+            else
+            {
+                checkbox.CheckState = CheckState.Indeterminate;
+            }
         }
 
         internal void SetEraseButtonEnabled(bool value)

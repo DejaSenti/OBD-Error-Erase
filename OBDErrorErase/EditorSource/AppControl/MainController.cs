@@ -84,7 +84,10 @@ namespace OBDErrorErase.EditorSource.AppControl
 
         private void OnLoadProfileRequested(string profileID)
         {
-            UnloadProfile();
+            if (profileManager.CurrentProfile != null)
+            {
+                UnloadProfile();
+            }
 
             if (string.IsNullOrEmpty(profileID))
                 return;
@@ -149,9 +152,7 @@ namespace OBDErrorErase.EditorSource.AppControl
             {
                 for (int i = 0; i < errorList.Length; i += 2)
                 {
-                    var temp = errorList[i];
-                    errorList[i] = errorList[i + 1];
-                    errorList[i + 1] = temp;
+                    (errorList[i + 1], errorList[i]) = (errorList[i], errorList[i + 1]);
                 }
             }
 

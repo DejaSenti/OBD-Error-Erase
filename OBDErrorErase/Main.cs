@@ -91,7 +91,6 @@ namespace OBDErrorErase
             EraserTabPage.TabIndex = 0;
             EraserTabPage.Text = "Erase Errors";
             EraserTabPage.UseVisualStyleBackColor = true;
-            EraserTabPage.Click += EraserTabPage_Click;
             // 
             // EraserCheckBoxSelectAllMaps
             // 
@@ -121,7 +120,6 @@ namespace OBDErrorErase
             EraserTextboxErrorList.PlaceholderText = "Enter a list of errors, separated by commas (e.g. a1c7, 1600, 8461, e56f...):";
             EraserTextboxErrorList.Size = new Size(303, 73);
             EraserTextboxErrorList.TabIndex = 49;
-            EraserTextboxErrorList.TextChanged += EraserTextboxErrorList_TextChanged_1;
             // 
             // EraserCheckBoxSelectAllPresets
             // 
@@ -144,7 +142,6 @@ namespace OBDErrorErase
             EraserPanelMapSelector.Name = "EraserPanelMapSelector";
             EraserPanelMapSelector.Size = new Size(303, 168);
             EraserPanelMapSelector.TabIndex = 51;
-            EraserPanelMapSelector.Paint += panel1_Paint;
             // 
             // EraserTableLayoutMapSelector
             // 
@@ -177,7 +174,6 @@ namespace OBDErrorErase
             EraserPanelErrorPresets.Name = "EraserPanelErrorPresets";
             EraserPanelErrorPresets.Size = new Size(303, 195);
             EraserPanelErrorPresets.TabIndex = 50;
-            EraserPanelErrorPresets.Paint += EraserPanelErrorPresets_Paint_1;
             // 
             // EraserTableLayoutErrorPresets
             // 
@@ -207,7 +203,6 @@ namespace OBDErrorErase
             EraserLabelPresetSelect.Size = new Size(165, 15);
             EraserLabelPresetSelect.TabIndex = 48;
             EraserLabelPresetSelect.Text = "Select error presets to include:";
-            EraserLabelPresetSelect.Click += EraserLabelPresetSelect_Click_1;
             // 
             // EraserLabelMapSelect
             // 
@@ -217,7 +212,6 @@ namespace OBDErrorErase
             EraserLabelMapSelect.Size = new Size(128, 15);
             EraserLabelMapSelect.TabIndex = 47;
             EraserLabelMapSelect.Text = "Select maps to modify:";
-            EraserLabelMapSelect.Click += EraserLabelMapSelect_Click_1;
             // 
             // EraserLabelErrorCounter
             // 
@@ -226,7 +220,6 @@ namespace OBDErrorErase
             EraserLabelErrorCounter.Size = new Size(300, 31);
             EraserLabelErrorCounter.TabIndex = 45;
             EraserLabelErrorCounter.TextAlign = ContentAlignment.MiddleLeft;
-            EraserLabelErrorCounter.Click += EraserLabelErrorCounter_Click_1;
             // 
             // EraserButtonRun
             // 
@@ -237,7 +230,6 @@ namespace OBDErrorErase
             EraserButtonRun.TabIndex = 44;
             EraserButtonRun.Text = "Erase Errors";
             EraserButtonRun.UseVisualStyleBackColor = false;
-            EraserButtonRun.Click += EraserButtonRun_Click_1;
             // 
             // EditorTabPage
             // 
@@ -258,7 +250,6 @@ namespace OBDErrorErase
             EditorTabPage.TabIndex = 1;
             EditorTabPage.Text = "Edit Profiles";
             EditorTabPage.UseVisualStyleBackColor = true;
-            EditorTabPage.Click += EditorTabPage_Click;
             // 
             // EditorGroupBox
             // 
@@ -281,7 +272,6 @@ namespace OBDErrorErase
             EditorComboBoxProfileType.Name = "EditorComboBoxProfileType";
             EditorComboBoxProfileType.Size = new Size(179, 23);
             EditorComboBoxProfileType.TabIndex = 42;
-            EditorComboBoxProfileType.SelectedIndexChanged += EditorComboBoxProfileType_SelectedIndexChanged_1;
             // 
             // EditorPanelEditFrame
             // 
@@ -289,7 +279,6 @@ namespace OBDErrorErase
             EditorPanelEditFrame.Name = "EditorPanelEditFrame";
             EditorPanelEditFrame.Size = new Size(400, 400);
             EditorPanelEditFrame.TabIndex = 43;
-            EditorPanelEditFrame.Paint += panel2_Paint;
             // 
             // EditorLabelProfileTypeSelect
             // 
@@ -332,7 +321,6 @@ namespace OBDErrorErase
             EditorLabelProfileSettings.Size = new Size(96, 15);
             EditorLabelProfileSettings.TabIndex = 49;
             EditorLabelProfileSettings.Text = "Profile Settings:";
-            EditorLabelProfileSettings.Click += label6_Click;
             // 
             // EditorLabelSubprofiles
             // 
@@ -571,7 +559,6 @@ namespace OBDErrorErase
             Controls.Add(MainCheckboxFlipBytes);
             Name = "Main";
             Text = "OBD Error Erase";
-            Load += Main_Load;
             MainTabControl.ResumeLayout(false);
             EraserTabPage.ResumeLayout(false);
             EraserTabPage.PerformLayout();
@@ -587,291 +574,6 @@ namespace OBDErrorErase
             ((System.ComponentModel.ISupportInitialize)MainDataGridFilePreview).EndInit();
             ResumeLayout(false);
             PerformLayout();
-        }
-
-        private void EraserLabelFilePath_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EraserPanelErrorPresets_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void tabPage1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EraserButtonFileBrowse_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EditorErrorPreview_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void EraserLabelPresetSelect_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EditorListProfiles_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EditorDropdownManufacturer_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EditorDataGridViewDelphi_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void ProfileTabBosch_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EraserButtonRefreshPresetList_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EditorTextBoxComputerName_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EraserListProfiles_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EraserTextboxErrorList_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EditorTextboxProfileFilter_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TabControlMain_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EditorButtonRemoveProfile_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EraserTableLayoutErrorPresets_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void EraserLabelMapSelect_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EditorListSubprofiles_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ProfileTabDelphi_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void EditorButtonRemoveSubProfile_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EditorTabControlProfileType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EditorButtonDuplicateProfile_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EraserErrorPreview_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void EditorDataGridViewBosch_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void EditorLabelFilePath_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EditorButtonNewProfile_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TabProfileEditor_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EraserLabelErrorCounter_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EditorCheckboxFlipBytes_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EditorTextboxBoschManualLength_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TabErrorEraser_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EraserTextboxProfileFilter_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EditorComboBoxBoschMapLengthAlgoSelect_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EraserCheckboxListMapSelection_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EditorButtonDuplicateSubProfile_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EditorComboBoxProfileType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EraserButtonRun_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tabPage2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EditorButtonDuplicateSubProfile_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EditorButtonRemoveSubProfile_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EditorComboBoxProfileType_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void EraserTabPage_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EraserPanelErrorPresets_Paint_1(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void EraserTextboxErrorList_TextChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EraserLabelPresetSelect_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EraserLabelMapSelect_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void EraserButtonRun_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EraserLabelErrorCounter_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EditorTabPage_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Main_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

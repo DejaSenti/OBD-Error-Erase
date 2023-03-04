@@ -157,10 +157,7 @@ namespace OBDErrorErase.EditorSource.AppControl
 
         internal void EnableAddressFields()
         {
-            if (profileEditorGUI != null)
-            {
-                profileEditorGUI.EnableAddressFields();
-            }
+            profileEditorGUI?.EnableAddressFields();
         }
 
         private void DisposeProfileEditor()

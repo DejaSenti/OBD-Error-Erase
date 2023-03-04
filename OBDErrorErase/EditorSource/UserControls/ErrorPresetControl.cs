@@ -1,11 +1,13 @@
 ﻿namespace OBDErrorErase
 {
-    public partial class ErrorPresetControl : UserControl
+    public partial class ErrorPresetControl : UserControl, ICheckboxControl
     {
         public event Action<ErrorPresetControl>? DeleteClicked;
         public event Action<int>? OpenClicked;
 
         public int ID { get; private set; }
+
+        public CheckBox CheckBox => Checkbox;
 
         public ErrorPresetControl(string name, int id)
         {

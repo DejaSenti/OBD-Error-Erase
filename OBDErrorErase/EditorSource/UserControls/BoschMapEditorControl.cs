@@ -19,8 +19,8 @@ namespace OBDErrorErase
             NewValue.Text = newValue;
             Address.Text = rawLocation.ToString("X");
 
-            Width.Items.AddRange(ValueWidth.WIDTH.ToArray());
-            Width.SelectedIndex = rawWidth;
+            MapWidth.Items.AddRange(ValueWidth.WIDTH.ToArray());
+            MapWidth.SelectedIndex = rawWidth;
 
             if (MapName.Text == MapBosch.DTC)
             {
@@ -41,7 +41,7 @@ namespace OBDErrorErase
             NewValue.Validated += OnNewValueChanged;
             NewValue.Leave += OnNewValueChanged;
             NewValue.KeyUp += OnNewValueKeyUp;
-            Width.SelectionChangeCommitted += OnWidthChanged;
+            MapWidth.SelectionChangeCommitted += OnWidthChanged;
 
             if (MapName.Text != MapBosch.DTC)
             {
@@ -79,7 +79,7 @@ namespace OBDErrorErase
 
         private void OnWidthChanged(object? sender, EventArgs e)
         {
-            RequestWidthChangeEvent?.Invoke(this, Width.SelectedIndex);
+            RequestWidthChangeEvent?.Invoke(this, MapWidth.SelectedIndex);
         }
 
         private void OnNewValueChanged(object? sender, EventArgs e)
@@ -98,7 +98,7 @@ namespace OBDErrorErase
             Address.Leave -= OnAddressChanged;
             NewValue.Validated -= OnNewValueChanged;
             NewValue.Leave -= OnNewValueChanged;
-            Width.SelectionChangeCommitted -= OnWidthChanged;
+            MapWidth.SelectionChangeCommitted -= OnWidthChanged;
             MapName.Validated -= OnMapNameChanged;
             MapName.Leave -= OnMapNameChanged;
             Remove.Click -= OnRemoveClicked;

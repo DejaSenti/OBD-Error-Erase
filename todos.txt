@@ -29,7 +29,7 @@ TO IMPLEMENT:
 			+ fix behaviour when subprofile is loaded
 		+ update file preview on address change
 
-	- delphi eraser functionality
+	+ delphi eraser functionality
 
 
 TO PRETTIFY:
@@ -41,6 +41,8 @@ NICE TO HAVES:
 	+ new / duplicate profile button should send to editor tab
 	+ remove profile button should select next (also, what happens in the editor tab?)
 	- 'select all' checkboxes should become indeterminate when not all checkboxes are in the same state
+	- no maps selected disables erase button
+	- delphi profile disables map selection
 
 
 BEHAVIOURS:

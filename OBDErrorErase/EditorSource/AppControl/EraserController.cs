@@ -57,11 +57,12 @@ namespace OBDErrorErase.EditorSource.AppControl
 
         private void OnPresetOpenClicked(int id)
         {
-            var process = new Process();
-
-            process.StartInfo = new ProcessStartInfo(AppFileHelper.GetFilePath(AppFolderNames.PRESETS, presetNames[id], AppFileExtension.txt))
+            var process = new Process
             {
-                UseShellExecute = true
+                StartInfo = new ProcessStartInfo(AppFileHelper.GetFilePath(AppFolderNames.PRESETS, presetNames[id], AppFileExtension.txt))
+                {
+                    UseShellExecute = true
+                }
             };
             process.Start();
         }
@@ -126,7 +127,7 @@ namespace OBDErrorErase.EditorSource.AppControl
         internal void OnProfileUnloaded()
         {
             eraserGUI.SetEraseButtonEnabled(false);
-            eraserGUI.ClearFields();
+            eraserGUI.ClearMapControls();
         }
 
         internal void OnEraseAvailable()

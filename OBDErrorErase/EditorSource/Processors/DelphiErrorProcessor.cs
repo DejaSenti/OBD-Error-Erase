@@ -16,9 +16,7 @@ namespace OBDErrorErase.EditorSource.Processors
 
         public int Process(BinaryFile file, SubprofileData subprofile, List<string> errors, List<int> mapIndices)
         {
-            MapDelphi? map = subprofile.Maps.FirstOrDefault() as MapDelphi;
-
-            if (map == null)
+            if (subprofile.Maps.FirstOrDefault() is not MapDelphi map)
             {
                 return 0;
             }
@@ -49,6 +47,9 @@ namespace OBDErrorErase.EditorSource.Processors
                         seeker += map.NewValue.Count;
                     }
                 } while (seeker != -1);
+
+                if (errorLocations.Count == 0)
+                    continue;
 
                 foreach (var location in errorLocations)
                 {
