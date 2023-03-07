@@ -187,7 +187,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
 
         public void SetCurrentSubprofile(SubprofileData? subprofile)
         {
-            if (CurrentProfile == null)
+            if (CurrentProfile == null || subprofile == null)
                 return;
 
             SetCurrentSubprofile(CurrentProfile.Subprofiles.IndexOf(subprofile));

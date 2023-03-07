@@ -117,6 +117,9 @@ namespace OBDErrorErase.EditorSource.AppControl
         {
             var profile = profileManager.CurrentProfile;
 
+            if (profile == null)
+                return;
+
             editorGUI.OnProfileDBChanged(profileManager.GetManufacturers());
 
             DisposeProfileEditor();

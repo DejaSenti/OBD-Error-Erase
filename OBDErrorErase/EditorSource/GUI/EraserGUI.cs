@@ -30,15 +30,9 @@
             guiHolder.EraserButtonRefreshPresetList.Click += OnRefreshPresetListClick;
             guiHolder.EraserButtonRun.Click += OnRunClick;
             guiHolder.EraserCheckBoxSelectAllMaps.CheckedChanged += OnSelectAllMapsToggle;
-            guiHolder.EraserCheckBoxSelectAllPresets.CheckedChanged += OnSelectAllPresetsToggle;
         }
 
 #region Event Notifications
-
-        private void OnSelectAllPresetsToggle(object? sender, EventArgs e)
-        {
-            SetAllCheckboxes(presetControls, guiHolder.EraserCheckBoxSelectAllPresets);
-        }
 
         private void OnSelectAllMapsToggle(object? sender, EventArgs e)
         {
@@ -58,11 +52,6 @@
         private void OnMapCheckboxChanged(object? sender, EventArgs e)
         {
             SetSelectAllCheckboxState(mapControls, guiHolder.EraserCheckBoxSelectAllMaps);
-        }
-
-        private void OnPresetCheckboxChanged(object? sender, EventArgs e)
-        {
-            SetSelectAllCheckboxState(presetControls, guiHolder.EraserCheckBoxSelectAllPresets);
         }
 
         #endregion
@@ -130,12 +119,8 @@
                 control.OpenClicked += OnErrorPresetOpenClicked;
                 control.DeleteClicked += OnErrorPresetDeleteClicked;
 
-                control.Checkbox.CheckedChanged += OnPresetCheckboxChanged;
-
                 presetControls.Add(control);
             }
-
-            guiHolder.EraserCheckBoxSelectAllPresets.Checked = true;
         }
 
         private void OnErrorPresetDeleteClicked(ErrorPresetControl control)
@@ -202,14 +187,10 @@
             {
                 control.OpenClicked -= OnErrorPresetOpenClicked;
                 control.DeleteClicked -= OnErrorPresetDeleteClicked;
-
-                control.Checkbox.CheckedChanged -= OnPresetCheckboxChanged;
             }
 
             guiHolder.EraserTableLayoutErrorPresets.Controls.Clear();
             guiHolder.EraserTableLayoutErrorPresets.RowStyles.Clear();
-
-            guiHolder.EraserCheckBoxSelectAllPresets.Checked = false;
 
             presetControls.Clear();
         }

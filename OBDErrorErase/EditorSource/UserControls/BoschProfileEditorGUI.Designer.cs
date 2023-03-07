@@ -212,7 +212,6 @@
         public ComboBox ComboBoxMapLengthAlgorithm;
         public TextBox TextBoxMapLength;
         public Button ButtonAddMap;
-        private Label label6;
         private GroupBox GroupBoxMapLength;
         private Label LabelMapLengthManualEntry;
         private Label LabelMapLengthSelectAlgorithm;

@@ -15,7 +15,6 @@ namespace OBDErrorErase
             EraserCheckBoxSelectAllMaps = new CheckBox();
             EraserButtonRefreshPresetList = new Button();
             EraserTextboxErrorList = new TextBox();
-            EraserCheckBoxSelectAllPresets = new CheckBox();
             EraserPanelMapSelector = new Panel();
             EraserTableLayoutMapSelector = new TableLayoutPanel();
             EraserPanelErrorPresets = new Panel();
@@ -84,7 +83,6 @@ namespace OBDErrorErase
             EraserTabPage.Controls.Add(EraserCheckBoxSelectAllMaps);
             EraserTabPage.Controls.Add(EraserButtonRefreshPresetList);
             EraserTabPage.Controls.Add(EraserTextboxErrorList);
-            EraserTabPage.Controls.Add(EraserCheckBoxSelectAllPresets);
             EraserTabPage.Controls.Add(EraserPanelMapSelector);
             EraserTabPage.Controls.Add(EraserPanelErrorPresets);
             EraserTabPage.Controls.Add(EraserLabelPresetSelect);
@@ -141,16 +139,6 @@ namespace OBDErrorErase
             EraserTextboxErrorList.ScrollBars = ScrollBars.Vertical;
             EraserTextboxErrorList.Size = new Size(303, 73);
             EraserTextboxErrorList.TabIndex = 49;
-            // 
-            // EraserCheckBoxSelectAllPresets
-            // 
-            EraserCheckBoxSelectAllPresets.AutoSize = true;
-            EraserCheckBoxSelectAllPresets.Location = new Point(54, 34);
-            EraserCheckBoxSelectAllPresets.Name = "EraserCheckBoxSelectAllPresets";
-            EraserCheckBoxSelectAllPresets.Size = new Size(74, 19);
-            EraserCheckBoxSelectAllPresets.TabIndex = 52;
-            EraserCheckBoxSelectAllPresets.Text = "Select All";
-            EraserCheckBoxSelectAllPresets.UseVisualStyleBackColor = true;
             // 
             // EraserPanelMapSelector
             // 

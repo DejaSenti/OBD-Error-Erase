@@ -55,7 +55,6 @@
         private GroupBox EditorGroupBox;
         public Label MainLabelLoadedBinaryFile;
         public CheckBox EraserCheckBoxSelectAllMaps;
-        public CheckBox EraserCheckBoxSelectAllPresets;
         public TabControl MainTabControl;
         public TabPage EraserTabPage;
         public TabPage EditorTabPage;
