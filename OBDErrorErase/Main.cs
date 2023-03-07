@@ -441,7 +441,6 @@ namespace OBDErrorErase
             MainButtonNewProfile.Size = new Size(36, 36);
             MainButtonNewProfile.TabIndex = 43;
             MainButtonNewProfile.UseVisualStyleBackColor = false;
-            MainButtonNewProfile.Click += MainButtonNewProfile_Click;
             // 
             // MainButtonRemoveProfile
             // 
@@ -458,7 +457,6 @@ namespace OBDErrorErase
             MainButtonRemoveProfile.Size = new Size(36, 36);
             MainButtonRemoveProfile.TabIndex = 45;
             MainButtonRemoveProfile.UseVisualStyleBackColor = false;
-            MainButtonRemoveProfile.Click += MainButtonRemoveProfile_Click;
             // 
             // MainButtonDuplicateProfile
             // 
@@ -625,7 +623,6 @@ namespace OBDErrorErase
             Controls.Add(MainTabControl);
             Name = "Main";
             Text = "OBD Error Erase";
-            Load += Main_Load;
             MainTabControl.ResumeLayout(false);
             EraserTabPage.ResumeLayout(false);
             EraserTabPage.PerformLayout();
@@ -644,32 +641,6 @@ namespace OBDErrorErase
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
             ResumeLayout(false);
-        }
-
-        private void Form1_DragEnter(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-                e.Effect = DragDropEffects.All;
-            else
-            {
-                String[] strGetFormats = e.Data.GetFormats();
-                e.Effect = DragDropEffects.None;
-            }
-        }
-
-        private void MainButtonNewProfile_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void MainButtonRemoveProfile_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Main_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }
