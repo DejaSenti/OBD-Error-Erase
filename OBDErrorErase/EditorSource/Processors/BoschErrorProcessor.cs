@@ -45,11 +45,16 @@ namespace OBDErrorErase.EditorSource.Processors
                 {
                     seeker = file.FindValue(byteError, seeker, dtcEnd);
 
-                    if((seeker != -1) && ((seeker % dtcValueSize) == 0))
+                    if (seeker == -1)
+                        break;
+
+                    if(seeker % dtcValueSize == 0)
                     {
                         errorLocations.Add(seeker);
                         seeker += dtcValueSize;
                     }
+
+                    seeker += dtcValueSize / 2;
                 } while (seeker != -1);
                 
                 if (errorLocations.Count == 0)
