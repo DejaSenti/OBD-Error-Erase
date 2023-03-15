@@ -1,4 +1,5 @@
-﻿using OBDErrorErase.EditorSource.ProfileManagement;
+﻿using OBDErrorErase.EditorSource.FileManagement;
+using OBDErrorErase.EditorSource.ProfileManagement;
 using System.Text.Json.Serialization;
 
 namespace OBDErrorErase.EditorSource.Maps
@@ -30,6 +31,11 @@ namespace OBDErrorErase.EditorSource.Maps
 
             NewValue = new DirtyList<byte>(Convert.FromHexString(newValue));
             RawWidth = rawWidth;
+        }
+
+        public override byte[] GetErrorList(BinaryFile file, int displayLocation)
+        {
+            return file.ReadValue(displayLocation, PREVIEW_LENGTH);
         }
     }
 }
