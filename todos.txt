@@ -4,11 +4,11 @@ HIGH PRIORITY BUGS:
 	+ bmw map length -> dtc map location won't accept letters
 	+ try erasing large amounts of errors, supposedly broken
 	- can't erase on same file twice
-	- manual map length needs to be (L + 1) * 2 for some reason to include whole map?
+	+ manual map length needs to be (L + 1) * 2 for some reason to include whole map?
 
 
 PRODUCT CHANGES:
-	- remove select all presets
+	+ remove select all presets
 	- add save profile button
 	- drap and drop binaries
 	- manual width entry

@@ -37,10 +37,10 @@ namespace OBDErrorErase.EditorSource.Processors
 
                 MapBosch dtcMap = (MapBosch)subprofile.Maps[0];
 
-                var dtcLocation = locationByMap[dtcMap];
-                var dtcEnd = dtcLocation + subprofile.MapLength;
-                int seeker = dtcLocation;
                 int dtcValueSize = dtcMap.NewValue.Count;
+                var dtcLocation = locationByMap[dtcMap];
+                var dtcEnd = dtcLocation + (subprofile.MapLength + 1) * dtcValueSize;
+                int seeker = dtcLocation;
                 do
                 {
                     seeker = file.FindValue(byteError, seeker, dtcEnd);
