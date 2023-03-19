@@ -17,11 +17,11 @@ namespace OBDErrorErase.EditorSource.FileManagement
         /// <returns>-1 if not found</returns>
         internal int FindValue(byte[] value, int start, int end)
         {
-            for (int i = start; (i + value.Length < Length) && (i < end - value.Length); ++i)
+            for (int i = start; (i + value.Length < Length) && (i + value.Length < end); ++i)
             {
                 bool isMatch = true;
 
-                for (int j = 0; (i + j < Length) && (j < value.Length); ++j)
+                for (int j = 0; j < value.Length; ++j)
                 {
                     if (value[j] != data[i + j])
                     {

@@ -37,19 +37,24 @@ namespace OBDErrorErase.EditorSource.Processors
 
                 MapBosch dtcMap = (MapBosch)subprofile.Maps[0];
 
-                var dtcLocation = locationByMap[dtcMap];
-                var dtcEnd = dtcLocation + subprofile.MapLength;
-                int seeker = dtcLocation;
                 int dtcValueSize = dtcMap.NewValue.Count;
+                var dtcLocation = locationByMap[dtcMap];
+                var dtcEnd = dtcLocation + (subprofile.MapLength + 1) * dtcValueSize;
+                int seeker = dtcLocation;
                 do
                 {
                     seeker = file.FindValue(byteError, seeker, dtcEnd);
 
-                    if((seeker != -1) && ((seeker % dtcValueSize) == 0))
+                    if (seeker == -1)
+                        break;
+
+                    if(seeker % dtcValueSize == 0)
                     {
                         errorLocations.Add(seeker);
                         seeker += dtcValueSize;
                     }
+
+                    seeker += dtcValueSize / 2;
                 } while (seeker != -1);
                 
                 if (errorLocations.Count == 0)

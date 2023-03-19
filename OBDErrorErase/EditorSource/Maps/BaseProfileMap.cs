@@ -10,7 +10,8 @@ namespace OBDErrorErase.EditorSource.Maps
     public abstract class BaseProfileMap : IDirty
     {
         const int SEARCH_WORD_LENGTH = 50;
-		
+        protected const int PREVIEW_LENGTH = 100;
+
         protected bool isDirty;
         [JsonIgnore]
         public virtual bool IsDirty => isDirty || searchWord.IsDirty;
@@ -57,5 +58,7 @@ namespace OBDErrorErase.EditorSource.Maps
 
             searchWord.ClearDirty();
         }
+
+        public abstract byte[] GetErrorList(BinaryFile file, int displayLocation);
     }
 }

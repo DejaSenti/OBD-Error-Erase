@@ -1,13 +1,14 @@
 HIGH PRIORITY BUGS:
-	- delphi won't respond to error column? test
-	- bmw map length -> dtc map location won't accept letters
-	- try erasing large amounts of errors, supposedly broken
+	+ delphi won't respond to error column? test
+		+ display the correct columns ONLY, not the entire fucking thing
+	+ bmw map length -> dtc map location won't accept letters
+	+ try erasing large amounts of errors, supposedly broken
 	- can't erase on same file twice
-	- manual map length needs to be (L + 1) * 2 for some reason to include whole map?
+	+ manual map length needs to be (L + 1) * 2 for some reason to include whole map?
 
 
 PRODUCT CHANGES:
-	- remove select all presets
+	+ remove select all presets
 	- add save profile button
 	- drap and drop binaries
 	- manual width entry
@@ -15,3 +16,5 @@ PRODUCT CHANGES:
 
 NICE TO HAVES:
 	- no maps selected disables erase button
+	- surround potential troublesome areas with try/catch statements and dump into log file
+	- show last dtc value on display

@@ -170,9 +170,9 @@ namespace OBDErrorErase
 
         internal int GetMapLocation(string mapName)
         {
-            var map = controls.FirstOrDefault(x => x.MapName.Text == mapName);
+            var map = controls.FirstOrDefault(x => x.MapName.Text.ToLower() == mapName.ToLower());
 
-            return (map == null || string.IsNullOrEmpty(map.Address.Text)) ? -1 : Convert.ToInt32(map.Address.Text);
+            return (map == null || string.IsNullOrEmpty(map.Address.Text)) ? -1 : Convert.ToInt32(map.Address.Text, 16);
         }
 
         public void Clear()

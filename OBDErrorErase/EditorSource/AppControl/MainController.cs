@@ -6,8 +6,6 @@ namespace OBDErrorErase.EditorSource.AppControl
 {
     public class MainController
     {
-        private readonly int PREVIEW_LENGTH = 100;
-
         private MainGUI mainGUI;
         private ProfileManager profileManager;
         private BinaryFileManager binaryFileManager;
@@ -140,13 +138,15 @@ namespace OBDErrorErase.EditorSource.AppControl
             if (subprofile == null || binaryFileManager.CurrentFile == null) 
                 return;
 
+            var map = subprofile.Maps[0];
+
             var file = binaryFileManager.CurrentFile;
-            var displayLocation = file.FindValue(subprofile.Maps[0].SearchWord, 0, file.Length);
+            var displayLocation = file.FindValue(map.SearchWord, 0, file.Length);
 
             if (displayLocation == -1)
                 return;
 
-            var errorList = file.ReadValue(displayLocation, PREVIEW_LENGTH);
+            var errorList = map.GetErrorList(file, displayLocation);
 
             if (subprofile.FlipBytes)
             {

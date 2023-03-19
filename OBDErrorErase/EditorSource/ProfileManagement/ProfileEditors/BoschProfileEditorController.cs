@@ -130,13 +130,13 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
                     int dtcLocation = gui.GetMapLocation(MapBosch.DTC);
                     int classLocation = gui.GetMapLocation(MapBosch.CLASS);
 
-                    if (dtcLocation == -1 || classLocation == -1 || dtcLocation > classLocation)
+                    if (dtcLocation == -1 || classLocation == -1)
                     {
                         gui.TextBoxMapLength.Text = string.Empty;
                         return;
                     }
 
-                    var length = classLocation - dtcLocation;
+                    var length = Math.Abs(classLocation - dtcLocation);
 
                     ChangeBoschMapParameter(BoschMapParameter.LENGTH, length, 0);
                     gui.TextBoxMapLength.Text = length.ToString();

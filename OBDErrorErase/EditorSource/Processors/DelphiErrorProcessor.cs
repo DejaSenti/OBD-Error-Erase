@@ -24,7 +24,7 @@ namespace OBDErrorErase.EditorSource.Processors
             if (start == -1)
                 return 0;
             
-            int mapEnd = start + subprofile.MapLength;
+            int mapEnd = start + (subprofile.MapLength + 1) * map.NewValue.Count;
 
             int totalErased = 0;
 
@@ -39,11 +39,17 @@ namespace OBDErrorErase.EditorSource.Processors
                 {
                     seeker = file.FindValue(byteError, seeker, mapEnd);
 
-                    if ((seeker != -1) && (((seeker - start) % map.NewValue.Count) == map.ErrorColumn))
+                    if (seeker == -1)
+                        break;
+
+                    if (((seeker - start) % map.NewValue.Count) == map.ErrorColumn)
                     {
                         errorLocations.Add(seeker - map.ErrorColumn);
                         seeker += map.NewValue.Count;
                     }
+
+                    seeker += map.NewValue.Count;
+                    seeker -= seeker % map.NewValue.Count;
                 } while (seeker != -1);
 
                 if (errorLocations.Count == 0)
