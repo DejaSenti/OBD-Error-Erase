@@ -117,9 +117,9 @@
             LabelWidth.Location = new Point(180, 115);
             LabelWidth.Margin = new Padding(0, 8, 3, 8);
             LabelWidth.Name = "LabelWidth";
-            LabelWidth.Size = new Size(39, 15);
+            LabelWidth.Size = new Size(66, 15);
             LabelWidth.TabIndex = 2;
-            LabelWidth.Text = "Width";
+            LabelWidth.Text = "Width(bits)";
             LabelWidth.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // LabelName

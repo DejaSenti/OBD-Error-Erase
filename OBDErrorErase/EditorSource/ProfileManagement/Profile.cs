@@ -74,25 +74,25 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
 
             if (subProfile.FlipBytes)
             {
-                FlipErrorBytes(errorList);
+                ReverseStringsInList(errorList);
             }
 
             return processor.Process(currentFile, subProfile, errorList, mapIndices);
         }
 
-        private void FlipErrorBytes(List<string> errorList)
+        private static void ReverseStringsInList(List<string> list)
         {
             var result = new List<string>();
 
-            foreach (var error in errorList)
+            foreach (var str in list)
             {
-                var array = Convert.FromHexString(error);
+                var array = Convert.FromHexString(str);
                 Array.Reverse(array);
                 result.Add(new string(Convert.ToHexString(array)));
             }
 
-            errorList.Clear();
-            errorList.AddRange(result);
+            list.Clear();
+            list.AddRange(result);
 		}
 		
         public void ClearDirty(bool deep = true)

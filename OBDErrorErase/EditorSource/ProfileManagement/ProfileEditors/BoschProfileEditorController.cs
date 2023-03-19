@@ -52,9 +52,9 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
             gui.RequestWidthChangeEvent -= OnWidthChangeRequest;
         }
 
-        private void OnWidthChangeRequest(int mapIndex, int widthIndex)
+        private void OnWidthChangeRequest(int mapIndex, string width)
         {
-            ChangeBoschMapParameter(BoschMapParameter.WIDTH, widthIndex, mapIndex);
+            ChangeBoschMapParameter(BoschMapParameter.WIDTH, width, mapIndex);
         }
 
         private void OnNewValueChangeRequest(int mapIndex, string newValue)
@@ -184,7 +184,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
             if (subprofile == null)
                 return;
 
-            foreach (MapBosch map in subprofile.Maps)
+            foreach (MapBosch map in subprofile.Maps.Cast<MapBosch>())
             {
                 gui.AddMap(map);
             }
@@ -197,9 +197,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
             if (profileManager.CurrentSubProfile == null)
                 return;
 
-            var map = profileManager.CurrentSubProfile.Maps[mapIndex] as MapBosch;
-
-            if (map == null)
+            if (profileManager.CurrentSubProfile.Maps[mapIndex] is not MapBosch map)
                 return;
 
             switch (parameter)
@@ -218,7 +216,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
                     break;
 
                 case BoschMapParameter.NEW_VALUE:
-                    string newValue = ValidateNewValue((string)value, map.RawWidth);
+                    string newValue = ValidateHexValueFitsBitWidth((string)value, map.RawWidth);
                     map.NewValue.Clear();
                     map.NewValue.AddRange(Convert.FromHexString(newValue));
                     gui.SetNewValueField(mapIndex, newValue);
@@ -229,7 +227,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
                     break;
 
                 case BoschMapParameter.WIDTH:
-                    map.RawWidth = (int)value;
+                    map.RawWidth = (string)value;
                     map.NewValue.Clear();
                     gui.SetNewValueField(mapIndex, string.Empty);
                     break;
@@ -240,9 +238,19 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
             profileManager.SaveCurrentProfile();
         }
 
-        private string ValidateNewValue(string value, int rawWidth)
+        private static string ValidateHexValueFitsBitWidth(string value, string rawWidth)
         {
-            var length = (int)Math.Pow(2, rawWidth + 1);
+            int width;
+            try
+            {
+                width = Convert.ToInt32(rawWidth);
+            }
+            catch
+            {
+                return string.Empty;
+            }
+
+            var length = (int)Math.Pow(2, width + 1);
 
             if (string.IsNullOrEmpty(value))
             {
@@ -251,11 +259,11 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
 
             if (value.Length < length)
             {
-                value = value.PadRight(length, value[value.Length - 1]);
+                value = value.PadRight(length, value[^1]);
             }
             else if (value.Length > length) 
             {
-                value = value.Substring(0, length);
+                value = value[..length];
             }
 
             return value;

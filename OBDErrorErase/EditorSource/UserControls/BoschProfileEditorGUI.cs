@@ -12,7 +12,7 @@ namespace OBDErrorErase
         public event Action? RequestChangeLengthAlgorithm;
 
         public event Action<int, string>? RequestMapNameChangeEvent;
-        public event Action<int, int>? RequestWidthChangeEvent;
+        public event Action<int, string>? RequestWidthChangeEvent;
         public event Action<int, string>? RequestNewValueChangeEvent;
         public event Action<int, string>? RequestAddressChangeEvent;
         public event Action<int>? RequestMapRemoveEvent;
@@ -92,9 +92,9 @@ namespace OBDErrorErase
             RequestChangeLengthAlgorithm?.Invoke();
         }
 
-        private void OnWidthChangeRequest(BoschMapEditorControl control, int widthIndex)
+        private void OnWidthChangeRequest(BoschMapEditorControl control, string width)
         {
-            RequestWidthChangeEvent?.Invoke(controls.IndexOf(control), widthIndex);
+            RequestWidthChangeEvent?.Invoke(controls.IndexOf(control), width);
         }
 
         private void OnNewValueChangeRequest(BoschMapEditorControl control, string newValue)
@@ -129,7 +129,7 @@ namespace OBDErrorErase
             string newValue = Convert.ToHexString(map.NewValue.ToArray());
 
             var control = new BoschMapEditorControl(map.Name, map.RawLocation, map.RawWidth, newValue);
-            control.Address.Enabled = controls.Count > 0 ? controls[0].Address.Enabled : false;
+            control.Address.Enabled = controls.Count > 0 && controls[0].Address.Enabled;
 
             AddControlListeners(control);
 

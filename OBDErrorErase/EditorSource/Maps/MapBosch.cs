@@ -19,12 +19,12 @@ namespace OBDErrorErase.EditorSource.Maps
         private int rawLocation;
         public int RawLocation { get => rawLocation; set { rawLocation = value; isDirty = true; } }
 
-        private int rawWidth;
-        public int RawWidth { get => rawWidth; set { rawWidth = value; isDirty = true; } }
+        private string rawWidth;
+        public string RawWidth { get => rawWidth; set { rawWidth = value; isDirty = true; } }
 
         public MapBosch() { }
 
-        public MapBosch(string name, string newValue, int rawWidth) : base(name)
+        public MapBosch(string name, string newValue, string rawWidth) : base(name)
         {
             if (newValue.Length % 2 != 0)
                 newValue = newValue.PadLeft(newValue.Length + 1, '0');

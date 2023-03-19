@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             TableLayoutFields = new TableLayoutPanel();
+            MapWidth = new TextBox();
             MapName = new TextBox();
             Address = new TextBox();
-            MapWidth = new ComboBox();
             NewValue = new TextBox();
             Remove = new Button();
             TableLayoutFields.SuspendLayout();
@@ -45,9 +45,9 @@
             TableLayoutFields.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             TableLayoutFields.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             TableLayoutFields.ColumnStyles.Add(new ColumnStyle());
+            TableLayoutFields.Controls.Add(MapWidth, 2, 0);
             TableLayoutFields.Controls.Add(MapName, 0, 0);
             TableLayoutFields.Controls.Add(Address, 1, 0);
-            TableLayoutFields.Controls.Add(MapWidth, 2, 0);
             TableLayoutFields.Controls.Add(NewValue, 3, 0);
             TableLayoutFields.Controls.Add(Remove, 4, 0);
             TableLayoutFields.Dock = DockStyle.Fill;
@@ -57,6 +57,15 @@
             TableLayoutFields.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             TableLayoutFields.Size = new Size(330, 40);
             TableLayoutFields.TabIndex = 7;
+            // 
+            // MapWidth
+            // 
+            MapWidth.Dock = DockStyle.Fill;
+            MapWidth.Location = new Point(147, 8);
+            MapWidth.Margin = new Padding(3, 8, 3, 8);
+            MapWidth.Name = "MapWidth";
+            MapWidth.Size = new Size(66, 23);
+            MapWidth.TabIndex = 2;
             // 
             // MapName
             // 
@@ -75,17 +84,6 @@
             Address.Name = "Address";
             Address.Size = new Size(66, 23);
             Address.TabIndex = 1;
-            // 
-            // MapWidth
-            // 
-            MapWidth.Dock = DockStyle.Fill;
-            MapWidth.DropDownStyle = ComboBoxStyle.DropDownList;
-            MapWidth.FormattingEnabled = true;
-            MapWidth.Location = new Point(147, 8);
-            MapWidth.Margin = new Padding(3, 8, 3, 8);
-            MapWidth.Name = "MapWidth";
-            MapWidth.Size = new Size(66, 23);
-            MapWidth.TabIndex = 2;
             // 
             // NewValue
             // 
@@ -129,8 +127,8 @@
         private TableLayoutPanel TableLayoutFields;
         public TextBox MapName;
         public TextBox Address;
-        public ComboBox MapWidth;
         public TextBox NewValue;
         public Button Remove;
+        public TextBox MapWidth;
     }
 }

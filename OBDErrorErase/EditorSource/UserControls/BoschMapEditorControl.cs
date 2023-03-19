@@ -8,21 +8,19 @@ namespace OBDErrorErase
     {
         public event Action<BoschMapEditorControl>? RequestMapRemoveEvent;
         public event Action<BoschMapEditorControl, string>? RequestMapNameChangeEvent;
-        public event Action<BoschMapEditorControl, int>? RequestWidthChangeEvent;
+        public event Action<BoschMapEditorControl, string>? RequestWidthChangeEvent;
         public event Action<BoschMapEditorControl, string>? RequestNewValueChangeEvent;
         public event Action<BoschMapEditorControl, string>? RequestAddressChangeEvent;
 
-        public BoschMapEditorControl(string name, int rawLocation, int rawWidth, string newValue)
+        public BoschMapEditorControl(string name, int rawLocation, string rawWidth, string newValue)
         {
             InitializeComponent();
             MapName.Text = name;
             NewValue.Text = newValue;
             Address.Text = rawLocation.ToString("X");
+            MapWidth.Text = rawWidth;
 
-            MapWidth.Items.AddRange(ValueWidth.WIDTH.ToArray());
-            MapWidth.SelectedIndex = rawWidth;
-
-            if (MapName.Text == MapBosch.DTC)
+            if (MapName.Text.ToLower() == MapBosch.DTC.ToLower())
             {
                 MapName.Enabled = false;
                 Remove.Enabled = false;
@@ -31,6 +29,7 @@ namespace OBDErrorErase
             AddGUIListeners();
 
             EnforceValidations(new List<TextBox>() { NewValue, Address }, new List<Validation>() { char.IsAsciiHexDigit, char.IsControl });
+            EnforceValidations(new List<TextBox>() { MapWidth }, new List<Validation>() { char.IsNumber, char.IsControl });
         }
 
         private void AddGUIListeners()
@@ -41,7 +40,9 @@ namespace OBDErrorErase
             NewValue.Validated += OnNewValueChanged;
             NewValue.Leave += OnNewValueChanged;
             NewValue.KeyUp += OnNewValueKeyUp;
-            MapWidth.SelectionChangeCommitted += OnWidthChanged;
+            MapWidth.Validated += OnNewValueChanged;
+            MapWidth.Leave += OnNewValueChanged;
+            MapWidth.KeyUp += OnNewValueKeyUp;
 
             if (MapName.Text != MapBosch.DTC)
             {
@@ -79,7 +80,7 @@ namespace OBDErrorErase
 
         private void OnWidthChanged(object? sender, EventArgs e)
         {
-            RequestWidthChangeEvent?.Invoke(this, MapWidth.SelectedIndex);
+            RequestWidthChangeEvent?.Invoke(this, MapWidth.Text);
         }
 
         private void OnNewValueChanged(object? sender, EventArgs e)
@@ -96,12 +97,21 @@ namespace OBDErrorErase
         {
             Address.Validated -= OnAddressChanged;
             Address.Leave -= OnAddressChanged;
+            Address.KeyUp -= OnAddressKeyUp;
             NewValue.Validated -= OnNewValueChanged;
             NewValue.Leave -= OnNewValueChanged;
-            MapWidth.SelectionChangeCommitted -= OnWidthChanged;
-            MapName.Validated -= OnMapNameChanged;
-            MapName.Leave -= OnMapNameChanged;
-            Remove.Click -= OnRemoveClicked;
+            NewValue.KeyUp -= OnNewValueKeyUp;
+            MapWidth.Validated -= OnNewValueChanged;
+            MapWidth.Leave -= OnNewValueChanged;
+            MapWidth.KeyUp -= OnNewValueKeyUp;
+
+            if (MapName.Text != MapBosch.DTC)
+            {
+                MapName.Validated -= OnMapNameChanged;
+                MapName.Leave -= OnMapNameChanged;
+                MapName.KeyUp -= OnMapNameKeyUp;
+                Remove.Click -= OnRemoveClicked;
+            }
         }
 
         public new void Dispose()
