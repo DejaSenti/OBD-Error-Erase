@@ -63,5 +63,6 @@
         private Panel panel1;
         private GroupBox groupBox1;
         private GroupBox groupBox2;
+        public Button EditorButtonSaveProfile;
     }
 }
