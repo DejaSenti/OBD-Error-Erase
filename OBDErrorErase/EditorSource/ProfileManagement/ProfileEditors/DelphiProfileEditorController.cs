@@ -130,8 +130,6 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
                 default:
                     return;
             }
-
-            profileManager.SaveCurrentProfile();
         }
 
 #endregion
