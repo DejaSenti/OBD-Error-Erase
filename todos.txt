@@ -10,6 +10,8 @@ HIGH PRIORITY BUGS:
 	- delphi doesn't erase all duplicates
 	- bosch new value autocompletion doesn't work properly
 	- bmw algo map length autocalculation seems sus. check for wrong value
+	- creating profile and adding maps doesn't update map list until profile reload, throws exception
+
 
 PRODUCT CHANGES:
 	+ remove select all presets
