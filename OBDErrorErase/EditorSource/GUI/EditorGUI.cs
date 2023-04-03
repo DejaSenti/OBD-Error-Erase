@@ -31,6 +31,8 @@ namespace OBDErrorErase.EditorSource.GUI
             guiHolder.EditorComboBoxProfileType.Items.AddRange(Enum.GetNames<ProfileType>());
             guiHolder.EditorComboBoxProfileType.SelectedIndex = 0;
 
+            guiHolder.EditorButtonSaveProfile.Enabled = false;
+
             UpdateAllProfileEnabledStatuses();
         }
 
@@ -112,6 +114,14 @@ namespace OBDErrorErase.EditorSource.GUI
 
         internal void OnCurrentProfileChanged(Profile currentProfile)
         {
+            if (currentProfile == null)
+            {
+                guiHolder.EditorButtonSaveProfile.Enabled = false;
+                return;
+            }
+
+            guiHolder.EditorButtonSaveProfile.Enabled = true;
+
             guiHolder.EditorTextBoxComputerName.Text = currentProfile.Name;
             guiHolder.EditorDropdownManufacturer.Text = currentProfile.Manufacturer;
 
