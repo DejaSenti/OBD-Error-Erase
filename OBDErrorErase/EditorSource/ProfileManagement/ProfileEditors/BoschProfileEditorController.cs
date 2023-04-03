@@ -155,8 +155,6 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
 
             profileManager.CurrentProfile.AddNewMap(map);
 
-            profileManager.SaveCurrentProfile();
-
             gui.AddMap(map);
         }
 
@@ -170,8 +168,6 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
                 return;
 
             profile.RemoveMap(mapIndex);
-
-            profileManager.SaveCurrentProfile();
 
             gui.RemoveMap(mapIndex);
         }
@@ -234,8 +230,6 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
                 default:
                     return;
             }
-
-            profileManager.SaveCurrentProfile();
         }
 
         private static string ValidateHexValueFitsBitWidth(string value, string rawWidth)

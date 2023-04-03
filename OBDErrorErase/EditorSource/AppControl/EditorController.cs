@@ -37,6 +37,13 @@ namespace OBDErrorErase.EditorSource.AppControl
             editorGUI.RequestChangeCurrentSubprofile += OnChangeCurrentSubprofileRequested;
 
             editorGUI.RequestProfileTypeChangeEvent += OnProfileTypeChangeRequested;
+
+            editorGUI.RequestSaveCurrentProfile += OnProfileSaveRequested;
+        }
+
+        private void OnProfileSaveRequested()
+        {
+            profileManager.SaveCurrentProfile();
         }
 
         private void OnDuplicateCurrentSubprofileRequested()

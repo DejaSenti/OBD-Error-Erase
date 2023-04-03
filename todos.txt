@@ -18,3 +18,10 @@ NICE TO HAVES:
 	- no maps selected disables erase button
 	- surround potential troublesome areas with try/catch statements and dump into log file
 	- show last dtc value on display
+	- do validations on the text fields
+
+	- new profile -> create object, do not create file or update list
+	- select profile -> cache object
+	- duplicate profile -> create duplicate, update list, cache newly created one
+	- remove profile -> remove cached object, update manufacturers and list
+	- save profile -> if there is a cached object, remove it and save the current object, update manufacturers and list
