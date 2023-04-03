@@ -84,6 +84,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
                 return null;
 
             UpdateProfileID(copy, true);
+            AddToManufacturer(copy.Manufacturer);
 
             return copy;
         }
@@ -122,6 +123,15 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             if (CurrentProfile == null)
                 throw new Exception("Can't save current profile because it is null.");
 
+            if (CurrentProfile.NewManufacturer != CurrentProfile.Manufacturer)
+            {
+                AddToManufacturer(CurrentProfile.NewManufacturer);
+                SubtractFromManufacturer(CurrentProfile.Manufacturer);
+                CurrentProfile.Manufacturer = CurrentProfile.NewManufacturer;
+            }
+
+            UpdateProfileID(CurrentProfile);
+
             SaveProfile(CurrentProfile);
         }
 
@@ -130,15 +140,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             if (CurrentProfile == null)
                 return;
 
-            AppFileHelper.RemoveFile(AppFolderNames.PROFILES, CurrentProfile.ID);
-
-            SubtractFromManufacturer(CurrentProfile.Manufacturer);
-
-            CurrentProfile.Manufacturer = newManufacturer;
-
-            AddToManufacturer(CurrentProfile.Manufacturer);
-
-            UpdateProfileID(CurrentProfile);
+            CurrentProfile.NewManufacturer = newManufacturer;
         }
 
         public void SetCurrentProfileName(string newName)
@@ -147,8 +149,6 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
                 return;
 
             CurrentProfile.Name = newName;
-
-            UpdateProfileID(CurrentProfile);
         }
 
         internal void ChangeCurrentProfileType(ProfileType newType)
@@ -216,6 +216,9 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
 
         private void SubtractFromManufacturer(string manufacturer)
         {
+            if (!fileCountByManufacturer.ContainsKey(manufacturer))
+                return;
+
             var newCount = --fileCountByManufacturer[manufacturer];
 
             if (newCount == 0)

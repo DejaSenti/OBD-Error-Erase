@@ -19,6 +19,8 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
         private string manufacturer;
         public string Manufacturer { get => manufacturer; set { manufacturer = value; isDirty = true; } }
 
+        public string NewManufacturer;
+
         private string name;
         public string Name { get => name; set { name = value; isDirty = true; } }
 
@@ -30,7 +32,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
         {
             Type = type;
 
-            this.manufacturer = manufacturer;
+            this.manufacturer = NewManufacturer = manufacturer;
             this.name = name;
 
             processor = ErrorProcessorFactory.Create(type);

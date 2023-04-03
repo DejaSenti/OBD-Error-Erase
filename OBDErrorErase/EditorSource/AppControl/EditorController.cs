@@ -9,6 +9,7 @@ namespace OBDErrorErase.EditorSource.AppControl
     {
         public event Action? ProfileEditedEvent;
         public event Action? AddressChangedEvent;
+        public event Action? ProfileSavedEvent;   
 
         private EditorGUI editorGUI;
 
@@ -44,6 +45,8 @@ namespace OBDErrorErase.EditorSource.AppControl
         private void OnProfileSaveRequested()
         {
             profileManager.SaveCurrentProfile();
+
+            ProfileSavedEvent?.Invoke();
         }
 
         private void OnDuplicateCurrentSubprofileRequested()
@@ -90,12 +93,7 @@ namespace OBDErrorErase.EditorSource.AppControl
                 return;
 
             profileManager.SetCurrentProfileManufacturer(newManufacturer);
-
-            editorGUI.OnCurrentProfileChanged(profileManager.CurrentProfile);
-
-            editorGUI.OnProfileDBChanged(profileManager.GetManufacturers());
-
-            ProfileEditedEvent?.Invoke();
+            //editorGUI.OnCurrentProfileChanged(profileManager.CurrentProfile);
         }
 
         private void OnComputerNameChangeRequested(string newName)
@@ -104,9 +102,7 @@ namespace OBDErrorErase.EditorSource.AppControl
                 return;
 
             profileManager.SetCurrentProfileName(newName);
-            editorGUI.OnCurrentProfileChanged(profileManager.CurrentProfile);
-
-            ProfileEditedEvent?.Invoke();
+            //editorGUI.OnCurrentProfileChanged(profileManager.CurrentProfile);
         }
 
         private void OnProfileTypeChangeRequested(ProfileType type)
@@ -130,6 +126,23 @@ namespace OBDErrorErase.EditorSource.AppControl
             editorGUI.OnProfileDBChanged(profileManager.GetManufacturers());
 
             DisposeProfileEditor();
+
+            profileEditor = ProfileEditorFactory.GetEditorController(profile.Type);
+            profileEditorGUI = ProfileEditorGUIFactory.GetEditorGUI(profile.Type);
+            profileEditor.SetGUI(profileEditorGUI);
+            profileEditor.AddressChangedEvent += OnAddressChanged;
+
+            editorGUI.SetProfileEditorGUI(profileEditorGUI);
+
+            editorGUI.OnCurrentProfileChanged(profile);
+
+            editorGUI.OnCurrentSubprofileChanged(profileManager.CurrentSubProfileIndex);
+        }
+
+        public void OnNewProfileCreated(Profile profile)
+        {
+            if (profile == null)
+                return;
 
             profileEditor = ProfileEditorFactory.GetEditorController(profile.Type);
             profileEditorGUI = ProfileEditorGUIFactory.GetEditorGUI(profile.Type);

@@ -1,6 +1,7 @@
 ﻿using OBDErrorErase.EditorSource.FileManagement;
 using OBDErrorErase.EditorSource.GUI;
 using OBDErrorErase.EditorSource.ProfileManagement;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace OBDErrorErase.EditorSource.AppControl
 {
@@ -37,6 +38,12 @@ namespace OBDErrorErase.EditorSource.AppControl
 
             editorController.ProfileEditedEvent += OnProfileEdited;
             editorController.AddressChangedEvent += OnAddressChanged;
+            editorController.ProfileSavedEvent += OnProfileSaved;
+        }
+
+        private void OnProfileSaved()
+        {
+            OnProfileDBChanged();
         }
 
         private void OnAddressChanged()
@@ -46,12 +53,6 @@ namespace OBDErrorErase.EditorSource.AppControl
 
         private void OnProfileEdited()
         {
-            if (profileManager.CurrentProfile != null && profileManager.CurrentProfile.ID != mainGUI.SelectedProfileID)
-            {
-                mainGUI.SelectedProfileID = profileManager.CurrentProfile.ID;
-            }
-
-            OnProfileDBChanged();
         }
 
         private void OnFlipBytesToggled(bool value)
@@ -163,12 +164,13 @@ namespace OBDErrorErase.EditorSource.AppControl
         {
             var newProfile = profileManager.CreateNewProfile();
 
-            if (newProfile == null) 
+            if (newProfile == null)
                 return;
 
-            OnProfileDBChanged();
+            profileManager.SetCurrentProfile(newProfile);
 
-            OnLoadProfileRequested(newProfile.ID);
+            editorController.OnNewProfileCreated(newProfile);
+            
             mainGUI.LoadEditorTab();
         }
 
@@ -179,9 +181,12 @@ namespace OBDErrorErase.EditorSource.AppControl
             if (newProfile == null) 
                 return;
 
+            profileManager.SetCurrentProfile(newProfile);
+
+            profileManager.SaveCurrentProfile();
+
             OnProfileDBChanged();
 
-            OnLoadProfileRequested(newProfile.ID);
             mainGUI.LoadEditorTab();
         }
 
