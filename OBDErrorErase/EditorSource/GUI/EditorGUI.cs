@@ -16,6 +16,8 @@ namespace OBDErrorErase.EditorSource.GUI
         public event Action? RequestDuplicateCurrentSubprofile;
         public event Action? RequestRemoveCurrentSubprofile;
 
+        public event Action? RequestSaveCurrentProfile;
+
         private readonly Main guiHolder;
 
         private int currentSubProfileIndex = -1;
@@ -47,9 +49,16 @@ namespace OBDErrorErase.EditorSource.GUI
             guiHolder.EditorListSubprofiles.SelectedIndexChanged += OnSubProfileListSelectionChanged;
 
             guiHolder.EditorComboBoxProfileType.SelectionChangeCommitted += OnProfileTypeChangeCommitted;
+
+            guiHolder.EditorButtonSaveProfile.Click += OnSaveProfileClicked;
         }
 
         #region Event Listeners
+
+        private void OnSaveProfileClicked(object? sender, EventArgs e)
+        {
+            RequestSaveCurrentProfile?.Invoke();
+        }
 
         private void OnProfileTypeChangeCommitted(object? sender, EventArgs e)
         {

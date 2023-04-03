@@ -58,13 +58,9 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
 
             profile.PopulateDefaults();
 
-            profile.ClearDirty(); //saftey against dirty new profiles
-
-            AddToManufacturer(profile.Manufacturer);
+            profile.ClearDirty(); //safety against dirty new profiles
 
             UpdateProfileID(profile, true);
-
-            SaveProfile(profile, true);
 
             return profile;
         }
@@ -87,11 +83,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             if (copy == null)
                 return null;
 
-            AddToManufacturer(copy.Manufacturer);
-
             UpdateProfileID(copy, true);
-
-            SaveProfile(copy, true);
 
             return copy;
         }
@@ -147,8 +139,6 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             AddToManufacturer(CurrentProfile.Manufacturer);
 
             UpdateProfileID(CurrentProfile);
-
-            SaveCurrentProfile();
         }
 
         public void SetCurrentProfileName(string newName)
@@ -156,13 +146,9 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             if (CurrentProfile == null)
                 return;
 
-            AppFileHelper.RemoveFile(AppFolderNames.PROFILES, CurrentProfile.ID);
-
             CurrentProfile.Name = newName;
 
             UpdateProfileID(CurrentProfile);
-
-            SaveCurrentProfile();
         }
 
         internal void ChangeCurrentProfileType(ProfileType newType)
@@ -171,8 +157,6 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
                 return;
 
             var profile = CreateNewProfile(newType, CurrentProfile.Manufacturer, CurrentProfile.Name);
-
-            RemoveProfile(CurrentProfile.ID);
 
             CurrentProfile = profile;
         }
@@ -205,7 +189,6 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
                 return;
 
             CurrentProfile.Subprofiles.Add(copy);
-            SaveCurrentProfile();
         }
 
         public void RemoveCurrentSubProfile()
@@ -216,8 +199,6 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             CurrentProfile.Subprofiles.RemoveAt(CurrentSubProfileIndex);
 
             CurrentSubProfileIndex = -1;
-
-            SaveCurrentProfile();
         }
 
         private void UpdateProfileID(Profile? profile, bool isNewToDB = false)

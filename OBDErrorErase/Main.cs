@@ -53,6 +53,7 @@ namespace OBDErrorErase
             panel1 = new Panel();
             groupBox1 = new GroupBox();
             groupBox2 = new GroupBox();
+            this.EditorButtonSaveProfile = new Button();
             MainTabControl.SuspendLayout();
             EraserTabPage.SuspendLayout();
             EraserPanelMapSelector.SuspendLayout();
@@ -73,7 +74,7 @@ namespace OBDErrorErase
             MainTabControl.Margin = new Padding(5);
             MainTabControl.Name = "MainTabControl";
             MainTabControl.SelectedIndex = 0;
-            MainTabControl.Size = new Size(443, 700);
+            MainTabControl.Size = new Size(443, 729);
             MainTabControl.TabIndex = 54;
             // 
             // EraserTabPage
@@ -92,7 +93,7 @@ namespace OBDErrorErase
             EraserTabPage.Location = new Point(4, 24);
             EraserTabPage.Name = "EraserTabPage";
             EraserTabPage.Padding = new Padding(3);
-            EraserTabPage.Size = new Size(435, 672);
+            EraserTabPage.Size = new Size(435, 701);
             EraserTabPage.TabIndex = 0;
             EraserTabPage.Text = "Erase Errors";
             // 
@@ -150,7 +151,7 @@ namespace OBDErrorErase
             EraserPanelMapSelector.Controls.Add(EraserTableLayoutMapSelector);
             EraserPanelMapSelector.Location = new Point(54, 398);
             EraserPanelMapSelector.Name = "EraserPanelMapSelector";
-            EraserPanelMapSelector.Size = new Size(303, 168);
+            EraserPanelMapSelector.Size = new Size(303, 195);
             EraserPanelMapSelector.TabIndex = 51;
             // 
             // EraserTableLayoutMapSelector
@@ -226,7 +227,7 @@ namespace OBDErrorErase
             // 
             // EraserLabelErrorCounter
             // 
-            EraserLabelErrorCounter.Location = new Point(57, 621);
+            EraserLabelErrorCounter.Location = new Point(57, 654);
             EraserLabelErrorCounter.Name = "EraserLabelErrorCounter";
             EraserLabelErrorCounter.Size = new Size(300, 31);
             EraserLabelErrorCounter.TabIndex = 45;
@@ -238,7 +239,7 @@ namespace OBDErrorErase
             EraserButtonRun.FlatAppearance.BorderColor = Color.White;
             EraserButtonRun.FlatAppearance.BorderSize = 0;
             EraserButtonRun.FlatStyle = FlatStyle.Flat;
-            EraserButtonRun.Location = new Point(54, 572);
+            EraserButtonRun.Location = new Point(54, 605);
             EraserButtonRun.Name = "EraserButtonRun";
             EraserButtonRun.Size = new Size(303, 43);
             EraserButtonRun.TabIndex = 44;
@@ -247,6 +248,7 @@ namespace OBDErrorErase
             // 
             // EditorTabPage
             // 
+            EditorTabPage.Controls.Add(this.EditorButtonSaveProfile);
             EditorTabPage.Controls.Add(EditorGroupBox);
             EditorTabPage.Controls.Add(EditorButtonDuplicateSubProfile);
             EditorTabPage.Controls.Add(EditorButtonRemoveSubProfile);
@@ -260,7 +262,7 @@ namespace OBDErrorErase
             EditorTabPage.Location = new Point(4, 24);
             EditorTabPage.Name = "EditorTabPage";
             EditorTabPage.Padding = new Padding(3);
-            EditorTabPage.Size = new Size(435, 672);
+            EditorTabPage.Size = new Size(435, 701);
             EditorTabPage.TabIndex = 1;
             EditorTabPage.Text = "Edit Profiles";
             EditorTabPage.UseVisualStyleBackColor = true;
@@ -271,7 +273,7 @@ namespace OBDErrorErase
             EditorGroupBox.Controls.Add(EditorPanelEditFrame);
             EditorGroupBox.Controls.Add(EditorLabelProfileTypeSelect);
             EditorGroupBox.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            EditorGroupBox.Location = new Point(9, 181);
+            EditorGroupBox.Location = new Point(6, 144);
             EditorGroupBox.Name = "EditorGroupBox";
             EditorGroupBox.Size = new Size(423, 482);
             EditorGroupBox.TabIndex = 52;
@@ -343,6 +345,7 @@ namespace OBDErrorErase
             EditorLabelProfileSettings.Size = new Size(96, 15);
             EditorLabelProfileSettings.TabIndex = 49;
             EditorLabelProfileSettings.Text = "Profile Settings:";
+            EditorLabelProfileSettings.Click += EditorLabelProfileSettings_Click;
             // 
             // EditorLabelSubprofiles
             // 
@@ -357,20 +360,22 @@ namespace OBDErrorErase
             // EditorLabelName
             // 
             EditorLabelName.AutoSize = true;
-            EditorLabelName.Location = new Point(9, 123);
+            EditorLabelName.Location = new Point(9, 95);
             EditorLabelName.Name = "EditorLabelName";
             EditorLabelName.Size = new Size(101, 15);
             EditorLabelName.TabIndex = 46;
             EditorLabelName.Text = "Computer Model:";
+            EditorLabelName.Click += EditorLabelName_Click;
             // 
             // EditorLabelManufacturer
             // 
             EditorLabelManufacturer.AutoSize = true;
-            EditorLabelManufacturer.Location = new Point(9, 57);
+            EditorLabelManufacturer.Location = new Point(9, 46);
             EditorLabelManufacturer.Name = "EditorLabelManufacturer";
             EditorLabelManufacturer.Size = new Size(82, 15);
             EditorLabelManufacturer.TabIndex = 45;
             EditorLabelManufacturer.Text = "Manufacturer:";
+            EditorLabelManufacturer.Click += EditorLabelManufacturer_Click;
             // 
             // EditorListSubprofiles
             // 
@@ -379,28 +384,30 @@ namespace OBDErrorErase
             EditorListSubprofiles.ItemHeight = 15;
             EditorListSubprofiles.Location = new Point(222, 46);
             EditorListSubprofiles.Name = "EditorListSubprofiles";
-            EditorListSubprofiles.Size = new Size(187, 118);
+            EditorListSubprofiles.Size = new Size(187, 90);
             EditorListSubprofiles.Sorted = true;
             EditorListSubprofiles.TabIndex = 37;
             // 
             // EditorTextBoxComputerName
             // 
-            EditorTextBoxComputerName.Location = new Point(9, 141);
+            EditorTextBoxComputerName.Location = new Point(9, 113);
             EditorTextBoxComputerName.Name = "EditorTextBoxComputerName";
             EditorTextBoxComputerName.PlaceholderText = "Enter computer name...";
             EditorTextBoxComputerName.Size = new Size(179, 23);
             EditorTextBoxComputerName.TabIndex = 36;
+            EditorTextBoxComputerName.TextChanged += EditorTextBoxComputerName_TextChanged;
             // 
             // EditorDropdownManufacturer
             // 
             EditorDropdownManufacturer.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             EditorDropdownManufacturer.AutoCompleteSource = AutoCompleteSource.ListItems;
             EditorDropdownManufacturer.FormattingEnabled = true;
-            EditorDropdownManufacturer.Location = new Point(9, 75);
+            EditorDropdownManufacturer.Location = new Point(9, 64);
             EditorDropdownManufacturer.Name = "EditorDropdownManufacturer";
             EditorDropdownManufacturer.Size = new Size(179, 23);
             EditorDropdownManufacturer.TabIndex = 35;
             EditorDropdownManufacturer.Text = "Select Manufacturer...";
+            EditorDropdownManufacturer.SelectedIndexChanged += EditorDropdownManufacturer_SelectedIndexChanged;
             // 
             // MainCheckboxFlipBytes
             // 
@@ -483,7 +490,7 @@ namespace OBDErrorErase
             MainDataGridFilePreview.RowTemplate.ReadOnly = true;
             MainDataGridFilePreview.RowTemplate.Resizable = DataGridViewTriState.False;
             MainDataGridFilePreview.SelectionMode = DataGridViewSelectionMode.CellSelect;
-            MainDataGridFilePreview.Size = new Size(236, 500);
+            MainDataGridFilePreview.Size = new Size(236, 538);
             MainDataGridFilePreview.TabIndex = 52;
             // 
             // DataGridViewFilePreviewColumnAddress
@@ -535,11 +542,13 @@ namespace OBDErrorErase
             // MainListProfiles
             // 
             MainListProfiles.FormattingEnabled = true;
+            MainListProfiles.IntegralHeight = false;
             MainListProfiles.ItemHeight = 15;
             MainListProfiles.Location = new Point(12, 148);
             MainListProfiles.Name = "MainListProfiles";
-            MainListProfiles.Size = new Size(236, 529);
+            MainListProfiles.Size = new Size(236, 568);
             MainListProfiles.TabIndex = 48;
+            MainListProfiles.SelectedIndexChanged += MainListProfiles_SelectedIndexChanged;
             // 
             // MainLabelPreviewFile
             // 
@@ -581,7 +590,7 @@ namespace OBDErrorErase
             groupBox1.Location = new Point(14, 14);
             groupBox1.Margin = new Padding(5);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(260, 700);
+            groupBox1.Size = new Size(260, 729);
             groupBox1.TabIndex = 49;
             groupBox1.TabStop = false;
             groupBox1.Text = "Profiles";
@@ -598,14 +607,27 @@ namespace OBDErrorErase
             groupBox2.Location = new Point(284, 14);
             groupBox2.Margin = new Padding(5);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(260, 700);
+            groupBox2.Size = new Size(260, 729);
             groupBox2.TabIndex = 58;
             groupBox2.TabStop = false;
             groupBox2.Text = "Binary File";
             // 
+            // EditorButtonSaveProfile
+            // 
+            this.EditorButtonSaveProfile.BackColor = Color.DarkSeaGreen;
+            this.EditorButtonSaveProfile.FlatAppearance.BorderColor = Color.White;
+            this.EditorButtonSaveProfile.FlatAppearance.BorderSize = 0;
+            this.EditorButtonSaveProfile.FlatStyle = FlatStyle.Flat;
+            this.EditorButtonSaveProfile.Location = new Point(54, 640);
+            this.EditorButtonSaveProfile.Name = "EditorButtonSaveProfile";
+            this.EditorButtonSaveProfile.Size = new Size(303, 43);
+            this.EditorButtonSaveProfile.TabIndex = 53;
+            this.EditorButtonSaveProfile.Text = "Save Profile";
+            this.EditorButtonSaveProfile.UseVisualStyleBackColor = false;
+            // 
             // Main
             // 
-            ClientSize = new Size(1010, 726);
+            ClientSize = new Size(1010, 757);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Controls.Add(MainTabControl);
@@ -629,6 +651,37 @@ namespace OBDErrorErase
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
             ResumeLayout(false);
+        }
+
+        private void EditorLabelProfileSettings_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void EditorLabelManufacturer_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void EditorDropdownManufacturer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void EditorLabelName_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void EditorTextBoxComputerName_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void MainListProfiles_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void EraserPanelMapSelector_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
