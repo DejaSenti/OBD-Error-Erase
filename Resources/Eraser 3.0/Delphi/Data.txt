@@ -1,0 +1,39 @@
+Dtc - 59e02
+New Value - 00000000FFFF00000000000000000000
+Length - 998
+Dtc Culumn 8 bit - 7 - 8 (if we start counting from 0)
+Dtc Column 16 bit - 3 (if we start counting from 0)
+
+Dtc You need to see when all work fine
+
+0324
+0324
+0324
+0560
+060B
+13B1
+13B0
+13AF
+060B
+060B
+242B
+242B
+242D
+242C
+242B
+242B
+C424
+C405
+C405
+C424
+C466
+1D06
+1D05
+1D04
+2229
+2228
+2227
+C140
+
+1rst dtc - 0324
+last dtc - 1800

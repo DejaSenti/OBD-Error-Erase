@@ -11,7 +11,7 @@ PRODUCT CHANGES:
 	+ remove select all presets
 	- add save profile button
 	- drap and drop binaries
-	- manual width entry
+	+ manual width entry
 
 
 NICE TO HAVES:
