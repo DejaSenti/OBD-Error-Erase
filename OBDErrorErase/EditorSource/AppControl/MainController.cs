@@ -157,7 +157,7 @@ namespace OBDErrorErase.EditorSource.AppControl
                 }
             }
 
-            mainGUI.UpdateFilePreview(displayLocation, errorList);
+            mainGUI.UpdateFilePreview(displayLocation, map.NewValue.Count, errorList);
         }
 
         private void OnNewProfileRequested()

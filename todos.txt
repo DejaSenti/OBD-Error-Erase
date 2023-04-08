@@ -5,9 +5,9 @@ HIGH PRIORITY BUGS:
 	+ try erasing large amounts of errors, supposedly broken
 	- can't erase on same file twice
 	+ manual map length needs to be (L + 1) * 2 for some reason to include whole map?
-	- delphi crash if length entered before new value
-	- delphi display should also display the right addresses (of the value start)
-	- delphi doesn't erase all duplicates
+	+ delphi crash if length entered before new value
+	+ delphi display should also display the right addresses (of the value start)
+	? delphi doesn't erase all duplicates
 	- bosch new value autocompletion doesn't work properly
 	- bmw algo map length autocalculation seems sus. check for wrong value
 	- creating profile and adding maps doesn't update map list until profile reload, throws exception

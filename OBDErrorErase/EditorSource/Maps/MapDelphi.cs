@@ -10,9 +10,6 @@ namespace OBDErrorErase.EditorSource.Maps
         [JsonIgnore]
         public override bool IsDirty => base.IsDirty || NewValue.IsDirty;
 
-        private DirtyList<byte> newValue = new();
-        public DirtyList<byte> NewValue { get => newValue; set { newValue = value; isDirty = true; } }
-
         private int rawLocation;
         public int RawLocation { get => rawLocation; set { rawLocation = value; isDirty = true; } }
 
@@ -23,15 +20,15 @@ namespace OBDErrorErase.EditorSource.Maps
         {
         }
 
-        public override byte[] GetErrorList(BinaryFile file, int displayLocation)
+        public override byte[][] GetErrorList(BinaryFile file, int displayLocation)
         {
-            byte[] errors = new byte[PREVIEW_LENGTH * 2];
+            byte[][] errors = new byte[PREVIEW_LENGTH][];
 
             for (int i = 0; i < PREVIEW_LENGTH; ++i)
             {
-                byte[] value = file.ReadValue(displayLocation + i * newValue.Count, newValue.Count);
+                byte[] value = file.ReadValue(displayLocation + i * NewValue.Count, NewValue.Count);
 
-                (errors[i * 2], errors[i * 2 + 1]) = (value[errorColumn], value[errorColumn + 1]);
+                errors[i] = value[errorColumn..(errorColumn+ERROR_VALUE_LEN)];
             }
 
             return errors;

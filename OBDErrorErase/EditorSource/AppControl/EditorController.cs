@@ -144,6 +144,8 @@ namespace OBDErrorErase.EditorSource.AppControl
             if (profile == null)
                 return;
 
+            DisposeProfileEditor();
+
             profileEditor = ProfileEditorFactory.GetEditorController(profile.Type);
             profileEditorGUI = ProfileEditorGUIFactory.GetEditorGUI(profile.Type);
             profileEditor.SetGUI(profileEditorGUI);

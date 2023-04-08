@@ -1,5 +1,6 @@
 ﻿using OBDErrorErase.EditorSource.AppControl;
 using OBDErrorErase.EditorSource.Configs;
+using OBDErrorErase.EditorSource.Maps;
 using OBDErrorErase.EditorSource.ProfileManagement;
 using OBDErrorErase.EditorSource.Utils;
 using System.Text.RegularExpressions;
@@ -196,13 +197,13 @@ namespace OBDErrorErase.EditorSource.GUI
             guiHolder.MainTabControl.SelectedTab = guiHolder.MainTabControl.TabPages["EditorTabPage"];
         }
 
-        internal void UpdateFilePreview(int startAddress, byte[] errors)
+        internal void UpdateFilePreview(int startAddress, int valueSize, byte[][] errors)
         {
             guiHolder.MainDataGridFilePreview.Rows.Clear();
 
-            for (int i = 0; i < errors.Length; i += 2)
+            for (int i = 0; i < errors.Length; ++i)
             {
-                guiHolder.MainDataGridFilePreview.Rows.Add((startAddress + i).ToString("X"), Convert.ToHexString(errors[i..(i+2)]));
+                guiHolder.MainDataGridFilePreview.Rows.Add((startAddress + i * valueSize).ToString("X"), Convert.ToHexString(errors[i]));
             }
         }
 
