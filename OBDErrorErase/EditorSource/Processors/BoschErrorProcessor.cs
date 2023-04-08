@@ -7,6 +7,8 @@ namespace OBDErrorErase.EditorSource.Processors
 {
     internal class BoschErrorProcessor : IErrorProcessor
     {
+        Dictionary<BaseProfileMap, int> locationByMap = new();
+
         public void PopulateProfileDefaults(Profile profile)
         {
             profile.Subprofiles.Add(new SubprofileData());
@@ -21,10 +23,11 @@ namespace OBDErrorErase.EditorSource.Processors
             if (mapsToProcess.Count == 0)
                 return 0;
 
-            Dictionary<BaseProfileMap, int> locationByMap = new();
-
             foreach (var map in mapsToProcess)
             {
+                if (locationByMap.ContainsKey(map))
+                    continue;
+
                 int location = file.FindValue(map.SearchWord, 0, file.Length);
                 locationByMap[map] = location;
             }
