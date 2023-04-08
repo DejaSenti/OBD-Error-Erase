@@ -40,9 +40,9 @@ namespace OBDErrorErase
             NewValue.Validated += OnNewValueChanged;
             NewValue.Leave += OnNewValueChanged;
             NewValue.KeyUp += OnNewValueKeyUp;
-            MapWidth.Validated += OnNewValueChanged;
-            MapWidth.Leave += OnNewValueChanged;
-            MapWidth.KeyUp += OnNewValueKeyUp;
+            MapWidth.Validated += OnWidthChanged;
+            MapWidth.Leave += OnWidthChanged;
+            MapWidth.KeyUp += OnWidthKeyUp;
 
             if (MapName.Text != MapBosch.DTC)
             {
@@ -51,6 +51,11 @@ namespace OBDErrorErase
                 MapName.KeyUp += OnMapNameKeyUp;
                 Remove.Click += OnRemoveClicked;
             }
+        }
+
+        private void OnWidthKeyUp(object? sender, KeyEventArgs e)
+        {
+            RunIfEnterKey(e.KeyCode, () => RequestWidthChangeEvent?.Invoke(this, MapWidth.Text));
         }
 
         private void OnAddressKeyUp(object? sender, KeyEventArgs e)
@@ -101,9 +106,9 @@ namespace OBDErrorErase
             NewValue.Validated -= OnNewValueChanged;
             NewValue.Leave -= OnNewValueChanged;
             NewValue.KeyUp -= OnNewValueKeyUp;
-            MapWidth.Validated -= OnNewValueChanged;
-            MapWidth.Leave -= OnNewValueChanged;
-            MapWidth.KeyUp -= OnNewValueKeyUp;
+            MapWidth.Validated -= OnWidthChanged;
+            MapWidth.Leave -= OnWidthChanged;
+            MapWidth.KeyUp -= OnWidthKeyUp;
 
             if (MapName.Text != MapBosch.DTC)
             {

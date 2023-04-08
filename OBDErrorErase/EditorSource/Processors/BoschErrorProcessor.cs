@@ -63,7 +63,7 @@ namespace OBDErrorErase.EditorSource.Processors
                 {
                     int errorIndex = (errorLocation - dtcLocation) / dtcValueSize;
                 
-                    foreach(MapBosch map in subprofile.Maps.Cast<MapBosch>())
+                    foreach(MapBosch map in mapsToProcess.Cast<MapBosch>())
                     {
                         var valueLocation = locationByMap[map] + errorIndex * map.NewValue.Count;
                         file.WriteValue(valueLocation, map.NewValue.ToArray());

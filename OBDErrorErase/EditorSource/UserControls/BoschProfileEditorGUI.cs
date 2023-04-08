@@ -172,7 +172,20 @@ namespace OBDErrorErase
         {
             var map = controls.FirstOrDefault(x => x.MapName.Text.ToLower() == mapName.ToLower());
 
-            return (map == null || string.IsNullOrEmpty(map.Address.Text)) ? -1 : Convert.ToInt32(map.Address.Text, 16);
+            if (map == null || string.IsNullOrEmpty(map.Address.Text))
+                return -1;
+
+            int result;
+            try
+            {
+                result = Convert.ToInt32(map.Address.Text, 16);
+            }
+            catch
+            {
+                return -1;
+            }
+
+            return result;
         }
 
         public void Clear()

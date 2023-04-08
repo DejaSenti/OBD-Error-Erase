@@ -1,7 +1,6 @@
 ﻿using OBDErrorErase.EditorSource.FileManagement;
 using OBDErrorErase.EditorSource.GUI;
 using OBDErrorErase.EditorSource.ProfileManagement;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace OBDErrorErase.EditorSource.AppControl
 {
@@ -36,7 +35,6 @@ namespace OBDErrorErase.EditorSource.AppControl
 
             mainGUI.FlipBytesEvent += OnFlipBytesToggled;
 
-            editorController.ProfileEditedEvent += OnProfileEdited;
             editorController.AddressChangedEvent += OnAddressChanged;
             editorController.ProfileSavedEvent += OnProfileSaved;
         }
@@ -44,15 +42,14 @@ namespace OBDErrorErase.EditorSource.AppControl
         private void OnProfileSaved()
         {
             OnProfileDBChanged();
+
+            editorController.OnNewProfileLoaded();
+            eraserController.OnNewProfileLoaded();
         }
 
         private void OnAddressChanged()
         {
             UpdateFilePreview();
-        }
-
-        private void OnProfileEdited()
-        {
         }
 
         private void OnFlipBytesToggled(bool value)

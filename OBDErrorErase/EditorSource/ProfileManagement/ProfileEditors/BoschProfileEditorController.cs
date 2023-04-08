@@ -206,9 +206,8 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
                     map.RawLocation = (int)value;
                     var binaryFileManager = ServiceContainer.GetService<BinaryFileManager>();
                     var file = binaryFileManager.CurrentFile;
-                    if (file == null)
-                        break;
-                    map.SetSearchWord(map.RawLocation, file);
+                    if (file != null)
+                        map.SetSearchWord(map.RawLocation, file);
                     break;
 
                 case BoschMapParameter.NEW_VALUE:
@@ -244,7 +243,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
                 return string.Empty;
             }
 
-            var length = (int)Math.Pow(2, width + 1);
+            var length = width / 4;
 
             if (string.IsNullOrEmpty(value))
             {
