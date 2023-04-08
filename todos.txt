@@ -16,7 +16,7 @@ HIGH PRIORITY BUGS:
 
 PRODUCT CHANGES:
 	+ remove select all presets
-	- add save profile button
+	+ add save profile button
 	- drap and drop binaries
 	+ manual width entry
 
@@ -28,9 +28,6 @@ NICE TO HAVES:
 	- when BMW algo selected, remove "Enter Length" in textbox
 	- do validations on the text fields
 
-	- new profile -> create object, do not create file or update list
-	- select profile -> cache object
-	- duplicate profile -> create duplicate, update list, cache newly created one
-	- remove profile -> remove cached object, update manufacturers and list
-	- save profile -> if there is a cached object, remove it and save the current object, update manufacturers and list
 
+
+- populate map location and make sure that it's correct where needed
