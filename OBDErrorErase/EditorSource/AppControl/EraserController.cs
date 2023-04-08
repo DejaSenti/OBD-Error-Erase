@@ -11,6 +11,9 @@ namespace OBDErrorErase.EditorSource.AppControl
     public class EraserController
     {
         readonly char[] ERROR_DELIMITERS = new char[]{ ',', '.', ' ', '\n', '\r' };
+
+        public event Action? EraseCompleteEvent;
+
         private EraserGUI eraserGUI;
 
         private ProfileManager profileManager;
@@ -85,6 +88,8 @@ namespace OBDErrorErase.EditorSource.AppControl
             int totalErased = profileManager.CurrentProfile.Process(binaryFileManager.CurrentFile, errorList, profileManager.CurrentSubProfileIndex, mapIndices);
 
             eraserGUI.OnProcessComplete(totalErased, errorList.Count);
+
+            EraseCompleteEvent?.Invoke();
 
             binaryFileManager.SaveBinaryFile();
         }

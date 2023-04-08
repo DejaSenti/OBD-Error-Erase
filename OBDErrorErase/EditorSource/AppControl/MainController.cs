@@ -37,6 +37,13 @@ namespace OBDErrorErase.EditorSource.AppControl
 
             editorController.AddressChangedEvent += OnAddressChanged;
             editorController.ProfileSavedEvent += OnProfileSaved;
+
+            eraserController.EraseCompleteEvent += OnEraseComplete;
+        }
+
+        private void OnEraseComplete()
+        {
+            UpdateFilePreview();
         }
 
         private void OnProfileSaved()
@@ -139,7 +146,7 @@ namespace OBDErrorErase.EditorSource.AppControl
             var map = subprofile.Maps[0];
 
             var file = binaryFileManager.CurrentFile;
-            var displayLocation = file.FindValue(map.SearchWord, 0, file.Length);
+            var displayLocation = map.Location;
 
             if (displayLocation == -1)
                 return;

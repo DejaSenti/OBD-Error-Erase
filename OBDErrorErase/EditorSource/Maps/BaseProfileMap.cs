@@ -26,6 +26,9 @@ namespace OBDErrorErase.EditorSource.Maps
         private string name = "";
         public string Name { get => name; set { name = value; isDirty = true; } }
 
+        [JsonIgnore]
+        public int Location { get; private set; }
+
         public BaseProfileMap()
         {
         }
@@ -33,6 +36,12 @@ namespace OBDErrorErase.EditorSource.Maps
         public BaseProfileMap(string name)
         {
             Name = name;
+            Location = -1;
+        }
+
+        public void SetLocation(int location)
+        {
+            Location = location;
         }
 
         public DirtyList<byte> CreateSearchWord(int location, BinaryFile file)
