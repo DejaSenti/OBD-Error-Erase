@@ -64,7 +64,11 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             foreach (var subprofile in Subprofiles)
             {
                 if (subprofile.FitsBinaryFile(file))
+                {
+                    subprofile.FillMapPositions(file);
+
                     return subprofile;
+                }
             }
 
             return null;

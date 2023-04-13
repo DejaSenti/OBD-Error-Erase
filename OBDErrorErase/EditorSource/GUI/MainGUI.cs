@@ -199,7 +199,7 @@ namespace OBDErrorErase.EditorSource.GUI
 
         internal void UpdateFilePreview(int startAddress, int valueSize, byte[][] errors)
         {
-            guiHolder.MainDataGridFilePreview.Rows.Clear();
+            ClearFilePreview();
 
             for (int i = 0; i < errors.Length; ++i)
             {
@@ -235,6 +235,11 @@ namespace OBDErrorErase.EditorSource.GUI
             guiHolder.MainDataGridFilePreview.Rows.Clear();
 
             UpdateProfileManagementButtons();
+        }
+
+        internal void ClearFilePreview()
+        {
+            guiHolder.MainDataGridFilePreview.Rows.Clear();
         }
     }
 }

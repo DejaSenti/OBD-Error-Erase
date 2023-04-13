@@ -54,5 +54,15 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
 
             return result;
         }
+
+        internal void FillMapPositions(BinaryFile file)
+        {
+            foreach (var map in Maps)
+            {
+                int mapLocation = file.FindValue(map.SearchWord.ToArray(), 0, file.Length); // this should always be successful
+
+                map.SetLocation(mapLocation);
+            }
+        }
     }
 }

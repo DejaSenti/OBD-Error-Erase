@@ -119,6 +119,8 @@ namespace OBDErrorErase.EditorSource.AppControl
 
             if (subprofile == null)
             {
+                ClearFilePreview();
+
                 var result = MessageBox.Show("Couldn't find matching subprofile! Would you like to edit profile?", "No subprofile match", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
 
                 if (result == DialogResult.Yes)
@@ -134,6 +136,11 @@ namespace OBDErrorErase.EditorSource.AppControl
             editorController.EnableAddressFields();
             eraserController.OnEraseAvailable();
             UpdateFilePreview();
+        }
+
+        private void ClearFilePreview()
+        {
+            mainGUI.ClearFilePreview();
         }
 
         private void UpdateFilePreview()

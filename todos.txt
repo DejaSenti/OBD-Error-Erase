@@ -3,7 +3,7 @@ HIGH PRIORITY BUGS:
 		+ display the correct columns ONLY, not the entire fucking thing
 	+ bmw map length -> dtc map location won't accept letters
 	+ try erasing large amounts of errors, supposedly broken
-	- can't erase on same file twice
+	+ can't erase on same file twice
 	+ manual map length needs to be (L + 1) * 2 for some reason to include whole map?
 	+ delphi crash if length entered before new value
 	+ delphi display should also display the right addresses (of the value start)
@@ -30,4 +30,4 @@ NICE TO HAVES:
 
 
 
-- populate map location and make sure that it's correct where needed
++ populate map location and make sure that it's correct where needed
