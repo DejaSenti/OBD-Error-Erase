@@ -124,22 +124,24 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
                 case BoschLengthAlgorithm.MANUAL:
                     break;
                 case BoschLengthAlgorithm.BMW:
-                    if (profileManager.CurrentSubProfile == null)
+                    int dtcValueSize = gui.GetMapValueSize(MapBosch.MASK);
+
+                    if (profileManager.CurrentSubProfile == null || dtcValueSize < 1)
                         return;
 
                     int dtcLocation = gui.GetMapLocation(MapBosch.DTC);
-                    int classLocation = gui.GetMapLocation(MapBosch.CLASS);
+                    int maskLocation = gui.GetMapLocation(MapBosch.MASK);
 
-                    if (dtcLocation == -1 || classLocation == -1)
+                    if (dtcLocation == -1 || maskLocation == -1)
                     {
                         gui.TextBoxMapLength.Text = string.Empty;
                         return;
                     }
 
-                    var length = Math.Abs(classLocation - dtcLocation);
+                    var length = Math.Abs(maskLocation - dtcLocation);
 
                     ChangeBoschMapParameter(BoschMapParameter.LENGTH, length, 0);
-                    gui.TextBoxMapLength.Text = length.ToString();
+                    gui.TextBoxMapLength.Text = (length * 2 / dtcValueSize).ToString();
                     break;
                 default:
                     return;
@@ -214,6 +216,8 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
                     string newValue = ValidateHexValueFitsBitWidth((string)value, map.RawWidth);
                     map.NewValue.Clear();
                     map.NewValue.AddRange(Convert.FromHexString(newValue));
+                    if (map.Name.ToLower() == MapBosch.MASK.ToLower())
+                        TryLengthCalculation();
                     gui.SetNewValueField(mapIndex, newValue);
                     break;
 

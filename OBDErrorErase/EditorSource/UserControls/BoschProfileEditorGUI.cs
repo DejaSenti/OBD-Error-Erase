@@ -225,5 +225,20 @@ namespace OBDErrorErase
                 control.Address.Enabled = true;
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mapName"></param>
+        /// <returns>Returns -1 if not found, a positive integer otherwise.</returns>
+        internal int GetMapValueSize(string mapName)
+        {
+            var map = controls.FirstOrDefault(x => x.MapName.Text.ToLower() == mapName.ToLower());
+
+            if (map == null || string.IsNullOrEmpty(map.Address.Text))
+                return -1;
+
+            return map.NewValue.Text.Length;
+        }
     }
 }

@@ -9,6 +9,7 @@ namespace OBDErrorErase.EditorSource.Maps
     {
         public const string DTC = "DTC";
         public const string CLASS = "class";
+        public const string MASK = "mask";
 
         [JsonIgnore]
         public override bool IsDirty => base.IsDirty || NewValue.IsDirty;
