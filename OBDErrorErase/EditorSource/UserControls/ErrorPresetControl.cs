@@ -18,7 +18,7 @@ namespace OBDErrorErase
             ID = id;
 
             Checkbox.Text = name;
-            Checkbox.Checked = true;
+            Checkbox.Checked = false;
         }
 
         private void ButtonDelete_Click(object sender, EventArgs e)
