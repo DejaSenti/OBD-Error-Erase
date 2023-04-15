@@ -162,9 +162,9 @@ namespace OBDErrorErase.EditorSource.AppControl
 
             if (subprofile.FlipBytes)
             {
-                for (int i = 0; i < errorList.Length; i += 2)
+                for (int i = 0; i < errorList.Length; ++i)
                 {
-                    (errorList[i + 1], errorList[i]) = (errorList[i], errorList[i + 1]);
+                    (errorList[i][0], errorList[i][1]) = (errorList[i][1], errorList[i][0]);
                 }
             }
 

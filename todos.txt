@@ -13,7 +13,7 @@ HIGH PRIORITY BUGS:
 	+ creating profile and adding maps doesn't update map list until profile reload, throws exception
 	+ requesting new profile when a profile is selected gets editor stuck on profile type
 	- fix gui scaling etc.
-	- flip bytes is flipping adjactent positions instead
+	+ flip bytes is flipping adjactent positions instead
 
 PRODUCT CHANGES:
 	+ remove select all presets
