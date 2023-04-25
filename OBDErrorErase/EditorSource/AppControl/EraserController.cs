@@ -7,7 +7,6 @@ using System.Diagnostics;
 
 namespace OBDErrorErase.EditorSource.AppControl
 {
-
     public class EraserController
     {
         readonly char[] ERROR_DELIMITERS = new char[]{ ',', '.', ' ', '\n', '\r' };
@@ -85,13 +84,18 @@ namespace OBDErrorErase.EditorSource.AppControl
 
             var mapIndices = eraserGUI.GetMapIndices();
 
-            int totalErased = profileManager.CurrentProfile.Process(binaryFileManager.CurrentFile, errorList, profileManager.CurrentSubProfileIndex, mapIndices);
+            BinaryFile? file = binaryFileManager.DuplicateCurrentFile();
+
+            if (file == null) // should never happen
+                return;
+
+            int totalErased = profileManager.CurrentProfile.Process(file, errorList, profileManager.CurrentSubProfileIndex, mapIndices);
 
             eraserGUI.OnProcessComplete(totalErased, errorList.Count);
 
             EraseCompleteEvent?.Invoke();
 
-            binaryFileManager.SaveBinaryFile();
+            binaryFileManager.SaveBinaryFile(file);
         }
 
         private List<string> GetErrorList()

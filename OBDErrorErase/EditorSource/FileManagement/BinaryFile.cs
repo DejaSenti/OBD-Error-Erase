@@ -11,7 +11,12 @@ namespace OBDErrorErase.EditorSource.FileManagement
 
         public BinaryFile(byte[] data)
         {
-            this.data = data;
+            this.data = new byte[data.Length];
+
+            for (int i = 0; i < data.Length; ++i)
+            {
+                this.data[i] = data[i];
+            }
         }
 
         /// <returns>-1 if not found</returns>
@@ -61,6 +66,13 @@ namespace OBDErrorErase.EditorSource.FileManagement
             {
                 data[location + i] = value[i];
             }
+        }
+
+        internal BinaryFile Copy()
+        {
+            var result = new BinaryFile(data);
+
+            return result;
         }
     }
 }
