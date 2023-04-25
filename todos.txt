@@ -20,7 +20,7 @@ PRODUCT CHANGES:
 	+ add save profile button
 	- drap and drop binaries
 	+ manual width entry
-	- remove autoselect of all presets
+	+ remove autoselect of all presets
 	- save search words as 10 back and 50 forward, manage a list and add to it with each erase
 	- on erase, the loaded file should not change
 	- BMW algorithm RECALCULATES LENGTH EACH TIME ON SUBPROFILE LOAD
