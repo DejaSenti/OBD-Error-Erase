@@ -46,6 +46,7 @@ namespace OBDErrorErase.EditorSource.Processors
                     {
                         errorLocations.Add(seeker - map.ErrorColumn);
                         seeker += map.NewValue.Count;
+                        continue;
                     }
 
                     seeker += map.NewValue.Count;

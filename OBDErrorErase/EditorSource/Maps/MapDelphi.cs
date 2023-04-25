@@ -26,9 +26,7 @@ namespace OBDErrorErase.EditorSource.Maps
 
             for (int i = 0; i < PREVIEW_LENGTH; ++i)
             {
-                byte[] value = file.ReadValue(displayLocation + i * NewValue.Count, NewValue.Count);
-
-                errors[i] = value[errorColumn..(errorColumn+ERROR_VALUE_LEN)];
+                errors[i] = file.ReadValue(displayLocation + i * NewValue.Count + errorColumn, ERROR_VALUE_LEN);
             }
 
             return errors;

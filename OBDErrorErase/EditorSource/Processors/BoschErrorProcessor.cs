@@ -43,6 +43,7 @@ namespace OBDErrorErase.EditorSource.Processors
                     {
                         errorLocations.Add(seeker);
                         seeker += dtcValueSize;
+                        continue;
                     }
 
                     seeker += dtcValueSize / 2;
