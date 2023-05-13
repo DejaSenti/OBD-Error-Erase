@@ -155,6 +155,7 @@ namespace OBDErrorErase.EditorSource.AppControl
 
             editorGUI.OnCurrentProfileChanged(profile);
 
+            profileEditor.OnCurrentSubprofileChanged();
             editorGUI.OnCurrentSubprofileChanged(profileManager.CurrentSubProfileIndex);
         }
 

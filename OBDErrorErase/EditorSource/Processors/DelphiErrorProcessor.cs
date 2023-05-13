@@ -4,15 +4,16 @@ using OBDErrorErase.EditorSource.ProfileManagement;
 
 namespace OBDErrorErase.EditorSource.Processors
 {
-    internal class DelphiErrorProcessor : IErrorProcessor
+    [Serializable]
+    internal class DelphiErrorProcessor : BaseErrorProcessor
     {
-        public void PopulateProfileDefaults(Profile profile)
+        public override void PopulateProfileDefaults(Profile profile)
         {
             profile.Subprofiles.Add(new SubprofileData());
             profile.Subprofiles[0].Maps.Add(new MapDelphi("Delphi"));
         }
 
-        public int Process(BinaryFile file, SubprofileData subprofile, List<string> errors, List<int> mapIndices)
+        public override int Process(BinaryFile file, SubprofileData subprofile, List<string> errors, List<int> mapIndices)
         {
             if (subprofile.Maps.FirstOrDefault() is not MapDelphi map)
             {

@@ -26,7 +26,9 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
 
         public DirtyList<SubprofileData> Subprofiles { get; set; } = new();
 
-        private IErrorProcessor processor;
+        private BaseErrorProcessor processor;
+
+        public BaseErrorProcessor Processor { get => processor; set => processor = value; }
 
         public Profile(ProfileType type, string manufacturer, string name)
         {

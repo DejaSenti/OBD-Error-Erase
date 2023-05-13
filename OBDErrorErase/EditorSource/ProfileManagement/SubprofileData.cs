@@ -64,5 +64,18 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
                 map.SetLocation(mapLocation);
             }
         }
+
+        internal int GetMapLocation(string name)
+        {
+            foreach (var map in Maps)
+            {
+                if (map.Name.ToLower() == name.ToLower())
+                {
+                    return map.Location;
+                }
+            }
+
+            return -1;
+        }
     }
 }

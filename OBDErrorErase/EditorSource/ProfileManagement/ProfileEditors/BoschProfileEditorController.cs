@@ -1,6 +1,7 @@
 ﻿using OBDErrorErase.EditorSource.AppControl;
 using OBDErrorErase.EditorSource.FileManagement;
 using OBDErrorErase.EditorSource.Maps;
+using OBDErrorErase.EditorSource.Processors;
 using OBDErrorErase.EditorSource.Utils;
 
 namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
@@ -179,12 +180,38 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
             gui.Clear();
 
             var subprofile = profileManager.CurrentSubProfile;
-            if (subprofile == null)
+            if (profileManager.CurrentProfile == null || subprofile == null)
                 return;
 
             foreach (MapBosch map in subprofile.Maps.Cast<MapBosch>())
             {
                 gui.AddMap(map);
+            }
+
+            var lengthAlgo = ((BoschErrorProcessor)profileManager.CurrentProfile.Processor).LengthAlgorithm;
+            gui.ComboBoxMapLengthAlgorithm.SelectedItem = lengthAlgo;
+
+            switch (lengthAlgo)
+            {
+                case BoschLengthAlgorithm.BMW:
+                    int maskValueSize = gui.GetMapValueSize(MapBosch.MASK);
+
+                    int dtcLocation = profileManager.CurrentSubProfile.GetMapLocation(MapBosch.DTC);
+                    int maskLocation = profileManager.CurrentSubProfile.GetMapLocation(MapBosch.MASK);
+
+                    if (dtcLocation == -1 || maskLocation == -1)
+                    {
+                        gui.TextBoxMapLength.Text = string.Empty;
+                        return;
+                    }
+
+                    var length = Math.Abs(maskLocation - dtcLocation);
+
+                    gui.TextBoxMapLength.Text = (length * 2 / maskValueSize).ToString();
+                    break;
+                case BoschLengthAlgorithm.MANUAL:
+                default:
+                    break;
             }
 
             gui.TextBoxMapLength.Text = subprofile.MapLength.ToString();

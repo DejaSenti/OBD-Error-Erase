@@ -4,7 +4,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
 {
     public static class ErrorProcessorFactory
     {
-        public static IErrorProcessor Create(ProfileType type)
+        public static BaseErrorProcessor Create(ProfileType type)
         {
 #pragma warning disable CS8603 // Possible null reference return.
             return type switch

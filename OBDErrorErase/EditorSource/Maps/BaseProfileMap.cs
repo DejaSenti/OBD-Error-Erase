@@ -1,5 +1,6 @@
 ﻿using OBDErrorErase.EditorSource.FileManagement;
 using OBDErrorErase.EditorSource.ProfileManagement;
+using System.Collections.Immutable;
 using System.Text.Json.Serialization;
 
 namespace OBDErrorErase.EditorSource.Maps
@@ -15,7 +16,7 @@ namespace OBDErrorErase.EditorSource.Maps
 
         protected bool isDirty;
         [JsonIgnore]
-        public virtual bool IsDirty => isDirty || searchWord.IsDirty;
+        public virtual bool IsDirty => isDirty || searchWord.IsDirty || newValue.IsDirty;
 
         private DirtyList<byte> newValue = new();
         public DirtyList<byte> NewValue { get => newValue; set { newValue = value; isDirty = true; } }
