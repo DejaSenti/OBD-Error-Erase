@@ -125,7 +125,7 @@ namespace OBDErrorErase.EditorSource.AppControl
             list.AddRange(splitErrors);
         }
 
-        internal void OnNewProfileLoaded()
+        public void OnNewProfileLoaded()
         {
             if (profileManager.CurrentSubProfile == null)
                 return;
@@ -150,13 +150,13 @@ namespace OBDErrorErase.EditorSource.AppControl
             };
         }
 
-        internal void OnProfileUnloaded()
+        public void OnProfileUnloaded()
         {
             eraserGUI.SetEraseButtonEnabled(false);
             eraserGUI.ClearMapControls();
         }
 
-        internal void OnEraseAvailable()
+        public void OnEraseAvailable()
         {
             eraserGUI.SetEraseButtonEnabled(true);
         }

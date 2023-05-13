@@ -140,7 +140,7 @@
             PresetOpenClicked?.Invoke(id);
         }
 
-        internal List<int> GetSelectedPresetIDs()
+        public List<int> GetSelectedPresetIDs()
         {
             var result = new List<int>();
 
@@ -153,7 +153,7 @@
             return result;
         }
 
-        internal List<int> GetMapIndices()
+        public List<int> GetMapIndices()
         {
             var result = new List<int>();
 
@@ -166,17 +166,17 @@
             return result;
         }
 
-        internal string GetTextboxErrorList()
+        public string GetTextboxErrorList()
         {
             return guiHolder.EraserTextboxErrorList.Text;
         }
 
-        internal void OnProcessComplete(int totalErased, int count)
+        public void OnProcessComplete(int totalErased, int count)
         {
             guiHolder.EraserLabelErrorCounter.Text = string.Format(PROCESS_RESULT_DISPLAY, totalErased, count);
         }
 
-        internal void OnInvalidErasingAttempt()
+        public void OnInvalidErasingAttempt()
         {
             MessageBox.Show("Cannot process!\rCheck that you loaded a file, selected a profile, and have errors you want to erase!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
@@ -195,7 +195,7 @@
             presetControls.Clear();
         }
 
-        internal void ClearMapControls()
+        public void ClearMapControls()
         {
             foreach (var control in mapControls)
             {
@@ -247,12 +247,12 @@
             }
         }
 
-        internal void SetEraseButtonEnabled(bool value)
+        public void SetEraseButtonEnabled(bool value)
         {
             guiHolder.EraserButtonRun.Enabled = value;
         }
 
-        internal void UpdateMapSelectorStatus(bool value)
+        public void UpdateMapSelectorStatus(bool value)
         {
             guiHolder.EraserTableLayoutMapSelector.Enabled = value;
             guiHolder.EraserCheckBoxSelectAllMaps.Enabled = value;

@@ -112,7 +112,7 @@ namespace OBDErrorErase.EditorSource.GUI
 
         #region External notifications
 
-        internal void OnCurrentProfileChanged(Profile currentProfile)
+        public void OnCurrentProfileChanged(Profile currentProfile)
         {
             if (currentProfile == null)
             {
@@ -185,7 +185,7 @@ namespace OBDErrorErase.EditorSource.GUI
             guiHolder.EditorButtonRemoveSubProfile.Enabled = guiHolder.EditorListSubprofiles.Items.Count > 1;
         }
 
-        internal void ClearFields()
+        public void ClearFields()
         {
             guiHolder.EditorDropdownManufacturer.Text = string.Empty;
             guiHolder.EditorTextBoxComputerName.Text = string.Empty;
@@ -194,7 +194,7 @@ namespace OBDErrorErase.EditorSource.GUI
             UpdateAllProfileEnabledStatuses();
         }
 
-        internal int GetNextSubprofileIndex()
+        public int GetNextSubprofileIndex()
         {
             var list = guiHolder.EditorListSubprofiles;
 

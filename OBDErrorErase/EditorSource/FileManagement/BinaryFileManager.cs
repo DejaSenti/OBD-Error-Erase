@@ -6,12 +6,12 @@ namespace OBDErrorErase.EditorSource.FileManagement
     {
         public BinaryFile? CurrentFile { get; private set; }
 
-        internal BinaryFile? DuplicateCurrentFile()
+        public BinaryFile? DuplicateCurrentFile()
         {
             return CurrentFile?.Copy();
         }
 
-        internal BinaryFile LoadBinaryFile(string path)
+        public BinaryFile LoadBinaryFile(string path)
         {
             var bytes = AppFileHelper.LoadBinaryFile(path);
             var result = new BinaryFile(bytes);
@@ -19,7 +19,7 @@ namespace OBDErrorErase.EditorSource.FileManagement
             return result;
         }
 
-        internal void SaveBinaryFile(BinaryFile file)
+        public void SaveBinaryFile(BinaryFile file)
         {
             if (CurrentFile == null)
             {
@@ -30,7 +30,7 @@ namespace OBDErrorErase.EditorSource.FileManagement
             AppFileHelper.SaveBinaryFile(file.Data);
         }
 
-        internal void SetCurrentFile(BinaryFile file)
+        public void SetCurrentFile(BinaryFile file)
         {
             CurrentFile = file;
         }

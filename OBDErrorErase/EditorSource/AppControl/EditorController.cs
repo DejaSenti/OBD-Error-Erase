@@ -7,7 +7,6 @@ namespace OBDErrorErase.EditorSource.AppControl
 {
     public class EditorController
     {
-        public event Action? ProfileEditedEvent;
         public event Action? AddressChangedEvent;
         public event Action? ProfileSavedEvent;   
 
@@ -36,6 +35,7 @@ namespace OBDErrorErase.EditorSource.AppControl
             editorGUI.RequestDuplicateCurrentSubprofile += OnDuplicateCurrentSubprofileRequested;
             editorGUI.RequestRemoveCurrentSubprofile += OnRemoveCurrentSubprofileRequested;
             editorGUI.RequestChangeCurrentSubprofile += OnChangeCurrentSubprofileRequested;
+
 
             editorGUI.RequestProfileTypeChangeEvent += OnProfileTypeChangeRequested;
 
@@ -81,7 +81,7 @@ namespace OBDErrorErase.EditorSource.AppControl
             profileEditor.OnCurrentSubprofileChanged();
         }
 
-        public void OnChangeCurrentSubprofileRequested(int newIndex)
+        private void OnChangeCurrentSubprofileRequested(int newIndex)
         {
             profileManager.SetCurrentSubprofile(newIndex);
             OnNewSubprofileLoaded();
@@ -113,10 +113,9 @@ namespace OBDErrorErase.EditorSource.AppControl
             profileManager.ChangeCurrentProfileType(type);
 
             OnNewProfileLoaded();
-            ProfileEditedEvent?.Invoke();
         }
 
-        internal void OnNewProfileLoaded()
+        public void OnNewProfileLoaded()
         {
             var profile = profileManager.CurrentProfile;
 
@@ -159,7 +158,7 @@ namespace OBDErrorErase.EditorSource.AppControl
             editorGUI.OnCurrentSubprofileChanged(profileManager.CurrentSubProfileIndex);
         }
 
-        internal void OnNewSubprofileLoaded()
+        public void OnNewSubprofileLoaded()
         {
             editorGUI.OnCurrentSubprofileChanged(profileManager.CurrentSubProfileIndex);
             profileEditor.OnCurrentSubprofileChanged();
@@ -171,7 +170,7 @@ namespace OBDErrorErase.EditorSource.AppControl
             }
         }
 
-        internal void OnProfileUnloaded()
+        public void OnProfileUnloaded()
         {
             editorGUI.ClearFields();
             editorGUI.OnCurrentSubprofileChanged(profileManager.CurrentSubProfileIndex);
@@ -184,7 +183,7 @@ namespace OBDErrorErase.EditorSource.AppControl
             AddressChangedEvent?.Invoke();
         }
 
-        internal void EnableAddressFields()
+        public void EnableAddressFields()
         {
             profileEditorGUI?.EnableAddressFields();
         }
