@@ -28,30 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.Checkbox = new System.Windows.Forms.CheckBox();
-            this.SuspendLayout();
+            Checkbox = new CheckBox();
+            SuspendLayout();
             // 
             // Checkbox
             // 
-            this.Checkbox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Checkbox.Location = new System.Drawing.Point(0, 0);
-            this.Checkbox.Name = "Checkbox";
-            this.Checkbox.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
-            this.Checkbox.Size = new System.Drawing.Size(280, 25);
-            this.Checkbox.TabIndex = 1;
-            this.Checkbox.Text = "TITLE";
-            this.Checkbox.UseVisualStyleBackColor = true;
+            Checkbox.Dock = DockStyle.Fill;
+            Checkbox.Location = new Point(0, 0);
+            Checkbox.Margin = new Padding(4, 4, 4, 4);
+            Checkbox.Name = "Checkbox";
+            Checkbox.Padding = new Padding(19, 0, 0, 0);
+            Checkbox.Size = new Size(360, 35);
+            Checkbox.TabIndex = 1;
+            Checkbox.Text = "TITLE";
+            Checkbox.UseVisualStyleBackColor = true;
             // 
             // MapSelectControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.Checkbox);
-            this.MaximumSize = new System.Drawing.Size(280, 25);
-            this.Name = "MapSelectControl";
-            this.Size = new System.Drawing.Size(280, 25);
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new SizeF(9F, 21F);
+            AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(Checkbox);
+            Margin = new Padding(4, 4, 4, 4);
+            MinimumSize = new Size(360, 35);
+            Name = "MapSelectControl";
+            Size = new Size(360, 35);
+            ResumeLayout(false);
         }
 
         #endregion

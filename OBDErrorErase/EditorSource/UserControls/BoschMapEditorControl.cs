@@ -124,5 +124,10 @@ namespace OBDErrorErase
             RemoveGUIListeners();
             base.Dispose();
         }
+
+        private void NewValue_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -52,46 +52,47 @@
             TableLayoutFields.Controls.Add(Remove, 4, 0);
             TableLayoutFields.Dock = DockStyle.Fill;
             TableLayoutFields.Location = new Point(0, 0);
+            TableLayoutFields.Margin = new Padding(4);
             TableLayoutFields.Name = "TableLayoutFields";
             TableLayoutFields.RowCount = 1;
             TableLayoutFields.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            TableLayoutFields.Size = new Size(330, 40);
+            TableLayoutFields.Size = new Size(424, 56);
             TableLayoutFields.TabIndex = 7;
             // 
             // MapWidth
             // 
             MapWidth.Dock = DockStyle.Fill;
-            MapWidth.Location = new Point(147, 8);
-            MapWidth.Margin = new Padding(3, 8, 3, 8);
+            MapWidth.Location = new Point(188, 11);
+            MapWidth.Margin = new Padding(4, 11, 4, 11);
             MapWidth.Name = "MapWidth";
-            MapWidth.Size = new Size(66, 23);
+            MapWidth.Size = new Size(84, 29);
             MapWidth.TabIndex = 2;
             // 
             // MapName
             // 
             MapName.Dock = DockStyle.Fill;
-            MapName.Location = new Point(3, 8);
-            MapName.Margin = new Padding(3, 8, 3, 8);
+            MapName.Location = new Point(4, 11);
+            MapName.Margin = new Padding(4, 11, 4, 11);
             MapName.Name = "MapName";
-            MapName.Size = new Size(66, 23);
+            MapName.Size = new Size(84, 29);
             MapName.TabIndex = 0;
             // 
             // Address
             // 
             Address.Dock = DockStyle.Fill;
-            Address.Location = new Point(75, 8);
-            Address.Margin = new Padding(3, 8, 3, 8);
+            Address.Location = new Point(96, 11);
+            Address.Margin = new Padding(4, 11, 4, 11);
             Address.Name = "Address";
-            Address.Size = new Size(66, 23);
+            Address.Size = new Size(84, 29);
             Address.TabIndex = 1;
             // 
             // NewValue
             // 
             NewValue.Dock = DockStyle.Fill;
-            NewValue.Location = new Point(216, 8);
-            NewValue.Margin = new Padding(0, 8, 0, 8);
+            NewValue.Location = new Point(276, 11);
+            NewValue.Margin = new Padding(0, 11, 0, 11);
             NewValue.Name = "NewValue";
-            NewValue.Size = new Size(72, 23);
+            NewValue.Size = new Size(92, 29);
             NewValue.TabIndex = 3;
             // 
             // Remove
@@ -101,22 +102,23 @@
             Remove.BackgroundImageLayout = ImageLayout.Center;
             Remove.FlatAppearance.BorderSize = 0;
             Remove.FlatStyle = FlatStyle.Flat;
-            Remove.Location = new Point(298, 8);
-            Remove.Margin = new Padding(10, 8, 7, 10);
-            Remove.MaximumSize = new Size(25, 25);
-            Remove.MinimumSize = new Size(25, 25);
+            Remove.Location = new Point(381, 11);
+            Remove.Margin = new Padding(13, 11, 9, 14);
+            Remove.MaximumSize = new Size(32, 35);
+            Remove.MinimumSize = new Size(32, 35);
             Remove.Name = "Remove";
-            Remove.Size = new Size(25, 25);
+            Remove.Size = new Size(32, 35);
             Remove.TabIndex = 4;
             Remove.UseVisualStyleBackColor = false;
             // 
             // BoschMapEditorControl
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(TableLayoutFields);
+            Margin = new Padding(4);
             Name = "BoschMapEditorControl";
-            Size = new Size(330, 40);
+            Size = new Size(424, 56);
             TableLayoutFields.ResumeLayout(false);
             TableLayoutFields.PerformLayout();
             ResumeLayout(false);

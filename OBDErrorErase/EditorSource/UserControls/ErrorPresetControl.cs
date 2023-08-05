@@ -30,5 +30,10 @@ namespace OBDErrorErase
         {
             OpenClicked?.Invoke(ID);
         }
+
+        private void ErrorPresetControl_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
