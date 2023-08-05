@@ -13,6 +13,7 @@ HIGH PRIORITY BUGS:
 	+ creating profile and adding maps doesn't update map list until profile reload, throws exception
 	+ requesting new profile when a profile is selected gets editor stuck on profile type
 	- fix gui scaling etc.
+		- some of the elements' anchorning is still kinda screwy
 	+ flip bytes is flipping adjactent positions instead
 	- save profile should also update preview
 	- select new subprofile should also update preview
