@@ -1,13 +1,12 @@
 ﻿using OBDErrorErase.EditorSource.AppControl;
 using OBDErrorErase.EditorSource.Configs;
-using OBDErrorErase.EditorSource.Maps;
 using OBDErrorErase.EditorSource.ProfileManagement;
 using OBDErrorErase.EditorSource.Utils;
 using System.Text.RegularExpressions;
 
-namespace OBDErrorErase.EditorSource.GUI
+namespace OBDErrorErase
 {
-    public class MainGUI
+    public partial class Main
     {
         public event Action? RequestNewProfileEvent;
         public event Action? RequestDuplicateProfileEvent;
@@ -16,15 +15,11 @@ namespace OBDErrorErase.EditorSource.GUI
         public event Action<string>? RequestBinaryFileBrowseEvent;
         public event Action<bool>? FlipBytesEvent;
 
-        private Main guiHolder;
-
         private string[]? currentFilterWords;
         public string SelectedProfileID { get; set; } = "";
 
-        public MainGUI(Main guiHolder)
+        public void InitGUI()
         {
-            this.guiHolder = guiHolder;
-
             UpdateProfilesList();
 
             AddListeners();
@@ -34,29 +29,29 @@ namespace OBDErrorErase.EditorSource.GUI
 
         private void UpdateProfileManagementButtons()
         {
-            guiHolder.MainButtonDuplicateProfile.Enabled = guiHolder.MainListProfiles.SelectedIndex > -1;
-            guiHolder.MainButtonRemoveProfile.Enabled = guiHolder.MainListProfiles.SelectedIndex > -1;
+            MainButtonDuplicateProfile.Enabled = MainListProfiles.SelectedIndex > -1;
+            MainButtonRemoveProfile.Enabled = MainListProfiles.SelectedIndex > -1;
         }
 
         private void AddListeners()
         {
-            guiHolder.MainButtonNewProfile.Click += OnNewProfileClicked;
-            guiHolder.MainButtonDuplicateProfile.Click += OnDuplicateProfileClicked;
-            guiHolder.MainButtonRemoveProfile.Click += OnRemoveProfileClicked;
-            guiHolder.MainButtonFileBrowse.Click += OnBrowseClick;
-            guiHolder.MainButtonFileBrowse.DragDrop += OnDragDrop;
+            MainButtonNewProfile.Click += OnNewProfileClicked;
+            MainButtonDuplicateProfile.Click += OnDuplicateProfileClicked;
+            MainButtonRemoveProfile.Click += OnRemoveProfileClicked;
+            MainButtonFileBrowse.Click += OnBrowseClick;
+            MainButtonFileBrowse.DragDrop += OnDragDrop;
 
-            guiHolder.MainTextboxProfileFilter.TextChanged += OnFilterTextFieldChanged;
-            guiHolder.MainListProfiles.SelectedIndexChanged += OnSelectionChanged;
+            MainTextboxProfileFilter.TextChanged += OnFilterTextFieldChanged;
+            MainListProfiles.SelectedIndexChanged += OnSelectionChanged;
 
-            guiHolder.MainCheckboxFlipBytes.CheckedChanged += OnFlipBytesToggled;
+            MainCheckboxFlipBytes.CheckedChanged += OnFlipBytesToggled;
         }
 
         #region Event Notifications
 
         private void OnSelectionChanged(object? sender, EventArgs e)
         {
-            ListBox list = guiHolder.MainListProfiles;
+            ListBox list = MainListProfiles;
 
             if (list.SelectedIndex == -1)
                 return;
@@ -73,14 +68,14 @@ namespace OBDErrorErase.EditorSource.GUI
 
         private void OnFilterTextFieldChanged(object? sender, EventArgs e)
         {
-            TextBox textBox = guiHolder.MainTextboxProfileFilter;
+            TextBox textBox = MainTextboxProfileFilter;
 
             currentFilterWords = Regex.Split(textBox.Text, @"\s+");
 
             UpdateProfilesList();
 
-            if (!string.IsNullOrEmpty(SelectedProfileID) && guiHolder.MainListProfiles.Items.Contains(SelectedProfileID))
-                guiHolder.MainListProfiles.SelectedItem = SelectedProfileID;
+            if (!string.IsNullOrEmpty(SelectedProfileID) && MainListProfiles.Items.Contains(SelectedProfileID))
+                MainListProfiles.SelectedItem = SelectedProfileID;
         }
 
         private void OnNewProfileClicked(object? sender, EventArgs e)
@@ -131,7 +126,7 @@ namespace OBDErrorErase.EditorSource.GUI
 
         private void OnFlipBytesToggled(object? sender, EventArgs e)
         {
-            CheckBox checkBox = guiHolder.MainCheckboxFlipBytes;
+            CheckBox checkBox = MainCheckboxFlipBytes;
 
             FlipBytesEvent?.Invoke(checkBox.Checked);
         }
@@ -140,38 +135,36 @@ namespace OBDErrorErase.EditorSource.GUI
 
         public void UpdateFilenameLabel(string filename)
         {
-            guiHolder.MainLabelBinaryFilename.Text = filename;
+            MainLabelBinaryFilename.Text = filename;
         }
 
         public void UpdateProfileSelection(string newSelection)
         {
+            if (string.IsNullOrEmpty(newSelection) || !MainListProfiles.Items.Contains(newSelection))
+                return;
+
             SelectedProfileID = newSelection;
 
-            if (!string.IsNullOrEmpty(SelectedProfileID) && guiHolder.MainListProfiles.Items.Contains(SelectedProfileID))
-                guiHolder.MainListProfiles.SelectedItem = SelectedProfileID;
+            MainListProfiles.SelectedItem = SelectedProfileID;
 
-            guiHolder.MainButtonRemoveProfile.Enabled = !string.IsNullOrEmpty(SelectedProfileID);
-            guiHolder.MainButtonDuplicateProfile.Enabled = !string.IsNullOrEmpty(SelectedProfileID);
+            MainButtonDuplicateProfile.Enabled = MainButtonRemoveProfile.Enabled = true;
         }
 
-        private void UpdateProfilesList()
+        public void UpdateProfilesList()
         {
-            var profileList = guiHolder.MainListProfiles;
-
-            profileList.Items.Clear();
+            MainListProfiles.Items.Clear();
 
             var profileManager = ServiceContainer.GetService<ProfileManager>();
-            var profileIDsRef = profileManager.ProfileIDs;
 
-            foreach (var profileID in profileIDsRef)
+            foreach (var profileID in profileManager.ProfileIDs)
             {
                 if (ProfileIDMatchesFilter(profileID))
-                    profileList.Items.Add(profileID);
+                    MainListProfiles.Items.Add(profileID);
             }
 
-            profileList.Sorted = true;
+            MainListProfiles.Sorted = true;
 
-            profileList.SelectedItem = SelectedProfileID;
+            MainListProfiles.SelectedItem = SelectedProfileID;
         }
 
         private bool ProfileIDMatchesFilter(string profileID)
@@ -180,6 +173,7 @@ namespace OBDErrorErase.EditorSource.GUI
                 return true;
 
             int index = 0;
+
             foreach (string filterWord in currentFilterWords)
             {
                 index = profileID.ToLower().IndexOf(filterWord.ToLower(), index);
@@ -189,27 +183,28 @@ namespace OBDErrorErase.EditorSource.GUI
 
                 index += filterWord.Length;
             }
+
             return true;
         }
 
-        internal void LoadEditorTab()
+        public void LoadEditorTab()
         {
-            guiHolder.MainTabControl.SelectedTab = guiHolder.MainTabControl.TabPages["EditorTabPage"];
+            MainTabControl.SelectedTab = MainTabControl.TabPages[NAME_ERASER_TAB_PAGE];
         }
 
-        internal void UpdateFilePreview(int startAddress, int valueSize, byte[][] errors)
+        public void UpdateFilePreview(int startAddress, int valueSize, byte[][] errors)
         {
             ClearFilePreview();
 
             for (int i = 0; i < errors.Length; ++i)
             {
-                guiHolder.MainDataGridFilePreview.Rows.Add((startAddress + i * valueSize).ToString("X"), Convert.ToHexString(errors[i]));
+                MainDataGridFilePreview.Rows.Add((startAddress + i * valueSize).ToString("X"), Convert.ToHexString(errors[i]));
             }
         }
 
-        internal string GetNextProfileSelection()
+        public string GetNextProfileSelection()
         {
-            ListBox list = guiHolder.MainListProfiles;
+            ListBox list = MainListProfiles;
 
             if (list.SelectedIndex == -1 || list.Items.Count == 1)
                 return "";
@@ -221,25 +216,23 @@ namespace OBDErrorErase.EditorSource.GUI
             return desiredProfileID;
         }
 
-        internal void OnProfileDBChanged(string[] newManufacturers)
+        public void UpdateManufacturerList()
         {
-            guiHolder.EditorDropdownManufacturer.Items.Clear();
-            guiHolder.EditorDropdownManufacturer.Items.AddRange(newManufacturers);
-
-            UpdateProfilesList();
+            throw new NotImplementedException();
         }
 
-        internal void ClearFields()
+        public void ClearFields()
         {
-            guiHolder.MainListProfiles.SelectedIndex = -1;
-            guiHolder.MainDataGridFilePreview.Rows.Clear();
+            MainListProfiles.SelectedIndex = -1;
+
+            ClearFilePreview();
 
             UpdateProfileManagementButtons();
         }
 
-        internal void ClearFilePreview()
+        public void ClearFilePreview()
         {
-            guiHolder.MainDataGridFilePreview.Rows.Clear();
+            MainDataGridFilePreview.Rows.Clear();
         }
     }
 }

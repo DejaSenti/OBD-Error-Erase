@@ -36,8 +36,7 @@ namespace OBDErrorErase
             var eraserGUI = new EraserGUI(mainForm);
             eraserController = new EraserController(eraserGUI);
 
-            var mainGUI = new MainGUI(mainForm);
-            mainController = new MainController(mainGUI, editorController, eraserController);
+            mainController = new MainController(mainForm, editorController, eraserController);
         }
 
         private static void InitializeServices()

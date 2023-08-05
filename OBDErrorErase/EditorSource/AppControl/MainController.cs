@@ -6,13 +6,13 @@ namespace OBDErrorErase.EditorSource.AppControl
 {
     public class MainController
     {
-        private MainGUI mainGUI;
+        private Main mainGUI;
         private ProfileManager profileManager;
         private BinaryFileManager binaryFileManager;
         private EditorController editorController;
         private EraserController eraserController;
 
-        public MainController(MainGUI mainGUI, EditorController editorController, EraserController eraserController)
+        public MainController(Main mainGUI, EditorController editorController, EraserController eraserController)
         {
             this.mainGUI = mainGUI;
 
@@ -222,7 +222,8 @@ namespace OBDErrorErase.EditorSource.AppControl
 
         private void OnProfileDBChanged()
         {
-            mainGUI.OnProfileDBChanged(profileManager.GetManufacturers());
+            mainGUI.UpdateManufacturerList();
+            mainGUI.UpdateProfilesList();
         }
     }
 }
