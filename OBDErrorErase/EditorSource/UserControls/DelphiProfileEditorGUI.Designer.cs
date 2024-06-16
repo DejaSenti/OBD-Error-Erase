@@ -58,13 +58,14 @@
             LayoutPanelAll.Controls.Add(LayoutPanelAddress, 0, 0);
             LayoutPanelAll.Dock = DockStyle.Top;
             LayoutPanelAll.Location = new Point(0, 0);
+            LayoutPanelAll.Margin = new Padding(4);
             LayoutPanelAll.Name = "LayoutPanelAll";
             LayoutPanelAll.RowCount = 4;
             LayoutPanelAll.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
             LayoutPanelAll.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
             LayoutPanelAll.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
             LayoutPanelAll.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
-            LayoutPanelAll.Size = new Size(400, 331);
+            LayoutPanelAll.Size = new Size(514, 463);
             LayoutPanelAll.TabIndex = 0;
             // 
             // LayoutPanelErrorColumn
@@ -75,20 +76,22 @@
             LayoutPanelErrorColumn.Controls.Add(ErrorColumn, 0, 1);
             LayoutPanelErrorColumn.Controls.Add(LabelErrorColumn, 0, 0);
             LayoutPanelErrorColumn.Dock = DockStyle.Fill;
-            LayoutPanelErrorColumn.Location = new Point(3, 249);
+            LayoutPanelErrorColumn.Location = new Point(4, 349);
+            LayoutPanelErrorColumn.Margin = new Padding(4);
             LayoutPanelErrorColumn.Name = "LayoutPanelErrorColumn";
             LayoutPanelErrorColumn.RowCount = 2;
             LayoutPanelErrorColumn.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             LayoutPanelErrorColumn.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            LayoutPanelErrorColumn.Size = new Size(394, 79);
+            LayoutPanelErrorColumn.Size = new Size(506, 110);
             LayoutPanelErrorColumn.TabIndex = 4;
             // 
             // ErrorColumn
             // 
             ErrorColumn.Dock = DockStyle.Fill;
-            ErrorColumn.Location = new Point(3, 42);
+            ErrorColumn.Location = new Point(4, 59);
+            ErrorColumn.Margin = new Padding(4);
             ErrorColumn.Name = "ErrorColumn";
-            ErrorColumn.Size = new Size(388, 23);
+            ErrorColumn.Size = new Size(498, 29);
             ErrorColumn.TabIndex = 2;
             // 
             // LabelErrorColumn
@@ -96,9 +99,10 @@
             LabelErrorColumn.AutoSize = true;
             LabelErrorColumn.Dock = DockStyle.Bottom;
             LabelErrorColumn.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            LabelErrorColumn.Location = new Point(3, 24);
+            LabelErrorColumn.Location = new Point(4, 40);
+            LabelErrorColumn.Margin = new Padding(4, 0, 4, 0);
             LabelErrorColumn.Name = "LabelErrorColumn";
-            LabelErrorColumn.Size = new Size(388, 15);
+            LabelErrorColumn.Size = new Size(498, 15);
             LabelErrorColumn.TabIndex = 1;
             LabelErrorColumn.Text = "Error Column:";
             // 
@@ -110,20 +114,22 @@
             LayoutPanelNewValue.Controls.Add(NewValue, 0, 1);
             LayoutPanelNewValue.Controls.Add(LabelNewValue, 0, 0);
             LayoutPanelNewValue.Dock = DockStyle.Fill;
-            LayoutPanelNewValue.Location = new Point(3, 167);
+            LayoutPanelNewValue.Location = new Point(4, 234);
+            LayoutPanelNewValue.Margin = new Padding(4);
             LayoutPanelNewValue.Name = "LayoutPanelNewValue";
             LayoutPanelNewValue.RowCount = 2;
             LayoutPanelNewValue.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             LayoutPanelNewValue.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            LayoutPanelNewValue.Size = new Size(394, 76);
+            LayoutPanelNewValue.Size = new Size(506, 107);
             LayoutPanelNewValue.TabIndex = 3;
             // 
             // NewValue
             // 
             NewValue.Dock = DockStyle.Fill;
-            NewValue.Location = new Point(3, 41);
+            NewValue.Location = new Point(4, 57);
+            NewValue.Margin = new Padding(4);
             NewValue.Name = "NewValue";
-            NewValue.Size = new Size(388, 23);
+            NewValue.Size = new Size(498, 29);
             NewValue.TabIndex = 2;
             // 
             // LabelNewValue
@@ -131,9 +137,10 @@
             LabelNewValue.AutoSize = true;
             LabelNewValue.Dock = DockStyle.Bottom;
             LabelNewValue.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            LabelNewValue.Location = new Point(3, 23);
+            LabelNewValue.Location = new Point(4, 38);
+            LabelNewValue.Margin = new Padding(4, 0, 4, 0);
             LabelNewValue.Name = "LabelNewValue";
-            LabelNewValue.Size = new Size(388, 15);
+            LabelNewValue.Size = new Size(498, 15);
             LabelNewValue.TabIndex = 1;
             LabelNewValue.Text = "New Value:";
             // 
@@ -145,20 +152,22 @@
             LayoutPanelLength.Controls.Add(Length, 0, 1);
             LayoutPanelLength.Controls.Add(LabelLength, 0, 0);
             LayoutPanelLength.Dock = DockStyle.Fill;
-            LayoutPanelLength.Location = new Point(3, 85);
+            LayoutPanelLength.Location = new Point(4, 119);
+            LayoutPanelLength.Margin = new Padding(4);
             LayoutPanelLength.Name = "LayoutPanelLength";
             LayoutPanelLength.RowCount = 2;
             LayoutPanelLength.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             LayoutPanelLength.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            LayoutPanelLength.Size = new Size(394, 76);
+            LayoutPanelLength.Size = new Size(506, 107);
             LayoutPanelLength.TabIndex = 2;
             // 
             // Length
             // 
             Length.Dock = DockStyle.Fill;
-            Length.Location = new Point(3, 41);
+            Length.Location = new Point(4, 57);
+            Length.Margin = new Padding(4);
             Length.Name = "Length";
-            Length.Size = new Size(388, 23);
+            Length.Size = new Size(498, 29);
             Length.TabIndex = 2;
             // 
             // LabelLength
@@ -166,9 +175,10 @@
             LabelLength.AutoSize = true;
             LabelLength.Dock = DockStyle.Bottom;
             LabelLength.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            LabelLength.Location = new Point(3, 23);
+            LabelLength.Location = new Point(4, 38);
+            LabelLength.Margin = new Padding(4, 0, 4, 0);
             LabelLength.Name = "LabelLength";
-            LabelLength.Size = new Size(388, 15);
+            LabelLength.Size = new Size(498, 15);
             LabelLength.TabIndex = 1;
             LabelLength.Text = "Length:";
             // 
@@ -180,12 +190,13 @@
             LayoutPanelAddress.Controls.Add(LabelAddress, 0, 0);
             LayoutPanelAddress.Controls.Add(Address, 0, 1);
             LayoutPanelAddress.Dock = DockStyle.Fill;
-            LayoutPanelAddress.Location = new Point(3, 3);
+            LayoutPanelAddress.Location = new Point(4, 4);
+            LayoutPanelAddress.Margin = new Padding(4);
             LayoutPanelAddress.Name = "LayoutPanelAddress";
             LayoutPanelAddress.RowCount = 2;
             LayoutPanelAddress.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             LayoutPanelAddress.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            LayoutPanelAddress.Size = new Size(394, 76);
+            LayoutPanelAddress.Size = new Size(506, 107);
             LayoutPanelAddress.TabIndex = 0;
             // 
             // LabelAddress
@@ -193,28 +204,31 @@
             LabelAddress.AutoSize = true;
             LabelAddress.Dock = DockStyle.Bottom;
             LabelAddress.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            LabelAddress.Location = new Point(3, 23);
+            LabelAddress.Location = new Point(4, 38);
+            LabelAddress.Margin = new Padding(4, 0, 4, 0);
             LabelAddress.Name = "LabelAddress";
-            LabelAddress.Size = new Size(388, 15);
+            LabelAddress.Size = new Size(498, 15);
             LabelAddress.TabIndex = 0;
             LabelAddress.Text = "Address:";
             // 
             // Address
             // 
             Address.Dock = DockStyle.Fill;
-            Address.Location = new Point(3, 41);
+            Address.Location = new Point(4, 57);
+            Address.Margin = new Padding(4);
             Address.Name = "Address";
-            Address.Size = new Size(388, 23);
+            Address.Size = new Size(498, 29);
             Address.TabIndex = 1;
             // 
             // DelphiProfileEditorGUI
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             Controls.Add(LayoutPanelAll);
+            Margin = new Padding(4);
             Name = "DelphiProfileEditorGUI";
-            Size = new Size(400, 400);
+            Size = new Size(514, 560);
             LayoutPanelAll.ResumeLayout(false);
             LayoutPanelErrorColumn.ResumeLayout(false);
             LayoutPanelErrorColumn.PerformLayout();

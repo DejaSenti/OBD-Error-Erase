@@ -7,10 +7,8 @@ namespace OBDErrorErase.EditorSource.GUI
 {
     public class EditorGUI
     {
-        public event Action<string>? RequestManufacturerNameChangeEvent;
-        public event Action<string>? RequestComputerNameChangeEvent;
-
         public event Action<ProfileType>? RequestProfileTypeChangeEvent;
+        public event Action<int>? RequestFillSubprofileData;
 
         public event Action<int>? RequestChangeCurrentSubprofile;
         public event Action? RequestDuplicateCurrentSubprofile;
@@ -20,8 +18,6 @@ namespace OBDErrorErase.EditorSource.GUI
 
         private readonly Main guiHolder;
 
-        private int currentSubProfileIndex = -1;
-
         public EditorGUI(Main guiHolder)
         {
             this.guiHolder = guiHolder;
@@ -30,21 +26,10 @@ namespace OBDErrorErase.EditorSource.GUI
 
             guiHolder.EditorComboBoxProfileType.Items.AddRange(Enum.GetNames<ProfileType>());
             guiHolder.EditorComboBoxProfileType.SelectedIndex = 0;
-
-            guiHolder.EditorButtonSaveProfile.Enabled = false;
-
-            UpdateAllProfileEnabledStatuses();
         }
 
         private void AddListeners()
         {
-            guiHolder.EditorDropdownManufacturer.Validated += OnManufacturerValueValidated;
-            guiHolder.EditorDropdownManufacturer.KeyUp += OnManufacturerKeyUp;
-            guiHolder.EditorDropdownManufacturer.SelectionChangeCommitted += OnManufacturerChangeCommitted;
-
-            guiHolder.EditorTextBoxComputerName.Validated += OnComputerNameValidated;
-            guiHolder.EditorTextBoxComputerName.KeyUp += OnComputerNameKeyUp;
-
             guiHolder.EditorButtonDuplicateSubProfile.Click += OnDuplicateSubProfileClicked;
             guiHolder.EditorButtonRemoveSubProfile.Click += OnRemoveSubProfileClicked;
 
@@ -83,45 +68,12 @@ namespace OBDErrorErase.EditorSource.GUI
             RequestRemoveCurrentSubprofile?.Invoke();
         }
 
-        private void OnComputerNameValidated(object? sender, EventArgs e)
-        {
-            RequestComputerNameChangeEvent?.Invoke(guiHolder.EditorTextBoxComputerName.Text);
-        }
-
-        private void OnComputerNameKeyUp(object? sender, KeyEventArgs e)
-        {
-            AppHelper.RunIfEnterKey(e.KeyCode, () => RequestComputerNameChangeEvent?.Invoke(guiHolder.EditorTextBoxComputerName.Text));
-        }
-
-        private void OnManufacturerValueValidated(object? sender, EventArgs e)
-        {
-            RequestManufacturerNameChangeEvent?.Invoke(guiHolder.EditorDropdownManufacturer.Text);
-        }
-
-        private void OnManufacturerKeyUp(object? sender, KeyEventArgs e)
-        {
-            AppHelper.RunIfEnterKey(e.KeyCode, () => RequestManufacturerNameChangeEvent?.Invoke(guiHolder.EditorDropdownManufacturer.Text));
-        }
-
-        private void OnManufacturerChangeCommitted(object? sender, EventArgs e)
-        {
-            RequestManufacturerNameChangeEvent?.Invoke((string)guiHolder.EditorDropdownManufacturer.SelectedItem);
-        }
-
         #endregion
 
         #region External notifications
 
         public void OnCurrentProfileChanged(Profile currentProfile)
         {
-            if (currentProfile == null)
-            {
-                guiHolder.EditorButtonSaveProfile.Enabled = false;
-                return;
-            }
-
-            guiHolder.EditorButtonSaveProfile.Enabled = true;
-
             guiHolder.EditorTextBoxComputerName.Text = currentProfile.Name;
             guiHolder.EditorDropdownManufacturer.Text = currentProfile.Manufacturer;
 
@@ -129,28 +81,20 @@ namespace OBDErrorErase.EditorSource.GUI
 
             UpdateSubprofilesList(currentProfile.Subprofiles);
 
-            UpdateAllProfileEnabledStatuses();
+            RequestFillSubprofileData?.Invoke(0);
         }
 
         public void OnCurrentSubprofileChanged(int newIndex)
         {
-            currentSubProfileIndex = newIndex;
             guiHolder.EditorListSubprofiles.SelectedIndex = newIndex;
 
-            UpdateAllProfileEnabledStatuses();
-        }
-
-        public void OnProfileRemoved()
-        {
-            UpdateAllProfileEnabledStatuses();
+            RequestFillSubprofileData?.Invoke(newIndex);
         }
 
         public void OnProfileDBChanged(string[] newManufacturers)
         {
             guiHolder.EditorDropdownManufacturer.Items.Clear();
             guiHolder.EditorDropdownManufacturer.Items.AddRange(newManufacturers);
-
-            UpdateAllProfileEnabledStatuses();
         }
 
         #endregion
@@ -179,19 +123,12 @@ namespace OBDErrorErase.EditorSource.GUI
             }
         }
 
-        private void UpdateAllProfileEnabledStatuses()
-        {
-            guiHolder.EditorButtonDuplicateSubProfile.Enabled = currentSubProfileIndex > -1;
-            guiHolder.EditorButtonRemoveSubProfile.Enabled = guiHolder.EditorListSubprofiles.Items.Count > 1;
-        }
-
         public void ClearFields()
         {
             guiHolder.EditorDropdownManufacturer.Text = string.Empty;
             guiHolder.EditorTextBoxComputerName.Text = string.Empty;
             guiHolder.EditorComboBoxProfileType.SelectedIndex = -1;
             UpdateSubprofilesList(new List<SubprofileData>());
-            UpdateAllProfileEnabledStatuses();
         }
 
         public int GetNextSubprofileIndex()

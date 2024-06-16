@@ -10,7 +10,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
     {
         public event Action? AddressChangedEvent;
 
-        private BoschProfileEditorGUI gui;
+        private BoschProfileEditorGUI? gui;
         private ProfileManager profileManager;
 
         public BoschProfileEditorController()
@@ -29,6 +29,9 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
 
         private void AddListeners()
         {
+            if (gui == null)
+                return;
+
             gui.RequestAddMap += OnAddMapRequested;
             gui.RequestMapRemoveEvent += OnRemoveMapRequested;
             gui.RequestLengthChangeEvent += OnChangeMapLengthRequested;
@@ -42,6 +45,9 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
 
         private void RemoveListeners()
         {
+            if (gui == null)
+                return;
+
             gui.RequestAddMap -= OnAddMapRequested;
             gui.RequestMapRemoveEvent -= OnRemoveMapRequested;
             gui.RequestLengthChangeEvent -= OnChangeMapLengthRequested;
@@ -118,6 +124,9 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
 
         private void TryLengthCalculation()
         {
+            if (gui == null)
+                return;
+
             BoschLengthAlgorithm algorithm = gui.GetLengthAlgorithm();
 
             switch (algorithm)
@@ -151,7 +160,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
 
         private void OnAddMapRequested()
         {
-            if (profileManager.CurrentProfile == null)
+            if (profileManager.CurrentProfile == null || gui == null)
                 return;
 
             var map = new MapBosch();
@@ -164,7 +173,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
         private void OnRemoveMapRequested(int mapIndex)
         {
             var profile = profileManager.CurrentProfile;
-            if (profile == null)
+            if (profile == null || gui == null)
                 return;
 
             if (profile.Subprofiles[0].Maps[mapIndex].Name == MapBosch.DTC)
@@ -177,6 +186,9 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
 
         private void PopulateFields()
         {
+            if (gui == null)
+                return;
+
             gui.Clear();
 
             var subprofile = profileManager.CurrentSubProfile;
@@ -196,8 +208,8 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
                 case BoschLengthAlgorithm.BMW:
                     int maskValueSize = gui.GetMapValueSize(MapBosch.MASK);
 
-                    int dtcLocation = profileManager.CurrentSubProfile.GetMapLocation(MapBosch.DTC);
-                    int maskLocation = profileManager.CurrentSubProfile.GetMapLocation(MapBosch.MASK);
+                    int dtcLocation = subprofile.GetMapLocation(MapBosch.DTC);
+                    int maskLocation = subprofile.GetMapLocation(MapBosch.MASK);
 
                     if (dtcLocation == -1 || maskLocation == -1)
                     {
@@ -219,7 +231,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
 
         private void ChangeBoschMapParameter(BoschMapParameter parameter, object value, int mapIndex)
         {
-            if (profileManager.CurrentSubProfile == null)
+            if (profileManager.CurrentSubProfile == null || gui == null)
                 return;
 
             if (profileManager.CurrentSubProfile.Maps[mapIndex] is not MapBosch map)
@@ -293,7 +305,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
             return value;
         }
 
-        public void OnCurrentSubprofileChanged()
+        public void FillSubprofileData(SubprofileData? data)
         {
             PopulateFields();
         }
@@ -301,7 +313,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
         public void Dispose()
         {
             RemoveListeners();
-            gui.Dispose();
+            gui?.Dispose();
         }
     }
 }

@@ -9,7 +9,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
     {
         public event Action? AddressChangedEvent;
 
-        private DelphiProfileEditorGUI gui;
+        private DelphiProfileEditorGUI? gui;
         private ProfileManager profileManager;
 
         public DelphiProfileEditorController()
@@ -28,6 +28,9 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
 
         private void AddListeners()
         {
+            if (gui == null)
+                return;
+
             gui.RequestAddressChangeEvent += OnAddressChangeRequested;
             gui.RequestErrorColumnChangeEvent += OnErrorColumnChangeRequested;
             gui.RequestLengthChangeEvent += OnLengthChangeRequested;
@@ -99,9 +102,7 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
             if (profileManager.CurrentSubProfile == null)
                 return;
 
-            var map = profileManager.CurrentSubProfile.Maps.FirstOrDefault() as MapDelphi;
-
-            if (map == null)
+            if (profileManager.CurrentSubProfile.Maps.FirstOrDefault() is not MapDelphi map)
                 return;
 
             switch (parameter)
@@ -136,39 +137,40 @@ namespace OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors
 
         private void RemoveListeners()
         {
+            if (gui == null)
+                return;
+
             gui.RequestAddressChangeEvent -= OnAddressChangeRequested;
             gui.RequestErrorColumnChangeEvent -= OnErrorColumnChangeRequested;
             gui.RequestLengthChangeEvent -= OnLengthChangeRequested;
             gui.RequestNewValueChangeEvent -= OnNewValueChangeRequested;
         }
 
-        public void OnCurrentSubprofileChanged()
+        public void FillSubprofileData(SubprofileData? data)
         {
             PopulateFields();
         }
 
         private void PopulateFields()
         {
-            gui.Clear();
+            gui?.Clear();
 
             var subprofile = profileManager.CurrentSubProfile;
             if (subprofile == null || subprofile.Maps.Count == 0)
                 return;
 
-            MapDelphi? map = subprofile.Maps.FirstOrDefault() as MapDelphi;
-
-            if (map == null) 
+            if (subprofile.Maps.FirstOrDefault() is not MapDelphi map)
                 return;
 
             string newValue = Convert.ToHexString(map.NewValue.ToArray());
 
-            gui.SetFields(map.RawLocation, map.ErrorColumn.ToString(), subprofile.MapLength, newValue);
+            gui?.SetFields(map.RawLocation, map.ErrorColumn.ToString(), subprofile.MapLength, newValue);
         }
 
         public void Dispose()
         {
             RemoveListeners();
-            gui.Dispose();
+            gui?.Dispose();
         }
     }
 }

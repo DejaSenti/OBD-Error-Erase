@@ -1,4 +1,5 @@
-﻿using OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors;
+﻿using OBDErrorErase.EditorSource.ProfileManagement;
+using OBDErrorErase.EditorSource.ProfileManagement.ProfileEditors;
 
 namespace OBDErrorErase.EditorSource.AppControl
 {
@@ -7,6 +8,6 @@ namespace OBDErrorErase.EditorSource.AppControl
         event Action? AddressChangedEvent;
         void SetGUI(IProfileEditorGUI profileEditorGUI);
         void Dispose();
-        void OnCurrentSubprofileChanged();
+        void FillSubprofileData(SubprofileData? data);
     }
 }
