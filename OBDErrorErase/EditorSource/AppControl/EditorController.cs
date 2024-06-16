@@ -116,9 +116,6 @@ namespace OBDErrorErase.EditorSource.AppControl
         public void OnProfileUnloaded()
         {
             editorGUI.ClearFields();
-            editorGUI.OnCurrentSubprofileChanged(profileManager.CurrentSubProfileIndex);
-            
-            DisposeProfileEditor();
         }
 
         private void OnAddressChanged()

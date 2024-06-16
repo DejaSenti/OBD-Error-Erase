@@ -3,6 +3,7 @@ namespace OBDErrorErase
     public partial class Main : Form
     {
         public const string NAME_ERASER_TAB_PAGE = "EraserTabPage";
+        public const string NAME_EDITOR_TAB_PAGE = "EditorTabPage";
 
         public Main()
         {

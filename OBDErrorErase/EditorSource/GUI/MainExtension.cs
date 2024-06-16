@@ -211,7 +211,7 @@ namespace OBDErrorErase
 
         public void LoadEditorTab()
         {
-            MainTabControl.SelectedTab = MainTabControl.TabPages[NAME_ERASER_TAB_PAGE];
+            MainTabControl.SelectedTab = MainTabControl.TabPages[NAME_EDITOR_TAB_PAGE];
         }
 
         public void UpdateFilePreview(int startAddress, int valueSize, byte[][] errors)

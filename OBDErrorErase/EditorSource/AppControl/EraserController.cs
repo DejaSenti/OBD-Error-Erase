@@ -13,11 +13,12 @@ namespace OBDErrorErase.EditorSource.AppControl
 
         public event Action? EraseCompleteEvent;
 
-        private EraserGUI eraserGUI;
+        private readonly EraserGUI eraserGUI;
 
-        private ProfileManager profileManager;
-        private BinaryFileManager binaryFileManager;
-        private List<string> presetNames;
+        private readonly ProfileManager profileManager;
+        private readonly BinaryFileManager binaryFileManager;
+
+        private readonly List<string> presetNames = new();
 
         public EraserController(EraserGUI eraserGUI)
         {
@@ -48,7 +49,7 @@ namespace OBDErrorErase.EditorSource.AppControl
         {
             var errorPresetFiles = AppFileHelper.GetAllFilesInAppSubFolder(AppFolderNames.PRESETS, AppFileExtension.txt);
 
-            presetNames = errorPresetFiles.Select(fileInfo => Path.GetFileNameWithoutExtension(fileInfo.Name)).ToList();
+            presetNames.AddRange(errorPresetFiles.Select(fileInfo => Path.GetFileNameWithoutExtension(fileInfo.Name)).ToList());
             eraserGUI.PopulateErrorPresetList(presetNames);
         }
 
@@ -78,7 +79,7 @@ namespace OBDErrorErase.EditorSource.AppControl
                 profileManager.CurrentProfile == null || 
                 profileManager.CurrentSubProfile == null)
             {
-                eraserGUI.OnInvalidErasingAttempt();
+                EraserGUI.OnInvalidErasingAttempt();
                 return;
             }
 
@@ -152,13 +153,7 @@ namespace OBDErrorErase.EditorSource.AppControl
 
         public void OnProfileUnloaded()
         {
-            eraserGUI.SetEraseButtonEnabled(false);
             eraserGUI.ClearMapControls();
-        }
-
-        public void OnEraseAvailable()
-        {
-            eraserGUI.SetEraseButtonEnabled(true);
         }
     }
 }

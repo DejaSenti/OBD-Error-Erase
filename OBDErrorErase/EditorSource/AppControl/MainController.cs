@@ -92,7 +92,10 @@ namespace OBDErrorErase.EditorSource.AppControl
             if (string.IsNullOrEmpty(profileID))
                 return;
 
-            var profile = profileManager.LoadProfile(profileID);
+            var profile = ProfileManager.LoadProfile(profileID);
+
+            if (profile == null)
+                return;
 
             profileManager.SetCurrentProfile(profile);
 
@@ -130,7 +133,6 @@ namespace OBDErrorErase.EditorSource.AppControl
             profileManager.SetCurrentSubprofile(subprofile);
             editorController.OnNewSubprofileLoaded();
             editorController.EnableAddressFields();
-            eraserController.OnEraseAvailable();
             UpdateFilePreview();
         }
 

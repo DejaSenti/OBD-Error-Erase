@@ -14,9 +14,9 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             ? null 
             : CurrentProfile.Subprofiles[CurrentSubProfileIndex];
 
-        private UniqueNameContainer nameContainer;
+        private readonly UniqueNameContainer nameContainer;
 
-        private Dictionary<string, int> fileCountByManufacturer = new();
+        private readonly Dictionary<string, int> fileCountByManufacturer = new();
 
         public IReadOnlyList<string> ProfileIDs => nameContainer.TakenNames;
 
@@ -37,6 +37,9 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
             foreach (var id in allProfileIDs)
             {
                 var profile = LoadProfile(id);
+
+                if (profile == null)
+                    continue;
 
                 var currentCount = fileCountByManufacturer.GetValueOrDefault(profile.Manufacturer);
 
@@ -92,21 +95,25 @@ namespace OBDErrorErase.EditorSource.ProfileManagement
         public void RemoveProfile(string id)
         {
             var profile = LoadProfile(id);
+
+            if (profile == null)
+            {
+                return;
+            }
+
             nameContainer.ReleaseNames(profile.ID);
             SubtractFromManufacturer(profile.Manufacturer);
             AppFileHelper.RemoveFile(AppFolderNames.PROFILES, profile.ID);
         }
 
-        public Profile LoadProfile(string id)
+        public static Profile? LoadProfile(string id)
         {
             var profileContents = AppFileHelper.LoadStringFile(AppFolderNames.PROFILES, id);
             var result = JsonSerializer.Deserialize<Profile>(profileContents);
-#pragma warning disable CS8603 // Possible null reference return. (should never be, LoadStringFile is safe in that regard, and if we crash, let us burrrrnnn)
             return result;
-#pragma warning restore CS8603 // Possible null reference return.
         }
 
-        public void SaveProfile(Profile profile, bool ignoreDirty = false)
+        public static void SaveProfile(Profile profile, bool ignoreDirty = false)
         {
             if (!ignoreDirty && !profile.IsDirty)
                 return;
