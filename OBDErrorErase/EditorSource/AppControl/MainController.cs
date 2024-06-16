@@ -6,11 +6,11 @@ namespace OBDErrorErase.EditorSource.AppControl
 {
     public class MainController
     {
-        private Main mainGUI;
-        private ProfileManager profileManager;
-        private BinaryFileManager binaryFileManager;
-        private EditorController editorController;
-        private EraserController eraserController;
+        private readonly Main mainGUI;
+        private readonly ProfileManager profileManager;
+        private readonly BinaryFileManager binaryFileManager;
+        private readonly EditorController editorController;
+        private readonly EraserController eraserController;
 
         public MainController(Main mainGUI, EditorController editorController, EraserController eraserController)
         {
@@ -49,9 +49,6 @@ namespace OBDErrorErase.EditorSource.AppControl
         private void OnProfileSaved()
         {
             OnProfileDBChanged();
-
-            editorController.OnNewProfileLoaded();
-            eraserController.OnNewProfileLoaded();
         }
 
         private void OnAddressChanged()
@@ -99,7 +96,6 @@ namespace OBDErrorErase.EditorSource.AppControl
 
             profileManager.SetCurrentProfile(profile);
 
-            editorController.OnNewProfileLoaded();
             eraserController.OnNewProfileLoaded();
 
             if (binaryFileManager.CurrentFile != null)
@@ -173,15 +169,7 @@ namespace OBDErrorErase.EditorSource.AppControl
 
         private void OnNewProfileRequested()
         {
-            var newProfile = profileManager.CreateNewProfile();
-
-            if (newProfile == null)
-                return;
-
-            profileManager.SetCurrentProfile(newProfile);
-
-            editorController.OnNewProfileCreated(newProfile);
-            
+            UnloadProfile();
             mainGUI.LoadEditorTab();
         }
 

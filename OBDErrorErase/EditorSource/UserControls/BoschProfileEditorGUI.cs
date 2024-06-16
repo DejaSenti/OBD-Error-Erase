@@ -17,7 +17,7 @@ namespace OBDErrorErase
         public event Action<int, string>? RequestAddressChangeEvent;
         public event Action<int>? RequestMapRemoveEvent;
 
-        private List<BoschMapEditorControl> controls;
+        private readonly List<BoschMapEditorControl> controls;
 
         public UserControl UserControl => this;
 

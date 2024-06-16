@@ -28,8 +28,10 @@ namespace OBDErrorErase
             EraserLabelMapSelect = new Label();
             EraserCheckBoxSelectAllMaps = new CheckBox();
             splitContainer13 = new SplitContainer();
+            splitContainer21 = new SplitContainer();
             EraserPanelMapSelector = new Panel();
             EraserTableLayoutMapSelector = new TableLayoutPanel();
+            EraserLabelErrorCounter = new Label();
             EraserButtonRun = new Button();
             EditorTabPage = new TabPage();
             splitContainer14 = new SplitContainer();
@@ -53,15 +55,12 @@ namespace OBDErrorErase
             EditorLabelProfileTypeSelect = new Label();
             EditorPanelEditFrame = new Panel();
             EditorButtonSaveProfile = new Button();
-            EraserLabelErrorCounter = new Label();
-            MainCheckboxFlipBytes = new CheckBox();
             MainDataGridFilePreview = new DataGridView();
             DataGridViewFilePreviewColumnAddress = new DataGridViewTextBoxColumn();
             DataGridViewFilePreviewColumnError = new DataGridViewTextBoxColumn();
             MainButtonFileBrowse = new Button();
             MainTextboxProfileFilter = new TextBox();
             MainListProfiles = new ListBox();
-            MainLabelPreviewFile = new Label();
             groupBox1 = new GroupBox();
             splitContainer3 = new SplitContainer();
             splitContainer4 = new SplitContainer();
@@ -72,6 +71,9 @@ namespace OBDErrorErase
             groupBox2 = new GroupBox();
             splitContainer6 = new SplitContainer();
             splitContainer5 = new SplitContainer();
+            splitContainer20 = new SplitContainer();
+            MainLabelPreviewFile = new Label();
+            MainCheckboxFlipBytes = new CheckBox();
             splitContainer7 = new SplitContainer();
             MainLabelLoadedBinaryFile = new Label();
             MainLabelBinaryFilename = new Label();
@@ -104,6 +106,10 @@ namespace OBDErrorErase
             splitContainer13.Panel1.SuspendLayout();
             splitContainer13.Panel2.SuspendLayout();
             splitContainer13.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer21).BeginInit();
+            splitContainer21.Panel1.SuspendLayout();
+            splitContainer21.Panel2.SuspendLayout();
+            splitContainer21.SuspendLayout();
             EraserPanelMapSelector.SuspendLayout();
             EditorTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer14).BeginInit();
@@ -152,6 +158,10 @@ namespace OBDErrorErase
             splitContainer5.Panel1.SuspendLayout();
             splitContainer5.Panel2.SuspendLayout();
             splitContainer5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer20).BeginInit();
+            splitContainer20.Panel1.SuspendLayout();
+            splitContainer20.Panel2.SuspendLayout();
+            splitContainer20.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer7).BeginInit();
             splitContainer7.Panel1.SuspendLayout();
             splitContainer7.Panel2.SuspendLayout();
@@ -175,7 +185,7 @@ namespace OBDErrorErase
             MainTabControl.Margin = new Padding(5);
             MainTabControl.Name = "MainTabControl";
             MainTabControl.SelectedIndex = 0;
-            MainTabControl.Size = new Size(614, 859);
+            MainTabControl.Size = new Size(538, 760);
             MainTabControl.TabIndex = 54;
             // 
             // EraserTabPage
@@ -185,7 +195,7 @@ namespace OBDErrorErase
             EraserTabPage.Location = new Point(4, 30);
             EraserTabPage.Name = "EraserTabPage";
             EraserTabPage.Padding = new Padding(3);
-            EraserTabPage.Size = new Size(606, 825);
+            EraserTabPage.Size = new Size(530, 726);
             EraserTabPage.TabIndex = 0;
             EraserTabPage.Text = "Erase Errors";
             // 
@@ -205,8 +215,8 @@ namespace OBDErrorErase
             // splitContainer8.Panel2
             // 
             splitContainer8.Panel2.Controls.Add(splitContainer12);
-            splitContainer8.Size = new Size(600, 819);
-            splitContainer8.SplitterDistance = 333;
+            splitContainer8.Size = new Size(524, 720);
+            splitContainer8.SplitterDistance = 286;
             splitContainer8.SplitterWidth = 20;
             splitContainer8.TabIndex = 0;
             // 
@@ -225,14 +235,14 @@ namespace OBDErrorErase
             // splitContainer9.Panel2
             // 
             splitContainer9.Panel2.Controls.Add(splitContainer11);
-            splitContainer9.Size = new Size(600, 333);
-            splitContainer9.SplitterDistance = 45;
+            splitContainer9.Size = new Size(524, 286);
+            splitContainer9.SplitterDistance = 35;
             splitContainer9.TabIndex = 0;
             // 
             // splitContainer10
             // 
             splitContainer10.Dock = DockStyle.Right;
-            splitContainer10.Location = new Point(474, 0);
+            splitContainer10.Location = new Point(398, 0);
             splitContainer10.Name = "splitContainer10";
             // 
             // splitContainer10.Panel1
@@ -242,7 +252,7 @@ namespace OBDErrorErase
             // splitContainer10.Panel2
             // 
             splitContainer10.Panel2.Controls.Add(EraserButtonRefreshPresetList);
-            splitContainer10.Size = new Size(126, 45);
+            splitContainer10.Size = new Size(126, 35);
             splitContainer10.SplitterDistance = 67;
             splitContainer10.TabIndex = 60;
             // 
@@ -267,7 +277,7 @@ namespace OBDErrorErase
             EraserButtonRefreshPresetList.Location = new Point(0, 0);
             EraserButtonRefreshPresetList.MinimumSize = new Size(32, 32);
             EraserButtonRefreshPresetList.Name = "EraserButtonRefreshPresetList";
-            EraserButtonRefreshPresetList.Size = new Size(55, 45);
+            EraserButtonRefreshPresetList.Size = new Size(55, 35);
             EraserButtonRefreshPresetList.TabIndex = 46;
             EraserButtonRefreshPresetList.UseVisualStyleBackColor = false;
             // 
@@ -275,7 +285,7 @@ namespace OBDErrorErase
             // 
             EraserLabelPresetSelect.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             EraserLabelPresetSelect.AutoSize = true;
-            EraserLabelPresetSelect.Location = new Point(1, 19);
+            EraserLabelPresetSelect.Location = new Point(1, 9);
             EraserLabelPresetSelect.Name = "EraserLabelPresetSelect";
             EraserLabelPresetSelect.Size = new Size(219, 21);
             EraserLabelPresetSelect.TabIndex = 48;
@@ -295,8 +305,8 @@ namespace OBDErrorErase
             // splitContainer11.Panel2
             // 
             splitContainer11.Panel2.Controls.Add(EraserTextboxErrorList);
-            splitContainer11.Size = new Size(600, 284);
-            splitContainer11.SplitterDistance = 202;
+            splitContainer11.Size = new Size(524, 247);
+            splitContainer11.SplitterDistance = 173;
             splitContainer11.TabIndex = 0;
             // 
             // EraserPanelErrorPresets
@@ -310,7 +320,7 @@ namespace OBDErrorErase
             EraserPanelErrorPresets.Dock = DockStyle.Fill;
             EraserPanelErrorPresets.Location = new Point(0, 0);
             EraserPanelErrorPresets.Name = "EraserPanelErrorPresets";
-            EraserPanelErrorPresets.Size = new Size(600, 202);
+            EraserPanelErrorPresets.Size = new Size(524, 173);
             EraserPanelErrorPresets.TabIndex = 50;
             // 
             // EraserTableLayoutErrorPresets
@@ -323,14 +333,13 @@ namespace OBDErrorErase
             EraserTableLayoutErrorPresets.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             EraserTableLayoutErrorPresets.Dock = DockStyle.Top;
             EraserTableLayoutErrorPresets.Location = new Point(0, 0);
-            EraserTableLayoutErrorPresets.MaximumSize = new Size(300, 0);
             EraserTableLayoutErrorPresets.MinimumSize = new Size(300, 25);
             EraserTableLayoutErrorPresets.Name = "EraserTableLayoutErrorPresets";
             EraserTableLayoutErrorPresets.Padding = new Padding(0, 3, 0, 3);
             EraserTableLayoutErrorPresets.RowCount = 1;
             EraserTableLayoutErrorPresets.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             EraserTableLayoutErrorPresets.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            EraserTableLayoutErrorPresets.Size = new Size(300, 25);
+            EraserTableLayoutErrorPresets.Size = new Size(522, 25);
             EraserTableLayoutErrorPresets.TabIndex = 42;
             // 
             // EraserTextboxErrorList
@@ -341,7 +350,7 @@ namespace OBDErrorErase
             EraserTextboxErrorList.Name = "EraserTextboxErrorList";
             EraserTextboxErrorList.PlaceholderText = "Enter a list of errors, separated by commas (e.g. a1c7, 1600, 8461, e56f...):";
             EraserTextboxErrorList.ScrollBars = ScrollBars.Vertical;
-            EraserTextboxErrorList.Size = new Size(600, 78);
+            EraserTextboxErrorList.Size = new Size(524, 70);
             EraserTextboxErrorList.TabIndex = 49;
             // 
             // splitContainer12
@@ -359,8 +368,8 @@ namespace OBDErrorErase
             // splitContainer12.Panel2
             // 
             splitContainer12.Panel2.Controls.Add(splitContainer13);
-            splitContainer12.Size = new Size(600, 466);
-            splitContainer12.SplitterDistance = 35;
+            splitContainer12.Size = new Size(524, 414);
+            splitContainer12.SplitterDistance = 27;
             splitContainer12.TabIndex = 0;
             // 
             // EraserLabelMapSelect
@@ -377,7 +386,7 @@ namespace OBDErrorErase
             // 
             EraserCheckBoxSelectAllMaps.AutoSize = true;
             EraserCheckBoxSelectAllMaps.Dock = DockStyle.Right;
-            EraserCheckBoxSelectAllMaps.Location = new Point(508, 0);
+            EraserCheckBoxSelectAllMaps.Location = new Point(432, 0);
             EraserCheckBoxSelectAllMaps.MaximumSize = new Size(0, 21);
             EraserCheckBoxSelectAllMaps.Name = "EraserCheckBoxSelectAllMaps";
             EraserCheckBoxSelectAllMaps.Size = new Size(92, 21);
@@ -395,15 +404,33 @@ namespace OBDErrorErase
             // 
             // splitContainer13.Panel1
             // 
-            splitContainer13.Panel1.Controls.Add(EraserPanelMapSelector);
+            splitContainer13.Panel1.Controls.Add(splitContainer21);
             // 
             // splitContainer13.Panel2
             // 
             splitContainer13.Panel2.Controls.Add(EraserButtonRun);
             splitContainer13.Panel2MinSize = 70;
-            splitContainer13.Size = new Size(600, 427);
-            splitContainer13.SplitterDistance = 353;
+            splitContainer13.Size = new Size(524, 383);
+            splitContainer13.SplitterDistance = 300;
             splitContainer13.TabIndex = 0;
+            // 
+            // splitContainer21
+            // 
+            splitContainer21.Dock = DockStyle.Fill;
+            splitContainer21.Location = new Point(0, 0);
+            splitContainer21.Name = "splitContainer21";
+            splitContainer21.Orientation = Orientation.Horizontal;
+            // 
+            // splitContainer21.Panel1
+            // 
+            splitContainer21.Panel1.Controls.Add(EraserPanelMapSelector);
+            // 
+            // splitContainer21.Panel2
+            // 
+            splitContainer21.Panel2.Controls.Add(EraserLabelErrorCounter);
+            splitContainer21.Size = new Size(524, 300);
+            splitContainer21.SplitterDistance = 268;
+            splitContainer21.TabIndex = 0;
             // 
             // EraserPanelMapSelector
             // 
@@ -416,7 +443,7 @@ namespace OBDErrorErase
             EraserPanelMapSelector.Dock = DockStyle.Fill;
             EraserPanelMapSelector.Location = new Point(0, 0);
             EraserPanelMapSelector.Name = "EraserPanelMapSelector";
-            EraserPanelMapSelector.Size = new Size(600, 353);
+            EraserPanelMapSelector.Size = new Size(524, 268);
             EraserPanelMapSelector.TabIndex = 51;
             // 
             // EraserTableLayoutMapSelector
@@ -435,8 +462,17 @@ namespace OBDErrorErase
             EraserTableLayoutMapSelector.RowCount = 1;
             EraserTableLayoutMapSelector.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             EraserTableLayoutMapSelector.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            EraserTableLayoutMapSelector.Size = new Size(598, 25);
+            EraserTableLayoutMapSelector.Size = new Size(522, 25);
             EraserTableLayoutMapSelector.TabIndex = 42;
+            // 
+            // EraserLabelErrorCounter
+            // 
+            EraserLabelErrorCounter.Dock = DockStyle.Fill;
+            EraserLabelErrorCounter.Location = new Point(0, 0);
+            EraserLabelErrorCounter.Name = "EraserLabelErrorCounter";
+            EraserLabelErrorCounter.Size = new Size(524, 28);
+            EraserLabelErrorCounter.TabIndex = 45;
+            EraserLabelErrorCounter.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // EraserButtonRun
             // 
@@ -448,7 +484,7 @@ namespace OBDErrorErase
             EraserButtonRun.Location = new Point(0, 0);
             EraserButtonRun.MinimumSize = new Size(0, 70);
             EraserButtonRun.Name = "EraserButtonRun";
-            EraserButtonRun.Size = new Size(600, 70);
+            EraserButtonRun.Size = new Size(524, 79);
             EraserButtonRun.TabIndex = 44;
             EraserButtonRun.Text = "Erase Errors";
             EraserButtonRun.UseVisualStyleBackColor = false;
@@ -459,7 +495,7 @@ namespace OBDErrorErase
             EditorTabPage.Location = new Point(4, 30);
             EditorTabPage.Name = "EditorTabPage";
             EditorTabPage.Padding = new Padding(3);
-            EditorTabPage.Size = new Size(606, 825);
+            EditorTabPage.Size = new Size(530, 726);
             EditorTabPage.TabIndex = 1;
             EditorTabPage.Text = "Edit Profiles";
             EditorTabPage.UseVisualStyleBackColor = true;
@@ -478,8 +514,8 @@ namespace OBDErrorErase
             // splitContainer14.Panel2
             // 
             splitContainer14.Panel2.Controls.Add(splitContainer15);
-            splitContainer14.Size = new Size(600, 819);
-            splitContainer14.SplitterDistance = 197;
+            splitContainer14.Size = new Size(524, 720);
+            splitContainer14.SplitterDistance = 170;
             splitContainer14.SplitterWidth = 10;
             splitContainer14.TabIndex = 0;
             // 
@@ -496,8 +532,8 @@ namespace OBDErrorErase
             // splitContainer17.Panel2
             // 
             splitContainer17.Panel2.Controls.Add(splitContainer18);
-            splitContainer17.Size = new Size(600, 197);
-            splitContainer17.SplitterDistance = 300;
+            splitContainer17.Size = new Size(524, 170);
+            splitContainer17.SplitterDistance = 260;
             splitContainer17.SplitterWidth = 8;
             splitContainer17.TabIndex = 0;
             // 
@@ -519,7 +555,7 @@ namespace OBDErrorErase
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 21.0526314F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 15.7894735F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 21.0526314F));
-            tableLayoutPanel2.Size = new Size(300, 197);
+            tableLayoutPanel2.Size = new Size(260, 170);
             tableLayoutPanel2.TabIndex = 0;
             // 
             // EditorLabelProfileSettings
@@ -529,7 +565,7 @@ namespace OBDErrorErase
             EditorLabelProfileSettings.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             EditorLabelProfileSettings.Location = new Point(3, 0);
             EditorLabelProfileSettings.Name = "EditorLabelProfileSettings";
-            EditorLabelProfileSettings.Size = new Size(294, 15);
+            EditorLabelProfileSettings.Size = new Size(254, 15);
             EditorLabelProfileSettings.TabIndex = 49;
             EditorLabelProfileSettings.Text = "Profile Settings:";
             // 
@@ -537,9 +573,9 @@ namespace OBDErrorErase
             // 
             EditorLabelManufacturer.AutoSize = true;
             EditorLabelManufacturer.Dock = DockStyle.Bottom;
-            EditorLabelManufacturer.Location = new Point(3, 61);
+            EditorLabelManufacturer.Location = new Point(3, 49);
             EditorLabelManufacturer.Name = "EditorLabelManufacturer";
-            EditorLabelManufacturer.Size = new Size(294, 21);
+            EditorLabelManufacturer.Size = new Size(254, 21);
             EditorLabelManufacturer.TabIndex = 45;
             EditorLabelManufacturer.Text = "Manufacturer:";
             // 
@@ -549,9 +585,9 @@ namespace OBDErrorErase
             EditorDropdownManufacturer.AutoCompleteSource = AutoCompleteSource.ListItems;
             EditorDropdownManufacturer.Dock = DockStyle.Top;
             EditorDropdownManufacturer.FormattingEnabled = true;
-            EditorDropdownManufacturer.Location = new Point(3, 85);
+            EditorDropdownManufacturer.Location = new Point(3, 73);
             EditorDropdownManufacturer.Name = "EditorDropdownManufacturer";
-            EditorDropdownManufacturer.Size = new Size(294, 29);
+            EditorDropdownManufacturer.Size = new Size(254, 29);
             EditorDropdownManufacturer.TabIndex = 35;
             EditorDropdownManufacturer.Text = "Select Manufacturer...";
             // 
@@ -559,19 +595,19 @@ namespace OBDErrorErase
             // 
             EditorLabelName.AutoSize = true;
             EditorLabelName.Dock = DockStyle.Bottom;
-            EditorLabelName.Location = new Point(3, 133);
+            EditorLabelName.Location = new Point(3, 110);
             EditorLabelName.Name = "EditorLabelName";
-            EditorLabelName.Size = new Size(294, 21);
+            EditorLabelName.Size = new Size(254, 21);
             EditorLabelName.TabIndex = 46;
             EditorLabelName.Text = "Computer Model:";
             // 
             // EditorTextBoxComputerName
             // 
             EditorTextBoxComputerName.Dock = DockStyle.Top;
-            EditorTextBoxComputerName.Location = new Point(3, 157);
+            EditorTextBoxComputerName.Location = new Point(3, 134);
             EditorTextBoxComputerName.Name = "EditorTextBoxComputerName";
             EditorTextBoxComputerName.PlaceholderText = "Enter computer name...";
-            EditorTextBoxComputerName.Size = new Size(294, 29);
+            EditorTextBoxComputerName.Size = new Size(254, 29);
             EditorTextBoxComputerName.TabIndex = 36;
             // 
             // splitContainer18
@@ -589,14 +625,14 @@ namespace OBDErrorErase
             // splitContainer18.Panel2
             // 
             splitContainer18.Panel2.Controls.Add(EditorListSubprofiles);
-            splitContainer18.Size = new Size(292, 197);
-            splitContainer18.SplitterDistance = 58;
+            splitContainer18.Size = new Size(256, 170);
+            splitContainer18.SplitterDistance = 85;
             splitContainer18.TabIndex = 0;
             // 
             // splitContainer19
             // 
             splitContainer19.Dock = DockStyle.Right;
-            splitContainer19.Location = new Point(202, 0);
+            splitContainer19.Location = new Point(166, 0);
             splitContainer19.Name = "splitContainer19";
             // 
             // splitContainer19.Panel1
@@ -606,7 +642,7 @@ namespace OBDErrorErase
             // splitContainer19.Panel2
             // 
             splitContainer19.Panel2.Controls.Add(EditorButtonRemoveSubProfile);
-            splitContainer19.Size = new Size(90, 58);
+            splitContainer19.Size = new Size(90, 85);
             splitContainer19.SplitterDistance = 44;
             splitContainer19.TabIndex = 0;
             // 
@@ -622,7 +658,7 @@ namespace OBDErrorErase
             EditorButtonDuplicateSubProfile.Margin = new Padding(30, 15, 30, 15);
             EditorButtonDuplicateSubProfile.MinimumSize = new Size(36, 36);
             EditorButtonDuplicateSubProfile.Name = "EditorButtonDuplicateSubProfile";
-            EditorButtonDuplicateSubProfile.Size = new Size(44, 58);
+            EditorButtonDuplicateSubProfile.Size = new Size(44, 85);
             EditorButtonDuplicateSubProfile.TabIndex = 50;
             EditorButtonDuplicateSubProfile.UseVisualStyleBackColor = false;
             // 
@@ -638,7 +674,7 @@ namespace OBDErrorErase
             EditorButtonRemoveSubProfile.Margin = new Padding(30, 15, 30, 15);
             EditorButtonRemoveSubProfile.MinimumSize = new Size(36, 36);
             EditorButtonRemoveSubProfile.Name = "EditorButtonRemoveSubProfile";
-            EditorButtonRemoveSubProfile.Size = new Size(42, 58);
+            EditorButtonRemoveSubProfile.Size = new Size(42, 85);
             EditorButtonRemoveSubProfile.TabIndex = 51;
             EditorButtonRemoveSubProfile.UseVisualStyleBackColor = false;
             // 
@@ -647,7 +683,7 @@ namespace OBDErrorErase
             EditorLabelSubprofiles.Anchor = AnchorStyles.Left;
             EditorLabelSubprofiles.AutoSize = true;
             EditorLabelSubprofiles.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            EditorLabelSubprofiles.Location = new Point(3, 23);
+            EditorLabelSubprofiles.Location = new Point(3, 36);
             EditorLabelSubprofiles.Name = "EditorLabelSubprofiles";
             EditorLabelSubprofiles.Size = new Size(73, 15);
             EditorLabelSubprofiles.TabIndex = 47;
@@ -661,7 +697,7 @@ namespace OBDErrorErase
             EditorListSubprofiles.ItemHeight = 21;
             EditorListSubprofiles.Location = new Point(0, 0);
             EditorListSubprofiles.Name = "EditorListSubprofiles";
-            EditorListSubprofiles.Size = new Size(292, 135);
+            EditorListSubprofiles.Size = new Size(256, 81);
             EditorListSubprofiles.Sorted = true;
             EditorListSubprofiles.TabIndex = 37;
             // 
@@ -681,8 +717,8 @@ namespace OBDErrorErase
             // 
             splitContainer15.Panel2.Controls.Add(EditorButtonSaveProfile);
             splitContainer15.Panel2MinSize = 70;
-            splitContainer15.Size = new Size(600, 612);
-            splitContainer15.SplitterDistance = 537;
+            splitContainer15.Size = new Size(524, 540);
+            splitContainer15.SplitterDistance = 465;
             splitContainer15.TabIndex = 0;
             // 
             // EditorGroupBox
@@ -692,7 +728,7 @@ namespace OBDErrorErase
             EditorGroupBox.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             EditorGroupBox.Location = new Point(0, 0);
             EditorGroupBox.Name = "EditorGroupBox";
-            EditorGroupBox.Size = new Size(600, 537);
+            EditorGroupBox.Size = new Size(524, 465);
             EditorGroupBox.TabIndex = 52;
             EditorGroupBox.TabStop = false;
             EditorGroupBox.Text = "Editor";
@@ -713,7 +749,7 @@ namespace OBDErrorErase
             // splitContainer16.Panel2
             // 
             splitContainer16.Panel2.Controls.Add(EditorPanelEditFrame);
-            splitContainer16.Size = new Size(594, 515);
+            splitContainer16.Size = new Size(518, 443);
             splitContainer16.SplitterDistance = 25;
             splitContainer16.TabIndex = 0;
             // 
@@ -722,7 +758,7 @@ namespace OBDErrorErase
             EditorComboBoxProfileType.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             EditorComboBoxProfileType.DropDownStyle = ComboBoxStyle.DropDownList;
             EditorComboBoxProfileType.FormattingEnabled = true;
-            EditorComboBoxProfileType.Location = new Point(415, 2);
+            EditorComboBoxProfileType.Location = new Point(339, 2);
             EditorComboBoxProfileType.Name = "EditorComboBoxProfileType";
             EditorComboBoxProfileType.Size = new Size(179, 23);
             EditorComboBoxProfileType.TabIndex = 42;
@@ -743,7 +779,7 @@ namespace OBDErrorErase
             EditorPanelEditFrame.Dock = DockStyle.Fill;
             EditorPanelEditFrame.Location = new Point(0, 0);
             EditorPanelEditFrame.Name = "EditorPanelEditFrame";
-            EditorPanelEditFrame.Size = new Size(594, 486);
+            EditorPanelEditFrame.Size = new Size(518, 414);
             EditorPanelEditFrame.TabIndex = 43;
             // 
             // EditorButtonSaveProfile
@@ -756,30 +792,10 @@ namespace OBDErrorErase
             EditorButtonSaveProfile.Location = new Point(0, 0);
             EditorButtonSaveProfile.MinimumSize = new Size(0, 70);
             EditorButtonSaveProfile.Name = "EditorButtonSaveProfile";
-            EditorButtonSaveProfile.Size = new Size(600, 71);
+            EditorButtonSaveProfile.Size = new Size(524, 71);
             EditorButtonSaveProfile.TabIndex = 53;
             EditorButtonSaveProfile.Text = "Save Profile";
             EditorButtonSaveProfile.UseVisualStyleBackColor = false;
-            // 
-            // EraserLabelErrorCounter
-            // 
-            EraserLabelErrorCounter.Location = new Point(1102, 715);
-            EraserLabelErrorCounter.Name = "EraserLabelErrorCounter";
-            EraserLabelErrorCounter.Size = new Size(300, 31);
-            EraserLabelErrorCounter.TabIndex = 45;
-            EraserLabelErrorCounter.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // MainCheckboxFlipBytes
-            // 
-            MainCheckboxFlipBytes.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            MainCheckboxFlipBytes.AutoSize = true;
-            MainCheckboxFlipBytes.Location = new Point(321, 63);
-            MainCheckboxFlipBytes.Name = "MainCheckboxFlipBytes";
-            MainCheckboxFlipBytes.Size = new Size(79, 19);
-            MainCheckboxFlipBytes.TabIndex = 40;
-            MainCheckboxFlipBytes.Text = "Flip Bytes";
-            MainCheckboxFlipBytes.TextAlign = ContentAlignment.MiddleRight;
-            MainCheckboxFlipBytes.UseVisualStyleBackColor = true;
             // 
             // MainDataGridFilePreview
             // 
@@ -803,7 +819,7 @@ namespace OBDErrorErase
             MainDataGridFilePreview.RowTemplate.ReadOnly = true;
             MainDataGridFilePreview.RowTemplate.Resizable = DataGridViewTriState.False;
             MainDataGridFilePreview.SelectionMode = DataGridViewSelectionMode.CellSelect;
-            MainDataGridFilePreview.Size = new Size(400, 640);
+            MainDataGridFilePreview.Size = new Size(302, 568);
             MainDataGridFilePreview.TabIndex = 52;
             // 
             // DataGridViewFilePreviewColumnAddress
@@ -832,7 +848,7 @@ namespace OBDErrorErase
             MainButtonFileBrowse.Location = new Point(0, 0);
             MainButtonFileBrowse.MinimumSize = new Size(36, 36);
             MainButtonFileBrowse.Name = "MainButtonFileBrowse";
-            MainButtonFileBrowse.Size = new Size(400, 91);
+            MainButtonFileBrowse.Size = new Size(302, 80);
             MainButtonFileBrowse.TabIndex = 50;
             MainButtonFileBrowse.UseVisualStyleBackColor = false;
             // 
@@ -840,10 +856,10 @@ namespace OBDErrorErase
             // 
             MainTextboxProfileFilter.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             MainTextboxProfileFilter.Dock = DockStyle.Bottom;
-            MainTextboxProfileFilter.Location = new Point(0, 59);
+            MainTextboxProfileFilter.Location = new Point(0, 51);
             MainTextboxProfileFilter.Name = "MainTextboxProfileFilter";
             MainTextboxProfileFilter.PlaceholderText = "Filter profiles...";
-            MainTextboxProfileFilter.Size = new Size(411, 23);
+            MainTextboxProfileFilter.Size = new Size(312, 23);
             MainTextboxProfileFilter.TabIndex = 49;
             // 
             // MainListProfiles
@@ -854,18 +870,8 @@ namespace OBDErrorErase
             MainListProfiles.ItemHeight = 15;
             MainListProfiles.Location = new Point(0, 0);
             MainListProfiles.Name = "MainListProfiles";
-            MainListProfiles.Size = new Size(411, 640);
+            MainListProfiles.Size = new Size(312, 568);
             MainListProfiles.TabIndex = 48;
-            // 
-            // MainLabelPreviewFile
-            // 
-            MainLabelPreviewFile.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            MainLabelPreviewFile.Location = new Point(3, 47);
-            MainLabelPreviewFile.Name = "MainLabelPreviewFile";
-            MainLabelPreviewFile.Size = new Size(112, 24);
-            MainLabelPreviewFile.TabIndex = 55;
-            MainLabelPreviewFile.Text = "Preview:";
-            MainLabelPreviewFile.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // groupBox1
             // 
@@ -875,7 +881,7 @@ namespace OBDErrorErase
             groupBox1.Location = new Point(0, 0);
             groupBox1.Margin = new Padding(5);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(417, 859);
+            groupBox1.Size = new Size(318, 760);
             groupBox1.TabIndex = 49;
             groupBox1.TabStop = false;
             groupBox1.Text = "Profiles";
@@ -883,6 +889,7 @@ namespace OBDErrorErase
             // splitContainer3
             // 
             splitContainer3.Dock = DockStyle.Fill;
+            splitContainer3.FixedPanel = FixedPanel.Panel1;
             splitContainer3.Location = new Point(3, 19);
             splitContainer3.Name = "splitContainer3";
             splitContainer3.Orientation = Orientation.Horizontal;
@@ -894,8 +901,8 @@ namespace OBDErrorErase
             // splitContainer3.Panel2
             // 
             splitContainer3.Panel2.Controls.Add(MainListProfiles);
-            splitContainer3.Size = new Size(411, 837);
-            splitContainer3.SplitterDistance = 187;
+            splitContainer3.Size = new Size(312, 738);
+            splitContainer3.SplitterDistance = 160;
             splitContainer3.SplitterWidth = 10;
             splitContainer3.TabIndex = 59;
             // 
@@ -916,8 +923,8 @@ namespace OBDErrorErase
             splitContainer4.Panel2.Controls.Add(MainTextboxProfileFilter);
             splitContainer4.Panel2.Padding = new Padding(0, 0, 0, 10);
             splitContainer4.Panel2MinSize = 0;
-            splitContainer4.Size = new Size(411, 187);
-            splitContainer4.SplitterDistance = 91;
+            splitContainer4.Size = new Size(312, 160);
+            splitContainer4.SplitterDistance = 72;
             splitContainer4.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -934,7 +941,7 @@ namespace OBDErrorErase
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(411, 91);
+            tableLayoutPanel1.Size = new Size(312, 72);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // MainButtonDuplicateProfile
@@ -945,12 +952,12 @@ namespace OBDErrorErase
             MainButtonDuplicateProfile.Dock = DockStyle.Fill;
             MainButtonDuplicateProfile.FlatAppearance.BorderSize = 0;
             MainButtonDuplicateProfile.FlatStyle = FlatStyle.Flat;
-            MainButtonDuplicateProfile.Location = new Point(156, 5);
+            MainButtonDuplicateProfile.Location = new Point(123, 5);
             MainButtonDuplicateProfile.Margin = new Padding(20, 5, 20, 5);
             MainButtonDuplicateProfile.MinimumSize = new Size(36, 36);
             MainButtonDuplicateProfile.Name = "MainButtonDuplicateProfile";
             MainButtonDuplicateProfile.Padding = new Padding(20, 0, 20, 0);
-            MainButtonDuplicateProfile.Size = new Size(97, 81);
+            MainButtonDuplicateProfile.Size = new Size(64, 62);
             MainButtonDuplicateProfile.TabIndex = 44;
             MainButtonDuplicateProfile.UseVisualStyleBackColor = false;
             // 
@@ -967,7 +974,7 @@ namespace OBDErrorErase
             MainButtonNewProfile.MinimumSize = new Size(36, 36);
             MainButtonNewProfile.Name = "MainButtonNewProfile";
             MainButtonNewProfile.Padding = new Padding(20);
-            MainButtonNewProfile.Size = new Size(96, 81);
+            MainButtonNewProfile.Size = new Size(63, 62);
             MainButtonNewProfile.TabIndex = 43;
             MainButtonNewProfile.UseVisualStyleBackColor = false;
             // 
@@ -979,11 +986,11 @@ namespace OBDErrorErase
             MainButtonRemoveProfile.Dock = DockStyle.Fill;
             MainButtonRemoveProfile.FlatAppearance.BorderSize = 0;
             MainButtonRemoveProfile.FlatStyle = FlatStyle.Flat;
-            MainButtonRemoveProfile.Location = new Point(293, 5);
+            MainButtonRemoveProfile.Location = new Point(227, 5);
             MainButtonRemoveProfile.Margin = new Padding(20, 5, 20, 5);
             MainButtonRemoveProfile.MinimumSize = new Size(36, 36);
             MainButtonRemoveProfile.Name = "MainButtonRemoveProfile";
-            MainButtonRemoveProfile.Size = new Size(98, 81);
+            MainButtonRemoveProfile.Size = new Size(65, 62);
             MainButtonRemoveProfile.TabIndex = 45;
             MainButtonRemoveProfile.UseVisualStyleBackColor = false;
             // 
@@ -995,7 +1002,7 @@ namespace OBDErrorErase
             groupBox2.Location = new Point(0, 0);
             groupBox2.Margin = new Padding(5);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(406, 859);
+            groupBox2.Size = new Size(308, 760);
             groupBox2.TabIndex = 58;
             groupBox2.TabStop = false;
             groupBox2.Text = "Binary File";
@@ -1003,6 +1010,7 @@ namespace OBDErrorErase
             // splitContainer6
             // 
             splitContainer6.Dock = DockStyle.Fill;
+            splitContainer6.FixedPanel = FixedPanel.Panel1;
             splitContainer6.Location = new Point(3, 19);
             splitContainer6.Name = "splitContainer6";
             splitContainer6.Orientation = Orientation.Horizontal;
@@ -1010,12 +1018,13 @@ namespace OBDErrorErase
             // splitContainer6.Panel1
             // 
             splitContainer6.Panel1.Controls.Add(splitContainer5);
+            splitContainer6.Panel1MinSize = 130;
             // 
             // splitContainer6.Panel2
             // 
             splitContainer6.Panel2.Controls.Add(MainDataGridFilePreview);
-            splitContainer6.Size = new Size(400, 837);
-            splitContainer6.SplitterDistance = 187;
+            splitContainer6.Size = new Size(302, 738);
+            splitContainer6.SplitterDistance = 160;
             splitContainer6.SplitterWidth = 10;
             splitContainer6.TabIndex = 60;
             // 
@@ -1023,6 +1032,7 @@ namespace OBDErrorErase
             // 
             splitContainer5.Dock = DockStyle.Fill;
             splitContainer5.Location = new Point(0, 0);
+            splitContainer5.MinimumSize = new Size(300, 160);
             splitContainer5.Name = "splitContainer5";
             splitContainer5.Orientation = Orientation.Horizontal;
             // 
@@ -1033,13 +1043,53 @@ namespace OBDErrorErase
             // 
             // splitContainer5.Panel2
             // 
+            splitContainer5.Panel2.Controls.Add(splitContainer20);
             splitContainer5.Panel2.Controls.Add(splitContainer7);
-            splitContainer5.Panel2.Controls.Add(MainLabelPreviewFile);
-            splitContainer5.Panel2.Controls.Add(MainCheckboxFlipBytes);
-            splitContainer5.Panel2MinSize = 80;
-            splitContainer5.Size = new Size(400, 187);
-            splitContainer5.SplitterDistance = 91;
+            splitContainer5.Size = new Size(302, 160);
+            splitContainer5.SplitterDistance = 80;
             splitContainer5.TabIndex = 0;
+            // 
+            // splitContainer20
+            // 
+            splitContainer20.Dock = DockStyle.Bottom;
+            splitContainer20.Location = new Point(0, 57);
+            splitContainer20.Name = "splitContainer20";
+            // 
+            // splitContainer20.Panel1
+            // 
+            splitContainer20.Panel1.Controls.Add(MainLabelPreviewFile);
+            // 
+            // splitContainer20.Panel2
+            // 
+            splitContainer20.Panel2.Controls.Add(MainCheckboxFlipBytes);
+            splitContainer20.Panel2MinSize = 20;
+            splitContainer20.Size = new Size(302, 19);
+            splitContainer20.SplitterDistance = 216;
+            splitContainer20.TabIndex = 61;
+            // 
+            // MainLabelPreviewFile
+            // 
+            MainLabelPreviewFile.Dock = DockStyle.Bottom;
+            MainLabelPreviewFile.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            MainLabelPreviewFile.Location = new Point(0, 0);
+            MainLabelPreviewFile.Name = "MainLabelPreviewFile";
+            MainLabelPreviewFile.Size = new Size(216, 19);
+            MainLabelPreviewFile.TabIndex = 55;
+            MainLabelPreviewFile.Text = "Preview:";
+            MainLabelPreviewFile.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // MainCheckboxFlipBytes
+            // 
+            MainCheckboxFlipBytes.AutoSize = true;
+            MainCheckboxFlipBytes.Dock = DockStyle.Bottom;
+            MainCheckboxFlipBytes.Location = new Point(0, 0);
+            MainCheckboxFlipBytes.MinimumSize = new Size(87, 19);
+            MainCheckboxFlipBytes.Name = "MainCheckboxFlipBytes";
+            MainCheckboxFlipBytes.Size = new Size(87, 19);
+            MainCheckboxFlipBytes.TabIndex = 41;
+            MainCheckboxFlipBytes.Text = "Flip Bytes";
+            MainCheckboxFlipBytes.TextAlign = ContentAlignment.MiddleRight;
+            MainCheckboxFlipBytes.UseVisualStyleBackColor = true;
             // 
             // splitContainer7
             // 
@@ -1055,8 +1105,8 @@ namespace OBDErrorErase
             // splitContainer7.Panel2
             // 
             splitContainer7.Panel2.Controls.Add(MainLabelBinaryFilename);
-            splitContainer7.Size = new Size(400, 30);
-            splitContainer7.SplitterDistance = 126;
+            splitContainer7.Size = new Size(302, 30);
+            splitContainer7.SplitterDistance = 93;
             splitContainer7.TabIndex = 60;
             // 
             // MainLabelLoadedBinaryFile
@@ -1065,7 +1115,7 @@ namespace OBDErrorErase
             MainLabelLoadedBinaryFile.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             MainLabelLoadedBinaryFile.Location = new Point(0, 0);
             MainLabelLoadedBinaryFile.Name = "MainLabelLoadedBinaryFile";
-            MainLabelLoadedBinaryFile.Size = new Size(126, 30);
+            MainLabelLoadedBinaryFile.Size = new Size(93, 30);
             MainLabelLoadedBinaryFile.TabIndex = 57;
             MainLabelLoadedBinaryFile.Text = "Loaded Binary:";
             MainLabelLoadedBinaryFile.TextAlign = ContentAlignment.MiddleLeft;
@@ -1076,26 +1126,28 @@ namespace OBDErrorErase
             MainLabelBinaryFilename.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             MainLabelBinaryFilename.Location = new Point(0, 0);
             MainLabelBinaryFilename.Name = "MainLabelBinaryFilename";
-            MainLabelBinaryFilename.Size = new Size(270, 30);
+            MainLabelBinaryFilename.Size = new Size(205, 30);
             MainLabelBinaryFilename.TabIndex = 51;
-            MainLabelBinaryFilename.Text = "cfxhbxbxb";
+            MainLabelBinaryFilename.Text = "filename.bin";
             MainLabelBinaryFilename.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // splitContainer1
             // 
             splitContainer1.Dock = DockStyle.Fill;
+            splitContainer1.FixedPanel = FixedPanel.Panel1;
             splitContainer1.Location = new Point(0, 0);
             splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
             splitContainer1.Panel1.Controls.Add(splitContainer2);
+            splitContainer1.Panel1MinSize = 600;
             // 
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.Controls.Add(MainTabControl);
-            splitContainer1.Size = new Size(1457, 859);
-            splitContainer1.SplitterDistance = 833;
+            splitContainer1.Size = new Size(1184, 760);
+            splitContainer1.SplitterDistance = 636;
             splitContainer1.SplitterWidth = 10;
             splitContainer1.TabIndex = 59;
             // 
@@ -1108,20 +1160,22 @@ namespace OBDErrorErase
             // splitContainer2.Panel1
             // 
             splitContainer2.Panel1.Controls.Add(groupBox1);
+            splitContainer2.Panel1MinSize = 300;
             // 
             // splitContainer2.Panel2
             // 
             splitContainer2.Panel2.Controls.Add(groupBox2);
-            splitContainer2.Size = new Size(833, 859);
-            splitContainer2.SplitterDistance = 417;
+            splitContainer2.Panel2MinSize = 300;
+            splitContainer2.Size = new Size(636, 760);
+            splitContainer2.SplitterDistance = 318;
             splitContainer2.SplitterWidth = 10;
             splitContainer2.TabIndex = 0;
             // 
             // Main
             // 
-            ClientSize = new Size(1457, 859);
+            AutoScroll = true;
+            ClientSize = new Size(1184, 760);
             Controls.Add(splitContainer1);
-            Controls.Add(EraserLabelErrorCounter);
             Name = "Main";
             Text = "OBD Error Erase";
             MainTabControl.ResumeLayout(false);
@@ -1156,6 +1210,10 @@ namespace OBDErrorErase
             splitContainer13.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer13).EndInit();
             splitContainer13.ResumeLayout(false);
+            splitContainer21.Panel1.ResumeLayout(false);
+            splitContainer21.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)splitContainer21).EndInit();
+            splitContainer21.ResumeLayout(false);
             EraserPanelMapSelector.ResumeLayout(false);
             EraserPanelMapSelector.PerformLayout();
             EditorTabPage.ResumeLayout(false);
@@ -1207,9 +1265,13 @@ namespace OBDErrorErase
             splitContainer6.ResumeLayout(false);
             splitContainer5.Panel1.ResumeLayout(false);
             splitContainer5.Panel2.ResumeLayout(false);
-            splitContainer5.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer5).EndInit();
             splitContainer5.ResumeLayout(false);
+            splitContainer20.Panel1.ResumeLayout(false);
+            splitContainer20.Panel2.ResumeLayout(false);
+            splitContainer20.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer20).EndInit();
+            splitContainer20.ResumeLayout(false);
             splitContainer7.Panel1.ResumeLayout(false);
             splitContainer7.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer7).EndInit();

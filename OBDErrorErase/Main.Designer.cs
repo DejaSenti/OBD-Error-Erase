@@ -28,7 +28,6 @@
         public Label EraserLabelErrorCounter;
         public Button EraserButtonRun;
         public ComboBox EditorComboBoxProfileType;
-        public CheckBox MainCheckboxFlipBytes;
         public ListBox EditorListSubprofiles;
         public TextBox EditorTextBoxComputerName;
         public ComboBox EditorDropdownManufacturer;
@@ -44,7 +43,6 @@
         private Label EditorLabelSubprofiles;
         private Label EditorLabelName;
         private Label EditorLabelManufacturer;
-        public Label MainLabelPreviewFile;
         public Button EditorButtonDuplicateSubProfile;
         public Button EditorButtonRemoveSubProfile;
         private GroupBox EditorGroupBox;
@@ -67,8 +65,6 @@
         public Button MainButtonRemoveProfile;
         public Button MainButtonNewProfile;
         public Button MainButtonDuplicateProfile;
-        public Label MainLabelLoadedBinaryFile;
-        public Label MainLabelBinaryFilename;
         private SplitContainer splitContainer7;
         private SplitContainer splitContainer8;
         private SplitContainer splitContainer9;
@@ -84,5 +80,11 @@
         private Label EditorLabelProfileSettings;
         private SplitContainer splitContainer18;
         private SplitContainer splitContainer19;
+        public Label MainLabelLoadedBinaryFile;
+        public Label MainLabelBinaryFilename;
+        public Label MainLabelPreviewFile;
+        private SplitContainer splitContainer20;
+        public CheckBox MainCheckboxFlipBytes;
+        private SplitContainer splitContainer21;
     }
 }

@@ -3,6 +3,7 @@ using OBDErrorErase.EditorSource.Configs;
 using OBDErrorErase.EditorSource.ProfileManagement;
 using OBDErrorErase.EditorSource.Utils;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace OBDErrorErase
 {
@@ -23,14 +24,6 @@ namespace OBDErrorErase
             UpdateProfilesList();
 
             AddListeners();
-
-            UpdateProfileManagementButtons();
-        }
-
-        private void UpdateProfileManagementButtons()
-        {
-            MainButtonDuplicateProfile.Enabled = MainListProfiles.SelectedIndex > -1;
-            MainButtonRemoveProfile.Enabled = MainListProfiles.SelectedIndex > -1;
         }
 
         private void AddListeners()
@@ -40,6 +33,7 @@ namespace OBDErrorErase
             MainButtonRemoveProfile.Click += OnRemoveProfileClicked;
             MainButtonFileBrowse.Click += OnBrowseClick;
             MainButtonFileBrowse.DragDrop += OnDragDrop;
+            MainButtonFileBrowse.DragEnter += OnDragEnter;
 
             MainTextboxProfileFilter.TextChanged += OnFilterTextFieldChanged;
             MainListProfiles.SelectedIndexChanged += OnSelectionChanged;
@@ -70,7 +64,7 @@ namespace OBDErrorErase
         {
             TextBox textBox = MainTextboxProfileFilter;
 
-            currentFilterWords = Regex.Split(textBox.Text, @"\s+");
+            currentFilterWords = GenRegex().Split(textBox.Text);
 
             UpdateProfilesList();
 
@@ -80,11 +74,15 @@ namespace OBDErrorErase
 
         private void OnNewProfileClicked(object? sender, EventArgs e)
         {
+            Debug.WriteLine("New Profile Clicked");
+
             RequestNewProfileEvent?.Invoke();
         }
 
         private void OnDuplicateProfileClicked(object? sender, EventArgs e)
         {
+            Debug.WriteLine("Duplicate Profile Clicked");
+
             if (string.IsNullOrEmpty(SelectedProfileID))
                 return;
 
@@ -93,6 +91,8 @@ namespace OBDErrorErase
 
         private void OnRemoveProfileClicked(object? sender, EventArgs e)
         {
+            Debug.WriteLine("Remove Profile Clicked");
+
             if (string.IsNullOrEmpty(SelectedProfileID))
                 return;
 
@@ -101,6 +101,8 @@ namespace OBDErrorErase
 
         private void OnBrowseClick(object? sender, EventArgs e)
         {
+            Debug.WriteLine("Browse Clicked");
+
             var filePath = AppFileHelper.OpenFileFromDialog(AppFileExtension.bin);
 
             if (filePath == null || !Path.Exists(filePath))
@@ -109,23 +111,45 @@ namespace OBDErrorErase
             RequestBinaryFileBrowseEvent?.Invoke(filePath);
         }
 
+        private void OnDragEnter(object? sender, DragEventArgs e)
+        {
+            Debug.WriteLine("Dragged New File");
+
+            if (!(e.Data?.GetDataPresent(DataFormats.FileDrop) ?? false))
+            {
+                e.Effect = DragDropEffects.None;
+                return;
+            }
+
+            e.Effect = DragDropEffects.Copy;
+        }
+
         private void OnDragDrop(object? sender, DragEventArgs e)
         {
-            if (e == null)
-                return;
+            Debug.WriteLine("Dropped New File");
 
-            string[]? files = (string[]?)e.Data?.GetData(DataFormats.FileDrop);
-
-            if (files == null)
+            if (!(e.Data?.GetDataPresent(DataFormats.FileDrop) ?? false))
+            {
                 return;
+            }
+
+            string[]? files = (string[]?)e.Data.GetData(DataFormats.FileDrop);
+
+            if (files == null || files.Length == 0) 
+            { 
+                return; 
+            }
 
             string filePath = files[0];
+            Debug.WriteLine("Path is " + filePath);
 
             RequestBinaryFileBrowseEvent?.Invoke(filePath);
         }
 
         private void OnFlipBytesToggled(object? sender, EventArgs e)
         {
+            Debug.WriteLine("Flip Bytes Toggled");
+
             CheckBox checkBox = MainCheckboxFlipBytes;
 
             FlipBytesEvent?.Invoke(checkBox.Checked);
@@ -146,8 +170,6 @@ namespace OBDErrorErase
             SelectedProfileID = newSelection;
 
             MainListProfiles.SelectedItem = SelectedProfileID;
-
-            MainButtonDuplicateProfile.Enabled = MainButtonRemoveProfile.Enabled = true;
         }
 
         public void UpdateProfilesList()
@@ -226,13 +248,14 @@ namespace OBDErrorErase
             MainListProfiles.SelectedIndex = -1;
 
             ClearFilePreview();
-
-            UpdateProfileManagementButtons();
         }
 
         public void ClearFilePreview()
         {
             MainDataGridFilePreview.Rows.Clear();
         }
+
+        [GeneratedRegex("\\s+")]
+        private static partial Regex GenRegex();
     }
 }
